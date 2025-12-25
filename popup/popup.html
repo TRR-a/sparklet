@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SparkLet</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <!-- 标题栏 -->
+    <div class="header">
+        <div class="header-title">
+            <h2>SparkLet</h2>
+        </div>
+        <div class="header-controls">
+            <!-- 回收站按钮 -->
+            <button id="trashToggle" class="trash-toggle-btn" title="回收站">🗑️</button>
+            <!-- 主题切换按钮 -->
+            <button id="themeToggle" class="theme-toggle" aria-label="切换主题"></button>
+            <!-- 关闭按钮 -->
+            <button id="closeButton" class="close-button" aria-label="关闭" title="关闭">×</button>
+        </div>
+    </div>
+    
+    <!-- 主内容区：两栏布局 -->
+    <div class="main-container">
+        <!-- 左侧：笔记历史列表 -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button id="newNoteBtn" class="new-note-btn">+ 新建笔记</button>
+            </div>
+            <ul id="noteList" class="note-list">
+                <!-- 笔记列表将通过JS动态生成 -->
+            </ul>
+        </div>
+
+        <!-- 右侧：笔记编辑器 -->
+        <div class="editor">
+            <!-- 颜色选择器 -->
+            <div class="color-palette">
+                <button class="color-option active" data-color="#4285f4" aria-label="蓝色" style="background-color: #4285f4;"></button>
+                <button class="color-option" data-color="#ea4335" aria-label="红色" style="background-color: #ea4335;"></button>
+                <button class="color-option" data-color="#fbbc04" aria-label="黄色" style="background-color: #fbbc04;"></button>
+                <button class="color-option" data-color="#34a853" aria-label="绿色" style="background-color: #34a853;"></button>
+                <button class="color-option" data-color="#8b5cf6" aria-label="紫色" style="background-color: #8b5cf6;"></button>
+            </div>
+
+            <!-- 笔记标题 -->
+            <input type="text" id="noteTitle" class="note-title-input" placeholder="笔记标题...">
+
+            <!-- 笔记内容 -->
+            <textarea id="noteArea" class="note-editor" placeholder="记录您的灵感..."></textarea>
+        </div>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+</body>
+</html>

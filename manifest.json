@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Sparklet",
+  "version": "0.1.0",
+  "description": "A quick flash note extension to capture your sparks of inspiration.",
+  "author": "Your Name Here",
+
+  "action": {
+    "default_title": "Sparklet - Quick Note",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "24": "images/icon24.png",
+      "32": "images/icon32.png"
+    }
+  },
+
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+
+  "permissions": [
+    "storage"
+  ],
+
+  "background": {
+    "service_worker": "scripts/background.js"
+  }
+}
