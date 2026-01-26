@@ -1,0 +1,37 @@
+{
+  "name": "sparklet-desktop",
+  "version": "0.2.0",
+  "description": "闪存桌面版 - 你的灵感工具箱",
+  "main": "./src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "keywords": ["notes", "desktop", "toolbox"],
+  "author": "TRR-a",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "40.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  },
+  "build": {
+    "appId": "com.sparklet.desktop",
+    "productName": "闪存",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "icon": "assets/icons/icon256.ico"
+    }
+  }
+}
