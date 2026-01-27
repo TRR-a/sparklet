@@ -1,0 +1,22 @@
+# 依赖目录
+node_modules/
+
+# 构建输出目录
+release/
+dist/
+out/
+build/
+app_data/
+
+# 操作系统生成的文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 环境变量文件
+.env
+.env.local

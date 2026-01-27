@@ -359,9 +359,9 @@ async function initApp() {
     // 初始化存储管理器
     await storageManager.init();
     
-    // 加载主题
-    const themeResult = await chrome.storage.local.get(['theme']);
-    setTheme(themeResult.theme || 'light');
+    // 使用我们通过预加载脚本暴露的、安全的Electron存储API
+    const theme = await window.electronStore.get('theme');
+    setTheme(theme || 'light');
     
     // 绑定事件
     bindEvents();
