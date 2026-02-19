@@ -1,6 +1,5 @@
 /* popup/popup.css - Sparklet 主题样式 */
 :root {
-    /* 亮色主题 (默认) */
     --color-bg: #ffffff;
     --color-text: #333333;
     --color-border: #e0e0e0;
@@ -8,6 +7,7 @@
     --color-hover: #f1f3f4;
     --color-textarea-bg: #ffffff;
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    --radius-sm: 8px; /* 新增：定义圆角变量 */
 }
 
 [data-theme="dark"] {
@@ -22,13 +22,17 @@
 }
 
 body {
-    width: 320px;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 16px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--color-bg);
     color: var(--color-text);
     transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 /* 主题切换按钮容器 */
@@ -155,21 +159,24 @@ textarea:focus {
 /* 主容器：两栏布局 */
 .main-container {
     display: flex;
-    height: 500px; /* 固定高度，内部可滚动 */
     gap: 16px;
+    flex: 1;           /* 占满 body 剩余高度 */
+    min-height: 0;     /* 防止 flex 溢出 */
 }
 
 /* 左侧边栏 */
 .sidebar {
-    width: 35%;
+    width: 25%;
     min-width: 120px;
     border-right: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
+    overflow: auto;    /* 列表过长时滚动 */
 }
 
 .sidebar-header {
     padding: 8px 0 16px 0;
+    flex-shrink: 0;    /* 防止按钮被压缩 */
 }
 
 .new-note-btn {
@@ -194,8 +201,8 @@ textarea:focus {
     list-style: none;
     margin: 0;
     padding: 0;
-    overflow-y: auto; /* 列表可滚动 */
-    flex-grow: 1;
+    overflow-y: auto;  /* 列表滚动 */
+    flex: 1;           /* 占满剩余高度 */
 }
 
 .note-list-item {
@@ -250,6 +257,7 @@ textarea:focus {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    overflow: auto;    /* 编辑器过长时整体滚动 */
 }
 
 /* 颜色选择器 */
@@ -257,6 +265,7 @@ textarea:focus {
     display: flex;
     gap: 8px;
     margin-bottom: 16px;
+    padding: 2px 4px;  /* 上下2px，左右4px */
 }
 
 .color-option {
@@ -302,7 +311,7 @@ textarea:focus {
 
 /* 笔记编辑器文本区域 */
 .note-editor {
-    flex-grow: 1;
+    flex: 1;
     width: 100%;
     border: none;
     background: transparent;
@@ -312,6 +321,7 @@ textarea:focus {
     resize: none;
     font-family: inherit;
     padding: 0;
+    min-height: 0;      /* 允许压缩 */
 }
 
 .note-editor:focus {

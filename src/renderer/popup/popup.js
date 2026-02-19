@@ -32,11 +32,11 @@ function setTheme(theme) {
 }
 
 // 主题切换函数
-function toggleTheme() {
+async function toggleTheme() {
     const currentTheme = document.body.dataset.theme;
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    chrome.storage.local.set({ theme: newTheme });
+    await window.electronStore.set('theme', newTheme);
 }
 
 // 更新激活的颜色选择器
@@ -359,7 +359,7 @@ async function initApp() {
     // 初始化存储管理器
     await storageManager.init();
     
-    // 使用我们通过预加载脚本暴露的、安全的Electron存储API
+    // 使用通过预加载脚本暴露的、安全的Electron存储API
     const theme = await window.electronStore.get('theme');
     setTheme(theme || 'light');
     
@@ -390,15 +390,6 @@ function bindEvents() {
     const newNoteBtn = document.getElementById('newNoteBtn');
     if (newNoteBtn) {
         newNoteBtn.addEventListener('click', createNewNote);
-    }
-    
-    // 关闭按钮
-    const closeButton = document.getElementById('closeButton');
-    if (closeButton) {
-        closeButton.addEventListener('click', async () => {
-            await saveCurrentNote();
-            window.close();
-        });
     }
     
     // 颜色选择器
