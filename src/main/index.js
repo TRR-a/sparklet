@@ -55,3 +55,40 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
+
+// 添加设置窗口变量
+let settingsWindow = null;
+
+// 创建设置窗口的函数
+function createSettingsWindow() {
+  if (settingsWindow) {
+    settingsWindow.focus();
+    return;
+  }
+
+  settingsWindow = new BrowserWindow({
+    width: 400,
+    height: 500,
+    parent: mainWindow,
+    modal: true,
+    webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: path.join(__dirname, '../preload/index.js')   // 使用同一个预加载脚本
+    },
+    show: false
+});
+
+  settingsWindow.loadFile(path.join(__dirname, '../renderer/settings/settings.html'));
+
+  settingsWindow.once('ready-to-show', () => {
+    settingsWindow.show();
+  });
+
+  settingsWindow.on('closed', () => {
+    settingsWindow = null;
+  });
+}
+
+// IPC 监听打开设置窗口
+ipcMain.handle('open-settings-window', createSettingsWindow);

@@ -8,3 +8,8 @@ contextBridge.exposeInMainWorld('electronStore', {
   // 对应 electron-store 的 set 方法
   set: (key, value) => ipcRenderer.invoke('store:set', key, value),
 });
+
+// 新增通用 invoke
+contextBridge.exposeInMainWorld('electronAPI', {
+    invoke: (channel, ...args) => ipcRenderer.invoke(channel, ...args),
+});

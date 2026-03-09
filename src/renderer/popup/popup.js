@@ -385,6 +385,14 @@ function bindEvents() {
     if (trashToggleBtn) {
         trashToggleBtn.addEventListener('click', toggleTrashView);
     }
+
+    // 设置按钮（新增）
+    const settingsBtn = document.getElementById('settingsBtn');
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', async () => {
+            await window.electronAPI.invoke('open-settings-window');
+        });
+    }
     
     // 新建笔记按钮
     const newNoteBtn = document.getElementById('newNoteBtn');
