@@ -390,7 +390,30 @@ function bindEvents() {
     const settingsBtn = document.getElementById('settingsBtn');
     if (settingsBtn) {
         settingsBtn.addEventListener('click', async () => {
+            // 添加虚化类
+            document.body.classList.add('blur-background');
             await window.electronAPI.invoke('open-settings-window');
+        });
+    }
+
+    // ===== 任务四：窗口控制按钮事件 =====
+    const minimizeBtn = document.querySelector('.window-btn.minimize');
+    const maximizeBtn = document.querySelector('.window-btn.maximize');
+    const closeBtn = document.querySelector('.window-btn.close');
+
+    if (minimizeBtn) {
+        minimizeBtn.addEventListener('click', () => {
+            window.electronAPI.invoke('window-minimize');
+        });
+    }
+    if (maximizeBtn) {
+        maximizeBtn.addEventListener('click', () => {
+            window.electronAPI.invoke('window-maximize');
+        });
+    }
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            window.electronAPI.invoke('window-close');
         });
     }
     
@@ -433,3 +456,8 @@ document.addEventListener('DOMContentLoaded', initApp);
 
 // 导出调试函数（可选）
 window.debugStorage = () => storageManager.debug();
+
+// 监听设置窗口关闭事件，移除虚化
+window.electronAPI.on('settings-window-closed', () => {
+    document.body.classList.remove('blur-background');
+});

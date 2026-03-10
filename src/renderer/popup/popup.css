@@ -503,3 +503,72 @@ textarea:focus {
     margin-top: 2px;
     opacity: 0.5; /* 降低颜色标记的显眼度 */
 }
+
+/* ===== 新增：主界面虚化效果 ===== */
+.blur-background {
+    filter: blur(2px);
+    pointer-events: none;      /* 防止点击穿透 */
+    transition: filter 0.3s ease;
+}
+
+/* ===== 任务四：自定义窗口控制按钮 ===== */
+.window-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.window-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.window-btn:hover {
+    background-color: var(--color-hover);
+}
+
+.window-btn.minimize:hover {
+    background-color: #f1c40f;
+    color: black;
+}
+
+.window-btn.maximize:hover {
+    background-color: #2ecc71;
+    color: black;
+}
+
+.window-btn.close:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* 任务五：标题右移 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: auto; /* 将功能按钮推到左边，标题自然推到右边 */
+}
+
+.header-title {
+    margin-left: 16px;
+}
