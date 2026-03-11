@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <!-- 标题栏：重新设计，标题在左上方，控制按钮在右 -->
+    <!-- 两行标题栏 -->
     <div class="title-bar">
-        <div class="title-bar-left">
+        <!-- 第一行：红绿灯 + 标题（靠右） -->
+        <div class="title-row title-row-top">
             <div class="window-controls">
                 <button class="window-btn minimize" title="最小化">−</button>
                 <button class="window-btn maximize" title="最大化">□</button>
@@ -16,14 +17,18 @@
             </div>
             <h1 class="app-title">SparkLet</h1>
         </div>
-        <div class="title-bar-right">
-            <button id="trashToggle" class="icon-btn" title="回收站">🗑️</button>
-            <button id="settingsBtn" class="icon-btn" title="设置">⚙️</button>
-            <button id="themeToggle" class="theme-toggle" aria-label="切换主题"></button>
+
+        <!-- 第二行：功能按钮（靠右） -->
+        <div class="title-row title-row-bottom">
+            <div class="action-buttons">
+                <button id="trashToggle" class="icon-btn" title="回收站">🗑️</button>
+                <button id="settingsBtn" class="icon-btn" title="设置">⚙️</button>
+                <button id="themeToggle" class="theme-toggle" aria-label="切换主题"></button>
+            </div>
         </div>
     </div>
     
-    <!-- 主内容区：两栏布局 -->
+    <!-- 主内容区：两栏布局（保持不变） -->
     <div class="main-container">
         <div class="sidebar">
             <div class="sidebar-header">

@@ -7,11 +7,10 @@
     --color-hover: #f1f3f4;
     --color-textarea-bg: #ffffff;
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    --radius-sm: 8px; /* 新增：定义圆角变量 */
+    --radius-sm: 8px;
 }
 
 [data-theme="dark"] {
-    /* 暗色主题 */
     --color-bg: #1e1e1e;
     --color-text: #e0e0e0;
     --color-border: #444444;
@@ -35,14 +34,7 @@ body {
     box-sizing: border-box;
 }
 
-/* 主题切换按钮容器 */
-.theme-switcher {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 16px;
-}
-
-/* 切换按钮样式 */
+/* 主题切换按钮样式（保持原样） */
 .theme-toggle {
     width: 48px;
     height: 24px;
@@ -107,61 +99,130 @@ textarea:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
 }
-/* 关闭按钮样式 */
-.close-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem; /* 调整大小，与设计匹配 */
-    line-height: 1;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%; /* 圆形 */
-    cursor: pointer;
-    color: var(--color-text); /* 使用主题文本色 */
+
+/* ===== 两行标题栏布局 ===== */
+.title-bar {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    padding: 4px 16px 8px 16px;
+    -webkit-app-region: drag;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.title-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    margin-left: 4px; /* 与主题按钮间隔 */
+    width: 100%;
+    -webkit-app-region: no-drag;
+}
+
+.title-row-top {
+    justify-content: space-between;  /* 红绿灯左，标题右 */
+    margin-bottom: 4px;
+}
+
+.title-row-bottom {
+    justify-content: flex-end;       /* 按钮靠右 */
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
     flex-shrink: 0;
 }
 
-/* 悬停效果 */
-.close-button:hover {
-    background-color: var(--color-hover); /* 使用主题悬停色 */
-    transform: scale(1.05);
+.app-title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: right;
+    flex-shrink: 0;
 }
 
-/* 可选：在暗色主题下微调悬停色 */
-[data-theme="dark"] .close-button:hover {
-    background-color: var(--color-border);
-}
-
-/* 标题栏布局 - 关键 */
-.header {
+.action-buttons {
     display: flex;
-    justify-content: space-between; /* 左右分布 */
-    align-items: center; /* 垂直居中 */
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
-}
-
-/* 控制按钮容器 */
-.header-controls {
-    display: flex;
-    gap: 8px; /* 控制两个按钮之间的间距 */
+    gap: 8px;
     align-items: center;
+    flex-shrink: 0;
 }
 
-/* ===== 多笔记系统样式 ===== */
+/* ===== 窗口控制按钮（macOS风格）===== */
+.window-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    color: white;
+}
 
+.window-btn.minimize {
+    background-color: #f1c40f;
+}
+
+.window-btn.maximize {
+    background-color: #2ecc71;
+}
+
+.window-btn.close {
+    background-color: #e74c3c;
+}
+
+.window-btn.minimize:hover,
+.window-btn.maximize:hover,
+.window-btn.close:hover {
+    filter: brightness(0.8);
+    transform: scale(1.1);
+}
+
+.window-btn:active {
+    filter: brightness(0.6);
+    transform: scale(0.95);
+}
+
+/* ===== 图标按钮（回收站、设置等）===== */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.icon-btn:hover {
+    background-color: var(--color-hover);
+}
+
+/* ===== 主界面虚化效果 ===== */
+.blur-background {
+    filter: blur(2px);
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}
+
+/* ===== 以下为原有样式，未改动（笔记列表、编辑器等）===== */
 /* 主容器：两栏布局 */
 .main-container {
     display: flex;
     gap: 16px;
-    flex: 1;           /* 占满 body 剩余高度 */
-    min-height: 0;     /* 防止 flex 溢出 */
+    flex: 1;
+    min-height: 0;
 }
 
 /* 左侧边栏 */
@@ -171,12 +232,12 @@ textarea:focus {
     border-right: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
-    overflow: auto;    /* 列表过长时滚动 */
+    overflow: auto;
 }
 
 .sidebar-header {
     padding: 8px 0 16px 0;
-    flex-shrink: 0;    /* 防止按钮被压缩 */
+    flex-shrink: 0;
 }
 
 .new-note-btn {
@@ -201,8 +262,8 @@ textarea:focus {
     list-style: none;
     margin: 0;
     padding: 0;
-    overflow-y: auto;  /* 列表滚动 */
-    flex: 1;           /* 占满剩余高度 */
+    overflow-y: auto;
+    flex: 1;
 }
 
 .note-list-item {
@@ -213,6 +274,8 @@ textarea:focus {
     display: flex;
     align-items: center;
     transition: background-color 0.2s;
+    position: relative;
+    padding-right: 40px;
 }
 
 .note-list-item:hover {
@@ -236,7 +299,7 @@ textarea:focus {
 /* 笔记文本 */
 .note-text {
     flex-grow: 1;
-    min-width: 0; /* 允许文本收缩 */
+    min-width: 0;
 }
 
 .note-title {
@@ -252,12 +315,54 @@ textarea:focus {
     opacity: 0.7;
 }
 
+/* 删除按钮 */
+.note-delete-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    opacity: 0.3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+}
+
+.note-list-item:hover .note-delete-btn {
+    opacity: 0.8;
+}
+
+.note-delete-btn:hover {
+    opacity: 1;
+    background-color: #ef4444;
+    color: white;
+}
+
+.note-list-item.deleting {
+    background-color: rgba(234, 67, 53, 0.1) !important;
+    border-left-color: #ea4335 !important;
+}
+
+.note-list-item.deleting .note-delete-btn {
+    opacity: 1;
+    background-color: #ef4444;
+    color: white;
+}
+
 /* 右侧编辑器 */
 .editor {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    overflow: auto;    /* 编辑器过长时整体滚动 */
+    overflow: auto;
 }
 
 /* 颜色选择器 */
@@ -265,7 +370,7 @@ textarea:focus {
     display: flex;
     gap: 8px;
     margin-bottom: 16px;
-    padding: 2px 4px;  /* 上下2px，左右4px */
+    padding: 2px 4px;
 }
 
 .color-option {
@@ -321,62 +426,14 @@ textarea:focus {
     resize: none;
     font-family: inherit;
     padding: 0;
-    min-height: 0;      /* 允许压缩 */
+    min-height: 0;
 }
 
 .note-editor:focus {
     outline: none;
 }
 
-/* ========== 删除笔记功能样式 ========== */
-.note-list-item {
-    position: relative; /* 为绝对定位的删除按钮提供锚点 */
-    padding-right: 40px; /* 为右侧的删除按钮预留空间 */
-}
-
-/* 删除按钮 */
-.note-delete-btn {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    border: none;
-    background-color: transparent;
-    color: var(--color-text);
-    opacity: 0.4; /* 默认半透明，不抢眼 */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    transition: opacity 0.2s ease, background-color 0.2s ease;
-}
-
-/* 鼠标悬停在列表项上时，显示删除按钮 */
-.note-list-item:hover .note-delete-btn {
-    opacity: 0.8;
-}
-.note-delete-btn:hover {
-    opacity: 1;
-    background-color: var(--color-hover);
-}
-
-/* “待删除”状态：整个列表项变红警示 */
-.note-list-item.deleting {
-    background-color: rgba(234, 67, 53, 0.1) !important; /* 红色背景警示 */
-    border-left-color: #ea4335 !important;
-}
-/* “待删除”状态下的删除按钮变为红色确认按钮 */
-.note-list-item.deleting .note-delete-btn {
-    opacity: 1;
-    background-color: #ea4335;
-    color: white;
-}
-
-/* 回收站按钮 */
+/* 回收站视图相关样式（保持原样） */
 .trash-toggle-btn {
     background: none;
     border: none;
@@ -387,93 +444,31 @@ textarea:focus {
     padding: 4px;
     border-radius: 4px;
 }
+
 .trash-toggle-btn:hover {
     opacity: 1;
     background-color: var(--color-hover);
 }
 
-/* 回收站视图特定的样式 */
 .trash-view .note-list-item {
     opacity: 0.7;
-}
-.trash-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-}
-.restore-btn, .permanent-delete-btn {
-    padding: 4px 8px;
-    font-size: 0.8em;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-}
-.restore-btn {
-    background-color: var(--color-primary);
-    color: white;
-}
-.permanent-delete-btn {
-    background-color: #ea4335;
-    color: white;
-}
-
-/* 回收站视图专用修复 */
-
-/* 1. 移除回收站笔记项的左侧竖线 */
-.trash-view .note-list-item {
     border-left: none !important;
     padding-left: 12px;
 }
 
-/* 2. 确保回收站中不会有激活状态的竖线 */
 .trash-view .note-list-item.active {
     border-left: none !important;
     background-color: var(--color-hover);
 }
 
-/* 3. 回收站笔记项改为垂直布局 */
-.trash-view .note-list-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    min-height: auto;
-    padding-bottom: 12px;
-}
-
-/* 4. 回收站笔记内容区域占满宽度 */
-.trash-view .note-list-item .note-text {
-    width: 100%;
-    margin-bottom: 8px;
-}
-
-/* 5. 回收站笔记标题和时间的垂直排列 */
-.trash-view .note-list-item .note-title {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 4px;
-    line-height: 1.4;
-    word-break: break-word; /* 长标题自动换行 */
-}
-
-.trash-view .note-list-item .note-time {
-    font-size: 11px;
-    opacity: 0.7;
-}
-
-/* 6. 回收站操作按钮区域 - 放在底部 */
-.trash-view .trash-actions {
+.trash-actions {
     display: flex;
     gap: 8px;
-    width: 100%;
     margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid var(--color-border); /* 添加按钮上方的分割线 */
 }
 
-/* 7. 回收站按钮样式 */
-.trash-view .restore-btn,
-.trash-view .permanent-delete-btn {
-    flex: 1; /* 等宽按钮 */
+.restore-btn, .permanent-delete-btn {
+    flex: 1;
     padding: 6px 12px;
     font-size: 12px;
     border-radius: 4px;
@@ -482,237 +477,12 @@ textarea:focus {
     text-align: center;
 }
 
-.trash-view .restore-btn {
+.restore-btn {
     background-color: var(--color-primary);
     color: white;
 }
 
-.trash-view .permanent-delete-btn {
+.permanent-delete-btn {
     background-color: #ea4335;
     color: white;
-}
-
-/* 8. 回收站笔记项悬停效果 */
-.trash-view .note-list-item:hover {
-    background-color: var(--color-hover);
-    cursor: default; /* 默认光标，表示不可点击切换 */
-}
-
-/* 9. 回收站颜色标记调整 */
-.trash-view .note-color-dot {
-    margin-top: 2px;
-    opacity: 0.5; /* 降低颜色标记的显眼度 */
-}
-
-/* ===== 新增：主界面虚化效果 ===== */
-.blur-background {
-    filter: blur(2px);
-    pointer-events: none;      /* 防止点击穿透 */
-    transition: filter 0.3s ease;
-}
-
-/* ===== 任务四：自定义窗口控制按钮 ===== */
-.window-controls {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.window-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    color: var(--color-text);
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.window-btn:hover {
-    background-color: var(--color-hover);
-}
-
-.window-btn.minimize:hover {
-    background-color: #f1c40f;
-    color: black;
-}
-
-.window-btn.maximize:hover {
-    background-color: #2ecc71;
-    color: black;
-}
-
-.window-btn.close:hover {
-    background-color: #e74c3c;
-    color: white;
-}
-
-/* 任务五：标题右移 */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.header-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-left: auto; /* 将功能按钮推到左边，标题自然推到右边 */
-}
-
-.header-title {
-    margin-left: 16px;
-}
-
-/* ===== 新标题栏布局 ===== */
-.title-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 16px;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    -webkit-app-region: drag; /* 整个标题栏可拖动 */
-}
-
-.title-bar-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    -webkit-app-region: no-drag; /* 内部按钮不参与拖动 */
-}
-
-.title-bar-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    -webkit-app-region: no-drag;
-}
-
-.app-title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-primary);
-}
-
-/* 窗口控制按钮样式（macOS 风格：一直有颜色） */
-.window-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: filter 0.2s ease, transform 0.1s ease;
-    color: white;
-}
-
-.window-btn.minimize {
-    background-color: #f1c40f;  /* 黄色 */
-}
-
-.window-btn.maximize {
-    background-color: #2ecc71;  /* 绿色 */
-}
-
-.window-btn.close {
-    background-color: #e74c3c;  /* 红色 */
-}
-
-.window-btn.minimize:hover {
-    filter: brightness(0.8);
-    transform: scale(1.1);
-}
-
-.window-btn.maximize:hover {
-    filter: brightness(0.8);
-    transform: scale(1.1);
-}
-
-.window-btn.close:hover {
-    filter: brightness(0.8);
-    transform: scale(1.1);
-}
-
-.window-btn:active {
-    filter: brightness(0.6);
-    transform: scale(0.95);
-}
-
-/* 图标按钮（回收站、设置等）通用样式 */
-.icon-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    color: var(--color-text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-}
-
-.icon-btn:hover {
-    background-color: var(--color-hover);
-}
-
-/* 主题切换按钮（特殊，保持原有结构） */
-.theme-toggle {
-    width: 48px;
-    height: 24px;
-    border-radius: 12px;
-    background-color: var(--color-border);
-    border: none;
-    cursor: pointer;
-    position: relative;
-    outline: none;
-    transition: background-color 0.3s;
-}
-
-.theme-toggle::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: white;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f0b90b"><path d="M12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3z"/></svg>');
-    background-size: 14px;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform 0.3s ease;
-}
-
-[data-theme="dark"] .theme-toggle {
-    background-color: var(--color-primary);
-}
-
-[data-theme="dark"] .theme-toggle::after {
-    transform: translateX(24px);
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49z"/></svg>');
-}
-
-/* 主界面虚化效果（任务一遗留） */
-.blur-background {
-    filter: blur(2px);
-    pointer-events: none;
-    transition: filter 0.3s ease;
 }
