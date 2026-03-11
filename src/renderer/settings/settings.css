@@ -1,6 +1,8 @@
 :root {
     --color-bg: #f5f5f5;
     --color-text: #333333;
+    --color-border: #ddd;
+    --color-hover: #e0e0e0;
     --color-btn: #007acc;
     --color-btn-text: white;
 }
@@ -8,11 +10,12 @@
 [data-theme="dark"] {
     --color-bg: #1e1e1e;
     --color-text: #e0e0e0;
+    --color-border: #444;
+    --color-hover: #2d2d2d;
     --color-btn: #8ab4f8;
     --color-btn-text: #1e1e1e;
 }
 
-/* 移除 body 的内边距，让它完全贴边 */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--color-bg);
@@ -22,106 +25,41 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* 设置窗口容器，占满整个 body */
 .settings-window {
-    position: relative;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     background-color: var(--color-bg);
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 0 30px 10px transparent; /* 默认无光晕，由主题控制 */
     transition: box-shadow 0.3s ease;
 }
 
-/* 内部内容容器，占满宽度，内边距用于内容排版 */
-.container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 20px;
-}
-
-h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-#closeBtn {
-    padding: 8px 16px;
-    background-color: var(--color-btn);
-    color: var(--color-btn-text);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 20px;
-}
-
-#closeBtn:hover {
-    opacity: 0.9;
-}
-
-/* 亮色模式光晕（柔和银灰），加大扩散半径和模糊 */
 [data-theme="light"] .settings-window {
-    box-shadow: 0 0 50px 20px rgba(120, 120, 120, 0.5);
+    box-shadow: 0 0 30px 15px rgba(120, 120, 120, 0.3);
 }
 
-/* 暗色模式光晕（蓝色），加大扩散半径和模糊 */
 [data-theme="dark"] .settings-window {
-    box-shadow: 0 0 50px 20px #3b82f6;
+    box-shadow: 0 0 30px 15px #3b82f6;
 }
 
-/* ===== 任务三：关于我们和调试区域 ===== */
-.about-section, .debug-section {
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.about-section h3, .debug-section h3 {
-    margin: 0 0 12px 0;
-    font-size: 1rem;
-    opacity: 0.8;
-}
-
-.debug-section button {
-    padding: 8px 16px;
-    background-color: var(--color-btn);
-    color: var(--color-btn-text);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.debug-section button:hover {
-    opacity: 0.9;
-}
-
-/* ===== 任务四：设置窗口标题栏和窗口控制按钮 ===== */
-.header {
+.title-bar {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 8px 16px;
+    background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
-    -webkit-app-region: drag; /* 可拖动区域 */
-}
-
-.header h2 {
-    margin: 0 0 0 16px;
-    font-size: 1.2rem;
-    flex: 1;
+    -webkit-app-region: drag;
 }
 
 .window-controls {
     display: flex;
     gap: 8px;
-    -webkit-app-region: no-drag; /* 按钮不参与拖动 */
+    -webkit-app-region: no-drag;
 }
 
 .window-btn {
@@ -129,26 +67,73 @@ h2 {
     height: 32px;
     border-radius: 50%;
     border: none;
-    background: transparent;
-    color: var(--color-text);
     font-size: 1.2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    color: white;
 }
 
-.window-btn:hover {
-    background-color: var(--color-hover);
+.window-btn.minimize {
+    background-color: #f1c40f;
+}
+
+.window-btn.close {
+    background-color: #e74c3c;
 }
 
 .window-btn.minimize:hover {
-    background-color: #f1c40f;
-    color: black;
+    filter: brightness(0.8);
+    transform: scale(1.1);
 }
 
 .window-btn.close:hover {
-    background-color: #e74c3c;
-    color: white;
+    filter: brightness(0.8);
+    transform: scale(1.1);
+}
+
+.window-btn:active {
+    filter: brightness(0.6);
+    transform: scale(0.95);
+}
+
+.window-title {
+    margin: 0 0 0 16px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.settings-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.settings-section {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.settings-section h3 {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.settings-btn {
+    padding: 8px 16px;
+    background-color: var(--color-btn);
+    color: var(--color-btn-text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.settings-btn:hover {
+    opacity: 0.9;
 }

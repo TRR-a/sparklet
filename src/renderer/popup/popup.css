@@ -572,3 +572,147 @@ textarea:focus {
 .header-title {
     margin-left: 16px;
 }
+
+/* ===== 新标题栏布局 ===== */
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    -webkit-app-region: drag; /* 整个标题栏可拖动 */
+}
+
+.title-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-app-region: no-drag; /* 内部按钮不参与拖动 */
+}
+
+.title-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    -webkit-app-region: no-drag;
+}
+
+.app-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* 窗口控制按钮样式（macOS 风格：一直有颜色） */
+.window-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    color: white;
+}
+
+.window-btn.minimize {
+    background-color: #f1c40f;  /* 黄色 */
+}
+
+.window-btn.maximize {
+    background-color: #2ecc71;  /* 绿色 */
+}
+
+.window-btn.close {
+    background-color: #e74c3c;  /* 红色 */
+}
+
+.window-btn.minimize:hover {
+    filter: brightness(0.8);
+    transform: scale(1.1);
+}
+
+.window-btn.maximize:hover {
+    filter: brightness(0.8);
+    transform: scale(1.1);
+}
+
+.window-btn.close:hover {
+    filter: brightness(0.8);
+    transform: scale(1.1);
+}
+
+.window-btn:active {
+    filter: brightness(0.6);
+    transform: scale(0.95);
+}
+
+/* 图标按钮（回收站、设置等）通用样式 */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.icon-btn:hover {
+    background-color: var(--color-hover);
+}
+
+/* 主题切换按钮（特殊，保持原有结构） */
+.theme-toggle {
+    width: 48px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: var(--color-border);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f0b90b"><path d="M12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3z"/></svg>');
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle {
+    background-color: var(--color-primary);
+}
+
+[data-theme="dark"] .theme-toggle::after {
+    transform: translateX(24px);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49z"/></svg>');
+}
+
+/* 主界面虚化效果（任务一遗留） */
+.blur-background {
+    filter: blur(2px);
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}

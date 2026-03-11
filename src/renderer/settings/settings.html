@@ -6,34 +6,31 @@
     <link rel="stylesheet" href="settings.css">
 </head>
 <body>
-    <!-- 设置窗口容器（用于光晕） -->
     <div class="settings-window">
-        <!-- 任务四：设置窗口自定义标题栏（只有最小化和关闭） -->
-        <div class="header">
+        <!-- 标题栏（最小化、关闭） -->
+        <div class="title-bar">
             <div class="window-controls">
                 <button class="window-btn minimize" title="最小化">−</button>
                 <button class="window-btn close" title="关闭">×</button>
             </div>
-            <h2>设置</h2>
+            <h2 class="window-title">设置</h2>
         </div>
 
-        <div class="container">
-            <!-- 任务三：关于我们部分 -->
-            <div class="about-section">
+        <!-- 设置内容区域 -->
+        <div class="settings-content">
+            <!-- 关于我们独立窗口（预留） -->
+            <div class="settings-section">
                 <h3>关于 Sparklet</h3>
                 <p><strong>版本</strong> 0.2.1</p>
-                <p>一个轻量的桌面笔记工具，支持深浅主题、多笔记管理、回收站和颜色标记。</p>
+                <p>一个轻量的桌面笔记工具</p>
                 <p>© 2026 TRR-a</p>
             </div>
 
-            <!-- 任务二：调试按钮（开发者工具） -->
-            <div class="debug-section">
+            <!-- 调试按钮独立窗口（预留） -->
+            <div class="settings-section">
                 <h3>调试</h3>
-                <button id="openDevToolsBtn">打开开发者工具</button>
+                <button id="openDevToolsBtn" class="settings-btn">打开开发者工具</button>
             </div>
-
-            <!-- 原有的关闭按钮可以保留，但标题栏已有关闭，这里可以去掉或保留备用 -->
-            <button id="closeBtn" style="display:none;">关闭</button>
         </div>
     </div>
     <script src="settings.js"></script>

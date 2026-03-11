@@ -396,7 +396,7 @@ function bindEvents() {
         });
     }
 
-    // ===== 任务四：窗口控制按钮事件 =====
+    // ===== 窗口控制按钮事件 =====
     const minimizeBtn = document.querySelector('.window-btn.minimize');
     const maximizeBtn = document.querySelector('.window-btn.maximize');
     const closeBtn = document.querySelector('.window-btn.close');

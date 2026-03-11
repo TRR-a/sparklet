@@ -6,27 +6,24 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <!-- 标题栏（任务四：自定义窗口控制按钮） -->
-    <div class="header">
-        <!-- 左侧：窗口控制按钮组（最小化、最大化、关闭） -->
-        <div class="window-controls">
-            <button class="window-btn minimize" title="最小化">−</button>
-            <button class="window-btn maximize" title="最大化">□</button>
-            <button class="window-btn close" title="关闭">×</button>
+    <!-- 标题栏：重新设计，标题在左上方，控制按钮在右 -->
+    <div class="title-bar">
+        <div class="title-bar-left">
+            <div class="window-controls">
+                <button class="window-btn minimize" title="最小化">−</button>
+                <button class="window-btn maximize" title="最大化">□</button>
+                <button class="window-btn close" title="关闭">×</button>
+            </div>
+            <h1 class="app-title">SparkLet</h1>
         </div>
-        <!-- 中间/右侧：功能按钮（回收站、设置、主题） -->
-        <div class="header-controls">
-            <button id="trashToggle" class="trash-toggle-btn" title="回收站">🗑️</button>
-            <button id="settingsBtn" class="trash-toggle-btn" title="设置">⚙️</button>
+        <div class="title-bar-right">
+            <button id="trashToggle" class="icon-btn" title="回收站">🗑️</button>
+            <button id="settingsBtn" class="icon-btn" title="设置">⚙️</button>
             <button id="themeToggle" class="theme-toggle" aria-label="切换主题"></button>
-        </div>
-        <!-- 任务五：标题移动到最右边 -->
-        <div class="header-title">
-            <h2>SparkLet</h2>
         </div>
     </div>
     
-    <!-- 主内容区：两栏布局（保持不变） -->
+    <!-- 主内容区：两栏布局 -->
     <div class="main-container">
         <div class="sidebar">
             <div class="sidebar-header">
