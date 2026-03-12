@@ -127,3 +127,44 @@ function createSettingsWindow() {
 }
 
 ipcMain.handle('open-settings-window', createSettingsWindow);
+
+// ===== 新增：关于窗口 =====
+let aboutWindow = null;
+
+function createAboutWindow() {
+    if (aboutWindow) {
+        aboutWindow.focus();
+        return;
+    }
+
+    aboutWindow = new BrowserWindow({
+        width: 400,
+        height: 300,
+        frame: false,
+        titleBarStyle: 'hidden',
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            preload: path.join(__dirname, '../preload/index.js')
+        },
+        show: false
+    });
+
+    aboutWindow.loadFile(path.join(__dirname, '../renderer/about/about.html'));
+
+    aboutWindow.once('ready-to-show', () => {
+        aboutWindow.show();
+    });
+
+    aboutWindow.on('closed', () => {
+        aboutWindow = null;
+    });
+}
+
+ipcMain.handle('open-about-window', createAboutWindow);
+
+// ===== 新增：开发者工具窗口（可直接复用 open-dev-tools，但为了统一风格也做窗口）=====
+ipcMain.handle('open-dev-tools-window', () => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (win) win.webContents.openDevTools({ mode: 'detach' }); // 独立窗口模式
+});

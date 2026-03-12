@@ -137,3 +137,54 @@ body {
 .settings-btn:hover {
     opacity: 0.9;
 }
+
+/* ===== 新增：语言选择下拉框 ===== */
+.setting-item {
+    margin-bottom: 16px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.language-select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.language-select:hover {
+    border-color: var(--color-primary);
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+.setting-note {
+    margin: 4px 0 0 0;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* ===== 新增：按钮组（并排显示）===== */
+.button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.button-group .settings-btn {
+    flex: 1;
+    min-width: 120px;
+}
