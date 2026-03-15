@@ -1,67 +1,81 @@
+/* ===== Sparklet 设置面板样式 ===== */
+/* 作者：根据光晕调试最终版整理 */
+/* 最后更新：2026-03-15 */
+
+/* ----- 亮色主题变量 ----- */
 :root {
-    --color-bg: #f5f5f5;
-    --color-text: #333333;
-    --color-border: #ddd;
-    --color-hover: #e0e0e0;
-    --color-btn: #007acc;
-    --color-btn-text: white;
+    --color-bg: #f5f5f5;           /* 亮色背景：浅灰，不刺眼 */
+    --color-text: #333333;          /* 亮色文字：深灰 */
+    --color-border: #ddd;            /* 边框色 */
+    --color-hover: #e0e0e0;          /* 悬停背景色 */
+    --color-btn: #007acc;            /* 按钮背景：深蓝（微软风格） */
+    --color-btn-text: white;          /* 按钮文字：白 */
+    --color-primary: #4285f4;         /* 主色调：用于标题、边框高亮 */
 }
 
+/* ----- 暗色主题变量（依赖 body 上的 data-theme="dark" 属性）----- */
 [data-theme="dark"] {
-    --color-bg: #1e1e1e;
-    --color-text: #e0e0e0;
-    --color-border: #444;
-    --color-hover: #2d2d2d;
-    --color-btn: #8ab4f8;
-    --color-btn-text: #1e1e1e;
+    --color-bg: #1e1e1e;             /* 暗色背景：深黑 */
+    --color-text: #e0e0e0;            /* 暗色文字：浅灰 */
+    --color-border: #444;              /* 暗色边框 */
+    --color-hover: #2d2d2d;            /* 暗色悬停背景 */
+    --color-btn: #8ab4f8;              /* 暗色按钮：亮蓝 */
+    --color-btn-text: #1e1e1e;         /* 暗色按钮文字：深色 */
+    --color-primary: #8ab4f8;          /* 暗色主色调 */
 }
 
+/* ----- 全局基础样式 ----- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--color-bg);
     color: var(--color-text);
     margin: 0;
     padding: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    transition: background-color 0.3s, color 0.3s;
+    height: 100vh;                     /* 撑满视口高度 */
+    width: 100vw;                       /* 撑满视口宽度 */
+    /* overflow: hidden 已删除，确保阴影不被裁剪 */
+    transition: background-color 0.3s, color 0.3s; /* 主题切换过渡 */
 }
 
+/* ----- 设置窗口容器（光晕载体）----- */
 .settings-window {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100%;                       /* 占满父容器高度 */
     background-color: var(--color-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 30px 10px transparent; /* 默认无光晕，由主题控制 */
-    transition: box-shadow 0.3s ease;
+    border-radius: 8px;                  /* 圆角，光晕随圆角形状 */
+    transition: box-shadow 0.3s ease;    /* 光晕渐变过渡 */
+    /* 默认不设阴影，由下面的主题规则控制 */
 }
 
+/* 亮色模式光晕：柔和银灰，半透明 */
 [data-theme="light"] .settings-window {
-    box-shadow: 0 0 30px 15px rgba(120, 120, 120, 0.3);
+    box-shadow: 0 0 30px 15px rgba(120, 120, 120, 0.3) !important;
 }
 
+/* 暗色模式光晕：半透明蓝，清晰可见（经多次调试确定） */
 [data-theme="dark"] .settings-window {
-    box-shadow: 0 0 30px 15px #3b82f6;
+    box-shadow: 0 0 40px 20px rgba(59, 130, 246, 0.6) !important;
 }
 
+/* ----- 标题栏（可拖动区域）----- */
 .title-bar {
     display: flex;
     align-items: center;
     padding: 8px 16px;
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
-    -webkit-app-region: drag;
+    -webkit-app-region: drag;            /* 使标题栏可拖动窗口 */
 }
 
+/* 窗口控制按钮组（不参与拖动，保证点击正常） */
 .window-controls {
     display: flex;
     gap: 8px;
     -webkit-app-region: no-drag;
 }
 
+/* 红绿灯按钮通用样式 */
 .window-btn {
     width: 32px;
     height: 32px;
@@ -76,29 +90,30 @@ body {
     color: white;
 }
 
+/* 最小化按钮（黄色） */
 .window-btn.minimize {
     background-color: #f1c40f;
 }
 
+/* 关闭按钮（红色） */
 .window-btn.close {
     background-color: #e74c3c;
 }
 
-.window-btn.minimize:hover {
-    filter: brightness(0.8);
-    transform: scale(1.1);
-}
-
+/* 悬停效果：变暗并轻微放大 */
+.window-btn.minimize:hover,
 .window-btn.close:hover {
     filter: brightness(0.8);
     transform: scale(1.1);
 }
 
+/* 按下效果：更深压暗，模拟点击反馈 */
 .window-btn:active {
     filter: brightness(0.6);
     transform: scale(0.95);
 }
 
+/* 窗口标题（使用主色调变量） */
 .window-title {
     margin: 0 0 0 16px;
     font-size: 1.2rem;
@@ -106,12 +121,14 @@ body {
     color: var(--color-primary);
 }
 
+/* ----- 设置内容区域（内部滚动）----- */
 .settings-content {
-    flex: 1;
+    flex: 1;                             /* 占满剩余高度 */
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: auto;                    /* 内容过多时内部滚动，不影响整体阴影 */
 }
 
+/* ----- 每个设置区块（旧结构，保留）----- */
 .settings-section {
     margin-bottom: 24px;
     padding-bottom: 16px;
@@ -124,6 +141,7 @@ body {
     opacity: 0.8;
 }
 
+/* 通用设置按钮样式 */
 .settings-btn {
     padding: 8px 16px;
     background-color: var(--color-btn);
@@ -138,7 +156,7 @@ body {
     opacity: 0.9;
 }
 
-/* ===== 新增：语言选择下拉框 ===== */
+/* ----- 语言选择下拉框样式（你后来添加的）----- */
 .setting-item {
     margin-bottom: 16px;
 }
@@ -161,10 +179,12 @@ body {
     cursor: pointer;
 }
 
+/* 悬停时边框变主色调 */
 .language-select:hover {
     border-color: var(--color-primary);
 }
 
+/* 聚焦时添加发光效果（与主色调呼应） */
 .language-select:focus {
     outline: none;
     border-color: var(--color-primary);
@@ -177,7 +197,7 @@ body {
     opacity: 0.6;
 }
 
-/* ===== 新增：按钮组（并排显示）===== */
+/* ----- 按钮组（并排显示，用于“关于”和“开发者工具”）----- */
 .button-group {
     display: flex;
     gap: 12px;
@@ -185,6 +205,6 @@ body {
 }
 
 .button-group .settings-btn {
-    flex: 1;
-    min-width: 120px;
+    flex: 1;                             /* 按钮等宽 */
+    min-width: 120px;                     /* 防止太窄 */
 }
