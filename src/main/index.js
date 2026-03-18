@@ -91,6 +91,10 @@ app.on('activate', () => {
 // ========== 设置窗口相关 ==========
 function createSettingsWindow() {
   if (settingsWindow) {
+    // 如果窗口已存在，检查是否最小化，若是则先还原
+    if (settingsWindow.isMinimized()) {
+      settingsWindow.restore();
+    }
     settingsWindow.focus();
     return;
   }
@@ -98,9 +102,6 @@ function createSettingsWindow() {
   settingsWindow = new BrowserWindow({
     width: 400,
     height: 500,
-    // 暂时移除 parent 关系，避免最小化行为异常
-    // parent: mainWindow,
-    // modal: true,  // 模态也暂时去掉
     frame: false,
     titleBarStyle: 'hidden',
     webPreferences: {
@@ -117,9 +118,22 @@ function createSettingsWindow() {
     settingsWindow.show();
   });
 
+  // 监听最小化事件：通知主窗口取消虚化
+  settingsWindow.on('minimize', () => {
+    if (mainWindow) {
+      mainWindow.webContents.send('settings-window-minimized');
+    }
+  });
+
+  // 监听恢复事件（从任务栏恢复）：通知主窗口重新虚化
+  settingsWindow.on('restore', () => {
+    if (mainWindow) {
+      mainWindow.webContents.send('settings-window-restored');
+    }
+  });
+
   settingsWindow.on('closed', () => {
     settingsWindow = null;
-    // 通知主窗口设置已关闭
     if (mainWindow) {
       mainWindow.webContents.send('settings-window-closed');
     }
@@ -128,7 +142,7 @@ function createSettingsWindow() {
 
 ipcMain.handle('open-settings-window', createSettingsWindow);
 
-// ===== 新增：关于窗口 =====
+// ===== 关于窗口（独立，无父窗口）=====
 let aboutWindow = null;
 
 function createAboutWindow() {
@@ -147,6 +161,7 @@ function createAboutWindow() {
             contextIsolation: true,
             preload: path.join(__dirname, '../preload/index.js')
         },
+        // 不设置 parent，使窗口独立
         show: false
     });
 
@@ -163,7 +178,7 @@ function createAboutWindow() {
 
 ipcMain.handle('open-about-window', createAboutWindow);
 
-// ===== 新增：开发者工具窗口（可直接复用 open-dev-tools，但为了统一风格也做窗口）=====
+// ===== 开发者工具窗口（独立窗口模式）=====
 ipcMain.handle('open-dev-tools-window', () => {
     const win = BrowserWindow.getFocusedWindow();
     if (win) win.webContents.openDevTools({ mode: 'detach' }); // 独立窗口模式

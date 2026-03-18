@@ -386,22 +386,24 @@ function bindEvents() {
         trashToggleBtn.addEventListener('click', toggleTrashView);
     }
 
-    // 设置按钮（新增）
+    // 设置按钮
     const settingsBtn = document.getElementById('settingsBtn');
     if (settingsBtn) {
         settingsBtn.addEventListener('click', async () => {
             // 添加虚化类
             document.body.classList.add('blur-background');
             await window.electronAPI.invoke('open-settings-window');
+            // 如果设置窗口被隐藏，`open-settings-window` 内部会显示它
         });
     }
 
-    // ===== 窗口控制按钮事件 =====
+   // ===== 窗口控制按钮事件 =====
     const minimizeBtn = document.querySelector('.window-btn.minimize');
     const maximizeBtn = document.querySelector('.window-btn.maximize');
     const closeBtn = document.querySelector('.window-btn.close');
 
     if (minimizeBtn) {
+        // 修正：主窗口最小化应该正常最小化到任务栏
         minimizeBtn.addEventListener('click', () => {
             window.electronAPI.invoke('window-minimize');
         });
@@ -457,7 +459,17 @@ document.addEventListener('DOMContentLoaded', initApp);
 // 导出调试函数（可选）
 window.debugStorage = () => storageManager.debug();
 
-// 监听设置窗口关闭事件，移除虚化
+// 监听设置窗口关闭事件：移除虚化
 window.electronAPI.on('settings-window-closed', () => {
     document.body.classList.remove('blur-background');
+});
+
+// 监听设置窗口最小化事件：移除虚化
+window.electronAPI.on('settings-window-minimized', () => {
+    document.body.classList.remove('blur-background');
+});
+
+// 监听设置窗口恢复事件：重新添加虚化
+window.electronAPI.on('settings-window-restored', () => {
+    document.body.classList.add('blur-background');
 });
