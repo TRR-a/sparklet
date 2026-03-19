@@ -60,12 +60,13 @@ body {
 
 /* ----- 标题栏（可拖动区域）----- */
 .title-bar {
+    position: relative;          /* 为绝对定位的标题提供参照 */
     display: flex;
     align-items: center;
     padding: 8px 16px;
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
-    -webkit-app-region: drag;            /* 使标题栏可拖动窗口 */
+    -webkit-app-region: drag;    /* 使标题栏可拖动窗口 */
 }
 
 /* 窗口控制按钮组（不参与拖动，保证点击正常） */
@@ -113,12 +114,16 @@ body {
     transform: scale(0.95);
 }
 
-/* 窗口标题（使用主色调变量） */
+/* 窗口标题（居中） */
 .window-title {
-    margin: 0 0 0 16px;
+    position: absolute;           /* 绝对定位实现居中 */
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;                    /* 移除左边距 */
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--color-primary);
+    white-space: nowrap;          /* 防止换行 */
 }
 
 /* ----- 设置内容区域（内部滚动）----- */

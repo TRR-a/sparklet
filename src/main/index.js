@@ -73,6 +73,13 @@ function createWindow() {
     mainWindow.show();
   });
 
+  // 👇 新增：监听主窗口获得焦点事件，主动提升设置窗口
+  mainWindow.on('focus', () => {
+    if (settingsWindow && !settingsWindow.isDestroyed() && !settingsWindow.isMinimized()) {
+      settingsWindow.moveTop(); // 将设置窗口置顶（但不会覆盖下级窗口）
+    }
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -91,10 +98,11 @@ app.on('activate', () => {
 // ========== 设置窗口相关 ==========
 function createSettingsWindow() {
   if (settingsWindow) {
-    // 如果窗口已存在，检查是否最小化，若是则先还原
+    // 如果窗口已存在且最小化，先还原再置顶
     if (settingsWindow.isMinimized()) {
       settingsWindow.restore();
     }
+    settingsWindow.moveTop(); // 确保窗口在最前
     settingsWindow.focus();
     return;
   }
@@ -104,6 +112,7 @@ function createSettingsWindow() {
     height: 500,
     frame: false,
     titleBarStyle: 'hidden',
+    // 移除 alwaysOnTop，避免下级窗口无法覆盖
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -125,7 +134,7 @@ function createSettingsWindow() {
     }
   });
 
-  // 监听恢复事件（从任务栏恢复）：通知主窗口重新虚化
+  // 监听恢复事件：通知主窗口重新虚化
   settingsWindow.on('restore', () => {
     if (mainWindow) {
       mainWindow.webContents.send('settings-window-restored');
@@ -142,7 +151,7 @@ function createSettingsWindow() {
 
 ipcMain.handle('open-settings-window', createSettingsWindow);
 
-// ===== 关于窗口（独立，无父窗口）=====
+// ===== 关于窗口（设置窗口为其父窗口，使其自然在上层）=====
 let aboutWindow = null;
 
 function createAboutWindow() {
@@ -151,17 +160,20 @@ function createAboutWindow() {
         return;
     }
 
+    // 如果设置窗口存在且未销毁，则作为父窗口，否则无父窗口
+    const parent = settingsWindow && !settingsWindow.isDestroyed() ? settingsWindow : undefined;
+
     aboutWindow = new BrowserWindow({
         width: 400,
         height: 300,
         frame: false,
         titleBarStyle: 'hidden',
+        parent: parent,                     // 设为设置窗口的子窗口，自然在它上面
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.join(__dirname, '../preload/index.js')
         },
-        // 不设置 parent，使窗口独立
         show: false
     });
 
