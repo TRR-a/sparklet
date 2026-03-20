@@ -11,18 +11,17 @@
         <!-- 第一行：红绿灯 + 标题（靠右） -->
         <div class="title-row title-row-top">
             <div class="window-controls">
-                <button class="window-btn minimize" title="最小化">−</button>
-                <button class="window-btn maximize" title="最大化">□</button>
-                <button class="window-btn close" title="关闭">×</button>
+                <button class="window-btn minimize" data-i18n-title="tooltip.minimize" title="最小化">−</button>
+                <button class="window-btn maximize" data-i18n-title="tooltip.maximize" title="最大化">□</button>
+                <button class="window-btn close" data-i18n-title="tooltip.close" title="关闭">×</button>
             </div>
-            <h1 class="app-title">SparkLet</h1>
+            <h1 class="app-title" data-i18n="app.name">SparkLet</h1>
         </div>
-
         <!-- 第二行：功能按钮（靠右） -->
         <div class="title-row title-row-bottom">
             <div class="action-buttons">
-                <button id="trashToggle" class="icon-btn" title="回收站">🗑️</button>
-                <button id="settingsBtn" class="icon-btn" title="设置">⚙️</button>
+                <button id="trashToggle" class="icon-btn" data-i18n-title="tooltip.trash" title="回收站">🗑️</button>
+                <button id="settingsBtn" class="icon-btn" data-i18n-title="tooltip.settings" title="设置">⚙️</button>
                 <button id="themeToggle" class="theme-toggle" aria-label="切换主题"></button>
             </div>
         </div>
@@ -32,13 +31,12 @@
     <div class="main-container">
         <div class="sidebar">
             <div class="sidebar-header">
-                <button id="newNoteBtn" class="new-note-btn">+ 新建笔记</button>
+                <button id="newNoteBtn" class="new-note-btn" data-i18n="main.newNote">+ 新建笔记</button>
             </div>
             <ul id="noteList" class="note-list">
                 <!-- 笔记列表动态生成 -->
             </ul>
         </div>
-
         <div class="editor">
             <div class="color-palette">
                 <button class="color-option active" data-color="#4285f4" style="background-color:#4285f4;"></button>
@@ -47,11 +45,10 @@
                 <button class="color-option" data-color="#34a853" style="background-color:#34a853;"></button>
                 <button class="color-option" data-color="#8b5cf6" style="background-color:#8b5cf6;"></button>
             </div>
-            <input type="text" id="noteTitle" class="note-title-input" placeholder="笔记标题...">
-            <textarea id="noteArea" class="note-editor" placeholder="记录您的灵感..."></textarea>
+            <input type="text" id="noteTitle" class="note-title-input" data-i18n-placeholder="main.noteTitlePlaceholder" placeholder="笔记标题...">
+            <textarea id="noteArea" class="note-editor" data-i18n-placeholder="main.noteContentPlaceholder" placeholder="记录您的灵感..."></textarea>
         </div>
     </div>
-
     <script type="module" src="popup.js"></script>
 </body>
 </html>
