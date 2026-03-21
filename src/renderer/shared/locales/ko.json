@@ -11,7 +11,7 @@
   "settings.title": "설정",
   "settings.language": "언어",
   "settings.interfaceLanguage": "인터페이스 언어:",
-  "settings.languageNote": "（언어 팩 구현 완료, 실시간 적용）",
+  "settings.languageChangeSuccess": "언어가 성공적으로 변경되었으며, 모든 창이 동기화되어 업데이트되었습니다",
   "settings.tools": "도구",
   "settings.about": "Sparklet 정보",
   "settings.devTools": "개발자 도구",

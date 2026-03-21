@@ -1,6 +1,6 @@
-// src/renderer/settings/settings.js - 多语言完整版
+// src/renderer/settings/settings.js - 9国语言完整版（新增切换成功提示）
 // 引入多语言工具
-import { initI18n, loadLanguage, getCurrentLang } from '../shared/i18n.js';
+import { initI18n, loadLanguage, getCurrentLang, t } from '../shared/i18n.js';
 
 // 加载主题 + 初始化多语言
 async function loadThemeAndI18n() {
@@ -31,9 +31,16 @@ document.getElementById('openDevToolsBtn').addEventListener('click', () => {
 document.getElementById('openAboutBtn').addEventListener('click', () => {
     window.electronAPI.invoke('open-about-window');
 });
-// 语言切换核心逻辑
+
+// 语言切换核心逻辑（新增成功提示）
 document.getElementById('languageSelect').addEventListener('change', async (e) => {
     const newLang = e.target.value;
-    await loadLanguage(newLang);
-    console.log('语言已切换为：', newLang);
+    const selectedText = e.target.options[e.target.selectedIndex].text;
+    const success = await loadLanguage(newLang);
+    
+    if (success) {
+        // 多语言适配的成功提示，自动匹配当前切换后的语言
+        alert(t('settings.languageChangeSuccess') || `语言已切换为 ${selectedText}，所有窗口已同步更新`);
+        console.log('语言已切换为：', newLang);
+    }
 });

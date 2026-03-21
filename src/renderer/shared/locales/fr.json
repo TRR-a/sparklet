@@ -11,7 +11,7 @@
   "settings.title": "Paramètres",
   "settings.language": "Langue",
   "settings.interfaceLanguage": "Langue de l'interface :",
-  "settings.languageNote": "(Pack linguistique implémenté, prend effet en temps réel)",
+  "settings.languageChangeSuccess": "Langue changée avec succès, toutes les fenêtres ont été mises à jour en synchronisation",
   "settings.tools": "Outils",
   "settings.about": "À propos de Sparklet",
   "settings.devTools": "Outils de développement",
