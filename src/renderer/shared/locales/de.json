@@ -11,7 +11,7 @@
   "settings.title": "Einstellungen",
   "settings.language": "Sprache",
   "settings.interfaceLanguage": "Oberflächensprache:",
-  "settings.languageChangeSuccess": "Sprache erfolgreich geändert, alle Fenster wurden synchron aktualisiert",
+  "settings.languageChangeSuccess": "✔️ Erfolgreich geändert",
   "settings.tools": "Tools",
   "settings.about": "Über Sparklet",
   "settings.devTools": "Entwicklertools",

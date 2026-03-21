@@ -11,7 +11,7 @@
   "settings.title": "Settings",
   "settings.language": "Language",
   "settings.interfaceLanguage": "Interface Language:",
-  "settings.languageChangeSuccess": "Language changed successfully, all windows have been updated synchronously",
+  "settings.languageChangeSuccess": "✔️ Switched successfully",
   "settings.tools": "Tools",
   "settings.about": "About Sparklet",
   "settings.devTools": "Developer Tools",
