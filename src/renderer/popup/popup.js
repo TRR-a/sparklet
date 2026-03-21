@@ -1,4 +1,4 @@
-// popup.js - Sparklet 主逻辑（多语言完整版）
+// popup.js - Sparklet 主逻辑（6国语言完整版）
 import storageManager from './storage-manager.js';
 // 引入多语言工具
 import { initI18n, t } from '../shared/i18n.js';
