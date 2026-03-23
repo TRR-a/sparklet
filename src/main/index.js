@@ -86,7 +86,7 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
-// ========== 设置窗口相关 ==========
+// ========== 设置窗口相关（光晕渲染核心配置，原有逻辑完整保留）==========
 function createSettingsWindow() {
   if (settingsWindow) {
     // 如果窗口已存在且最小化，先还原再置顶
@@ -102,6 +102,9 @@ function createSettingsWindow() {
     height: 500,
     frame: false,
     titleBarStyle: 'hidden',
+    transparent: true, // 核心：开启窗口全透明，给渐变光晕完整渲染空间
+    hasShadow: false, // 核心：关闭系统默认硬阴影，完全用CSS自定义渐变柔光
+    resizable: false, // 固定窗口大小，避免拉伸破坏渐变效果
     // 移除 alwaysOnTop，避免下级窗口无法覆盖
     webPreferences: {
       nodeIntegration: false,

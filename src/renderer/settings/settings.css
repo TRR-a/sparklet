@@ -1,7 +1,6 @@
 /* ===== Sparklet 设置面板样式 ===== */
 /* 作者：根据光晕调试最终版整理 */
 /* 最后更新：2026-03-15 */
-
 /* ----- 亮色主题变量 ----- */
 :root {
     --color-bg: #f5f5f5;           /* 亮色背景：浅灰，不刺眼 */
@@ -12,7 +11,6 @@
     --color-btn-text: white;          /* 按钮文字：白 */
     --color-primary: #4285f4;         /* 主色调：用于标题、边框高亮 */
 }
-
 /* ----- 暗色主题变量（依赖 body 上的 data-theme="dark" 属性）----- */
 [data-theme="dark"] {
     --color-bg: #1e1e1e;             /* 暗色背景：深黑 */
@@ -23,21 +21,19 @@
     --color-btn-text: #1e1e1e;         /* 暗色按钮文字：深色 */
     --color-primary: #8ab4f8;          /* 暗色主色调 */
 }
-
-/* ----- 全局基础样式 ----- */
+/* ----- 全局基础样式（优化光晕渐变空间，原有属性完整保留）----- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: var(--color-bg);
+    background-color: transparent; /* 核心：完全透明，不遮挡渐变光晕 */
     color: var(--color-text);
     margin: 0;
-    padding: 0;
-    height: 100vh;                     /* 撑满视口高度 */
-    width: 100vw;                       /* 撑满视口宽度 */
+    padding: 20px; /* 核心：扩大透明边距，给渐变光晕足够的衰减空间，彻底消除边界裁剪 */
+    height: calc(100vh - 40px); /* 适配padding，原有布局完全不变 */
+    width: calc(100vw - 40px); /* 适配padding，原有布局完全不变 */
     /* overflow: hidden 已删除，确保阴影不被裁剪 */
     transition: background-color 0.3s, color 0.3s; /* 主题切换过渡 */
 }
-
-/* ----- 设置窗口容器（光晕载体）----- */
+/* ----- 设置窗口容器（核心优化：4层渐变柔光，彻底消除清晰边界）----- */
 .settings-window {
     display: flex;
     flex-direction: column;
@@ -47,17 +43,22 @@ body {
     transition: box-shadow 0.3s ease;    /* 光晕渐变过渡 */
     /* 默认不设阴影，由下面的主题规则控制 */
 }
-
-/* 亮色模式光晕：柔和银灰，半透明 */
+/* 亮色模式：4层渐变叠加柔光，从内到外顺滑衰减，无任何清晰边界 */
 [data-theme="light"] .settings-window {
-    box-shadow: 0 0 30px 15px rgba(120, 120, 120, 0.3) !important;
+    box-shadow: 
+      0 0 6px 2px rgba(100, 100, 100, 0.12),
+      0 0 12px 4px rgba(100, 100, 100, 0.08),
+      0 0 20px 8px rgba(100, 100, 100, 0.06),
+      0 0 30px 15px rgba(100, 100, 100, 0.04) !important;
 }
-
-/* 暗色模式光晕：半透明蓝，清晰可见（经多次调试确定） */
+/* 暗色模式：4层低饱和蓝渐变柔光，从内到外自然虚化，无硬边无浓重色块 */
 [data-theme="dark"] .settings-window {
-    box-shadow: 0 0 40px 20px rgba(59, 130, 246, 0.6) !important;
+    box-shadow: 
+      0 0 8px 3px rgba(96, 165, 250, 0.15),
+      0 0 15px 6px rgba(96, 165, 250, 0.1),
+      0 0 25px 12px rgba(96, 165, 250, 0.07),
+      0 0 35px 20px rgba(96, 165, 250, 0.04) !important;
 }
-
 /* ----- 标题栏（可拖动区域）----- */
 .title-bar {
     position: relative;          /* 为绝对定位的标题提供参照 */
@@ -68,14 +69,12 @@ body {
     border-bottom: 1px solid var(--color-border);
     -webkit-app-region: drag;    /* 使标题栏可拖动窗口 */
 }
-
 /* 窗口控制按钮组（不参与拖动，保证点击正常） */
 .window-controls {
     display: flex;
     gap: 8px;
     -webkit-app-region: no-drag;
 }
-
 /* 红绿灯按钮通用样式 */
 .window-btn {
     width: 32px;
@@ -90,30 +89,25 @@ body {
     transition: filter 0.2s ease, transform 0.1s ease;
     color: white;
 }
-
 /* 最小化按钮（黄色） */
 .window-btn.minimize {
     background-color: #f1c40f;
 }
-
 /* 关闭按钮（红色） */
 .window-btn.close {
     background-color: #e74c3c;
 }
-
 /* 悬停效果：变暗并轻微放大 */
 .window-btn.minimize:hover,
 .window-btn.close:hover {
     filter: brightness(0.8);
     transform: scale(1.1);
 }
-
 /* 按下效果：更深压暗，模拟点击反馈 */
 .window-btn:active {
     filter: brightness(0.6);
     transform: scale(0.95);
 }
-
 /* 窗口标题（居中） */
 .window-title {
     position: absolute;           /* 绝对定位实现居中 */
@@ -125,27 +119,23 @@ body {
     color: var(--color-primary);
     white-space: nowrap;          /* 防止换行 */
 }
-
 /* ----- 设置内容区域（内部滚动）----- */
 .settings-content {
     flex: 1;                             /* 占满剩余高度 */
     padding: 20px;
     overflow-y: auto;                    /* 内容过多时内部滚动，不影响整体阴影 */
 }
-
 /* ----- 每个设置区块（旧结构，保留）----- */
 .settings-section {
     margin-bottom: 24px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--color-border);
 }
-
 .settings-section h3 {
     margin: 0 0 12px 0;
     font-size: 1rem;
     opacity: 0.8;
 }
-
 /* 通用设置按钮样式 */
 .settings-btn {
     padding: 8px 16px;
@@ -156,23 +146,19 @@ body {
     cursor: pointer;
     font-size: 0.9rem;
 }
-
 .settings-btn:hover {
     opacity: 0.9;
 }
-
 /* ----- 语言选择下拉框样式（你后来添加的）----- */
 .setting-item {
     margin-bottom: 16px;
 }
-
 .setting-item label {
     display: block;
     margin-bottom: 6px;
     font-size: 0.9rem;
     opacity: 0.8;
 }
-
 .language-select {
     width: 100%;
     padding: 8px 12px;
@@ -183,32 +169,27 @@ body {
     font-size: 0.9rem;
     cursor: pointer;
 }
-
 /* 悬停时边框变主色调 */
 .language-select:hover {
     border-color: var(--color-primary);
 }
-
 /* 聚焦时添加发光效果（与主色调呼应） */
 .language-select:focus {
     outline: none;
     border-color: var(--color-primary);
     box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
 }
-
 .setting-note {
     margin: 4px 0 0 0;
     font-size: 0.8rem;
     opacity: 0.6;
 }
-
 /* ----- 按钮组（并排显示，用于“关于”和“开发者工具”）----- */
 .button-group {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
 }
-
 .button-group .settings-btn {
     flex: 1;                             /* 按钮等宽 */
     min-width: 120px;                     /* 防止太窄 */
