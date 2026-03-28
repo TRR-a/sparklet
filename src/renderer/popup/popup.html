@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <title>SparkLet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparklet</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
     <!-- 两行标题栏 -->
     <div class="title-bar">
-        <!-- 第一行：红绿灯 + 标题（靠右） -->
         <div class="title-row title-row-top">
             <div class="window-controls">
                 <button class="window-btn minimize" data-i18n-title="tooltip.minimize" title="最小化">−</button>
                 <button class="window-btn maximize" data-i18n-title="tooltip.maximize" title="最大化">□</button>
                 <button class="window-btn close" data-i18n-title="tooltip.close" title="关闭">×</button>
             </div>
-            <h1 class="app-title" data-i18n="app.name">SparkLet</h1>
+            <h1 class="app-title" data-i18n="app.name">Sparklet</h1>
         </div>
-        <!-- 第二行：功能按钮（靠右） -->
         <div class="title-row title-row-bottom">
             <div class="action-buttons">
                 <button id="trashToggle" class="icon-btn" data-i18n-title="tooltip.trash" title="回收站">🗑️</button>
@@ -27,15 +26,13 @@
         </div>
     </div>
     
-    <!-- 主内容区：两栏布局（保持不变） -->
+    <!-- 主内容区：两栏布局 -->
     <div class="main-container">
         <div class="sidebar">
             <div class="sidebar-header">
                 <button id="newNoteBtn" class="new-note-btn" data-i18n="main.newNote">+ 新建笔记</button>
             </div>
-            <ul id="noteList" class="note-list">
-                <!-- 笔记列表动态生成 -->
-            </ul>
+            <ul id="noteList" class="note-list"></ul>
         </div>
         <div class="editor">
             <div class="color-palette">
@@ -49,6 +46,10 @@
             <textarea id="noteArea" class="note-editor" data-i18n-placeholder="main.noteContentPlaceholder" placeholder="记录您的灵感..."></textarea>
         </div>
     </div>
+
+    <!-- 设置窗口光晕遮罩层（仅主窗口内渲染，彻底解决溢出） -->
+    <div id="settingsGlowMask" class="settings-glow-mask"></div>
+
     <script type="module" src="popup.js"></script>
 </body>
 </html>

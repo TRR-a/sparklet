@@ -1,74 +1,70 @@
-/* ===== Sparklet 设置面板样式 ===== */
+/* ===== Sparklet 设置面板样式（无缝贴合+单层纯净光晕+彻底无滚动条）===== */
+/* 全局锁死滚动，从根上杜绝滚动条出现 */
+html {
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 /* ----- 亮色主题变量 ----- */
 :root {
-    --color-bg: #f5f5f5;           /* 亮色背景：浅灰，不刺眼 */
-    --color-text: #333333;          /* 亮色文字：深灰 */
-    --color-border: #ddd;            /* 边框色 */
-    --color-hover: #e0e0e0;          /* 悬停背景色 */
-    --color-btn: #007acc;            /* 按钮背景：深蓝（微软风格） */
-    --color-btn-text: white;          /* 按钮文字：白 */
-    --color-primary: #4285f4;         /* 主色调：用于标题、边框高亮 */
+    --color-bg: #f5f5f5;
+    --color-text: #333333;
+    --color-border: #ddd;
+    --color-hover: #e0e0e0;
+    --color-btn: #007acc;
+    --color-btn-text: white;
+    --color-primary: #4285f4;
 }
-/* ----- 暗色主题变量（依赖 body 上的 data-theme="dark" 属性）----- */
+/* ----- 暗色主题变量 ----- */
 [data-theme="dark"] {
-    --color-bg: #1e1e1e;             /* 暗色背景：深黑 */
-    --color-text: #e0e0e0;            /* 暗色文字：浅灰 */
-    --color-border: #444;              /* 暗色边框 */
-    --color-hover: #2d2d2d;            /* 暗色悬停背景 */
-    --color-btn: #8ab4f8;              /* 暗色按钮：亮蓝 */
-    --color-btn-text: #1e1e1e;         /* 暗色按钮文字：深色 */
-    --color-primary: #8ab4f8;          /* 暗色主色调 */
+    --color-bg: #1e1e1e;
+    --color-text: #e0e0e0;
+    --color-border: #444;
+    --color-hover: #2d2d2d;
+    --color-btn: #8ab4f8;
+    --color-btn-text: #1e1e1e;
+    --color-primary: #8ab4f8;
 }
-/* ----- 全局基础样式（优化光晕渐变空间，原有属性完整保留）----- */
+/* ----- 全局基础样式（核心修复：移除内边距，彻底消除缝隙）----- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: transparent; /* 核心：完全透明，不遮挡渐变光晕 */
+    background-color: transparent;
     color: var(--color-text);
     margin: 0;
-    padding: 20px; /* 核心：扩大透明边距，给渐变光晕足够的衰减空间，彻底消除边界裁剪 */
-    height: calc(100vh - 40px); /* 适配padding，原有布局完全不变 */
-    width: calc(100vw - 40px); /* 适配padding，原有布局完全不变 */
-    /* overflow: hidden 已删除，确保阴影不被裁剪 */
-    transition: background-color 0.3s, color 0.3s; /* 主题切换过渡 */
+    padding: 0; /* 核心：彻底移除内边距，内容占满整个窗口 */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden !important; /* 全局锁死滚动 */
+    transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
 }
-/* ----- 设置窗口容器（核心优化：4层渐变柔光，彻底消除清晰边界）----- */
+/* ----- 设置窗口容器（核心修复：占满整个窗口，和遮罩层1:1对齐，无缝贴合）----- */
 .settings-window {
     display: flex;
     flex-direction: column;
-    height: 100%;                       /* 占满父容器高度 */
+    width: 100%;
+    height: 100%;
     background-color: var(--color-bg);
-    border-radius: 8px;                  /* 圆角，光晕随圆角形状 */
-    transition: box-shadow 0.3s ease;    /* 光晕渐变过渡 */
-    /* 默认不设阴影，由下面的主题规则控制 */
-}
-/* 亮色模式：4层渐变叠加柔光，从内到外顺滑衰减，无任何清晰边界 */
-[data-theme="light"] .settings-window {
-    box-shadow: 
-      0 0 6px 2px rgba(100, 100, 100, 0.12),
-      0 0 12px 4px rgba(100, 100, 100, 0.08),
-      0 0 20px 8px rgba(100, 100, 100, 0.06),
-      0 0 30px 15px rgba(100, 100, 100, 0.04) !important;
-}
-/* 暗色模式：4层低饱和蓝渐变柔光，从内到外自然虚化，无硬边无浓重色块 */
-[data-theme="dark"] .settings-window {
-    box-shadow: 
-      0 0 8px 3px rgba(96, 165, 250, 0.15),
-      0 0 15px 6px rgba(96, 165, 250, 0.1),
-      0 0 25px 12px rgba(96, 165, 250, 0.07),
-      0 0 35px 20px rgba(96, 165, 250, 0.04) !important;
+    border-radius: 8px; /* 和遮罩层圆角完全一致 */
+    overflow: hidden !important; /* 彻底禁用容器滚动 */
+    box-sizing: border-box;
+    /* 无任何阴影，彻底消除双层光晕 */
 }
 /* ----- 标题栏（可拖动区域）----- */
 .title-bar {
-    position: relative;          /* 为绝对定位的标题提供参照 */
+    position: relative;
     display: flex;
     align-items: center;
     padding: 8px 16px;
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
-    -webkit-app-region: drag;    /* 使标题栏可拖动窗口 */
+    -webkit-app-region: drag;
+    box-sizing: border-box;
 }
-/* 窗口控制按钮组（不参与拖动，保证点击正常） */
+/* 窗口控制按钮组 */
 .window-controls {
     display: flex;
     gap: 8px;
@@ -88,47 +84,50 @@ body {
     transition: filter 0.2s ease, transform 0.1s ease;
     color: white;
 }
-/* 最小化按钮（黄色） */
 .window-btn.minimize {
     background-color: #f1c40f;
 }
-/* 关闭按钮（红色） */
 .window-btn.close {
     background-color: #e74c3c;
 }
-/* 悬停效果：变暗并轻微放大 */
 .window-btn.minimize:hover,
 .window-btn.close:hover {
     filter: brightness(0.8);
     transform: scale(1.1);
 }
-/* 按下效果：更深压暗，模拟点击反馈 */
 .window-btn:active {
     filter: brightness(0.6);
     transform: scale(0.95);
 }
 /* 窗口标题（居中） */
 .window-title {
-    position: absolute;           /* 绝对定位实现居中 */
+    position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin: 0;                    /* 移除左边距 */
+    margin: 0;
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--color-primary);
-    white-space: nowrap;          /* 防止换行 */
+    white-space: nowrap;
 }
-/* ----- 设置内容区域（内部滚动）----- */
+/* ----- 设置内容区域（彻底禁用滚动条）----- */
 .settings-content {
-    flex: 1;                             /* 占满剩余高度 */
-    padding: 20px;
-    overflow-y: auto;                    /* 内容过多时内部滚动，不影响整体阴影 */
+    flex: 1;
+    padding: 20px; /* 内容内边距保留，不影响窗口整体尺寸 */
+    overflow: hidden !important; /* 彻底禁用内容区滚动 */
+    box-sizing: border-box;
 }
-/* ----- 每个设置区块（旧结构，保留）----- */
+/* ----- 每个设置区块 ----- */
 .settings-section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--color-border);
+    box-sizing: border-box;
+}
+.settings-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 .settings-section h3 {
     margin: 0 0 12px 0;
@@ -148,9 +147,13 @@ body {
 .settings-btn:hover {
     opacity: 0.9;
 }
-/* ----- 语言选择下拉框样式（你后来添加的）----- */
+/* ----- 语言选择下拉框样式 ----- */
 .setting-item {
     margin-bottom: 16px;
+    box-sizing: border-box;
+}
+.setting-item:last-child {
+    margin-bottom: 0;
 }
 .setting-item label {
     display: block;
@@ -167,12 +170,11 @@ body {
     color: var(--color-text);
     font-size: 0.9rem;
     cursor: pointer;
+    box-sizing: border-box;
 }
-/* 悬停时边框变主色调 */
 .language-select:hover {
     border-color: var(--color-primary);
 }
-/* 聚焦时添加发光效果（与主色调呼应） */
 .language-select:focus {
     outline: none;
     border-color: var(--color-primary);
@@ -183,13 +185,13 @@ body {
     font-size: 0.8rem;
     opacity: 0.6;
 }
-/* ----- 按钮组（并排显示，用于“关于”和“开发者工具”）----- */
+/* ----- 按钮组 ----- */
 .button-group {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
 }
 .button-group .settings-btn {
-    flex: 1;                             /* 按钮等宽 */
-    min-width: 120px;                     /* 防止太窄 */
+    flex: 1;
+    min-width: 120px;
 }
