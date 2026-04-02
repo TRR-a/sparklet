@@ -1,5 +1,7 @@
-/* ===== Sparklet 设置面板样式（无缝贴合+单层纯净光晕+彻底无滚动条）===== */
-/* 全局锁死滚动，从根上杜绝滚动条出现 */
+/* ===== Sparklet 设置面板 - 玻璃拟态最终修复版 ===== */
+/* 统一CSS变量控制 + 彻底解决亮色文字变白 + 光晕完全保留 */
+
+/* 全局锁死滚动 */
 html {
   overflow: hidden !important;
   width: 100%;
@@ -8,75 +10,90 @@ html {
   padding: 0;
 }
 
-/* ----- 亮色主题变量 ----- */
+/* ===== 核心：先定义全局主题变量 ===== */
 :root {
-    --color-bg: #f5f5f5;
-    --color-text: #333333;
-    --color-border: #ddd;
-    --color-hover: #e0e0e0;
-    --color-btn: #007acc;
-    --color-btn-text: white;
-    --color-primary: #4285f4;
+  /* 亮色主题文字颜色 */
+  --color-text-primary: #111111;
+  --color-text-secondary: #333333;
+  --color-text-muted: #666666;
+  /* 继承主界面的主色 */
+  --color-primary: #4285f4;
 }
-/* ----- 暗色主题变量 ----- */
+
 [data-theme="dark"] {
-    --color-bg: #1e1e1e;
-    --color-text: #e0e0e0;
-    --color-border: #444;
-    --color-hover: #2d2d2d;
-    --color-btn: #8ab4f8;
-    --color-btn-text: #1e1e1e;
-    --color-primary: #8ab4f8;
+  /* 暗色主题文字颜色 */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --color-text-muted: #a0a0a0;
+  --color-primary: #8ab4f8;
 }
-/* ----- 全局基础样式（核心修复：移除内边距，彻底消除缝隙）----- */
+
+/* ----- 全局基础样式 ----- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: transparent;
-    color: var(--color-text);
+    color: var(--color-text-secondary); /* 全局默认文字颜色 */
     margin: 0;
-    padding: 0; /* 核心：彻底移除内边距，内容占满整个窗口 */
+    padding: 0;
     height: 100vh;
     width: 100vw;
-    overflow: hidden !important; /* 全局锁死滚动 */
+    overflow: hidden !important;
     transition: background-color 0.3s, color 0.3s;
     box-sizing: border-box;
 }
-/* ----- 设置窗口容器（核心修复：占满整个窗口，和遮罩层1:1对齐，无缝贴合）----- */
+
+/* ----- 玻璃拟态核心容器 ----- */
 .settings-window {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: var(--color-bg);
-    border-radius: 8px; /* 和遮罩层圆角完全一致 */
-    overflow: hidden !important; /* 彻底禁用容器滚动 */
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    overflow: hidden !important;
     box-sizing: border-box;
-    /* 无任何阴影，彻底消除双层光晕 */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-/* ----- 标题栏（可拖动区域）----- */
+
+[data-theme="dark"] .settings-window {
+    background: rgba(30, 30, 30, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ----- 标题栏 ----- */
 .title-bar {
     position: relative;
     display: flex;
     align-items: center;
     padding: 8px 16px;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     -webkit-app-region: drag;
     box-sizing: border-box;
 }
-/* 窗口控制按钮组 */
+
+[data-theme="dark"] .title-bar {
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 窗口控制按钮 */
 .window-controls {
     display: flex;
     gap: 8px;
     -webkit-app-region: no-drag;
 }
-/* 红绿灯按钮通用样式 */
+
 .window-btn {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -84,114 +101,114 @@ body {
     transition: filter 0.2s ease, transform 0.1s ease;
     color: white;
 }
-.window-btn.minimize {
-    background-color: #f1c40f;
-}
-.window-btn.close {
-    background-color: #e74c3c;
-}
-.window-btn.minimize:hover,
-.window-btn.close:hover {
-    filter: brightness(0.8);
-    transform: scale(1.1);
-}
-.window-btn:active {
-    filter: brightness(0.6);
-    transform: scale(0.95);
-}
-/* 窗口标题（居中） */
+
+.window-btn.minimize { background-color: #fbbf24; }
+.window-btn.close { background-color: #ef4444; }
+
+.window-btn:hover { filter: brightness(0.85); transform: scale(1.08); }
+.window-btn:active { filter: brightness(0.7); transform: scale(0.95); }
+
+/* 标题文字 */
 .window-title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: var(--color-primary);
     white-space: nowrap;
+    color: var(--color-primary); /* 标题用主色，永远清晰 */
 }
-/* ----- 设置内容区域（彻底禁用滚动条）----- */
+
+/* ----- 内容区域 ----- */
 .settings-content {
     flex: 1;
-    padding: 20px; /* 内容内边距保留，不影响窗口整体尺寸 */
-    overflow: hidden !important; /* 彻底禁用内容区滚动 */
+    padding: 24px;
+    overflow: hidden !important;
     box-sizing: border-box;
 }
-/* ----- 每个设置区块 ----- */
+
+/* ----- 玻璃拟态卡片 ----- */
 .settings-section {
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 24px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
     box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
-.settings-section:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
+
+[data-theme="dark"] .settings-section {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+.settings-section:last-child { margin-bottom: 0; }
+
 .settings-section h3 {
-    margin: 0 0 12px 0;
+    margin: 0 0 16px 0;
     font-size: 1rem;
-    opacity: 0.8;
-}
-/* 通用设置按钮样式 */
-.settings-btn {
-    padding: 8px 16px;
-    background-color: var(--color-btn);
-    color: var(--color-btn-text);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-.settings-btn:hover {
+    font-weight: 600;
     opacity: 0.9;
+    color: var(--color-text-primary); /* 区块标题用最黑的颜色 */
 }
-/* ----- 语言选择下拉框样式 ----- */
-.setting-item {
-    margin-bottom: 16px;
-    box-sizing: border-box;
-}
-.setting-item:last-child {
-    margin-bottom: 0;
-}
+
+/* ----- 标签文字 ----- */
 .setting-item label {
     display: block;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-    opacity: 0.8;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+    color: var(--color-text-secondary);
 }
+
+/* ----- 下拉框 ----- */
 .language-select {
     width: 100%;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    font-size: 0.9rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
     cursor: pointer;
     box-sizing: border-box;
-}
-.language-select:hover {
-    border-color: var(--color-primary);
-}
-.language-select:focus {
+    transition: border-color 0.2s, box-shadow 0.2s;
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
 }
-.setting-note {
-    margin: 4px 0 0 0;
-    font-size: 0.8rem;
-    opacity: 0.6;
+
+[data-theme="dark"] .language-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
+
+.language-select:hover { border-color: var(--color-primary); }
+.language-select:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(66, 133, 245, 0.15); }
+
 /* ----- 按钮组 ----- */
 .button-group {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
 }
+
 .button-group .settings-btn {
     flex: 1;
     min-width: 120px;
+    padding: 10px 16px;
+    background: var(--color-primary);
+    color: white; /* 按钮文字永远白色 */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.2s, transform 0.1s;
 }
+
+.button-group .settings-btn:hover { opacity: 0.9; }
+.button-group .settings-btn:active { transform: scale(0.98); }

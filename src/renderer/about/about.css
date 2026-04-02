@@ -1,57 +1,93 @@
+/* ===== Sparklet 关于窗口 - 玻璃拟态统一版 ===== */
+/* 和设置界面1:1风格统一 + 深浅主题适配 */
+
+/* 全局锁死滚动 */
+html {
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 全局主题变量（和设置界面完全一致） */
 :root {
-    --color-bg: #f5f5f5;
-    --color-text: #333333;
-    --color-border: #ddd;
-    --color-hover: #e0e0e0;
-    --color-primary: #4285f4;
+  --color-text-primary: #111111;
+  --color-text-secondary: #333333;
+  --color-text-muted: #666666;
+  --color-primary: #4285f4;
 }
 
 [data-theme="dark"] {
-    --color-bg: #1e1e1e;
-    --color-text: #e0e0e0;
-    --color-border: #444;
-    --color-hover: #2d2d2d;
-    --color-primary: #8ab4f8;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --color-text-muted: #a0a0a0;
+  --color-primary: #8ab4f8;
 }
 
+/* 全局基础样式 */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    background-color: transparent;
+    color: var(--color-text-secondary);
     margin: 0;
     padding: 0;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow: hidden !important;
     transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
 }
 
+/* 玻璃拟态核心容器（和设置窗口圆角完全一致） */
 .about-window {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: var(--color-bg);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    overflow: hidden !important;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+[data-theme="dark"] .about-window {
+    background: rgba(30, 30, 30, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* 标题栏（和设置界面完全一致） */
 .title-bar {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 8px 16px;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     -webkit-app-region: drag;
+    box-sizing: border-box;
 }
 
+[data-theme="dark"] .title-bar {
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 窗口控制按钮 */
 .window-controls {
     -webkit-app-region: no-drag;
 }
 
 .window-btn {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -61,26 +97,31 @@ body {
 }
 
 .window-btn.close {
-    background-color: #e74c3c;
+    background-color: #ef4444;
 }
 
-.window-btn.close:hover {
-    filter: brightness(0.8);
-    transform: scale(1.1);
+.window-btn:hover {
+    filter: brightness(0.85);
+    transform: scale(1.08);
 }
-
 .window-btn:active {
-    filter: brightness(0.6);
+    filter: brightness(0.7);
     transform: scale(0.95);
 }
 
+/* 标题文字 */
 h2 {
-    margin: 0 0 0 16px;
-    font-size: 1.2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-primary);
+    white-space: nowrap;
 }
 
+/* 内容区域 */
 .content {
     flex: 1;
     display: flex;
@@ -95,21 +136,25 @@ h1 {
     font-size: 2rem;
     margin: 0 0 16px 0;
     color: var(--color-primary);
+    font-weight: 700;
 }
 
 .version {
     font-size: 1rem;
     opacity: 0.8;
     margin: 8px 0;
+    color: var(--color-text-secondary);
 }
 
 .description {
     font-size: 1rem;
     margin: 8px 0;
+    color: var(--color-text-secondary);
 }
 
 .copyright {
     font-size: 0.9rem;
     opacity: 0.6;
     margin-top: 24px;
+    color: var(--color-text-muted);
 }
