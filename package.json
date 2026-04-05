@@ -21,7 +21,7 @@
     "electron-store": "^8.1.0"
   },
   "build": {
-    "appId": "com.github.www.trra.sparklet.v021",
+    "appId": "com.github.trra.sparklet.base.studio",
     "productName": "Sparklet",
     "directories": {
       "output": "release"
