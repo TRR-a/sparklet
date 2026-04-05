@@ -32,6 +32,8 @@ async function toggleTheme() {
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     await window.electronStore.set('theme', newTheme);
+    // 新增：通知主进程广播主题切换
+    await window.electronAPI.invoke('theme-changed', newTheme);
 }
 
 function updateActiveColor(color) {
@@ -305,6 +307,18 @@ function bindEvents() {
         glowMask.style.top = `${relativeTop}px`;
         glowMask.style.width = `${settingsBounds.width}px`;
         glowMask.style.height = `${settingsBounds.height}px`;
+    });
+
+    // 新增：监听设置窗口重叠状态，自动控制虚化
+    window.electronAPI.on('settings-window-overlap', (isOverlapping) => {
+        const glowMask = document.getElementById('settingsGlowMask');
+        if (isOverlapping) {
+            document.body.classList.add('blur-background');
+            glowMask.classList.add('show');
+        } else {
+            document.body.classList.remove('blur-background');
+            glowMask.classList.remove('show');
+        }
     });
 }
 

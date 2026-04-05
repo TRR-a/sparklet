@@ -7,6 +7,11 @@ async function loadThemeAndI18n() {
     document.body.dataset.theme = theme || 'light';
     // 初始化多语言
     await initI18n();
+
+    // 新增：监听主题切换广播
+    window.electronAPI.on('theme-broadcast', (theme) => {
+        document.body.dataset.theme = theme;
+    });
 }
 
 document.addEventListener('DOMContentLoaded', loadThemeAndI18n);

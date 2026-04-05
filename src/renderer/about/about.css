@@ -1,6 +1,4 @@
-/* ===== Sparklet 关于窗口 - 玻璃拟态定制版（白底色+浅黄标题栏）===== */
-/* 和设置界面1:1风格统一 + 深浅主题适配 */
-/* 全局锁死滚动 */
+/* ===== Sparklet 关于窗口 - 最终配色版 ===== */
 html {
   overflow: hidden !important;
   width: 100%;
@@ -8,26 +6,23 @@ html {
   margin: 0;
   padding: 0;
 }
-/* 全局主题变量（和设置界面完全一致） */
+
 :root {
   --color-text-primary: #111111;
-  --color-text-secondary: #333333;
-  --color-text-muted: #666666;
+  --color-text-secondary: #666666;
   --color-primary: #4285f4;
-  /* 定制版：亮色模式双色背景变量 */
-  --color-bg-primary: rgba(255, 255, 255, 0.85); /* 主背景：恢复纯白 */
-  --color-bg-secondary: rgba(255, 248, 220, 0.6); /* 标题栏：柔和浅黄 */
+  --color-bg: #ffffff;
+  --color-border: #e0e0e0;
 }
+
 [data-theme="dark"] {
   --color-text-primary: #ffffff;
-  --color-text-secondary: #e0e0e0;
-  --color-text-muted: #a0a0a0;
+  --color-text-secondary: #a0a0a0;
   --color-primary: #8ab4f8;
-  /* 暗色模式双色背景变量（保持原有效果） */
-  --color-bg-primary: rgba(30, 30, 30, 0.75); /* 主背景：深灰 */
-  --color-bg-secondary: rgba(0, 0, 0, 0.2); /* 标题栏：纯黑半透 */
+  --color-bg: #1e1e1e;
+  --color-border: #444444;
 }
-/* 全局基础样式 */
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: transparent;
@@ -40,107 +35,115 @@ body {
     transition: background-color 0.3s, color 0.3s;
     box-sizing: border-box;
 }
-/* 玻璃拟态核心容器（和设置窗口圆角完全一致） */
+
 .about-window {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: var(--color-bg-primary); /* 使用变量替代硬编码 */
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: var(--color-bg);
     border-radius: 8px;
     overflow: hidden !important;
     box-sizing: border-box;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-[data-theme="dark"] .about-window {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-/* 标题栏（和设置界面完全一致） */
+
 .title-bar {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 8px 16px;
-    background: var(--color-bg-secondary); /* 使用变量替代硬编码 */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 6px 16px;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
     -webkit-app-region: drag;
     box-sizing: border-box;
 }
-[data-theme="dark"] .title-bar {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-/* 窗口控制按钮 */
+
 .window-controls {
     -webkit-app-region: no-drag;
 }
+
 .window-btn {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     border: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: filter 0.2s ease, transform 0.1s ease;
     color: white;
-}
-.window-btn.close {
     background-color: #ef4444;
 }
+
 .window-btn:hover {
     filter: brightness(0.85);
     transform: scale(1.08);
 }
+
 .window-btn:active {
     filter: brightness(0.7);
     transform: scale(0.95);
 }
-/* 标题文字 */
+
 h2 {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--color-primary);
     white-space: nowrap;
 }
-/* 内容区域 */
+
 .content {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 12px;
     text-align: center;
 }
+
 h1 {
-    font-size: 2rem;
-    margin: 0 0 16px 0;
+    font-size: 3rem; /* Sparklet 标题加大 */
+    margin: 0 0 2px 0;
     color: var(--color-primary);
     font-weight: 700;
+    letter-spacing: -0.5px;
 }
+
 .version {
     font-size: 1rem;
     opacity: 0.8;
-    margin: 8px 0;
-    color: var(--color-text-secondary);
+    margin: 0 0 12px 0;
+    color: var(--color-primary); /* 版本号改用主色 */
 }
+
 .description {
     font-size: 1rem;
-    margin: 8px 0;
-    color: var(--color-text-secondary);
+    margin: 0 0 16px 0;
+    color: var(--color-text-primary); /* 描述文字用主色 */
 }
+
+.version-info {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.version-info p {
+    margin: 3px 0;
+    font-size: 0.95rem;
+    color: var(--color-primary); /* 版本信息改用主色 */
+    font-family: inherit;
+}
+
 .copyright {
-    font-size: 0.9rem;
-    opacity: 0.6;
-    margin-top: 24px;
-    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    opacity: 0.7; /* 从 0.4 提高到 0.7，更清晰 */
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-family: inherit;
 }

@@ -10,6 +10,11 @@ async function loadThemeAndI18n() {
     const currentLang = await initI18n();
     // 同步下拉框选中状态
     document.getElementById('languageSelect').value = currentLang;
+
+    // 新增：监听主题切换广播
+    window.electronAPI.on('theme-broadcast', (theme) => {
+        document.body.dataset.theme = theme;
+    });
 }
 
 document.addEventListener('DOMContentLoaded', loadThemeAndI18n);
