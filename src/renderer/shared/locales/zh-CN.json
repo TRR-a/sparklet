@@ -18,6 +18,7 @@
   "about.title": "关于 Sparklet",
   "about.appName": "Sparklet",
   "about.version": "版本 0.2.1",
+  "about.internalVersion": "内部版本: Water",
   "about.desc": "一个轻量的桌面笔记工具",
   "about.copyright": "2026 TRR-a",
   "about.electronVersion": "Electron 版本",

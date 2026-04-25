@@ -18,6 +18,7 @@
   "about.title": "О Sparklet",
   "about.appName": "Sparklet",
   "about.version": "Версия 0.2.1",
+  "about.internalVersion": "Внутренняя версия: Water",
   "about.desc": "Легкий инструмент для заметок на рабочем столе",
   "about.copyright": "2026 TRR-a",
   "about.electronVersion": "Версия Electron",

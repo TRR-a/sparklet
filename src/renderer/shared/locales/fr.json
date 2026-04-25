@@ -18,6 +18,7 @@
   "about.title": "À propos de Sparklet",
   "about.appName": "Sparklet",
   "about.version": "Version 0.2.1",
+  "about.internalVersion": "Version interne: Water",
   "about.desc": "Un outil de notes de bureau léger",
   "about.copyright": "2026 TRR-a",
   "about.electronVersion": "Version Electron",

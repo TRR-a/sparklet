@@ -1,12 +1,15 @@
-// popup.js - Sparklet 主逻辑（完整修复版）
+// popup.js - Sparklet 主弹窗逻辑
+// 说明：处理笔记编辑、主题切换、回收站等核心功能
+
 import storageManager from './storage-manager.js';
 import { initI18n, t } from '../shared/i18n.js';
 
 // ==================== 全局状态 ====================
-let currentNoteId = null;
-let currentView = 'main';
+let currentNoteId = null; // 当前编辑的笔记 ID
+let currentView = 'main'; // 当前视图：'main' 或 'trash'
 
 // ==================== 工具函数 ====================
+// 格式化日期显示
 function formatDate(isoString) {
     if (!isoString) return '';
     const date = new Date(isoString);
@@ -18,6 +21,7 @@ function formatDate(isoString) {
     return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
 }
 
+// 设置主题样式
 function setTheme(theme) {
     document.body.dataset.theme = theme;
     const themeToggleBtn = document.getElementById('themeToggle');
@@ -27,15 +31,17 @@ function setTheme(theme) {
     }
 }
 
+// 切换主题并保存设置
 async function toggleTheme() {
     const currentTheme = document.body.dataset.theme;
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     await window.electronStore.set('theme', newTheme);
-    // 新增：通知主进程广播主题切换
+    // 通知主进程广播主题切换
     await window.electronAPI.invoke('theme-changed', newTheme);
 }
 
+// 更新颜色选择器的活跃状态
 function updateActiveColor(color) {
     document.querySelectorAll('.color-option').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.color === color);
@@ -43,6 +49,7 @@ function updateActiveColor(color) {
 }
 
 // ==================== 笔记管理函数 ====================
+// 将笔记加载到编辑器中
 async function loadNoteIntoEditor(note) {
     if (!note) return;
     currentNoteId = note.id;
@@ -56,6 +63,7 @@ async function loadNoteIntoEditor(note) {
     });
 }
 
+// 渲染笔记列表
 async function renderNoteList(notes) {
     const noteList = document.getElementById('noteList');
     if (!noteList) return;
@@ -85,12 +93,14 @@ async function renderNoteList(notes) {
     });
 }
 
+// 切换到指定笔记
 async function switchNote(noteId) {
     await saveCurrentNote();
     const note = await storageManager.getNoteById(noteId);
     if (note) await loadNoteIntoEditor(note);
 }
 
+// 防抖保存当前笔记
 let saveTimeout;
 async function saveCurrentNote() {
     if (!currentNoteId) return;
@@ -106,11 +116,13 @@ async function saveCurrentNote() {
     await renderNoteList(notes);
 }
 
+// 延迟保存函数
 function debounceSave() {
     clearTimeout(saveTimeout);
     saveTimeout = setTimeout(saveCurrentNote, 800);
 }
 
+// 创建新笔记
 async function createNewNote() {
     const newNote = await storageManager.createNote(t('main.noteUntitled'));
     const notes = await storageManager.getNotes();
@@ -123,6 +135,7 @@ async function createNewNote() {
     }
 }
 
+// 更改笔记颜色
 async function changeNoteColor(color) {
     if (!currentNoteId) return;
     await storageManager.updateNote(currentNoteId, { color });
@@ -132,6 +145,7 @@ async function changeNoteColor(color) {
 }
 
 // ==================== 删除功能 ====================
+// 处理笔记删除（支持撤销）
 async function handleDeleteNote(noteId, listItemElement) {
     if (listItemElement.classList.contains('deleting')) {
         const success = await storageManager.deleteNote(noteId);
@@ -160,6 +174,7 @@ async function handleDeleteNote(noteId, listItemElement) {
 }
 
 // ==================== 回收站功能 ====================
+// 切换回收站视图
 async function toggleTrashView() {
     const trashToggleBtn = document.getElementById('trashToggle');
     const newNoteBtn = document.getElementById('newNoteBtn');
@@ -186,6 +201,7 @@ async function toggleTrashView() {
     }
 }
 
+// 渲染回收站笔记列表
 async function renderTrashList() {
     const trashedNotes = await storageManager.getTrashNotes();
     const noteList = document.getElementById('noteList');
@@ -221,11 +237,13 @@ async function renderTrashList() {
     });
 }
 
+// 从回收站还原笔记
 async function restoreFromTrash(noteId) {
     const success = await storageManager.restoreNote(noteId);
     if (success) await renderTrashList();
 }
 
+// 永久删除笔记
 async function permanentlyDeleteNote(noteId) {
     if (!confirm(t('main.confirmPermanentDelete'))) return;
     const success = await storageManager.permanentlyDeleteNote(noteId);
@@ -233,6 +251,7 @@ async function permanentlyDeleteNote(noteId) {
 }
 
 // ==================== 初始化 ====================
+// 加载笔记数据
 async function loadNotes() {
     await storageManager.init();
     const notes = await storageManager.getNotes();
@@ -248,6 +267,7 @@ async function loadNotes() {
     }
 }
 
+// 应用初始化
 async function initApp() {
     console.log('Sparklet 初始化...');
     await storageManager.init();
@@ -259,13 +279,16 @@ async function initApp() {
     console.log('Sparklet 初始化完成');
 }
 
+// 绑定事件监听器
 function bindEvents() {
-    // 主题切换
+    // 主题切换按钮
     const themeToggleBtn = document.getElementById('themeToggle');
     if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
-    // 回收站切换
+
+    // 回收站切换按钮
     const trashToggleBtn = document.getElementById('trashToggle');
     if (trashToggleBtn) trashToggleBtn.addEventListener('click', toggleTrashView);
+
     // 设置按钮
     const settingsBtn = document.getElementById('settingsBtn');
     if (settingsBtn) {
@@ -275,6 +298,7 @@ function bindEvents() {
             await window.electronAPI.invoke('open-settings-window');
         });
     }
+
     // 窗口控制按钮
     const minimizeBtn = document.querySelector('.window-btn.minimize');
     const maximizeBtn = document.querySelector('.window-btn.maximize');
@@ -282,23 +306,27 @@ function bindEvents() {
     if (minimizeBtn) minimizeBtn.addEventListener('click', () => window.electronAPI.invoke('window-minimize'));
     if (maximizeBtn) maximizeBtn.addEventListener('click', () => window.electronAPI.invoke('window-maximize'));
     if (closeBtn) closeBtn.addEventListener('click', () => window.electronAPI.invoke('window-close'));
-    // 新建笔记
+
+    // 新建笔记按钮
     const newNoteBtn = document.getElementById('newNoteBtn');
     if (newNoteBtn) newNoteBtn.addEventListener('click', createNewNote);
+
     // 颜色选择器
     const colorPalette = document.querySelectorAll('.color-option');
     colorPalette.forEach(btn => {
         btn.addEventListener('click', () => changeNoteColor(btn.dataset.color));
     });
-    // 输入保存
+
+    // 输入框自动保存
     const titleInput = document.getElementById('noteTitle');
     const contentInput = document.getElementById('noteArea');
     if (titleInput) titleInput.addEventListener('input', debounceSave);
     if (contentInput) contentInput.addEventListener('input', debounceSave);
-    // 失焦保存
+
+    // 窗口失焦时保存
     window.addEventListener('blur', saveCurrentNote);
 
-    // ========== 光晕位置同步（零偏移核心）==========
+    // 设置窗口光晕位置同步
     window.electronAPI.on('settings-window-moved', ({ mainBounds, settingsBounds }) => {
         const glowMask = document.getElementById('settingsGlowMask');
         const relativeLeft = settingsBounds.x - mainBounds.x;
@@ -309,7 +337,7 @@ function bindEvents() {
         glowMask.style.height = `${settingsBounds.height}px`;
     });
 
-    // 新增：监听设置窗口重叠状态，自动控制虚化
+    // 监听设置窗口重叠状态，控制背景虚化
     window.electronAPI.on('settings-window-overlap', (isOverlapping) => {
         const glowMask = document.getElementById('settingsGlowMask');
         if (isOverlapping) {
@@ -323,18 +351,26 @@ function bindEvents() {
 }
 
 // ==================== DOM加载完成 ====================
+// 页面加载完成后初始化应用
 document.addEventListener('DOMContentLoaded', initApp);
+
+// 调试函数
 window.debugStorage = () => storageManager.debug();
 
-// 窗口状态监听
+// ==================== 窗口状态监听 ====================
+// 设置窗口关闭时清理状态
 window.electronAPI.on('settings-window-closed', () => {
     document.body.classList.remove('blur-background');
     document.getElementById('settingsGlowMask').classList.remove('show');
 });
+
+// 设置窗口最小化时清理状态
 window.electronAPI.on('settings-window-minimized', () => {
     document.body.classList.remove('blur-background');
     document.getElementById('settingsGlowMask').classList.remove('show');
 });
+
+// 设置窗口恢复时重新显示光晕
 window.electronAPI.on('settings-window-restored', () => {
     document.body.classList.add('blur-background');
     document.getElementById('settingsGlowMask').classList.add('show');

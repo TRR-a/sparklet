@@ -18,6 +18,7 @@
   "about.title": "Sparklet 정보",
   "about.appName": "Sparklet",
   "about.version": "버전 0.2.1",
+  "about.internalVersion": "내부 버전: Water",
   "about.desc": "가벼운 데스크톱 메모 도구",
   "about.copyright": "2026 TRR-a",
   "about.electronVersion": "Electron 버전",

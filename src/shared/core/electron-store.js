@@ -1,30 +1,32 @@
-// src/shared/core/electron-store.js
-// 替代 chrome.storage.local 的 Electron 存储适配器
+// electron-store.js - Electron 存储适配器
+// 说明：替代 chrome.storage.local，提供安全的本地数据存储功能
+
 const Store = require('electron-store');
 
-// 初始化 electron-store
-// 它默认会将数据保存在用户的应用数据目录下 (例如 %APPDATA%\sparklet-desktop\config.json)
+// 初始化 electron-store 实例
+// 数据默认保存在用户应用数据目录下，如 %APPDATA%\sparklet\config.json
 const store = new Store({
   name: 'sparklet-data', // 配置文件名
   defaults: {
-    sparkletNotes: [] // 默认数据，空笔记数组
+    sparkletNotes: [] // 默认数据：空笔记数组
   }
 });
 
+// Electron 存储适配器，模拟 chrome.storage.local API
 const electronStoreAdapter = {
-  // 模拟 chrome.storage.local.get
+  // 获取存储数据（模拟 chrome.storage.local.get）
   async get(keys = null) {
     const allData = store.store; // 获取所有存储的数据
     if (keys === null) {
       return allData;
     }
-    // 如果 keys 是字符串，转为数组；如果是数组，保持原样
+    // 处理单个 key 或 key 数组
     const keyList = Array.isArray(keys) ? keys : [keys];
     const result = {};
     keyList.forEach(key => {
-      // 如果请求的 key 存在，则返回其值，否则返回空对象或空数组（根据你的数据结构调整）
+      // 为笔记数据提供默认值
       if (key === 'sparkletNotes') {
-        result[key] = store.get(key, []); // 第二个参数是默认值
+        result[key] = store.get(key, []); // 默认空数组
       } else {
         result[key] = allData[key];
       }
@@ -32,14 +34,14 @@ const electronStoreAdapter = {
     return result;
   },
 
-  // 模拟 chrome.storage.local.set
+  // 设置存储数据（模拟 chrome.storage.local.set）
   async set(items) {
     Object.keys(items).forEach(key => {
       store.set(key, items[key]);
     });
   },
 
-  // 模拟 chrome.storage.local.clear (可选，用于调试)
+  // 清空所有存储数据（调试用）
   async clear() {
     store.clear();
   }

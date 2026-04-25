@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <!-- 页面语言与字符集 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparklet</title>
+    <!-- 引入弹窗样式 -->
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <!-- 两行标题栏 -->
+    <!-- 标题栏：包含窗口控制、应用名称、工具按钮 -->
     <div class="title-bar">
+        <!-- 第一行：窗口最小化/最大化/关闭按钮 + 应用标题 -->
         <div class="title-row title-row-top">
             <div class="window-controls">
                 <button class="window-btn minimize" data-i18n-title="tooltip.minimize" title="最小化">−</button>
@@ -17,6 +20,7 @@
             </div>
             <h1 class="app-title" data-i18n="app.name">Sparklet</h1>
         </div>
+        <!-- 第二行：回收站、设置、主题切换按钮 -->
         <div class="title-row title-row-bottom">
             <div class="action-buttons">
                 <button id="trashToggle" class="icon-btn" data-i18n-title="tooltip.trash" title="回收站">🗑️</button>
@@ -26,14 +30,16 @@
         </div>
     </div>
     
-    <!-- 主内容区：两栏布局 -->
+    <!-- 主内容区：左侧笔记列表，右侧编辑区 -->
     <div class="main-container">
+        <!-- 侧边栏：新建笔记按钮 + 笔记列表 -->
         <div class="sidebar">
             <div class="sidebar-header">
                 <button id="newNoteBtn" class="new-note-btn" data-i18n="main.newNote">+ 新建笔记</button>
             </div>
             <ul id="noteList" class="note-list"></ul>
         </div>
+        <!-- 编辑区：颜色选择、标题输入、内容编辑 -->
         <div class="editor">
             <div class="color-palette">
                 <button class="color-option active" data-color="#4285f4" style="background-color:#4285f4;"></button>
@@ -47,9 +53,10 @@
         </div>
     </div>
 
-    <!-- 设置窗口光晕遮罩层（仅主窗口内渲染，彻底解决溢出） -->
+    <!-- 设置窗口光晕遮罩层：用于视觉效果与位置同步 -->
     <div id="settingsGlowMask" class="settings-glow-mask"></div>
 
+    <!-- 主弹窗逻辑脚本 -->
     <script type="module" src="popup.js"></script>
 </body>
 </html>

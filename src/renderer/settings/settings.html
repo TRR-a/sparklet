@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- 页面元数据 -->
     <meta charset="utf-8">
     <title>Sparklet 设置</title>
+    <!-- 引入设置页面样式 -->
     <link rel="stylesheet" href="settings.css">
 </head>
 <body>
+    <!-- 设置窗口：提供语言设置、关于信息等功能 -->
     <div class="settings-window">
-        <!-- 标题栏（最小化、关闭） -->
+        <!-- 窗口标题栏 -->
         <div class="title-bar">
             <div class="window-controls">
                 <button class="window-btn minimize" data-i18n-title="tooltip.minimize" title="最小化">−</button>
@@ -15,9 +18,10 @@
             </div>
             <h2 class="window-title" data-i18n="settings.title">设置</h2>
         </div>
-        <!-- 设置内容区域 -->
+
+        <!-- 设置内容区 -->
         <div class="settings-content">
-            <!-- 语言选项 -->
+            <!-- 语言设置部分 -->
             <div class="settings-section">
                 <h3 data-i18n="settings.language">语言</h3>
                 <div class="setting-item">
@@ -35,7 +39,8 @@
                     </select>
                 </div>
             </div>
-            <!-- 关于和调试 -->
+
+            <!-- 工具按钮部分 -->
             <div class="settings-section">
                 <h3 data-i18n="settings.tools">工具</h3>
                 <div class="button-group">
@@ -45,6 +50,8 @@
             </div>
         </div>
     </div>
+
+    <!-- 设置页脚本 -->
     <script type="module" src="settings.js"></script>
 </body>
 </html>
