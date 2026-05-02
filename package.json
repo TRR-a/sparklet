@@ -1,8 +1,8 @@
 {
   "name": "sparklet",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Sparklet",
-  "internalCodename": "Water",
+  "internalCodename": "Vapor",
   "main": "./src/main/index.js",
   "scripts": {
     "start": "electron .",
