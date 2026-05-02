@@ -87,6 +87,12 @@ The app will automatically create a default note on first launch, and you can st
 2. Select your preferred language from the dropdown menu
 3. Settings take effect immediately
 
+### Precautions
+
+- After installing v0.2.1, if you have previously installed an older version (v0.1.0 or v0.2.0), please open the older version first, manually migrate your note content and custom configurations to v0.2.1, and then delete the old version.
+
+- **If you fail to save your data following this author-verified procedure, the author shall not be held liable for any data loss or corruption.**
+
 ## 🛠️ Development
 
 ### Environment Requirements
@@ -215,6 +221,12 @@ npm start
 1. 点击设置按钮（⚙️）打开设置窗口
 2. 在语言下拉菜单中选择您的语言
 3. 设置会立即生效
+
+### 注意事项
+
+- 安装 v0.2.1 版本后，若您曾安装过旧版本（v0.1.0 或 v0.2.0），请先打开旧版本，手动将笔记内容与自定义配置迁移至 v0.2.1 中，再删除旧版本。
+
+- **若未按照上述作者已验证的方案操作导致数据异常或丢失，作者概不负责。**
 
 ## 🛠️ 开发说明
 

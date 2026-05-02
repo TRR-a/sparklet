@@ -24,6 +24,12 @@
 ## 🔧 Technical & Configuration Updates
 1.  Set appId as a permanent configuration to prevent user data loss during subsequent version updates
 
+## ⚠️ Precautions
+
+- After installing v0.2.1, if you have previously installed an older version (v0.1.0 or v0.2.0), please open the older version first, manually migrate your note content and custom configurations to v0.2.1, and then delete the old version.
+
+- **If you fail to save your data following this author-verified procedure, the author shall not be held liable for any data loss or corruption.**
+
 ---
 
 **Sparklet** - Make note-taking simpler ✨
@@ -55,6 +61,12 @@
 
 ## 🔧 技术与配置更新
 1.  将 appId 设为永久配置，防止后续版本更新丢失用户数据
+
+## ⚠️ 注意事项
+
+- 安装 v0.2.1 版本后，若您曾安装过旧版本（v0.1.0 或 v0.2.0），请先打开旧版本，手动将笔记内容与自定义配置迁移至 v0.2.1 中，再删除旧版本。
+
+- **若未按照上述作者已验证的方案操作导致数据异常或丢失，作者概不负责。**
 
 ---
 
