@@ -89,7 +89,7 @@ function createWindow() {
     },
     show: false
   });
-  mainWindow.loadFile(path.join(__dirname, '../renderer/popup/popup.html'));
+  mainWindow.loadFile(path.join(__dirname, '../renderer/modules/note/popup/popup.html'));
   // 窗口渲染就绪后再显示，避免启动白屏闪烁
   mainWindow.once('ready-to-show', () => mainWindow.show());
   // 主窗口焦点时，保证设置窗口在上层
@@ -141,7 +141,7 @@ function createSettingsWindow() {
     // 初始隐藏窗口，避免白屏闪烁
     show: false
   });
-  settingsWindow.loadFile(path.join(__dirname, '../renderer/settings/settings.html'));
+  settingsWindow.loadFile(path.join(__dirname, '../renderer/modules/note/settings/settings.html'));
   // 监听设置窗口加载完成事件，避免白屏闪烁
   settingsWindow.once('ready-to-show', () => {
     // 显示设置窗口
@@ -188,7 +188,7 @@ function createAboutWindow() {
     },
     show: false
   });
-  aboutWindow.loadFile(path.join(__dirname, '../renderer/about/about.html'));
+  aboutWindow.loadFile(path.join(__dirname, '../renderer/modules/note/about/about.html'));
   // 监听关于窗口就绪事件，就绪后显示窗口并置顶，不干扰其他窗口
   aboutWindow.once('ready-to-show', () => {
     aboutWindow.show();
