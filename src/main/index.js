@@ -6,6 +6,8 @@ const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 // 引入 electron-store，用于本地持久化存储笔记、配置等数据
 const Store = require('electron-store');
+// 引入文件完整性校验总控制器
+const integrityController = require('../shared/integrity/integrity-controller');
 
 // ========== 全局窗口变量 ==========
 let mainWindow = null;
@@ -35,6 +37,11 @@ ipcMain.handle('open-dev-tools', () => BrowserWindow.getFocusedWindow()?.webCont
 ipcMain.handle('open-dev-tools-window', () => {
   BrowserWindow.getFocusedWindow()?.webContents.openDevTools({ mode: 'detach' });
 });
+
+// ========== 文件完整性校验IPC ==========
+ipcMain.handle('integrity:check-full', async () => integrityController.runFullCheck());
+ipcMain.handle('integrity:get-last-result', async () => integrityController.getLastCheckResult());
+ipcMain.handle('integrity:fix-corrupted', async () => integrityController.fixCorruptedFiles());
 
 // ========== 多语言广播IPC ==========
 ipcMain.handle('language-changed', (event, lang) => {
@@ -91,7 +98,11 @@ function createWindow() {
   });
   mainWindow.loadFile(path.join(__dirname, '../renderer/modules/note/popup/popup.html'));
   // 窗口渲染就绪后再显示，避免启动白屏闪烁
-  mainWindow.once('ready-to-show', () => mainWindow.show());
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    // 新增：启动后后台静默执行文件完整性校验
+    integrityController.runSilentCheck();
+  });
   // 主窗口焦点时，保证设置窗口在上层
   mainWindow.on('focus', () => {
     if (settingsWindow && !settingsWindow.isDestroyed() && !settingsWindow.isMinimized()) {
