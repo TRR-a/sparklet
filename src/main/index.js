@@ -8,6 +8,8 @@ const path = require('path');
 const Store = require('electron-store');
 // 引入文件完整性校验总控制器
 const integrityController = require('../shared/integrity/integrity-controller');
+// 引入更新总控制器
+const updateController = require('../shared/update/update-controller');
 
 // ========== 全局窗口变量 ==========
 let mainWindow = null;
@@ -42,6 +44,10 @@ ipcMain.handle('open-dev-tools-window', () => {
 ipcMain.handle('integrity:check-full', async () => integrityController.runFullCheck());
 ipcMain.handle('integrity:get-last-result', async () => integrityController.getLastCheckResult());
 ipcMain.handle('integrity:fix-corrupted', async () => integrityController.fixCorruptedFiles());
+
+// ========== 更新IPC ==========
+ipcMain.handle('update:check-full', async () => updateController.runFullUpdateCheck());
+ipcMain.handle('update:check-silent', async () => updateController.runSilentUpdateCheck());
 
 // ========== 多语言广播IPC ==========
 ipcMain.handle('language-changed', (event, lang) => {
@@ -102,6 +108,13 @@ function createWindow() {
     mainWindow.show();
     // 新增：启动后后台静默执行文件完整性校验
     integrityController.runSilentCheck();
+    // 新增：启动后后台静默检查更新
+    console.log('Running silent background update check...');
+    updateController.runSilentUpdateCheck().then(result => {
+      if (result && result.hasUpdate) {
+        console.log('New version available in background:', result.latestVersion);
+      }
+    });
   });
   // 主窗口焦点时，保证设置窗口在上层
   mainWindow.on('focus', () => {
