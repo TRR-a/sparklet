@@ -156,22 +156,22 @@ async function downloadAndInstall(downloadUrl) {
 }
 
 /**
- * 启动外部更新器并退出主程序
+ * 启动外部更新器并退出主程序（v0.2.2 源码版用node运行updater.js）
  */
 function launchUpdater() {
   if (!downloadedUpdatePath) {
     return;
   }
 
-  const updaterPath = path.join(process.cwd(), 'updater.exe');
+  const updaterPath = path.join(process.cwd(), 'updater.js');
   const appPath = process.cwd();
   
   console.log('启动更新器:', updaterPath);
   console.log('更新包路径:', downloadedUpdatePath);
   console.log('应用路径:', appPath);
   
-  // 启动updater.exe，传递参数：更新包路径、应用路径、主程序PID
-  const cmd = `"${updaterPath}" "${downloadedUpdatePath}" "${appPath}" ${process.pid}`;
+  // 用node运行updater.js，传递参数：更新包路径、应用路径、主程序PID
+  const cmd = `node "${updaterPath}" "${downloadedUpdatePath}" "${appPath}" ${process.pid}`;
   
   exec(cmd, (err) => {
     if (err) {

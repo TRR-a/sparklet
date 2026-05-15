@@ -10,7 +10,11 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
-  "keywords": ["notes", "desktop", "toolbox"],
+  "keywords": [
+    "notes",
+    "desktop",
+    "toolbox"
+  ],
   "author": "TRR-a",
   "license": "MIT",
   "devDependencies": {
@@ -18,7 +22,8 @@
     "electron-builder": "^24.6.4"
   },
   "dependencies": {
-    "electron-store": "^8.1.0"
+    "electron-store": "^8.1.0",
+    "unzipper": "^0.12.3"
   },
   "build": {
     "appId": "com.github.trra.sparklet.base.studio",

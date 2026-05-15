@@ -6,6 +6,9 @@ const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 // 引入 electron-store，用于本地持久化存储笔记、配置等数据
 const Store = require('electron-store');
+// 引入文件校验与更新控制器
+const { initIntegrityController, handleUserStrategy: handleIntegrityStrategy } = require('../shared/integrity/integrity-controller.js');
+const { initUpdateController, handleUserStrategy: handleUpdateStrategy } = require('../shared/update/update-controller.js');
 
 // ========== 全局窗口变量 ==========
 let mainWindow = null;
@@ -92,6 +95,9 @@ function createWindow() {
   mainWindow.loadFile(path.join(__dirname, '../renderer/modules/note/popup/popup.html'));
   // 窗口渲染就绪后再显示，避免启动白屏闪烁
   mainWindow.once('ready-to-show', () => mainWindow.show());
+  // 初始化文件校验与更新控制器
+  initIntegrityController(mainWindow);
+  initUpdateController(mainWindow);
   // 主窗口焦点时，保证设置窗口在上层
   mainWindow.on('focus', () => {
     if (settingsWindow && !settingsWindow.isDestroyed() && !settingsWindow.isMinimized()) {
@@ -206,4 +212,27 @@ app.on('window-all-closed', () => {
 });
 app.on('activate', () => {
   if (mainWindow === null) createWindow();
+});
+
+// ========== 文件校验与更新IPC ==========
+// 处理文件校验用户策略选择
+ipcMain.handle('integrity:handle-strategy', (event, strategy) => {
+  handleIntegrityStrategy(strategy);
+});
+
+// 处理更新用户策略选择
+ipcMain.handle('update:handle-strategy', (event, strategy, updateInfo) => {
+  handleUpdateStrategy(strategy, updateInfo);
+});
+
+// 手动触发更新检查
+ipcMain.handle('update:check-now', async () => {
+  const { checkForUpdates } = require('../shared/update/update-checker.js');
+  return await checkForUpdates();
+});
+
+// 手动触发文件校验
+ipcMain.handle('integrity:check-now', async () => {
+  const { runIntegrityCheck } = require('../shared/integrity/integrity-checker.js');
+  return await runIntegrityCheck();
 });
