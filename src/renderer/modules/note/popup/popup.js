@@ -36,7 +36,7 @@ async function toggleTheme() {
     const currentTheme = document.body.dataset.theme;
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    await window.electronStore.set('theme', newTheme);
+    await window.electronAPI.invoke('config:set', 'theme', newTheme);
     // 通知主进程广播主题切换
     await window.electronAPI.invoke('theme-changed', newTheme);
 }
@@ -272,7 +272,7 @@ async function initApp() {
     console.log('Sparklet 初始化...');
     await storageManager.init();
     await initI18n();
-    const theme = await window.electronStore.get('theme');
+    const theme = await window.electronAPI.invoke('config:get', 'theme');
     setTheme(theme || 'light');
     bindEvents();
     await loadNotes();

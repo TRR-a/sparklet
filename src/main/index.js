@@ -6,6 +6,8 @@ const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 // 引入 electron-store，用于本地持久化存储笔记、配置等数据
 const Store = require('electron-store');
+// 引入笔记存储适配器
+const noteStore = require('../shared/core/note-store.js');
 // 引入文件校验与更新控制器
 const { initIntegrityController, handleUserStrategy: handleIntegrityStrategy } = require('../shared/integrity/integrity-controller.js');
 const { initUpdateController, handleUserStrategy: handleUpdateStrategy } = require('../shared/update/update-controller.js');
@@ -15,15 +17,29 @@ let mainWindow = null;
 let settingsWindow = null;
 let aboutWindow = null;
 
-// 初始化存储
-const store = new Store({
-  name: 'sparklet-data',
-  defaults: { sparkletNotes: [] }
+// ========== 存储初始化 ==========
+// 1. 笔记存储（渲染进程通过原store:get/set访问）
+// 2. 全局用户配置（主题、语言）
+const globalConfigStore = new Store({
+  name: 'sparklet-global-config',
+  defaults: {
+    theme: 'light',
+    language: 'en' // 语言默认值为英语
+  }
+});
+// 3. 系统配置（更新、校验）
+const systemConfigStore = new Store({
+  name: 'sparklet-system-config'
 });
 
 // ========== 存储IPC ==========
-ipcMain.handle('store:get', async (event, key) => store.get(key));
-ipcMain.handle('store:set', async (event, key, value) => store.set(key, value));
+// 原接口保持不变：所有笔记读写继续走这里（渲染进程完全不用改）
+ipcMain.handle('store:get', async (event, key) => noteStore.get(key));
+ipcMain.handle('store:set', async (event, key, value) => noteStore.set(key, value));
+
+// 新增接口：全局配置读写（主题、语言）
+ipcMain.handle('config:get', async (event, key) => globalConfigStore.get(key));
+ipcMain.handle('config:set', async (event, key, value) => globalConfigStore.set(key, value));
 
 // ========== 窗口控制IPC ==========
 ipcMain.handle('window-minimize', () => BrowserWindow.getFocusedWindow()?.minimize());

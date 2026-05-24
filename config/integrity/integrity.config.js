@@ -36,7 +36,7 @@ const DEFAULT_INTEGRITY_CONFIG = {
 
 // 初始化存储实例
 const store = new Store({
-  name: 'sparklet-data'
+  name: 'sparklet-system-config'
 });
 
 // 配置管理方法

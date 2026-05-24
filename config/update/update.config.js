@@ -39,7 +39,7 @@ const DEFAULT_UPDATE_CONFIG = {
 
 // 初始化存储实例（与主进程共用同一个存储文件）
 const store = new Store({
-  name: 'sparklet-data'
+  name: 'sparklet-system-config'
 });
 
 // 配置管理方法
