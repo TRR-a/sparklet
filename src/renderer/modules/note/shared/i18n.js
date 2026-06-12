@@ -48,7 +48,7 @@ export async function loadLanguage(lang, isBroadcast = false) {
 
     // 非广播触发时，保存设置并广播语言切换事件
     if (!isBroadcast) {
-      await window.electronAPI.invoke('config:set', 'language', lang);
+      await window.electronStore.set('language', lang);
       await window.electronAPI.invoke('language-changed', lang);
     }
 
@@ -66,7 +66,7 @@ export async function loadLanguage(lang, isBroadcast = false) {
  */
 export async function initI18n() {
   // 从本地存储读取保存的语言设置，默认简体中文
-  const savedLang = await window.electronAPI.invoke('config:get', 'language') || 'zh-CN';
+  const savedLang = await window.electronStore.get('language') || 'zh-CN';
   await loadLanguage(savedLang, true);
 
   // 监听主进程的语言切换广播，实时更新所有窗口

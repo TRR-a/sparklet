@@ -36,7 +36,7 @@ async function toggleTheme() {
     const currentTheme = document.body.dataset.theme;
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    await window.electronAPI.invoke('config:set', 'theme', newTheme);
+    await window.electronStore.set('theme', newTheme);
     // 通知主进程广播主题切换
     await window.electronAPI.invoke('theme-changed', newTheme);
 }
@@ -272,34 +272,10 @@ async function initApp() {
     console.log('Sparklet 初始化...');
     await storageManager.init();
     await initI18n();
-    const theme = await window.electronAPI.invoke('config:get', 'theme');
+    const theme = await window.electronStore.get('theme');
     setTheme(theme || 'light');
     bindEvents();
     await loadNotes();
-    // 监听文件篡改检测
-    window.electronAPI.on('integrity:tamper-detected', (data) => {
-        showIntegrityAlert(data);
-    });
-
-    // 监听更新可用
-    window.electronAPI.on('update:available', (data) => {
-        showUpdateAlert(data);
-    });
-
-    // 监听下载进度
-    window.electronAPI.on('update:download-progress', (data) => {
-        showDownloadProgress(data.progress);
-    });
-
-    // 监听下载完成
-    window.electronAPI.on('update:download-complete', () => {
-        showDownloadComplete();
-    });
-
-    // 监听更新错误
-    window.electronAPI.on('update:error', (data) => {
-        alert(`更新失败: ${data.error}`);
-    });
     console.log('Sparklet 初始化完成');
 }
 
@@ -399,62 +375,3 @@ window.electronAPI.on('settings-window-restored', () => {
     document.body.classList.add('blur-background');
     document.getElementById('settingsGlowMask').classList.add('show');
 });
-
-// ==================== 文件校验弹窗 ====================
-function showIntegrityAlert(data) {
-  const message = `检测到文件损坏或篡改！\n\n损坏文件: ${data.corruptedFiles.length}个\n缺失文件: ${data.missingFiles.length}个\n\n建议立即更新修复。`;
-  
-  const result = confirm(message + '\n\n是否立即更新修复？');
-  if (result) {
-    window.electronAPI.invoke('integrity:handle-strategy', 'immediate');
-  } else {
-    // 显示策略选择
-    const strategy = prompt('请选择提醒时间：\n1. 30分钟后\n2. 1小时后\n3. 2小时后\n4. 1天后\n5. 重启时提醒\n6. 永久不提醒', '5');
-    
-    const strategyMap = {
-      '1': 'delay_30min',
-      '2': 'delay_1h',
-      '3': 'delay_2h',
-      '4': 'delay_1d',
-      '5': 'on_restart',
-      '6': 'never'
-    };
-    
-    window.electronAPI.invoke('integrity:handle-strategy', strategyMap[strategy] || 'on_restart');
-  }
-}
-
-// ==================== 更新弹窗 ====================
-function showUpdateAlert(data) {
-  const message = `发现新版本 ${data.latestVersion}！\n当前版本: ${data.currentVersion}\n\n${data.releaseNotes || '修复了一些问题，提升了稳定性。'}\n\n是否立即更新？`;
-  
-  const result = confirm(message);
-  if (result) {
-    window.electronAPI.invoke('update:handle-strategy', 'immediate', data);
-  } else {
-    // 显示策略选择
-    const strategy = prompt('请选择提醒时间：\n1. 30分钟后\n2. 1小时后\n3. 2小时后\n4. 1天后\n5. 重启时提醒\n6. 永久不提醒', '5');
-    
-    const strategyMap = {
-      '1': 'delay_30min',
-      '2': 'delay_1h',
-      '3': 'delay_2h',
-      '4': 'delay_1d',
-      '5': 'on_restart',
-      '6': 'never'
-    };
-    
-    window.electronAPI.invoke('update:handle-strategy', strategyMap[strategy] || 'on_restart', data);
-  }
-}
-
-// ==================== 下载进度弹窗 ====================
-function showDownloadProgress(progress) {
-  console.log(`下载进度: ${progress}%`);
-  // 后续可以替换为美观的进度条弹窗
-}
-
-// ==================== 下载完成弹窗 ====================
-function showDownloadComplete() {
-  alert('更新包下载完成，即将重启应用进行更新。');
-}

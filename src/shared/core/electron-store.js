@@ -6,9 +6,9 @@ const Store = require('electron-store');
 // 初始化 electron-store 实例
 // 数据默认保存在用户应用数据目录下，如 %APPDATA%\sparklet\config.json
 const store = new Store({
-  name: 'sparklet-notes-data',
+  name: 'sparklet-data', // 配置文件名
   defaults: {
-    sparkletNotes: []
+    sparkletNotes: [] // 默认数据：空笔记数组
   }
 });
 
