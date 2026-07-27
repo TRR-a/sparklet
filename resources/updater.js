@@ -1,70 +1,252 @@
 // resources/updater.js
-// External updater: replace main process files and restart app
+// External updater: extract full win-unpacked ZIP -> overwrite install root
+// Windows-safe rename-then-write handles exe/asar/dll even if updater itself is
+// running from the same exe/asar (detached, main already quit).
 
 const fs = require('fs-extra');
 const path = require('path');
 const { spawn } = require('child_process');
 const unzipper = require('unzipper');
+const util = require('util');
 
+// ---------------------------------------------------------------------------
+// CLI args (kept 100% compatible with installer.js runExternalUpdater
+// ---------------------------------------------------------------------------
 const args = process.argv.slice(2);
-let zipPath = null, tempDir = null, targetVersion = null, mainPid = null;
+let zipPath = null;
+let tempDir = null;
+let targetVersion = null;
+let mainPid = null;
+let logFile = null;
 for (let i = 0; i < args.length; i++) {
-  if (args[i] === '--zip' && i + 1 < args.length) { zipPath = args[i + 1]; i++; }
-  else if (args[i] === '--temp' && i + 1 < args.length) { tempDir = args[i + 1]; i++; }
-  else if (args[i] === '--version' && i + 1 < args.length) { targetVersion = args[i + 1]; i++; }
-  else if (args[i] === '--pid' && i + 1 < args.length) { mainPid = parseInt(args[i + 1], 10); i++; }
+  if (args[i] === '--zip' && i + 1 < args.length) { zipPath = args[i + 1]; i++; continue; }
+  if (args[i] === '--temp' && i + 1 < args.length) { tempDir = args[i + 1]; i++; continue; }
+  if (args[i] === '--version' && i + 1 < args.length) { targetVersion = args[i + 1]; i++; continue; }
+  if (args[i] === '--pid' && i + 1 < args.length) { mainPid = parseInt(args[i + 1], 10); i++; continue; }
+  if (args[i] === '--log-file' && i + 1 < args.length) { logFile = args[i + 1]; i++; continue; }
 }
 
-console.log('[Updater] External updater started');
-console.log('[Updater] Params:', { zipPath, tempDir, targetVersion, mainPid });
+// ---------------------------------------------------------------------------
+// File logger: tee all console.* calls to --log-file (if provided)
+// Must run BEFORE the first console.log so no output is lost.
+// ---------------------------------------------------------------------------
+let logStream = null;
+function teeConsole() {
+  if (!logFile) return;
+  try {
+    fs.ensureDirSync(path.dirname(logFile));
+    logStream = fs.createWriteStream(logFile, { flags: 'a', encoding: 'utf8' });
+    logStream.on('error', (e) => {
+      try { process.stdout.write('[Updater] Log stream error: ' + e.message + '\n'); } catch (_) {}
+    });
+    const timeTag = () => {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate())
+        + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds())
+        + '.' + String(d.getMilliseconds()).padStart(3, '0');
+    };
+    const writeLine = (level, rawArgs) => {
+      if (!logStream) return;
+      try {
+        const line = '[' + timeTag() + '] [' + level + '] ' + util.format.apply(null, rawArgs) + '\n';
+        logStream.write(line);
+      } catch (_) { /* best effort */ }
+    };
+    const origLog = console.log.bind(console);
+    const origWarn = console.warn.bind(console);
+    const origError = console.error.bind(console);
+    console.log = function () { writeLine('INFO', arguments); origLog.apply(null, arguments); };
+    console.warn = function () { writeLine('WARN', arguments); origWarn.apply(null, arguments); };
+    console.error = function () { writeLine('ERROR', arguments); origError.apply(null, arguments); };
+  } catch (err) {
+    logStream = null;
+    try { process.stdout.write('[Updater] Failed to init log file: ' + err.message + '\n'); } catch (_) {}
+  }
+}
+teeConsole();
 
+console.log('[Updater] External updater started');
+if (logFile) console.log('[Updater] Persistent log file:', logFile);
+console.log('[Updater] Params:', { zipPath, tempDir, targetVersion, mainPid, logFile });
+
+const INSTALL_ROOT = path.dirname(process.execPath);
+console.log('[Updater] Install root (target):', INSTALL_ROOT);
+
+// ---------------------------------------------------------------------------
+// Wait for main process to fully quit (frees locks on exe/dll/asar)
+// ---------------------------------------------------------------------------
 function waitForMainProcessExit() {
   return new Promise((resolve) => {
     if (!mainPid) {
-      console.log('[Updater] No main PID, waiting 2 seconds...');
-      setTimeout(resolve, 2000);
+      console.log('[Updater] No main PID, waiting 2.5s...');
+      setTimeout(resolve, 2500);
       return;
     }
     console.log('[Updater] Waiting for main process (PID: ' + mainPid + ') to exit...');
-    try {
-      const checkInterval = setInterval(() => {
-        try {
-          const isWindows = process.platform === 'win32';
-          const cmd = isWindows ? `tasklist /FI "PID eq ${mainPid}"` : `ps -p ${mainPid}`;
-          require('child_process').exec(cmd, (error, stdout) => {
-            if (error || !stdout.includes(mainPid.toString())) {
-              clearInterval(checkInterval);
-              console.log('[Updater] Main process exited');
-              resolve();
-            }
-          });
-        } catch (err) {
-          console.log('[Updater] Process check error, assuming exited');
-          resolve();
-        }
-      }, 500);
-      setTimeout(() => {
+    const checkInterval = setInterval(() => {
+      try {
+        const isWindows = process.platform === 'win32';
+        const cmd = isWindows
+          ? `tasklist /FI "PID eq ${mainPid}"`
+          : `ps -p ${mainPid}`;
+        require('child_process').exec(cmd, (error, stdout) => {
+          if (error || !stdout.includes(mainPid.toString())) {
+            clearInterval(checkInterval);
+            console.log('[Updater] Main process exited');
+            setTimeout(resolve, 500);
+          }
+        });
+      } catch (err) {
+        console.log('[Updater] Process check error, assuming exited');
         clearInterval(checkInterval);
-        console.log('[Updater] Wait timeout, proceeding');
-        resolve();
-      }, 10000);
-    } catch (err) {
-      console.log('[Updater] Wait error:', err.message);
+        setTimeout(resolve, 1000);
+      }
+    }, 400);
+    setTimeout(() => {
+      clearInterval(checkInterval);
+      console.log('[Updater] Wait timeout (12s), proceeding anyway');
       resolve();
-    }
+    }, 12000);
   });
 }
 
-function getAppRoot() {
-  return path.join(__dirname, 'app');
+// ---------------------------------------------------------------------------
+// Small helper: pretty-print byte size
+// ---------------------------------------------------------------------------
+function fmtSize(bytes) {
+  if (bytes == null) return '?B';
+  if (bytes < 1024) return bytes + 'B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + 'KB';
+  if (bytes < 1024 * 1024 * 1024) return (bytes / 1024 / 1024).toFixed(2) + 'MB';
+  return (bytes / 1024 / 1024 / 1024).toFixed(3) + 'GB';
 }
 
+async function statOrNull(p) {
+  try { return await fs.stat(p); } catch (_) { return null; }
+}
+
+// ---------------------------------------------------------------------------
+// Windows-safe file replace: rename -> write. Never overwrite a locked file in-place.
+// Verbose logging for every step so you can confirm replace logic truly works.
+// ---------------------------------------------------------------------------
+async function replaceFileSafely(srcFile, destFile) {
+  await fs.ensureDir(path.dirname(destFile));
+  const rel = path.relative(INSTALL_ROOT, destFile) || path.basename(destFile);
+  const srcStat = await statOrNull(srcFile);
+  const destStatBefore = await statOrNull(destFile);
+  console.log('[Updater] ── File ──────────────────────────────────────');
+  console.log('[Updater] Target   :', destFile);
+  console.log('[Updater] (relative): ' + rel);
+  console.log('[Updater] Source   :', srcFile);
+  console.log('[Updater] Src size :', fmtSize(srcStat && srcStat.size));
+  console.log('[Updater] Dest BEFORE: exists=' + !!destStatBefore
+    + ' size=' + fmtSize(destStatBefore && destStatBefore.size)
+    + ' mtime=' + (destStatBefore && destStatBefore.mtime.toISOString()));
+
+  let renameOk = false;
+  let oldFile = null;
+  if (destStatBefore) {
+    oldFile = destFile + '.old';
+    const oldStatBefore = await statOrNull(oldFile);
+    if (oldStatBefore) {
+      console.log('[Updater] Stale .old detected, removing:', oldFile);
+      try { await fs.remove(oldFile); } catch (_) { /* ignore */ }
+    }
+    try {
+      await fs.rename(destFile, oldFile);
+      const oldStatAfter = await statOrNull(oldFile);
+      const destAfterRename = await statOrNull(destFile);
+      renameOk = true;
+      console.log('[Updater] Rename OK: ' + destFile + ' -> ' + oldFile);
+      console.log('[Updater]   .old exists=' + !!oldStatAfter
+        + ' size=' + fmtSize(oldStatAfter && oldStatAfter.size));
+      console.log('[Updater]   Dest after rename exists=' + !!destAfterRename);
+    } catch (renameErr) {
+      // If rename fails (unlikely after main quit), fallback to overwrite.
+      console.warn('[Updater] Rename FAILED (fallback to direct overwrite):', renameErr.message);
+    }
+  } else {
+    console.log('[Updater] Dest does not exist (new file), will copy directly');
+  }
+
+  console.log('[Updater] Copying source -> dest ...');
+  await fs.copy(srcFile, destFile, { overwrite: true });
+
+  const destStatAfter = await statOrNull(destFile);
+  console.log('[Updater] Dest AFTER : exists=' + !!destStatAfter
+    + ' size=' + fmtSize(destStatAfter && destStatAfter.size)
+    + ' mtime=' + (destStatAfter && destStatAfter.mtime.toISOString()));
+
+  let sizeMatch = null;
+  if (srcStat && destStatAfter) {
+    sizeMatch = srcStat.size === destStatAfter.size;
+    const tag = sizeMatch ? '✅' : '⚠️';
+    console.log('[Updater] Size comparison (src vs new dest): '
+      + fmtSize(srcStat.size) + ' vs ' + fmtSize(destStatAfter.size)
+      + ' -> ' + tag + (sizeMatch ? ' match' : ' MISMATCH'));
+  }
+
+  if (renameOk && srcStat && destStatAfter && oldFile) {
+    const oldStat = await statOrNull(oldFile);
+    if (oldStat) {
+      console.log('[Updater] Previous version preserved at:', oldFile
+        + ' (' + fmtSize(oldStat.size) + '), will be cleaned up later');
+    }
+  }
+  console.log('[Updater] ───────────────────────────────────────────');
+}
+
+// ---------------------------------------------------------------------------
+// Recursively merge src dir -> dest dir (each file via replaceFileSafely).
+// Logs directory traversal and counts so you can follow progress.
+// ---------------------------------------------------------------------------
+async function recursiveMergeCopy(srcDir, destDir, depth = 0) {
+  await fs.ensureDir(destDir);
+  const prefix = '  '.repeat(depth);
+  const rel = path.relative(INSTALL_ROOT, destDir) || path.basename(destDir);
+  const entries = await fs.readdir(srcDir, { withFileTypes: true });
+  const dirs = entries.filter(e => e.isDirectory()).length;
+  const files = entries.filter(e => e.isFile()).length;
+  const syms = entries.filter(e => e.isSymbolicLink()).length;
+  console.log(`[Updater] ${prefix}+ DIR [${rel}]  (files=${files}, subdirs=${dirs}, symlinks=${syms})`);
+
+  for (const entry of entries) {
+    const s = path.join(srcDir, entry.name);
+    const d = path.join(destDir, entry.name);
+    if (entry.isDirectory()) {
+      await recursiveMergeCopy(s, d, depth + 1);
+    } else if (entry.isFile()) {
+      await replaceFileSafely(s, d);
+    } else if (entry.isSymbolicLink()) {
+      console.log('[Updater] Handling symlink:', s, '->', d);
+      try {
+        await fs.remove(d);
+        const target = await fs.readlink(s);
+        await fs.symlink(target, d);
+        console.log('[Updater] Symlink created, target:', target);
+      } catch (symErr) {
+        console.warn('[Updater] Symlink failed, fallback to copy:', symErr.message);
+        await replaceFileSafely(s, d);
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Main flow
+// ---------------------------------------------------------------------------
 async function performReplacement() {
   try {
-    console.log('[Updater] Starting replacement...');
+    console.log('[Updater] Starting replacement (v' + (targetVersion || '?') + ')...');
     await waitForMainProcessExit();
+
+    if (!zipPath || !tempDir) {
+      throw new Error('Missing --zip or --temp argument');
+    }
+
     const extractDir = path.join(tempDir, 'extracted');
-    console.log('[Updater] Extracting to:', extractDir);
+    console.log('[Updater] Extracting ZIP to:', extractDir);
     await fs.ensureDir(extractDir);
     await new Promise((resolve, reject) => {
       fs.createReadStream(zipPath)
@@ -73,55 +255,67 @@ async function performReplacement() {
         .on('finish', resolve);
     });
     console.log('[Updater] Extraction complete');
-    const appRoot = getAppRoot();
-    console.log('[Updater] App root:', appRoot);
-    const mainSrcDir = path.join(appRoot, 'src', 'main');
-    if (await fs.pathExists(mainSrcDir)) {
-      console.log('[Updater] Removing old main process directory:', mainSrcDir);
-      await fs.remove(mainSrcDir);
-    }
-    const newMainSrc = path.join(extractDir, 'src', 'main');
-    if (await fs.pathExists(newMainSrc)) {
-      console.log('[Updater] Copying new main process files:', newMainSrc);
-      await fs.copy(newMainSrc, mainSrcDir, { overwrite: true });
-    } else {
-      console.warn('[Updater] No src/main/ found in update package');
-    }
-    const srcDir = path.join(appRoot, 'src');
-    const assetsDir = path.join(appRoot, 'assets');
-    const newRenderDir = path.join(extractDir, 'src', 'renderer');
-    if (await fs.pathExists(newRenderDir)) {
-      console.log('[Updater] Updating renderer directory');
-      const targetRender = path.join(srcDir, 'renderer');
-      await fs.copy(newRenderDir, targetRender, { overwrite: true });
-    }
-    const newAssetsDir = path.join(extractDir, 'assets');
-    if (await fs.pathExists(newAssetsDir)) {
-      console.log('[Updater] Updating assets directory');
-      await fs.copy(newAssetsDir, assetsDir, { overwrite: true });
-    }
-    const newManifest = path.join(extractDir, 'manifest.current.json');
-    if (await fs.pathExists(newManifest)) {
-      console.log('[Updater] Updating manifest.current.json');
-      await fs.copy(newManifest, path.join(appRoot, 'manifest.current.json'), { overwrite: true });
-    }
-    console.log('[Updater] Cleaning up temp files...');
-    await fs.remove(extractDir);
-    await fs.remove(zipPath);
-    await fs.remove(tempDir);
-    console.log('[Updater] Replacement complete');
-    console.log('[Updater] Restarting app...');
+
+    console.log('[Updater] Merging extracted tree into install root...');
+    await recursiveMergeCopy(extractDir, INSTALL_ROOT);
+
+    console.log('[Updater] Cleaning up stale .old files (best effort)...');
+    try {
+      const clean = async (dir) => {
+        const ents = await fs.readdir(dir, { withFileTypes: true });
+        for (const e of ents) {
+          const full = path.join(dir, e.name);
+          if (e.isDirectory()) {
+            await clean(full);
+          } else if (e.isFile() && e.name.endsWith('.old')) {
+            try {
+              await fs.remove(full);
+              console.log('[Updater] Removed stale:', full);
+            } catch (_) { /* in-use by updater itself — will be gone on next boot */ }
+          }
+        }
+      };
+      await clean(INSTALL_ROOT);
+    } catch (_) { /* ignore */ }
+
+    console.log('[Updater] Cleaning temp files...');
+    try { await fs.remove(extractDir); } catch (_) { /* ignore */ }
+    try { await fs.remove(zipPath); } catch (_) { /* ignore */ }
+    try { await fs.remove(tempDir); } catch (_) { /* ignore */ }
+
+    console.log('[Updater] Replacement complete. Restarting app...');
     const appExe = process.execPath;
-    const appArgs = process.argv.slice(2).filter(arg => !arg.startsWith('--zip') && !arg.startsWith('--temp') && !arg.startsWith('--version') && !arg.startsWith('--pid'));
-    const child = spawn(appExe, appArgs, { detached: true, stdio: 'ignore', windowsHide: true });
+    const child = spawn(appExe, [], { detached: true, stdio: 'ignore', windowsHide: true });
     child.unref();
-    console.log('[Updater] New app launched');
+    console.log('[Updater] New app launched (PID ' + child.pid + ')');
+    closeLogSync();
     process.exit(0);
   } catch (err) {
-    console.error('[Updater] Replacement failed:', err);
-    try { if (tempDir) await fs.remove(tempDir); } catch (_) {}
+    console.error('[Updater] FATAL replacement failed:', err && err.stack || err);
+    try {
+      if (tempDir) await fs.remove(tempDir);
+    } catch (_) { /* ignore */ }
+    closeLogSync();
     process.exit(1);
   }
+}
+
+// ---------------------------------------------------------------------------
+// Safely flush + close the log file stream before process.exit so the last
+// lines are guaranteed persisted to disk.
+// ---------------------------------------------------------------------------
+function closeLogSync() {
+  if (!logStream) return;
+  try {
+    logStream.end();
+  } catch (_) { /* ignore */ }
+  try {
+    const fd = (logStream && logStream.fd);
+    if (typeof fd === 'number') {
+      require('fs').closeSync(fd);
+    }
+  } catch (_) { /* ignore */ }
+  logStream = null;
 }
 
 performReplacement();

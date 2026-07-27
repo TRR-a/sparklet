@@ -5,7 +5,12 @@ const https = require('https');
 const fs = require('fs-extra');
 const path = require('path');
 const { URL } = require('url');
-const { DOWNLOAD_TIMEOUT_MS, MAX_RETRY_COUNT, RETRY_DELAY_MS } = require('./constants');
+const {
+  DOWNLOAD_TIMEOUT_MS,
+  MAX_RETRY_COUNT,
+  RETRY_DELAY_MS,
+  classifyNetworkError
+} = require('./constants');
 
 function downloadFile(url, destPath, onProgress = null) {
   return new Promise((resolve) => {
@@ -19,7 +24,12 @@ function downloadFile(url, destPath, onProgress = null) {
     };
     const req = https.get(options, (res) => {
       if (res.statusCode !== 200) {
-        resolve({ success: false, error: `Download failed, status: ${res.statusCode}` });
+        const errMsg = `Download failed, status: ${res.statusCode}`;
+        resolve({
+          success: false,
+          error: errMsg,
+          errorType: classifyNetworkError(errMsg)
+        });
         return;
       }
       const totalSize = parseInt(res.headers['content-length'] || '0', 10);
@@ -40,43 +50,61 @@ function downloadFile(url, destPath, onProgress = null) {
       res.pipe(fileStream);
       fileStream.on('finish', () => {
         if (onProgress) onProgress(100);
-        resolve({ success: true, error: null });
+        resolve({ success: true, error: null, errorType: null });
       });
       fileStream.on('error', (err) => {
         fs.remove(destPath).catch(() => {});
-        resolve({ success: false, error: `Write error: ${err.message}` });
+        const errMsg = `Write error: ${err.message}`;
+        resolve({
+          success: false,
+          error: errMsg,
+          errorType: classifyNetworkError(errMsg)
+        });
       });
     });
     req.on('error', (err) => {
       fs.remove(destPath).catch(() => {});
-      resolve({ success: false, error: `Network error: ${err.message}` });
+      const errMsg = `Network error: ${err.message}`;
+      resolve({
+        success: false,
+        error: errMsg,
+        errorType: classifyNetworkError(errMsg)
+      });
     });
     req.on('timeout', () => {
       req.destroy();
       fs.remove(destPath).catch(() => {});
-      resolve({ success: false, error: 'Download timeout' });
+      const errMsg = 'Download timeout';
+      resolve({
+        success: false,
+        error: errMsg,
+        errorType: classifyNetworkError(errMsg)
+      });
     });
   });
 }
 
 async function downloadWithRetry(url, destPath, onProgress = null, retries = MAX_RETRY_COUNT) {
   let lastError = null;
+  let lastErrorType = null;
   for (let attempt = 1; attempt <= retries; attempt++) {
     console.log(`[Download] Attempt ${attempt}/${retries}: ${url}`);
     const result = await downloadFile(url, destPath, onProgress);
     if (result.success) {
       console.log('[Download] Download succeeded');
-      return { success: true, error: null };
+      return { success: true, error: null, errorType: null };
     }
     lastError = result.error;
-    console.warn(`[Download] Failed (${attempt}/${retries}):`, lastError);
+    lastErrorType = result.errorType || classifyNetworkError(result.error);
+    console.warn(`[Download] Failed (${attempt}/${retries}):`, lastError, `type=${lastErrorType}`);
     if (attempt < retries) {
       await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
     }
   }
   return {
     success: false,
-    error: `Download failed after ${retries} attempts: ${lastError}`
+    error: `Download failed after ${retries} attempts: ${lastError}`,
+    errorType: lastErrorType || 'unknown'
   };
 }
 

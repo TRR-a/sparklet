@@ -95,7 +95,7 @@ function extractAssetsFromRelease(releaseData) {
     const name = asset.name || '';
     if (name === 'manifest.releases.json') {
       manifestUrl = asset.browser_download_url || null;
-    } else if (name.match(/^Sparklet-v\d+\.\d+\.\d+\.zip$/)) {
+    } else if (name.match(/^sparklet-v\d+\.\d+\.\d+-win-x86_64\.zip$/)) {
       zipUrl = asset.browser_download_url || null;
     }
   }

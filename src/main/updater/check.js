@@ -3,7 +3,7 @@
 
 const https = require('https');
 const { URL } = require('url');
-const { GITHUB_API_URL, REQUEST_TIMEOUT_MS } = require('./constants');
+const { GITHUB_API_URL, REQUEST_TIMEOUT_MS, classifyNetworkError } = require('./constants');
 const { readCurrentManifest, extractAssetsFromRelease } = require('./manifest-helper');
 
 function getCurrentVersion() {
@@ -40,19 +40,23 @@ async function fetchLatestRelease() {
       if (res.statusCode === 403) {
         const remaining = res.headers['x-ratelimit-remaining'];
         if (remaining === '0') {
+          const errMsg = 'GitHub API rate limit exceeded, please try later';
           resolve({
             success: false,
             data: null,
-            error: 'GitHub API rate limit exceeded, please try later'
+            error: errMsg,
+            errorType: classifyNetworkError(errMsg)
           });
           return;
         }
       }
       if (res.statusCode !== 200) {
+        const errMsg = `GitHub API error: status ${res.statusCode}`;
         resolve({
           success: false,
           data: null,
-          error: `GitHub API error: ${res.statusCode}`
+          error: errMsg,
+          errorType: classifyNetworkError(errMsg)
         });
         return;
       }
@@ -61,29 +65,35 @@ async function fetchLatestRelease() {
       res.on('end', () => {
         try {
           const parsed = JSON.parse(data);
-          resolve({ success: true, data: parsed, error: null });
+          resolve({ success: true, data: parsed, error: null, errorType: null });
         } catch (err) {
+          const errMsg = 'Failed to parse GitHub API response';
           resolve({
             success: false,
             data: null,
-            error: 'Failed to parse GitHub API response'
+            error: errMsg,
+            errorType: classifyNetworkError(errMsg)
           });
         }
       });
     });
     req.on('error', (err) => {
+      const errMsg = `Network error: ${err.message}`;
       resolve({
         success: false,
         data: null,
-        error: `Network error: ${err.message}`
+        error: errMsg,
+        errorType: classifyNetworkError(errMsg)
       });
     });
     req.on('timeout', () => {
       req.destroy();
+      const errMsg = 'Request timeout';
       resolve({
         success: false,
         data: null,
-        error: 'Request timeout'
+        error: errMsg,
+        errorType: classifyNetworkError(errMsg)
       });
     });
   });
@@ -92,7 +102,7 @@ async function fetchLatestRelease() {
 async function checkForUpdates() {
   const currentVersion = getCurrentVersion();
   console.log('[UpdateCheck] Current version:', currentVersion);
-  const { success, data, error } = await fetchLatestRelease();
+  const { success, data, error, errorType: fetchErrorType } = await fetchLatestRelease();
   if (!success) {
     return {
       hasUpdate: false,
@@ -100,7 +110,8 @@ async function checkForUpdates() {
       latestVersion: null,
       zipUrl: null,
       manifestUrl: null,
-      error
+      error,
+      errorType: fetchErrorType || classifyNetworkError(error)
     };
   }
   const latestTag = data.tag_name || '';
@@ -114,7 +125,8 @@ async function checkForUpdates() {
       latestVersion,
       zipUrl: null,
       manifestUrl: null,
-      error: `Invalid tag format: ${latestTag} does not start with 'v'`
+      error: `Invalid tag format: ${latestTag} does not start with 'v'`,
+      errorType: 'unknown'
     };
   }
   const versionPattern = /^v\d+\.\d+\.\d+$/;
@@ -125,12 +137,15 @@ async function checkForUpdates() {
       latestVersion,
       zipUrl: null,
       manifestUrl: null,
-      error: `Invalid tag format: ${latestTag} does not match vX.X.X`
+      error: `Invalid tag format: ${latestTag} does not match vX.X.X`,
+      errorType: 'unknown'
     };
   }
   if (zipUrl) {
     const zipFileName = zipUrl.split('/').pop() || '';
-    const fileNamePattern = /^Sparklet-v\d+\.\d+\.\d+\.zip$/;
+    // ========== 改这里：匹配新格式 ==========
+    const fileNamePattern = /^sparklet-v\d+\.\d+\.\d+-win-x86_64\.zip$/;
+    // ========== 改完 ==========
     if (!fileNamePattern.test(zipFileName)) {
       return {
         hasUpdate: false,
@@ -138,17 +153,20 @@ async function checkForUpdates() {
         latestVersion,
         zipUrl: null,
         manifestUrl: null,
-        error: `Invalid zip filename: ${zipFileName}`
+        error: `Invalid zip filename: ${zipFileName}`,
+        errorType: 'unknown'
       };
     }
   } else {
+    console.log('[UpdateCheck] No update package found, treating as no update');
     return {
       hasUpdate: false,
       currentVersion,
       latestVersion,
       zipUrl: null,
       manifestUrl: null,
-      error: 'No update package found (Sparklet-vX.X.X.zip)'
+      error: null,
+      errorType: null
     };
   }
   if (!manifestUrl) {
@@ -158,7 +176,8 @@ async function checkForUpdates() {
       latestVersion,
       zipUrl: null,
       manifestUrl: null,
-      error: 'manifest.releases.json not found'
+      error: 'manifest.releases.json not found',
+      errorType: 'unknown'
     };
   }
   const hasUpdate = compareVersions(latestVersion, currentVersion) > 0;
@@ -169,7 +188,8 @@ async function checkForUpdates() {
     latestVersion,
     zipUrl,
     manifestUrl,
-    error: null
+    error: null,
+    errorType: null
   };
 }
 

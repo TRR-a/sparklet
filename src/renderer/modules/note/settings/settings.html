@@ -40,14 +40,122 @@
                 </div>
             </div>
 
+            <!-- 更新设置部分 -->
+            <div class="settings-section">
+                <h3 data-i18n="settings.updater">更新</h3>
+                <div class="updater-group">
+                    <div class="setting-item">
+                        <label for="updateBehaviorSelect" data-i18n="settings.updaterBehavior">更新检查策略：</label>
+                        <select id="updateBehaviorSelect" class="language-select">
+                            <option value="auto" data-i18n="settings.updaterAuto">始终检查更新</option>
+                            <option value="notify-only" data-i18n="settings.updaterNotify">仅提醒，不自动下载</option>
+                            <option value="disabled" data-i18n="settings.updaterDisabled">完全禁用更新</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="updateIntervalSelect" data-i18n="settings.updaterInterval">检查频率：</label>
+                        <select id="updateIntervalSelect" class="language-select">
+                            <option value="0" data-i18n="settings.intervalOnStartup">重启后</option>
+                            <option value="1800000" data-i18n="settings.interval30min">30 分钟</option>
+                            <option value="3600000" data-i18n="settings.interval1hour">1 小时</option>
+                            <option value="86400000" data-i18n="settings.interval1day">1 天</option>
+                            <option value="604800000" data-i18n="settings.interval1week">1 周</option>
+                        </select>
+                    </div>
+
+                    <!-- ========== 完整性校验复选框（新增） ========== -->
+                    <div class="setting-item" style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
+                        <label for="integrityCheckToggle" style="margin-bottom: 0; cursor: pointer; font-size: 0.9rem;">
+                            <input type="checkbox" id="integrityCheckToggle" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--color-primary);">
+                            <span data-i18n="settings.integrityCheckLabel">启动时校验应用完整性</span>
+                        </label>
+                    </div>
+                    <!-- ========== 完整性校验复选框结束 ========== -->
+
+                    <div class="updater-actions">
+                        <button id="checkNowBtn" class="check-now-btn" data-i18n="settings.checkNow">立即检查</button>
+                    </div>
+                    <div id="updaterStatus" class="updater-status"></div>
+                </div>
+            </div>
+
+            <!-- 更新包缓存部分 -->
+            <div class="settings-section" id="updateCacheSection">
+                <h3 data-i18n="settings.cache.title">📦 更新包缓存</h3>
+
+                <!-- 保留天数选择：快捷按钮 + 连续滑杆 -->
+                <div id="cacheRetentionBlock" class="cache-retention-block">
+                    <div class="cache-retention-label">
+                        <span data-i18n="settings.cache.retentionLabel">成功打开后保留</span>
+                        <span id="cacheRetentionCurrent" class="cache-retention-current">7 天</span>
+                    </div>
+                    <div class="cache-retention-presets" id="cacheRetentionPresets">
+                        <button class="retention-preset" data-days="7" data-i18n="settings.cache.preset7d">7 天</button>
+                        <button class="retention-preset" data-days="10" data-i18n="settings.cache.preset10d">10 天</button>
+                        <button class="retention-preset" data-days="14" data-i18n="settings.cache.preset14d">14 天</button>
+                        <button class="retention-preset" data-days="21" data-i18n="settings.cache.preset21d">21 天</button>
+                        <button class="retention-preset" data-days="30" data-i18n="settings.cache.preset30d">30 天</button>
+                    </div>
+                    <div class="cache-retention-slider-row">
+                        <span class="slider-min">7</span>
+                        <input id="cacheRetentionSlider" type="range" min="7" max="30" step="1" value="7">
+                        <span class="slider-max">30</span>
+                    </div>
+                    <p class="cache-retention-tip" data-i18n="settings.cache.retentionTip">未成功打开的安装包，固定保留 30 天后自动删除（避免误删）。</p>
+                </div>
+
+                <div class="cache-info" id="cacheInfo">
+                    <!-- 动态内容由 JS 渲染 -->
+                    <p class="cache-placeholder" data-i18n="settings.cache.loading">加载中...</p>
+                </div>
+                <div class="updater-actions" style="margin-top: 12px;">
+                    <button id="refreshCacheBtn" class="check-now-btn" style="margin-right: 8px;" data-i18n="settings.cache.refreshBtn">🔄 刷新</button>
+                    <button id="clearCacheBtn" class="check-now-btn" style="background: #ef4444;" data-i18n="settings.cache.clearBtn">🗑️ 立即删除缓存</button>
+                </div>
+            </div>
+
+            <!-- 更新配置导入/导出 -->
+            <div class="settings-section" id="configImportExportSection">
+                <h3 data-i18n="settings.configIO.title">⚙️ 更新配置导入/导出</h3>
+                <p style="font-size:0.85rem;opacity:0.78;margin:0 0 12px;line-height:1.5;" data-i18n="settings.configIO.description">
+                    一键备份当前更新设置（更新模式、检查频率、自动下载、完整性校验、保留天数等），换设备或重装时可快速还原。
+                </p>
+                <div class="updater-actions">
+                    <button id="exportUpdaterConfigBtn" class="check-now-btn" style="margin-right: 8px;" data-i18n="settings.configIO.exportBtn">📤 导出为 JSON</button>
+                    <button id="importUpdaterConfigBtn" class="check-now-btn" style="background: #10b981;" data-i18n="settings.configIO.importBtn">📥 从 JSON 导入</button>
+                </div>
+            </div>
+
             <!-- 工具按钮部分 -->
             <div class="settings-section">
                 <h3 data-i18n="settings.tools">工具</h3>
                 <div class="button-group">
                     <button id="openAboutBtn" class="settings-btn" data-i18n="settings.about">关于 Sparklet</button>
+                    <button id="openOfficialSiteBtn" class="settings-btn" data-i18n="settings.openOfficialSite">🌐 打开官网</button>
                     <button id="openDevToolsBtn" class="settings-btn" data-i18n="settings.devTools">开发者工具</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ========== 自定义确认弹窗（删除缓存用，避免系统原生弹窗）========== -->
+    <div id="customConfirmModal" class="custom-confirm-overlay" style="display: none;">
+        <div class="custom-confirm-box">
+            <div class="custom-confirm-title" id="confirmTitle" data-i18n="confirm.default.title">确认删除</div>
+            <div class="custom-confirm-message" id="confirmMessage" data-i18n="confirm.default.message">确定要删除吗？</div>
+            <div class="custom-confirm-buttons">
+                <button id="confirmCancelBtn" class="custom-confirm-btn cancel" data-i18n="confirm.default.cancel">取消</button>
+                <button id="confirmOkBtn" class="custom-confirm-btn ok" data-i18n="confirm.default.ok">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 更新器通用弹窗（替换系统原生 dialog.showMessageBox）========== -->
+    <div id="updaterDialogModal" class="custom-confirm-overlay" style="display: none;">
+        <div class="custom-confirm-box" style="min-width: 440px; max-width: 620px;">
+            <div class="custom-confirm-title" id="updaterDialogTitle">更新提示</div>
+            <div class="custom-confirm-message" id="updaterDialogBody" style="max-height: 60vh; overflow-y: auto; text-align: left;"></div>
+            <div class="custom-confirm-buttons" id="updaterDialogButtons"></div>
         </div>
     </div>
 
