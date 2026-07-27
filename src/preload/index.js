@@ -18,5 +18,19 @@ contextBridge.exposeInMainWorld('electronAPI', {
     const subscription = (event, ...args) => callback(...args);
     ipcRenderer.on(channel, subscription);
     return () => ipcRenderer.removeListener(channel, subscription);
+  },
+  
+  // ========== 新增：更新模块相关 ==========
+  // 手动检查更新
+  checkUpdate: () => ipcRenderer.invoke('updater:check'),
+  // 获取更新状态
+  getUpdateStatus: () => ipcRenderer.invoke('updater:status'),
+  // 监听更新对话框事件（由主进程触发）
+  onUpdateDialog: (callback) => {
+    ipcRenderer.on('updater:show-dialog', (event, data) => callback(data));
+  },
+  // 用户对更新对话框的响应（'yes' / 'no' / 'restart' / 'later'）
+  sendUpdateResponse: (response) => {
+    ipcRenderer.send('updater:user-response', response);
   }
 });

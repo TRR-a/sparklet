@@ -7,6 +7,9 @@ const path = require('path');
 // 引入 electron-store，用于本地持久化存储笔记、配置等数据
 const Store = require('electron-store');
 
+// ========== 更新模块导入 ==========
+const { initUpdater, checkUpdateManually, isUpdating } = require('./updater');
+
 // ========== 全局窗口变量 ==========
 let mainWindow = null;
 let settingsWindow = null;
@@ -48,6 +51,24 @@ ipcMain.handle('theme-changed', (event, theme) => {
   BrowserWindow.getAllWindows().forEach(win => {
     if (!win.isDestroyed()) win.webContents.send('theme-broadcast', theme);
   });
+});
+
+// ========== 更新模块IPC ==========
+ipcMain.handle('updater:check', async () => {
+  checkUpdateManually();
+  return { started: true };
+});
+
+ipcMain.handle('updater:status', async () => {
+  return { isUpdating: isUpdating };
+});
+
+// 监听用户对更新对话框的响应（转发给更新模块）
+ipcMain.on('updater:user-response', (event, response) => {
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (win) {
+    win.webContents.emit('updater:user-response', event, response);
+  }
 });
 
 // ========== 光晕位置同步函数 ==========
@@ -200,7 +221,19 @@ function createAboutWindow() {
 ipcMain.handle('open-about-window', createAboutWindow);
 
 // ========== 应用生命周期 ==========
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  // 创建主窗口
+  createWindow();
+  
+  // 初始化更新模块（窗口创建后执行）
+  initUpdater();
+  
+  // 延迟 3 秒后自动检查更新（不阻塞启动）
+  setTimeout(() => {
+    checkUpdateManually();
+  }, 3000);
+});
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
