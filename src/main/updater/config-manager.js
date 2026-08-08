@@ -25,6 +25,8 @@ const DEFAULT_CONFIG = Object.assign({
 
 let configDir = null;
 let configWatcher = null;
+let configChangeTimer = null;
+let isSelfWrite = false;
 
 /**
  * 广播配置变化到所有窗口
@@ -116,11 +118,13 @@ async function writeConfig(config) {
   }
 
   try {
+    isSelfWrite = true;
     await fs.writeJson(filePath, config, { spaces: 2 });
     console.log('[ConfigManager] Config saved:', config);
     broadcastConfigChange(config);
     return { success: true, error: null };
   } catch (err) {
+    isSelfWrite = false;
     console.error('[ConfigManager] Write config failed:', err.message);
     return { success: false, error: err.message };
   }
@@ -148,12 +152,22 @@ async function startConfigWatcher() {
     }
 
     configWatcher = fs.watch(filePath, async (eventType) => {
-      if (eventType === 'change') {
+      // change 和 rename 都触发（Windows 下部分编辑器保存用「写临时文件→重命名替换」，触发 rename）
+      if (eventType === 'change' || eventType === 'rename') {
+        // 自己写入触发的变化，跳过（writeConfig 已直接广播）
+        if (isSelfWrite) {
+          isSelfWrite = false;
+          if (configChangeTimer) clearTimeout(configChangeTimer);
+          configChangeTimer = null;
+          return;
+        }
         console.log('[ConfigManager] Config file changed externally, reloading...');
-        // Windows 下写文件会触发两次 change（内容+元数据），防抖 500ms 避免重复
-        setTimeout(async () => {
+        // 真正的防抖：清除上一个 timer，避免短时间内多次广播
+        if (configChangeTimer) clearTimeout(configChangeTimer);
+        configChangeTimer = setTimeout(async () => {
           const config = await readConfig();
           broadcastConfigChange(config);
+          configChangeTimer = null;
         }, 500);
       }
     });

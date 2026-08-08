@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- 页面元数据 -->
     <meta charset="utf-8">
     <title>关于 Sparklet</title>
-    <!-- 引入关于页面样式 -->
     <link rel="stylesheet" href="about.css">
 </head>
 <body>
-    <!-- 关于窗口：显示应用名称、版本与版权信息 -->
     <div class="about-window">
-        <!-- 窗口标题栏 -->
         <div class="title-bar">
             <div class="window-controls">
                 <button class="window-btn close" data-i18n-title="tooltip.close" title="关闭">×</button>
@@ -18,27 +14,22 @@
             <h2 data-i18n="about.title">关于 Sparklet</h2>
         </div>
 
-        <!-- 主要内容区 -->
         <div class="content">
-            <!-- 应用信息 -->
             <h1 data-i18n="about.appName">Sparklet</h1>
             <p class="version" data-i18n="about.version">版本 0.2.2</p>
             <p class="internal-version" data-i18n="about.internalVersion">内部版本: Vapor </p>
             <p class="description" data-i18n="about.desc">一个轻量的桌面笔记工具</p>
 
-            <!-- 运行时依赖版本信息 -->
             <div class="version-info">
                 <p>Electron: 40.0.0</p>
                 <p>Node.js: 24.8.0</p>
                 <p>NW.js: v0.107.0</p>
             </div>
 
-            <!-- 版权声明 -->
             <p class="copyright" data-i18n="about.copyright">2026 TRR-a</p>
         </div>
     </div>
 
-    <!-- 关于页脚本 -->
     <script type="module" src="about.js"></script>
 </body>
 </html>

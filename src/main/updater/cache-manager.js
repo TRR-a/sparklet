@@ -106,13 +106,22 @@ async function registerCachedZip(srcZipPath, version, packageHash) {
     successFirstLaunchAt: null
   };
 
-  // 超过最大保留数，先清理最老的（按 downloadedAt 升序删）
+  // 超过最大保留数，优先删「未成功打开」且「下载时间最久」的，排除刚注册的版本
   const versionKeys = Object.keys(meta.versions);
   if (versionKeys.length > CACHE_MAX_VERSIONS) {
     const sorted = versionKeys
-      .map(v => ({ v, t: new Date(meta.versions[v].downloadedAt).getTime() }))
-      .sort((a, b) => a.t - b.t);
-    const toRemove = sorted.slice(0, sorted.length - CACHE_MAX_VERSIONS);
+      .filter(v => v !== version)  // 不删刚注册的
+      .map(v => ({
+        v,
+        hasSuccess: !!meta.versions[v].successFirstLaunchAt,
+        t: new Date(meta.versions[v].downloadedAt).getTime()
+      }))
+      .sort((a, b) => {
+        // 优先删未成功打开的（hasSuccess=false 排前面）
+        if (a.hasSuccess !== b.hasSuccess) return a.hasSuccess ? 1 : -1;
+        return a.t - b.t;
+      });
+    const toRemove = sorted.slice(0, versionKeys.length - CACHE_MAX_VERSIONS);
     for (const item of toRemove) {
       await removeVersionCache(meta, item.v);
     }
@@ -243,10 +252,17 @@ async function cleanupExpired(successRetentionDays) {
     }
   }
 
-  // 第 2 轮：按数量上限删最老的
+  // 第 2 轮：按数量上限删最老的（优先删未成功打开的）
   const remaining = Object.keys(meta.versions)
-    .map(v => ({ v, t: new Date(meta.versions[v].downloadedAt).getTime() }))
-    .sort((a, b) => a.t - b.t);
+    .map(v => ({
+      v,
+      hasSuccess: !!meta.versions[v].successFirstLaunchAt,
+      t: new Date(meta.versions[v].downloadedAt).getTime()
+    }))
+    .sort((a, b) => {
+      if (a.hasSuccess !== b.hasSuccess) return a.hasSuccess ? 1 : -1;
+      return a.t - b.t;
+    });
   if (remaining.length > CACHE_MAX_VERSIONS) {
     const toRemove = remaining.slice(0, remaining.length - CACHE_MAX_VERSIONS);
     for (const item of toRemove) {

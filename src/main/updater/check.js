@@ -15,8 +15,15 @@ function compareVersions(v1, v2) {
   const parts1 = v1.split('.').map(Number);
   const parts2 = v2.split('.').map(Number);
   for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
-    const p1 = parts1[i] || 0;
-    const p2 = parts2[i] || 0;
+    const p1 = parts1[i];
+    const p2 = parts2[i];
+    if (isNaN(p1) || isNaN(p2)) {
+      const s1 = String(parts1[i] ?? '');
+      const s2 = String(parts2[i] ?? '');
+      if (s1 > s2) return 1;
+      if (s1 < s2) return -1;
+      continue;
+    }
     if (p1 > p2) return 1;
     if (p1 < p2) return -1;
   }

@@ -50,7 +50,10 @@
       }
     ],
     "win": {
-      "icon": "assets/icons/icon256.ico"
+      "icon": "assets/icons/icon256.ico",
+      "target": [
+        { "target": "zip", "arch": ["x64"] }
+      ]
     }
   }
 }

@@ -27,9 +27,9 @@ const {
 } = require('../src/main/updater/_integrity-rules');
 
 // 从 package.json 读取内部代号、描述、许可证等信息
-function getPackageInfo() {
+async function getPackageInfo() {
   const pkgPath = path.join(__dirname, '..', 'package.json');
-  const pkg = require(pkgPath);
+  const pkg = await fs.readJson(pkgPath);
   return {
     internalCodename: pkg.internalCodename || 'Unknown',
     description: pkg.description || 'Sparklet',
@@ -87,7 +87,7 @@ async function downloadAndHash(version) {
   console.log('[Generate] Downloading:', zipUrl);
   await new Promise((resolve, reject) => {
     const file = fs.createWriteStream(tempPath);
-    https.get(zipUrl, (response) => {
+    const req = https.get(zipUrl, (response) => {
       if (response.statusCode !== 200) {
         reject(new Error(`Download failed, status: ${response.statusCode}`));
         return;
@@ -95,7 +95,12 @@ async function downloadAndHash(version) {
       response.pipe(file);
       file.on('finish', resolve);
       file.on('error', reject);
-    }).on('error', reject);
+    });
+    req.setTimeout(60000, () => {
+      req.destroy();
+      reject(new Error('Download timeout (60s)'));
+    });
+    req.on('error', reject);
   });
   const hash = await computeSha256(tempPath);
   await fs.remove(tempPath);
@@ -158,7 +163,7 @@ async function main() {
   // 读取已有 manifest（保留之前生成的其他 hash 字段）
   const current = await readExistingCurrent();
   const releases = await readExistingReleases();
-  const pkgInfo = getPackageInfo();
+  const pkgInfo = await getPackageInfo();
 
   // ========== 计算 exeHash ==========
   if (exePath) {

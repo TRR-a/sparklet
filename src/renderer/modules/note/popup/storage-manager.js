@@ -58,7 +58,7 @@ class StorageManager {
         if (!this.initialized) await this.init();
 
         const newNote = {
-            id: `note_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+            id: `note_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
             title,
             content: '',
             color,

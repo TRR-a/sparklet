@@ -1,0 +1,13 @@
+[
+  {
+    "version": "v0.2.2",
+    "internalCodename": "Vapor",
+    "description": "Sparklet",
+    "license": "MIT",
+    "releaseDate": "2026-08-08T06:13:27.170Z",
+    "exeHash": "b4c1cc6b47d398bec06d0321f4cf4425046864273c47cc6db54c49886d0c3dd9",
+    "filesHash": "b43247545e3e32335d94c220afc7652ccb1b28effb2ef9f8acd1d8c4b85cc62b",
+    "hash": "2ac27f25f3cac513b74fdbddcd694ecc73a6a1d5f4deb435872f1eb00fa8d5de",
+    "packageHash": "2ac27f25f3cac513b74fdbddcd694ecc73a6a1d5f4deb435872f1eb00fa8d5de"
+  }
+]

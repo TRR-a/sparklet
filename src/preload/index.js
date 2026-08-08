@@ -48,6 +48,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
   openOfficialSite: () => ipcRenderer.invoke('app:open-official-site'),
 
+  // ========== 获取应用版本 ==========
+  getAppVersion: () => ipcRenderer.invoke('app:get-version'),
+
   // ========== 更新包缓存管理（设置页用）==========
   getUpdateCacheInfo: () => ipcRenderer.invoke('update-cache:get-info'),
   clearUpdateCache: () => ipcRenderer.invoke('update-cache:clear-all'),

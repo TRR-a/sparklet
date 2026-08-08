@@ -61,6 +61,7 @@ async function loadThemeAndI18n() {
 
     const currentLang = await initI18n();
     document.getElementById('languageSelect').value = currentLang;
+    loadUpdateHint();
 
     window.electronAPI.on('theme-broadcast', (theme) => {
         document.body.dataset.theme = theme;
@@ -304,6 +305,40 @@ document.getElementById('openOfficialSiteBtn').addEventListener('click', async (
     }
 });
 
+// ==================== 复制官网地址 ====================
+const officialUrlInput = document.getElementById('officialUrlInput');
+const copyUrlBtn = document.getElementById('copyUrlBtn');
+
+async function copyOfficialUrl() {
+    const url = officialUrlInput.value;
+    try {
+        await navigator.clipboard.writeText(url);
+        copyUrlBtn.textContent = '✅ ' + t('settings.copyUrlSuccess');
+        setTimeout(() => { copyUrlBtn.textContent = t('settings.copyUrl'); }, 2000);
+    } catch (err) {
+        officialUrlInput.select();
+        document.execCommand('copy');
+        copyUrlBtn.textContent = '✅ ' + t('settings.copyUrlSuccess');
+        setTimeout(() => { copyUrlBtn.textContent = t('settings.copyUrl'); }, 2000);
+    }
+}
+
+copyUrlBtn.addEventListener('click', copyOfficialUrl);
+officialUrlInput.addEventListener('click', () => {
+    officialUrlInput.select();
+});
+
+// ==================== 更新提示（替换版本号占位符）====================
+async function loadUpdateHint() {
+    try {
+        const version = await window.electronAPI.getAppVersion();
+        const hint = t('settings.updateHint');
+        document.getElementById('updateHint').textContent = hint.replace('{version}', `v${version}`);
+    } catch (err) {
+        console.error('加载更新提示失败:', err);
+    }
+}
+
 // ==================== 语言切换 ====================
 document.getElementById('languageSelect').addEventListener('change', async (e) => {
     const newLang = e.target.value;
@@ -311,6 +346,7 @@ document.getElementById('languageSelect').addEventListener('change', async (e) =
     if (success) {
         showToast('✅ ' + t('settings.languageChangeSuccess'));
         console.log('语言已切换为：', newLang);
+        loadUpdateHint();
     }
 });
 
@@ -809,7 +845,6 @@ function showUpdaterDialog(dialogId, dialogType, params, timeoutMs = 0) {
     }
   };
 
-  const { shell } = require('electron'); // 浏览器环境不会有，这里用 window.electronAPI.openOfficialSite
   const openExternal = (url) => {
     if (window.electronAPI && window.electronAPI.invoke) {
       window.electronAPI.invoke('app:open-external', url).catch(() => {});

@@ -16,6 +16,12 @@
   "settings.about": "About Sparklet",
   "settings.devTools": "Developer Tools",
   "settings.openOfficialSite": "🌐 Official Website",
+  "settings.officialUrlLabel": "Website",
+  "settings.copyUrl": "📋 Copy",
+  "settings.copyUrlTitle": "Click to copy URL",
+  "settings.copyUrlSuccess": "Copied",
+  "settings.officialUrlHint": "If you are unable to access GitHub, consider using an accelerator or proxy tool.",
+  "settings.updateHint": "Current version {version}. If you haven't received update notifications for a while, click \"Open Website\" to check manually. Click \"Releases\" on the right side of the website to view the latest version. If an update is available, download and extract the file to upgrade.",
   "about.title": "About Sparklet",
   "about.appName": "Sparklet",
   "about.version": "Version 0.2.2",
@@ -138,7 +144,6 @@
   "updater.toast.devEnvAutoDisabled": "Dev environment detected, updates auto-disabled",
   "updater.toast.updateFailedGeneric": "⚠️ Update failed, please retry or download manually from the official site",
   "updater.toast.updateFailedWithReason": "❌ Update failed: {reason}",
-
   "updater.rollback.toastCorruptedNoCache": "⚠️ Application files corrupted, and no valid local cache package available. Please download a fresh copy from the official site.",
   "updater.rollback.errorCreateTempDir": "❌ Failed to create temp directory, reinstall aborted",
   "updater.rollback.errorCreateTempDir.title": "Reinstall failed",
@@ -146,11 +151,9 @@
   "updater.rollback.errorCopyCache": "❌ Failed to copy cached package",
   "updater.rollback.errorCopyCache.title": "Cache package copy failed",
   "updater.rollback.errorCopyCache.body": "Unable to read or copy the cached installation package. Please retry later or download from the official site.",
-
   "dialog.simpleError.title": "Operation failed",
   "dialog.simpleError.body": "An error occurred while performing the operation. Please try again later.",
   "dialog.simpleError.btnOk": "OK",
-
   "dialog.updateConfirm.title": "New version available",
   "dialog.updateConfirm.newVersion": "New version",
   "dialog.updateConfirm.codename": "Internal codename",
@@ -160,14 +163,12 @@
   "dialog.updateConfirm.ask": "Download and install the update now?",
   "dialog.updateConfirm.btnUpdate": "Update now",
   "dialog.updateConfirm.btnLater": "Later",
-
   "dialog.notifyOnly.title": "New version available",
   "dialog.notifyOnly.newVersion": "New version",
   "dialog.notifyOnly.codename": "Internal codename",
   "dialog.notifyOnly.releaseDate": "Release date",
   "dialog.notifyOnly.tip": "Please manually download the corresponding version ZIP from GitHub Releases and extract it over your current directory to update:",
   "dialog.notifyOnly.btnGotIt": "Got it",
-
   "dialog.restartConfirm.title": "Update is ready",
   "dialog.restartConfirm.version": "Target version",
   "dialog.restartConfirm.codename": "Internal codename",
@@ -176,7 +177,6 @@
   "dialog.restartConfirm.countdown": "If no selection is made within {seconds}s, it will automatically choose \"Later\" and install on exit",
   "dialog.restartConfirm.btnRestart": "Restart & update now",
   "dialog.restartConfirm.btnLater": "Later (install on exit)",
-
   "dialog.rollbackCache.title": "File integrity check failed",
   "dialog.rollbackCache.intro": "Some application files appear to be corrupted or tampered with.",
   "dialog.rollbackCache.cacheAvailable": "✅ A valid cached install package for {version} was found on this machine (integrity check passed)",
@@ -185,13 +185,11 @@
   "dialog.rollbackCache.btnRollback": "Reinstall from cache",
   "dialog.rollbackCache.btnOfficial": "Go to official site",
   "dialog.rollbackCache.btnLater": "Do it later",
-
   "dialog.rollbackRestart.title": "Ready to reinstall",
   "dialog.rollbackRestart.ready": "The {version} installation package is ready.",
   "dialog.rollbackRestart.ask": "Restart the application now to begin reinstall?",
   "dialog.rollbackRestart.btnRestart": "Restart & reinstall now",
   "dialog.rollbackRestart.btnLater": "Later (reinstall on exit)",
-
   "dialog.rollbackNoCache.title": "File integrity check failed",
   "dialog.rollbackNoCache.intro": "Some application files appear to be corrupted or tampered with.",
   "dialog.rollbackNoCache.noCacheTip": "⚠️ No valid cached install package was found locally — direct rollback is not possible.",
@@ -199,7 +197,6 @@
   "dialog.rollbackNoCache.errorsLabel": "Error details (click to expand)",
   "dialog.rollbackNoCache.btnOfficial": "Go to official site",
   "dialog.rollbackNoCache.btnOk": "OK",
-
   "dialog.manualFailed.title": "Update failed",
   "dialog.manualFailed.tip": "An error occurred during the update. Details:",
   "dialog.manualFailed.btnOk": "OK"

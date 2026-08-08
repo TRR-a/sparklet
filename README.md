@@ -12,9 +12,11 @@
 - **⚙️ Settings Management** - Personalized preferences, including language, theme, update behavior, check frequency, integrity check switch
 - **🪟 Window Controls** - Native-style traffic light window buttons with fully customizable window control logic
 - **💾 Local Storage** - Secure data persistence powered by Electron Store. Notes / global config / system config stored independently. All data is saved offline locally with no server upload.
-- **🔄 Auto Update System** - Full GitHub Releases integration: version check → **full ZIP package download** with progress callbacks → SHA256 integrity verification → two update strategies (renderer-only direct replace / main-process external updater)
-- **🛡️ Startup Integrity Check** - SHA256-based application file integrity verification on every launch. Failed checks pop up an alert dialog.
-- **📂 Independent Config System** - Three candidate config folders + `fs.watch` real-time monitoring + config change broadcast across all windows. Editing the config file manually syncs the UI immediately.
+- **🔄 Auto Update System** - Full GitHub Releases integration: version check → **full ZIP package download** with progress callbacks → SHA256 integrity verification → external updater (asar-safe, applies after main process quits) → automatic restart
+- **📦 Update Package Cache** - Downloaded update ZIPs are persisted in `userData/update_cache/`. Supports rollback from cached ZIP when integrity check fails. Retention policy: successfully launched versions kept for N days (user-configurable 7~30); unused versions kept for 30 days; max 2 versions cached.
+- **🛡️ Startup Integrity Check** - SHA256-based multi-layer verification on every launch: executable hash (`exeHash`) + installed files combined hash (`filesHash`). Cloud manifest fallback when local manifest is missing. Failed checks trigger rollback dialog.
+- **📂 Independent Config System** - Three candidate config folders + `fs.watch` real-time monitoring (handles both `change` and `rename` events) + config change broadcast across all windows. Debounced to prevent duplicate broadcasts. Self-write detection avoids redundant notifications.
+- **🔗 Official URL Copy** - One-click copy of the project GitHub URL from the settings panel, with a hint about using an accelerator for GitHub access in mainland China.
 - **🍞 Toast Notification System** - Toast feedback supported on both the main window and the settings panel.
 - **🧑‍💻 Dev Environment Detection** - Automatically disables the update system, locks the UI update section, and shows a 10-second Toast reminder when running from source.
 - **🌐 Open Official Site Button** - One-click access to the GitHub project page from the settings panel.
@@ -46,7 +48,7 @@ Release file: **`sparklet-v0.2.2-win-x86_64.zip`** (ZIP Portable / Green / No-in
    - If Windows Defender SmartScreen warns "unrecognized app", click **"More info" → "Run anyway"**. The warning appears because the package is not digitally signed; the app itself is clean and safe to use.
 6. *(Optional)* Right-click `Sparklet.exe` → **"Send to" → "Desktop (create shortcut)"** so you can launch it from the desktop later.
 
-From v0.2.2 onward, the app has a built-in updater that performs automatic **full-package updates** (it downloads the complete ZIP each time, then intelligently decides between running an external updater for main-process changes or doing in-place file replacement for renderer-only changes — no need to manually re-download and re-extract).
+From v0.2.2 onward, the app has a built-in updater that performs automatic **full-package updates** (it downloads the complete ZIP each time, then uses an external updater to safely replace all files after the main process quits — no need to manually re-download and re-extract).
 
 ### Run from Source Code
 
@@ -122,6 +124,7 @@ In development mode (running from source), a 10-second Toast will remind you tha
 4. **Integrity Check**: Toggle SHA256 integrity check on application startup
 5. **Check Now**: Manually trigger an immediate update check
 6. **🌐 Open Official Site**: Visit the GitHub project page in your default browser
+7. **📦 Update Cache**: View cached update package info, configure retention days (7~30), refresh or clear cache
 
 ### Precautions
 
@@ -139,7 +142,7 @@ In development mode (running from source), a 10-second Toast will remind you tha
 
 ### Tech Stack
 
-Electron + Vanilla JavaScript + nw.js
+Electron + Vanilla JavaScript
 
 ### Project Structure
 
@@ -150,15 +153,18 @@ sparklet/
 │   │   ├── index.js          # Entry: window creation, IPC registration, updater init
 │   │   ├── preload/          # contextBridge preload scripts
 │   │   └── updater/          # Auto update module (v0.2.2+)
+│   │       ├── index.js          # Updater orchestration entry
 │   │       ├── check.js          # GitHub Releases version check
 │   │       ├── download.js       # ZIP download + progress
-│   │       ├── installer.js      # Direct replace / external updater dispatch
-│   │       ├── verify.js         # SHA256 integrity verification
-│   │       ├── config-manager.js # Persistent user config storage
+│   │       ├── installer.js      # External updater dispatch (asar-safe)
+│   │       ├── verify.js         # SHA256 multi-layer integrity verification
+│   │       ├── cache-manager.js  # Update package persistent cache + rollback
+│   │       ├── config-manager.js # Persistent user config storage + fs.watch
 │   │       ├── manifest-helper.js# manifest.current / manifest.releases reader
-│   │       ├── temp-manager.js   # Temporary directory cleanup
+│   │       ├── temp-manager.js   # Temporary directory management
 │   │       ├── constants.js      # Shared constants & defaults
-│   │       └── index.js          # Updater orchestration entry
+│   │       └── _integrity-rules.js # Shared file filtering rules (used by both
+│   │                              #   generate-manifest.js and verify.js)
 │   └── renderer/             # Renderer process (pure HTML/CSS/JS)
 │       └── modules/note/     # Note module (namespace for future multi-tab v0.2.6+)
 │           ├── popup/        # Main interface window
@@ -166,7 +172,7 @@ sparklet/
 │           ├── about/        # About window
 │           └── shared/       # i18n locales + common utilities
 ├── assets/                   # Icons and static assets (icon256.ico with sizes 256/128/64/48/32/16)
-├── resources/                # Extra runtime resources (updater.js for main-process updates)
+├── resources/                # Extra runtime resources (updater.js for external updates)
 ├── scripts/                  # Helper scripts (generate-manifest.js)
 ├── release/                  # Build output (release/v0.2.2/)
 ├── .husky/                   # Git hooks (commit-msg for commitlint)
@@ -241,9 +247,11 @@ This project is licensed under the MIT License.
 - **⚙️ 设置管理**：个性化设置，包括语言、主题、更新行为、检查频率、完整性校验开关
 - **🪟 窗口管理**：Mac 风格红绿灯按钮，完整自定义窗口控制逻辑
 - **💾 本地存储**：基于 Electron Store 实现安全数据持久化，**笔记数据 / 全局配置 / 系统配置相互独立**。所有数据均离线保存在本地，不会上传至任何服务器。
-- **🔄 自动更新系统**：完整对接 GitHub Releases：版本检查 → **完整 ZIP 包全量下载**（含进度回调）→ SHA256 完整性校验 → 两种更新应用方式（仅渲染层直接替换 / 含主进程外部更新器）
-- **🛡️ 启动完整性校验**：每次启动基于 SHA256 校验应用文件完整性，校验失败自动弹窗提示。
-- **📂 独立配置系统**：三个候选配置文件夹 + `fs.watch` 实时监听 + 全窗口配置变化广播。手动修改配置文件后，界面会立即自动同步。
+- **🔄 自动更新系统**：完整对接 GitHub Releases：版本检查 → **完整 ZIP 包全量下载**（含进度回调）→ SHA256 完整性校验 → 外部更新器（asar 安全，主进程退出后替换文件）→ 自动重启
+- **📦 更新包缓存**：下载的更新 ZIP 持久化保存在 `userData/update_cache/`。完整性校验失败时可从缓存回滚安装。保留策略：成功打开的版本保留 N 天（用户可配置 7~30 天）；未成功使用的版本保留 30 天；最多同时缓存 2 个版本。
+- **🛡️ 启动完整性校验**：每次启动基于 SHA256 多层校验：可执行文件哈希（`exeHash`）+ 已安装文件组合哈希（`filesHash`）。本地 manifest 缺失时自动从云端兜底。校验失败触发回滚对话框。
+- **📂 独立配置系统**：三个候选配置文件夹 + `fs.watch` 实时监听（同时处理 `change` 和 `rename` 事件）+ 全窗口配置变化广播。防抖机制避免重复广播，自写检测避免冗余通知。
+- **🔗 官网地址复制**：设置面板一键复制项目 GitHub 网址，附带国内访问 GitHub 建议使用加速器的提示。
 - **🍞 Toast 通知系统**：主界面与设置面板均支持 Toast 反馈。
 - **🧑‍💻 开发环境检测**：源码运行时自动禁用更新系统、锁定设置 UI 的更新区块，并显示 10 秒 Toast 提示。
 - **🌐 打开官网按钮**：设置面板一键跳转 GitHub 项目主页。
@@ -274,7 +282,7 @@ This project is licensed under the MIT License.
    - 若弹出 Windows Defender SmartScreen 提示「无法识别的应用」，点击 **「更多信息」→「仍要运行」**。该提示仅因压缩包未做数字签名产生，应用本身是安全可用的。
 6. *（可选）* 右键 `Sparklet.exe` → **「发送到」→「桌面快捷方式」**，之后从桌面双击即可快速启动。
 
-从 v0.2.2 起，应用内置更新器会自动进行**全量包更新**（每次下载完整 ZIP，然后智能判断：含主进程变更时走外部更新器整体替换，仅渲染层变更时原地覆盖文件 —— 无需用户手动重新下载解压）。
+从 v0.2.2 起，应用内置更新器会自动进行**全量包更新**（每次下载完整 ZIP，然后通过外部更新器在主进程退出后安全替换所有文件 —— 无需用户手动重新下载解压）。
 
 ### 源码运行方式
 1. 克隆本项目源码到本地
@@ -349,6 +357,7 @@ npm start
 4. **完整性校验**：开关每次启动时的 SHA256 应用完整性检查
 5. **立即检查**：手动触发一次立即更新检查
 6. **🌐 打开官网**：默认浏览器跳转 GitHub 项目主页
+7. **📦 更新包缓存**：查看缓存更新包信息、配置保留天数（7~30 天）、刷新或清除缓存
 
 ### 注意事项
 
@@ -366,7 +375,7 @@ npm start
 
 ### 技术栈
 
-Electron + 原生 JS + nw.js
+Electron + 原生 JavaScript
 
 ### 项目结构
 
@@ -377,15 +386,17 @@ sparklet/
 │   │   ├── index.js          # 入口：窗口创建 / IPC 注册 / 更新器初始化
 │   │   ├── preload/          # contextBridge 预加载脚本
 │   │   └── updater/          # 自动更新模块（v0.2.2 起引入）
+│   │       ├── index.js          # 更新器编排入口
 │   │       ├── check.js          # GitHub Releases 版本检查
 │   │       ├── download.js       # ZIP 下载 + 进度回调
-│   │       ├── installer.js      # 直接替换 / 外部更新器分派
-│   │       ├── verify.js         # SHA256 完整性校验
-│   │       ├── config-manager.js # 用户配置持久化存储
+│   │       ├── installer.js      # 外部更新器分派（asar 安全）
+│   │       ├── verify.js         # SHA256 多层完整性校验
+│   │       ├── cache-manager.js  # 更新包持久缓存 + 回滚
+│   │       ├── config-manager.js # 用户配置持久化存储 + fs.watch
 │   │       ├── manifest-helper.js# manifest.current / manifest.releases 读取
-│   │       ├── temp-manager.js   # 临时目录清理
+│   │       ├── temp-manager.js   # 临时目录管理
 │   │       ├── constants.js      # 共享常量与默认值
-│   │       └── index.js          # 更新器编排入口
+│   │       └── _integrity-rules.js # 共享文件过滤规则（生成端和运行端共用）
 │   └── renderer/             # 渲染进程（纯 HTML/CSS/JS）
 │       └── modules/note/     # 笔记模块
 │           ├── popup/        # 主界面窗口
@@ -393,7 +404,7 @@ sparklet/
 │           ├── about/        # 关于窗口
 │           └── shared/       # 多语言资源 + 通用工具
 ├── assets/                   # 图标与静态资源（icon256.ico，含 256/128/64/48/32/16 多尺寸）
-├── resources/                # 额外运行时资源（external updater 外部更新脚本）
+├── resources/                # 额外运行时资源（外部更新脚本 updater.js）
 ├── scripts/                  # 辅助脚本（生成清单文件 generate-manifest.js）
 ├── release/                  # 打包输出（release/v0.2.2/）
 ├── .husky/                   # Git Hooks（commit-msg 提交格式校验）

@@ -244,6 +244,11 @@ function createAboutWindow() {
 }
 ipcMain.handle('open-about-window', createAboutWindow);
 
+// ========== 获取应用版本 ==========
+ipcMain.handle('app:get-version', () => {
+  return app.getVersion();
+});
+
 // ========== 更新配置IPC ==========
 const {
   readConfig,

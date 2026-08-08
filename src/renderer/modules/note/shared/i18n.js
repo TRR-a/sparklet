@@ -83,8 +83,12 @@ export async function initI18n() {
  * @param {string} key 翻译键名
  * @returns {string} 翻译后的文本
  */
-export function t(key) {
-  return currentTranslations[key] || key;
+export function t(key, params = {}) {
+  let text = currentTranslations[key] || key;
+  for (const [k, v] of Object.entries(params)) {
+    text = text.replace(new RegExp(`{${k}}`, 'g'), v);
+  }
+  return text;
 }
 
 /**

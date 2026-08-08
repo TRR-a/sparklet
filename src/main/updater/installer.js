@@ -45,7 +45,8 @@ async function runExternalUpdater(zipPath, tempDir, targetVersion) {
       env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
       detached: true,
       stdio: 'ignore',
-      windowsHide: true
+      windowsHide: true,
+      cwd: path.dirname(process.execPath)
     });
     nodeProcess.unref();
     setTimeout(() => {

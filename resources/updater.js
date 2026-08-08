@@ -86,21 +86,16 @@ function waitForMainProcessExit() {
     console.log('[Updater] Waiting for main process (PID: ' + mainPid + ') to exit...');
     const checkInterval = setInterval(() => {
       try {
-        const isWindows = process.platform === 'win32';
-        const cmd = isWindows
-          ? `tasklist /FI "PID eq ${mainPid}"`
-          : `ps -p ${mainPid}`;
-        require('child_process').exec(cmd, (error, stdout) => {
-          if (error || !stdout.includes(mainPid.toString())) {
-            clearInterval(checkInterval);
-            console.log('[Updater] Main process exited');
-            setTimeout(resolve, 500);
-          }
-        });
+        process.kill(mainPid, 0);
+        // 没抛异常 → 进程还在，继续等
       } catch (err) {
-        console.log('[Updater] Process check error, assuming exited');
-        clearInterval(checkInterval);
-        setTimeout(resolve, 1000);
+        if (err.code === 'ESRCH') {
+          clearInterval(checkInterval);
+          console.log('[Updater] Main process exited');
+          setTimeout(resolve, 500);
+        } else {
+          console.warn('[Updater] Process check warning:', err.message);
+        }
       }
     }, 400);
     setTimeout(() => {
@@ -308,12 +303,6 @@ function closeLogSync() {
   if (!logStream) return;
   try {
     logStream.end();
-  } catch (_) { /* ignore */ }
-  try {
-    const fd = (logStream && logStream.fd);
-    if (typeof fd === 'number') {
-      require('fs').closeSync(fd);
-    }
   } catch (_) { /* ignore */ }
   logStream = null;
 }
