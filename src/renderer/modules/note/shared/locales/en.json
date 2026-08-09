@@ -1,5 +1,6 @@
 {
-  "app.name": "SparkLet",
+  "app.name": "Sparklet",
+
   "main.newNote": "+ New Note",
   "main.noteTitlePlaceholder": "Note Title...",
   "main.noteContentPlaceholder": "Capture your inspiration...",
@@ -8,6 +9,7 @@
   "main.btnRestore": "Restore",
   "main.btnPermanentDelete": "Delete Permanently",
   "main.confirmPermanentDelete": "Are you sure to permanently delete this note? This action cannot be undone!",
+  
   "settings.title": "Settings",
   "settings.language": "Language",
   "settings.interfaceLanguage": "Interface Language:",
@@ -22,6 +24,7 @@
   "settings.copyUrlSuccess": "Copied",
   "settings.officialUrlHint": "If you are unable to access GitHub, consider using an accelerator or proxy tool.",
   "settings.updateHint": "Current version {version}. If you haven't received update notifications for a while, click \"Open Website\" to check manually. Click \"Releases\" on the right side of the website to view the latest version. If an update is available, download and extract the file to upgrade.",
+  
   "about.title": "About Sparklet",
   "about.appName": "Sparklet",
   "about.version": "Version 0.2.2",
@@ -31,14 +34,17 @@
   "about.electronVersion": "Electron Version",
   "about.nodeVersion": "Node.js Version",
   "about.nwjsVersion": "NW.js Version",
+  
   "theme.light": "Switch to Dark Theme",
   "theme.dark": "Switch to Light Theme",
+  
   "tooltip.trash": "Trash",
   "tooltip.settings": "Settings",
   "tooltip.minimize": "Minimize",
   "tooltip.maximize": "Maximize",
   "tooltip.close": "Close",
   "tooltip.deleteNote": "Delete Note",
+  
   "settings.updater": "Updates",
   "settings.updaterBehavior": "Update check policy:",
   "settings.updaterAuto": "Always check for updates",
@@ -123,6 +129,7 @@
   "settings.configIO.description": "One-click backup of current update settings (policy, frequency, auto-download, integrity check, retention days, etc.) for quick restore on new devices or reinstall.",
   "settings.configIO.exportBtn": "📤 Export as JSON",
   "settings.configIO.importBtn": "📥 Import from JSON",
+  
   "confirm.default.title": "Confirm delete",
   "confirm.default.message": "Are you sure you want to delete?",
   "confirm.default.ok": "Confirm",
@@ -133,11 +140,14 @@
   "confirm.importConfig.title": "Overwrite current settings?",
   "confirm.importConfig.message": "Update settings in the imported file (update policy, frequency, retention days, etc.) will overwrite your current settings. Continue?",
   "confirm.importConfig.ok": "Continue import",
+  
   "fmt.days.count": "{n} days",
   "fmt.days.zero": "0 days",
   "fmt.days.about": "About {days} days",
   "fmt.hours.about": "About {hours} hours",
+  
   "toast.defaultMessage": "Notice",
+  
   "updater.toast.devEnvDisabled": "Dev environment detected, update functionality is disabled",
   "updater.toast.disabledByCli": "Updates are disabled by command line argument",
   "updater.toast.checking": "Checking for updates, please wait...",
@@ -151,6 +161,7 @@
   "updater.rollback.errorCopyCache": "❌ Failed to copy cached package",
   "updater.rollback.errorCopyCache.title": "Cache package copy failed",
   "updater.rollback.errorCopyCache.body": "Unable to read or copy the cached installation package. Please retry later or download from the official site.",
+  
   "dialog.simpleError.title": "Operation failed",
   "dialog.simpleError.body": "An error occurred while performing the operation. Please try again later.",
   "dialog.simpleError.btnOk": "OK",

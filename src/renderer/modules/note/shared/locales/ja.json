@@ -1,5 +1,6 @@
 {
-  "app.name": "SparkLet",
+  "app.name": "Sparklet",
+  
   "main.newNote": "+ 新規ノート",
   "main.noteTitlePlaceholder": "ノートタイトル...",
   "main.noteContentPlaceholder": "インスピレーションを記録...",
@@ -8,6 +9,7 @@
   "main.btnRestore": "復元",
   "main.btnPermanentDelete": "完全に削除",
   "main.confirmPermanentDelete": "このノートを完全に削除してもよろしいですか？この操作は元に戻せません！",
+  
   "settings.title": "設定",
   "settings.language": "言語",
   "settings.interfaceLanguage": "インターフェース言語：",
@@ -22,6 +24,7 @@
   "settings.copyUrlSuccess": "コピー済み",
   "settings.officialUrlHint": "GitHubにアクセスできない場合は、アクセラレータまたはプロキシツールの使用をお勧めします。",
   "settings.updateHint": "現在のバージョン {version}。更新通知が長期間届かない場合は、「公式サイトを開く」をクリックして手動で確認してください。サイト内で右側のReleasesをクリックすると最新バージョンが表示されます。更新がある場合はZIPファイルをダウンロードし、解凍してアップグレードを完了してください。",
+  
   "about.title": "Sparkletについて",
   "about.appName": "Sparklet",
   "about.version": "バージョン 0.2.2",
@@ -31,14 +34,17 @@
   "about.electronVersion": "Electron バージョン",
   "about.nodeVersion": "Node.js バージョン",
   "about.nwjsVersion": "NW.js バージョン",
+  
   "theme.light": "ダークテーマに切り替え",
   "theme.dark": "ライトテーマに切り替え",
+  
   "tooltip.trash": "ゴミ箱",
   "tooltip.settings": "設定",
   "tooltip.minimize": "最小化",
   "tooltip.maximize": "最大化",
   "tooltip.close": "閉じる",
   "tooltip.deleteNote": "ノートを削除",
+  
   "settings.updater": "アップデート",
   "settings.updaterBehavior": "更新確認ポリシー：",
   "settings.updaterAuto": "常に更新を確認",
@@ -123,6 +129,7 @@
   "settings.configIO.description": "現在の更新設定（モード、頻度、自動ダウンロード、整合性検証、保持日数など）をワンクリックでバックアップし、別のデバイスや再インストール後に素早く復元できます。",
   "settings.configIO.exportBtn": "📤 JSONとしてエクスポート",
   "settings.configIO.importBtn": "📥 JSONからインポート",
+  
   "confirm.default.title": "削除の確認",
   "confirm.default.message": "本当に削除しますか？",
   "confirm.default.ok": "確定",
@@ -133,11 +140,14 @@
   "confirm.importConfig.title": "現在の設定を上書きしますか？",
   "confirm.importConfig.message": "インポートファイル内の更新設定（ポリシー、頻度、保持日数など）が現在の設定を上書きします。続行しますか？",
   "confirm.importConfig.ok": "続行",
+  
   "fmt.days.count": "{n} 日",
   "fmt.days.zero": "0 日",
   "fmt.days.about": "約 {days} 日",
   "fmt.hours.about": "約 {hours} 時間",
+  
   "toast.defaultMessage": "通知",
+  
   "updater.toast.devEnvDisabled": "開発環境のため、更新機能は無効です",
   "updater.toast.disabledByCli": "コマンドラインパラメータにより更新が無効化されています",
   "updater.toast.checking": "更新を確認中です。しばらくお待ちください...",
@@ -151,6 +161,7 @@
   "updater.rollback.errorCopyCache": "❌ キャッシュファイルのコピーに失敗しました",
   "updater.rollback.errorCopyCache.title": "キャッシュパッケージのコピーに失敗",
   "updater.rollback.errorCopyCache.body": "キャッシュされたインストールパッケージの読み取りまたはコピーに失敗しました。後でもう一度試すか、公式サイトからダウンロードしてください。",
+  
   "dialog.simpleError.title": "操作に失敗しました",
   "dialog.simpleError.body": "操作の実行中にエラーが発生しました。後でもう一度お試しください。",
   "dialog.simpleError.btnOk": "確定",

@@ -1,5 +1,6 @@
 {
-  "app.name": "SparkLet",
+  "app.name": "Sparklet",
+
   "main.newNote": "+ Nouvelle note",
   "main.noteTitlePlaceholder": "Titre de la note...",
   "main.noteContentPlaceholder": "Notez votre inspiration...",
@@ -8,6 +9,7 @@
   "main.btnRestore": "Restaurer",
   "main.btnPermanentDelete": "Supprimer définitivement",
   "main.confirmPermanentDelete": "Voulez-vous vraiment supprimer définitivement cette note ? Cette action est irréversible !",
+  
   "settings.title": "Paramètres",
   "settings.language": "Langue",
   "settings.interfaceLanguage": "Langue de l'interface :",
@@ -22,6 +24,7 @@
   "settings.copyUrlSuccess": "Copié",
   "settings.officialUrlHint": "Si vous ne pouvez pas accéder à GitHub, il est recommandé d'utiliser un accélérateur ou un outil proxy.",
   "settings.updateHint": "Version actuelle {version}. Si vous ne recevez pas de notification de mise à jour depuis longtemps, cliquez sur « Ouvrir le site officiel » pour vérifier manuellement. Sur le site, cliquez sur Releases à droite pour voir la dernière version. Si une mise à jour est disponible, téléchargez le fichier ZIP et décompressez-le pour effectuer la mise à niveau.",
+  
   "about.title": "À propos de Sparklet",
   "about.appName": "Sparklet",
   "about.version": "Version 0.2.2",
@@ -31,14 +34,17 @@
   "about.electronVersion": "Version d'Electron",
   "about.nodeVersion": "Version de Node.js",
   "about.nwjsVersion": "Version de NW.js",
+  
   "theme.light": "Passer au thème sombre",
   "theme.dark": "Passer au thème clair",
+  
   "tooltip.trash": "Corbeille",
   "tooltip.settings": "Paramètres",
   "tooltip.minimize": "Réduire",
   "tooltip.maximize": "Agrandir",
   "tooltip.close": "Fermer",
   "tooltip.deleteNote": "Supprimer la note",
+  
   "settings.updater": "Mise à jour",
   "settings.updaterBehavior": "Stratégie de vérification des mises à jour :",
   "settings.updaterAuto": "Toujours rechercher les mises à jour",
@@ -123,6 +129,7 @@
   "settings.configIO.description": "Sauvegardez en un clic les paramètres de mise à jour actuels (mode, fréquence, téléchargement automatique, vérification d'intégrité, jours de conservation, etc.) pour les restaurer rapidement sur un autre appareil ou après réinstallation.",
   "settings.configIO.exportBtn": "📤 Exporter en JSON",
   "settings.configIO.importBtn": "📥 Importer depuis JSON",
+  
   "confirm.default.title": "Confirmer la suppression",
   "confirm.default.message": "Voulez-vous vraiment supprimer ?",
   "confirm.default.ok": "Confirmer",
@@ -133,11 +140,14 @@
   "confirm.importConfig.title": "Remplacer la configuration actuelle ?",
   "confirm.importConfig.message": "Les paramètres de mise à jour (stratégie, fréquence, jours de conservation, etc.) du fichier importé remplaceront la configuration actuelle. Continuer ?",
   "confirm.importConfig.ok": "Continuer",
+  
   "fmt.days.count": "{n} jours",
   "fmt.days.zero": "0 jour",
   "fmt.days.about": "environ {days} jours",
   "fmt.hours.about": "environ {hours} heures",
+  
   "toast.defaultMessage": "Avis",
+  
   "updater.toast.devEnvDisabled": "Environnement de développement, fonction de mise à jour désactivée",
   "updater.toast.disabledByCli": "Les mises à jour ont été désactivées par des paramètres de ligne de commande",
   "updater.toast.checking": "Recherche de mises à jour, veuillez patienter...",
@@ -151,6 +161,7 @@
   "updater.rollback.errorCopyCache": "❌ Échec de la copie du fichier de cache",
   "updater.rollback.errorCopyCache.title": "Échec de la copie du paquet de cache",
   "updater.rollback.errorCopyCache.body": "Échec de la lecture ou de la copie du paquet d'installation en cache. Veuillez réessayer plus tard ou télécharger depuis le site officiel.",
+  
   "dialog.simpleError.title": "Échec de l'opération",
   "dialog.simpleError.body": "Une erreur s'est produite lors de l'exécution de l'opération. Veuillez réessayer plus tard.",
   "dialog.simpleError.btnOk": "Confirmer",

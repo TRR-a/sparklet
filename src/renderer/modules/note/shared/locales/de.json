@@ -1,5 +1,6 @@
 {
-  "app.name": "SparkLet",
+  "app.name": "Sparklet",
+
   "main.newNote": "+ Neue Notiz",
   "main.noteTitlePlaceholder": "Notiztitel...",
   "main.noteContentPlaceholder": "Halten Sie Ihre Inspiration fest...",
@@ -8,6 +9,7 @@
   "main.btnRestore": "Wiederherstellen",
   "main.btnPermanentDelete": "Endgültig löschen",
   "main.confirmPermanentDelete": "Möchten Sie diese Notiz wirklich endgültig löschen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+  
   "settings.title": "Einstellungen",
   "settings.language": "Sprache",
   "settings.interfaceLanguage": "Oberflächensprache:",
@@ -22,6 +24,7 @@
   "settings.copyUrlSuccess": "Kopiert",
   "settings.officialUrlHint": "Wenn Sie GitHub nicht erreichen können, verwenden Sie einen Beschleuniger oder ein Proxy-Tool.",
   "settings.updateHint": "Aktuelle Version {version}. Wenn Sie längere Zeit keine Update-Benachrichtigung erhalten, klicken Sie auf „Website öffnen“, um manuell zu prüfen. Klicken Sie auf der Website rechts auf Releases, um die neueste Version zu sehen. Bei verfügbarem Update laden Sie die ZIP-Datei herunter und entpacken sie, um das Upgrade durchzuführen.",
+  
   "about.title": "Über Sparklet",
   "about.appName": "Sparklet",
   "about.version": "Version 0.2.2",
@@ -31,14 +34,17 @@
   "about.electronVersion": "Electron-Version",
   "about.nodeVersion": "Node.js-Version",
   "about.nwjsVersion": "NW.js-Version",
+  
   "theme.light": "Zu dunklem Thema wechseln",
   "theme.dark": "Zu hellem Thema wechseln",
+  
   "tooltip.trash": "Papierkorb",
   "tooltip.settings": "Einstellungen",
   "tooltip.minimize": "Minimieren",
   "tooltip.maximize": "Maximieren",
   "tooltip.close": "Schließen",
   "tooltip.deleteNote": "Notiz löschen",
+  
   "settings.updater": "Update",
   "settings.updaterBehavior": "Update-Prüfstrategie:",
   "settings.updaterAuto": "Immer nach Updates suchen",
@@ -123,6 +129,7 @@
   "settings.configIO.description": "Sichern Sie die aktuellen Update-Einstellungen (Modus, Häufigkeit, automatischer Download, Integritätsprüfung, Aufbewahrungstage) mit einem Klick, um sie auf anderen Geräten oder nach Neuinstallation schnell wiederherzustellen.",
   "settings.configIO.exportBtn": "📤 Als JSON exportieren",
   "settings.configIO.importBtn": "📥 Aus JSON importieren",
+  
   "confirm.default.title": "Löschen bestätigen",
   "confirm.default.message": "Möchten Sie wirklich löschen?",
   "confirm.default.ok": "Bestätigen",
@@ -133,11 +140,14 @@
   "confirm.importConfig.title": "Aktuelle Einstellungen überschreiben?",
   "confirm.importConfig.message": "Die Update-Einstellungen (Strategie, Häufigkeit, Aufbewahrungstage usw.) aus der importierten Datei überschreiben die aktuellen Einstellungen. Fortfahren?",
   "confirm.importConfig.ok": "Fortfahren",
+  
   "fmt.days.count": "{n} Tage",
   "fmt.days.zero": "0 Tage",
   "fmt.days.about": "etwa {days} Tage",
   "fmt.hours.about": "etwa {hours} Stunden",
+  
   "toast.defaultMessage": "Hinweis",
+  
   "updater.toast.devEnvDisabled": "Entwicklungsumgebung, Update-Funktion deaktiviert",
   "updater.toast.disabledByCli": "Updates wurden durch Befehlszeilenparameter deaktiviert",
   "updater.toast.checking": "Suche nach Updates, bitte warten...",
@@ -151,6 +161,7 @@
   "updater.rollback.errorCopyCache": "❌ Kopieren der Cache-Datei fehlgeschlagen",
   "updater.rollback.errorCopyCache.title": "Kopieren des Cache-Pakets fehlgeschlagen",
   "updater.rollback.errorCopyCache.body": "Lesen oder Kopieren des Cache-Installationspakets fehlgeschlagen. Bitte später erneut versuchen oder von der Website herunterladen.",
+  
   "dialog.simpleError.title": "Vorgang fehlgeschlagen",
   "dialog.simpleError.body": "Beim Ausführen des Vorgangs ist ein Fehler aufgetreten. Bitte später erneut versuchen.",
   "dialog.simpleError.btnOk": "Bestätigen",

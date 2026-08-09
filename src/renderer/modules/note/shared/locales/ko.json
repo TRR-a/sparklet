@@ -1,5 +1,6 @@
 {
-  "app.name": "SparkLet",
+  "app.name": "Sparklet",
+
   "main.newNote": "+ 새 노트",
   "main.noteTitlePlaceholder": "노트 제목...",
   "main.noteContentPlaceholder": "영감을 기록하세요...",
@@ -8,6 +9,7 @@
   "main.btnRestore": "복원",
   "main.btnPermanentDelete": "영구 삭제",
   "main.confirmPermanentDelete": "이 노트를 영구 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다!",
+  
   "settings.title": "설정",
   "settings.language": "언어",
   "settings.interfaceLanguage": "인터페이스 언어:",
@@ -22,6 +24,7 @@
   "settings.copyUrlSuccess": "복사됨",
   "settings.officialUrlHint": "GitHub에 접속할 수 없는 경우 가속기 또는 프록시 도구 사용을 권장합니다.",
   "settings.updateHint": "현재 버전 {version}입니다. 오랫동안 업데이트 알림을 받지 못한 경우 '공식 사이트 열기'를 클릭하여 수동으로 확인하세요. 사이트에서 오른쪽의 Releases를 클릭하면 최신 버전을 볼 수 있습니다. 업데이트가 있으면 ZIP 파일을 다운로드하고 압축을 풀어 업그레이드하세요.",
+  
   "about.title": "Sparklet 정보",
   "about.appName": "Sparklet",
   "about.version": "버전 0.2.2",
@@ -31,14 +34,17 @@
   "about.electronVersion": "Electron 버전",
   "about.nodeVersion": "Node.js 버전",
   "about.nwjsVersion": "NW.js 버전",
+  
   "theme.light": "다크 테마로 전환",
   "theme.dark": "라이트 테마로 전환",
+  
   "tooltip.trash": "휴지통",
   "tooltip.settings": "설정",
   "tooltip.minimize": "최소화",
   "tooltip.maximize": "최대화",
   "tooltip.close": "닫기",
   "tooltip.deleteNote": "노트 삭제",
+  
   "settings.updater": "업데이트",
   "settings.updaterBehavior": "업데이트 확인 정책:",
   "settings.updaterAuto": "항상 업데이트 확인",
@@ -123,6 +129,7 @@
   "settings.configIO.description": "현재 업데이트 설정(모드, 빈도, 자동 다운로드, 무결성 검증, 보관 일수 등)을 한 번에 백업하여 다른 기기나 재설치 후 빠르게 복원할 수 있습니다.",
   "settings.configIO.exportBtn": "📤 JSON으로 내보내기",
   "settings.configIO.importBtn": "📥 JSON에서 가져오기",
+  
   "confirm.default.title": "삭제 확인",
   "confirm.default.message": "정말 삭제하시겠습니까?",
   "confirm.default.ok": "확인",
@@ -133,11 +140,14 @@
   "confirm.importConfig.title": "현재 설정을 덮어쓰시겠습니까?",
   "confirm.importConfig.message": "가져온 파일의 업데이트 설정(정책, 빈도, 보관 일수 등)이 현재 설정을 덮어씁니다. 계속하시겠습니까?",
   "confirm.importConfig.ok": "계속",
+  
   "fmt.days.count": "{n}일",
   "fmt.days.zero": "0일",
   "fmt.days.about": "약 {days}일",
   "fmt.hours.about": "약 {hours}시간",
+  
   "toast.defaultMessage": "알림",
+  
   "updater.toast.devEnvDisabled": "개발 환경이므로 업데이트 기능이 비활성화되었습니다",
   "updater.toast.disabledByCli": "명령줄 매개변수로 인해 업데이트가 비활성화되었습니다",
   "updater.toast.checking": "업데이트를 확인 중입니다. 잠시 기다려주세요...",
@@ -151,6 +161,7 @@
   "updater.rollback.errorCopyCache": "❌ 캐시 파일 복사 실패",
   "updater.rollback.errorCopyCache.title": "캐시 패키지 복사 실패",
   "updater.rollback.errorCopyCache.body": "캐시된 설치 패키지 읽기 또는 복사에 실패했습니다. 나중에 다시 시도하거나 공식 사이트에서 다운로드하세요.",
+  
   "dialog.simpleError.title": "작업 실패",
   "dialog.simpleError.body": "작업 실행 중 오류가 발생했습니다. 나중에 다시 시도하세요.",
   "dialog.simpleError.btnOk": "확인",

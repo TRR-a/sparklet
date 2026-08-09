@@ -1,5 +1,6 @@
 {
-  "app.name": "SparkLet",
+  "app.name": "Sparklet",
+  
   "main.newNote": "+ Новая заметка",
   "main.noteTitlePlaceholder": "Заголовок заметки...",
   "main.noteContentPlaceholder": "Записывайте свои идеи...",
@@ -8,6 +9,7 @@
   "main.btnRestore": "Восстановить",
   "main.btnPermanentDelete": "Удалить навсегда",
   "main.confirmPermanentDelete": "Вы уверены, что хотите окончательно удалить эту заметку? Это действие необратимо!",
+  
   "settings.title": "Настройки",
   "settings.language": "Язык",
   "settings.interfaceLanguage": "Язык интерфейса:",
@@ -22,6 +24,7 @@
   "settings.copyUrlSuccess": "Скопировано",
   "settings.officialUrlHint": "Если нет доступа к GitHub, рекомендуется использовать ускоритель или прокси-инструмент.",
   "settings.updateHint": "Текущая версия {version}. Если вы давно не получали уведомлений об обновлениях, нажмите «Открыть официальный сайт» для ручной проверки. На сайте нажмите Releases справа, чтобы увидеть последнюю версию. Если доступно обновление, скачайте ZIP-файл и распакуйте его для выполнения обновления.",
+  
   "about.title": "О Sparklet",
   "about.appName": "Sparklet",
   "about.version": "Версия 0.2.2",
@@ -31,14 +34,17 @@
   "about.electronVersion": "Версия Electron",
   "about.nodeVersion": "Версия Node.js",
   "about.nwjsVersion": "Версия NW.js",
+  
   "theme.light": "Переключиться на тёмную тему",
   "theme.dark": "Переключиться на светлую тему",
+  
   "tooltip.trash": "Корзина",
   "tooltip.settings": "Настройки",
   "tooltip.minimize": "Свернуть",
   "tooltip.maximize": "Развернуть",
   "tooltip.close": "Закрыть",
   "tooltip.deleteNote": "Удалить заметку",
+  
   "settings.updater": "Обновление",
   "settings.updaterBehavior": "Стратегия проверки обновлений:",
   "settings.updaterAuto": "Всегда проверять обновления",
@@ -123,6 +129,7 @@
   "settings.configIO.description": "Сделайте резервную копию текущих настроек обновлений (режим, частота, автоматическая загрузка, проверка целостности, срок хранения и т.д.) одним нажатием, чтобы быстро восстановить их на другом устройстве или после переустановки.",
   "settings.configIO.exportBtn": "📤 Экспортировать в JSON",
   "settings.configIO.importBtn": "📥 Импортировать из JSON",
+  
   "confirm.default.title": "Подтверждение удаления",
   "confirm.default.message": "Вы уверены, что хотите удалить?",
   "confirm.default.ok": "ОК",
@@ -133,11 +140,14 @@
   "confirm.importConfig.title": "Перезаписать текущие настройки?",
   "confirm.importConfig.message": "Настройки обновлений (стратегия, частота, срок хранения и т.д.) из импортируемого файла перезапишут текущие. Продолжить?",
   "confirm.importConfig.ok": "Продолжить",
+  
   "fmt.days.count": "{n} дней",
   "fmt.days.zero": "0 дней",
   "fmt.days.about": "около {days} дней",
   "fmt.hours.about": "около {hours} часов",
+  
   "toast.defaultMessage": "Уведомление",
+  
   "updater.toast.devEnvDisabled": "Среда разработки, функция обновления отключена",
   "updater.toast.disabledByCli": "Обновления отключены параметрами командной строки",
   "updater.toast.checking": "Поиск обновлений, пожалуйста, подождите...",
@@ -151,6 +161,7 @@
   "updater.rollback.errorCopyCache": "❌ Ошибка копирования файла кеша",
   "updater.rollback.errorCopyCache.title": "Ошибка копирования кеш-пакета",
   "updater.rollback.errorCopyCache.body": "Не удалось прочитать или скопировать кешированный установочный пакет. Повторите попытку позже или скачайте с официального сайта.",
+  
   "dialog.simpleError.title": "Ошибка операции",
   "dialog.simpleError.body": "При выполнении операции произошла ошибка. Повторите попытку позже.",
   "dialog.simpleError.btnOk": "ОК",

@@ -1,5 +1,6 @@
 {
-  "app.name": "SparkLet",
+  "app.name": "Sparklet",
+  
   "main.newNote": "+ 新建笔记",
   "main.noteTitlePlaceholder": "笔记标题...",
   "main.noteContentPlaceholder": "记录您的灵感...",
@@ -8,6 +9,7 @@
   "main.btnRestore": "还原",
   "main.btnPermanentDelete": "彻底删除",
   "main.confirmPermanentDelete": "确定要永久删除此笔记吗？此操作不可撤销！",
+  
   "settings.title": "设置",
   "settings.language": "语言",
   "settings.interfaceLanguage": "界面语言：",
@@ -22,6 +24,7 @@
   "settings.copyUrlSuccess": "已复制",
   "settings.officialUrlHint": "若无法访问 GitHub，建议使用加速器或代理工具后重试。",
   "settings.updateHint": "当前版本 {version}。若长时间未收到更新提示，可点击「打开官网」手动检查。进入官网后点击右侧 Releases 即可查看最新版本，如有可用更新，下载并解压文件即可完成升级。",
+  
   "about.title": "关于 Sparklet",
   "about.appName": "Sparklet",
   "about.version": "版本 0.2.2",
@@ -31,14 +34,17 @@
   "about.electronVersion": "Electron 版本",
   "about.nodeVersion": "Node.js 版本",
   "about.nwjsVersion": "NW.js 版本",
+  
   "theme.light": "切换到暗色主题",
   "theme.dark": "切换到亮色主题",
+  
   "tooltip.trash": "回收站",
   "tooltip.settings": "设置",
   "tooltip.minimize": "最小化",
   "tooltip.maximize": "最大化",
   "tooltip.close": "关闭",
   "tooltip.deleteNote": "删除笔记",
+  
   "settings.updater": "更新",
   "settings.updaterBehavior": "更新检查策略：",
   "settings.updaterAuto": "始终检查更新",
@@ -123,6 +129,7 @@
   "settings.configIO.description": "一键备份当前更新设置（更新模式、检查频率、自动下载、完整性校验、保留天数等），换设备或重装时可快速还原。",
   "settings.configIO.exportBtn": "📤 导出为 JSON",
   "settings.configIO.importBtn": "📥 从 JSON 导入",
+  
   "confirm.default.title": "确认删除",
   "confirm.default.message": "确定要删除吗？",
   "confirm.default.ok": "确定",
@@ -133,11 +140,14 @@
   "confirm.importConfig.title": "覆盖当前设置？",
   "confirm.importConfig.message": "导入文件中的更新设置（更新策略、频率、保留天数等）会覆盖当前设置，是否继续？",
   "confirm.importConfig.ok": "继续导入",
+  
   "fmt.days.count": "{n} 天",
   "fmt.days.zero": "0 天",
   "fmt.days.about": "约 {days} 天",
   "fmt.hours.about": "约 {hours} 小时",
+  
   "toast.defaultMessage": "提示",
+  
   "updater.toast.devEnvDisabled": "当前为开发环境，更新功能已禁用",
   "updater.toast.disabledByCli": "更新已被命令行参数禁用",
   "updater.toast.checking": "正在检查更新，请稍候...",
@@ -151,6 +161,7 @@
   "updater.rollback.errorCopyCache": "❌ 复制缓存文件失败",
   "updater.rollback.errorCopyCache.title": "缓存包复制失败",
   "updater.rollback.errorCopyCache.body": "读取或复制缓存安装包失败，请稍后重试或去官网下载。",
+  
   "dialog.simpleError.title": "操作失败",
   "dialog.simpleError.body": "执行操作时出现错误，请稍后重试。",
   "dialog.simpleError.btnOk": "确定",
