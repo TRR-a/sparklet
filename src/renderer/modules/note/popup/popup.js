@@ -111,6 +111,7 @@ async function renderNoteList(notes) {
             <span class="note-color-dot" style="background-color: ${note.color};"></span>
             <div class="note-text">
                 <div class="note-title">${note.title || t('main.noteUntitled')}</div>
+                <div class="note-filename">${note.id}.md</div>
                 <div class="note-time">${formatDate(note.updatedAt)}</div>
             </div>
             <button class="note-delete-btn" data-i18n-title="tooltip.deleteNote" title="${t('tooltip.deleteNote')}">🗑️</button>
@@ -240,6 +241,7 @@ async function renderTrashList() {
             <span class="note-color-dot" style="background-color: ${note.color};"></span>
             <div class="note-text">
                 <div class="note-title">${note.title || t('main.noteUntitled')}</div>
+                <div class="note-filename">${note.id}.md</div>
                 <div class="note-time">${t('main.noteDeletedAt')} ${new Date(note.deletedAt).toLocaleString()}</div>
             </div>
             <div class="trash-actions">

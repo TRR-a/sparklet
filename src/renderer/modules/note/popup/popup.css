@@ -346,6 +346,18 @@ textarea:focus {
     opacity: 0.7;
 }
 
+/* 笔记文件名显示样式 */
+.note-filename {
+    font-size: 0.7em;
+    opacity: 0.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
 /* 删除按钮样式 */
 .note-delete-btn {
     position: absolute;
