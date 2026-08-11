@@ -303,8 +303,16 @@ async function loadNotes() {
         await loadNoteIntoEditor(newNote);
     } else {
         await renderNoteList(notes);
-        currentNoteId = notes[0].id;
-        await loadNoteIntoEditor(notes[0]);
+        // 获取第一个笔记的完整内容（包含 content）
+        const firstNote = await storageManager.getNoteById(notes[0].id);
+        if (firstNote) {
+            currentNoteId = firstNote.id;
+            await loadNoteIntoEditor(firstNote);
+        } else {
+            // 容错
+            currentNoteId = notes[0].id;
+            await loadNoteIntoEditor(notes[0]);
+        }
     }
 }
 

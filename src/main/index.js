@@ -8,7 +8,7 @@ const fs = require('fs-extra');
 const PROJECT_OFFICIAL_URL = 'https://github.com/TRR-a/sparklet';
 // 引入 Node.js 路径处理模块，用于拼接文件路径
 const path = require('path');
-// 引入 electron-store，用于本地持久化存储笔记、配置等数据
+// 引入 electron-store，用于本地持久化存储配置（语言、主题、迁移标记等）
 const Store = require('electron-store');
 
 // ========== 更新模块导入 ==========
@@ -31,13 +31,230 @@ let mainWindow = null;
 let settingsWindow = null;
 let aboutWindow = null;
 
-// 初始化存储
+// 初始化存储（用于配置和迁移标记）
 const store = new Store({
   name: 'sparklet-data',
   defaults: { sparkletNotes: [] }
 });
 
-// ========== 存储IPC ==========
+// ========== 🆕 新增：笔记文件系统存储模块 ==========
+function getNotesDir() {
+  return path.join(app.getPath('userData'), 'notes');
+}
+
+async function ensureNotesDir() {
+  const dir = getNotesDir();
+  await fs.ensureDir(dir);
+  return dir;
+}
+
+async function migrateFromStore() {
+  try {
+    const migrated = store.get('fs_migration_done', false);
+    if (migrated) {
+      console.log('[NotesFS] Migration already done, skipping.');
+      return;
+    }
+
+    const oldNotes = store.get('sparkletNotes', []);
+    console.log('[NotesFS] Found', oldNotes.length, 'notes in old store');
+
+    if (!oldNotes || oldNotes.length === 0) {
+      store.set('fs_migration_done', true);
+      console.log('[NotesFS] No old notes to migrate, marked done.');
+      return;
+    }
+
+    const notesDir = await ensureNotesDir();
+    console.log('[NotesFS] Notes directory:', notesDir);
+
+    let migratedCount = 0;
+    let errorCount = 0;
+
+    for (const note of oldNotes) {
+      if (!note || !note.id) {
+        console.warn('[NotesFS] Skipping invalid note (missing id):', note);
+        continue;
+      }
+
+      const jsonPath = path.join(notesDir, `${note.id}.json`);
+      const mdPath = path.join(notesDir, `${note.id}.md`);
+
+      // 如果文件已存在则跳过（保护已有文件）
+      if (await fs.pathExists(jsonPath) && await fs.pathExists(mdPath)) {
+        console.log(`[NotesFS] Skipping existing note: ${note.id}`);
+        continue;
+      }
+
+      try {
+        // 分离内容和元数据
+        const { content, ...meta } = note;
+        // 确保 meta 中有 id
+        meta.id = note.id;
+
+        // 写入元数据
+        await fs.writeJson(jsonPath, meta, { spaces: 2 });
+        // 写入正文（如果 content 为 null/undefined，写入空字符串）
+        await fs.writeFile(mdPath, content || '', 'utf8');
+
+        migratedCount++;
+        console.log(`[NotesFS] ✅ Migrated note: ${note.id} (title: "${meta.title || '无标题'}")`);
+      } catch (err) {
+        errorCount++;
+        console.error(`[NotesFS] ❌ Failed to migrate note ${note.id}:`, err.message);
+        // 尝试删除可能已创建的不完整文件
+        try { await fs.remove(jsonPath); } catch (_) {}
+        try { await fs.remove(mdPath); } catch (_) {}
+      }
+    }
+
+    console.log(`[NotesFS] Migration summary: ${migratedCount} succeeded, ${errorCount} failed`);
+
+    if (errorCount === 0) {
+      // 只有全部成功才标记完成
+      store.set('fs_migration_done', true);
+      console.log('[NotesFS] Migration complete, marked done.');
+    } else {
+      // 有失败的不标记完成，下次启动会重试
+      store.set('fs_migration_done', false);
+      console.warn('[NotesFS] Migration had errors, will retry on next startup.');
+    }
+  } catch (err) {
+    console.error('[NotesFS] Migration fatal error:', err);
+    store.set('fs_migration_done', false);
+  }
+}
+
+// ========== 🆕 新增：笔记 IPC 处理器 ==========
+
+// 1. 列出所有笔记（不含 content）
+ipcMain.handle('notes:list', async () => {
+  try {
+    const notesDir = await ensureNotesDir();
+    const files = await fs.readdir(notesDir);
+    const jsonFiles = files.filter(f => f.endsWith('.json'));
+
+    const notes = [];
+    for (const file of jsonFiles) {
+      const id = file.replace('.json', '');
+      const jsonPath = path.join(notesDir, file);
+      try {
+        const meta = await fs.readJson(jsonPath);
+        if (!meta.id) meta.id = id;
+        notes.push(meta);
+      } catch (e) {
+        console.warn(`[NotesFS] Skip invalid json: ${file}`, e.message);
+      }
+    }
+
+    notes.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    return { success: true, notes };
+  } catch (err) {
+    console.error('[NotesFS] list error:', err);
+    return { success: false, error: err.message };
+  }
+});
+
+// 2. 获取单篇笔记（含 content）
+ipcMain.handle('notes:get', async (event, id) => {
+  try {
+    if (!id) throw new Error('Note ID required');
+    const notesDir = getNotesDir();
+    const jsonPath = path.join(notesDir, `${id}.json`);
+    const mdPath = path.join(notesDir, `${id}.md`);
+
+    const meta = await fs.readJson(jsonPath);
+    let content = '';
+    try {
+      content = await fs.readFile(mdPath, 'utf8');
+    } catch (e) {
+      console.warn(`[NotesFS] .md missing for ${id}, treating as empty.`);
+    }
+
+    return { success: true, note: { ...meta, content } };
+  } catch (err) {
+    console.error('[NotesFS] get error:', err);
+    return { success: false, error: err.message };
+  }
+});
+
+// 3. 保存笔记（新建或更新）
+ipcMain.handle('notes:save', async (event, noteData) => {
+  try {
+    if (!noteData || !noteData.id) throw new Error('Invalid note data');
+    const notesDir = await ensureNotesDir();
+    const { content, ...meta } = noteData;
+
+    const jsonPath = path.join(notesDir, `${noteData.id}.json`);
+    await fs.writeJson(jsonPath, meta, { spaces: 2 });
+
+    const mdPath = path.join(notesDir, `${noteData.id}.md`);
+    await fs.writeFile(mdPath, content || '', 'utf8');
+
+    return { success: true, note: noteData };
+  } catch (err) {
+    console.error('[NotesFS] save error:', err);
+    return { success: false, error: err.message };
+  }
+});
+
+// 4. 软删除（移入回收站）
+ipcMain.handle('notes:delete', async (event, id) => {
+  try {
+    if (!id) throw new Error('Note ID required');
+    const notesDir = getNotesDir();
+    const jsonPath = path.join(notesDir, `${id}.json`);
+
+    const meta = await fs.readJson(jsonPath);
+    meta.isDeleted = true;
+    meta.deletedAt = new Date().toISOString();
+    await fs.writeJson(jsonPath, meta, { spaces: 2 });
+
+    return { success: true };
+  } catch (err) {
+    console.error('[NotesFS] delete error:', err);
+    return { success: false, error: err.message };
+  }
+});
+
+// 5. 恢复软删除
+ipcMain.handle('notes:restore', async (event, id) => {
+  try {
+    if (!id) throw new Error('Note ID required');
+    const notesDir = getNotesDir();
+    const jsonPath = path.join(notesDir, `${id}.json`);
+
+    const meta = await fs.readJson(jsonPath);
+    meta.isDeleted = false;
+    meta.deletedAt = null;
+    await fs.writeJson(jsonPath, meta, { spaces: 2 });
+
+    return { success: true };
+  } catch (err) {
+    console.error('[NotesFS] restore error:', err);
+    return { success: false, error: err.message };
+  }
+});
+
+// 6. 永久删除（物理删除 .json + .md）
+ipcMain.handle('notes:permanentDelete', async (event, id) => {
+  try {
+    if (!id) throw new Error('Note ID required');
+    const notesDir = getNotesDir();
+    const jsonPath = path.join(notesDir, `${id}.json`);
+    const mdPath = path.join(notesDir, `${id}.md`);
+
+    if (await fs.pathExists(jsonPath)) await fs.remove(jsonPath);
+    if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
+
+    return { success: true };
+  } catch (err) {
+    console.error('[NotesFS] permanentDelete error:', err);
+    return { success: false, error: err.message };
+  }
+});
+
+// ========== 原有的存储IPC（保留，用于其他配置） ==========
 ipcMain.handle('store:get', async (event, key) => store.get(key));
 ipcMain.handle('store:set', async (event, key, value) => store.set(key, value));
 
@@ -69,7 +286,7 @@ ipcMain.handle('theme-changed', (event, theme) => {
   });
 });
 
-// ========== 更新模块IPC ==========
+// ========== 更新模块IPC（原有，保留） ==========
 ipcMain.handle('updater:check', async () => {
   checkUpdateManually();
   return { started: true };
@@ -78,8 +295,6 @@ ipcMain.handle('updater:check', async () => {
 ipcMain.handle('updater:status', async () => {
   return { isUpdating: updaterModule.isUpdating };
 });
-
-// （updater:user-response 为旧版自定义对话框遗留代码，已删除，当前使用原生 dialog）
 
 // ========== 光晕位置同步函数 ==========
 function syncGlowPosition() {
@@ -90,14 +305,12 @@ function syncGlowPosition() {
     const mainBounds = mainWindow.getBounds();
     const settingsBounds = settingsWindow.getBounds();
     mainWindow.webContents.send('settings-window-moved', { mainBounds, settingsBounds });
-    //检测设置窗口是否与主窗口有重叠
     const isOverlapping = !(
       settingsBounds.x + settingsBounds.width < mainBounds.x ||
       settingsBounds.x > mainBounds.x + mainBounds.width ||
       settingsBounds.y + settingsBounds.height < mainBounds.y ||
       settingsBounds.y > mainBounds.y + mainBounds.height
     );
-    // 发送重叠状态给主窗口
     mainWindow.webContents.send('settings-window-overlap', isOverlapping);
   }
 }
@@ -121,15 +334,12 @@ function createWindow() {
     show: false
   });
   mainWindow.loadFile(path.join(__dirname, '../renderer/modules/note/popup/popup.html'));
-  // 窗口渲染就绪后再显示，避免启动白屏闪烁
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
-    // 延迟 30 秒后，若窗口还没被销毁，则标记该版本「第一次成功打开」
-    // （防止秒崩场景误记为成功，导致保留期变短）
     setTimeout(async () => {
       try {
         if (!mainWindow || mainWindow.isDestroyed()) return;
-        if (!app.isPackaged) return; // 开发环境不写
+        if (!app.isPackaged) return;
         const currentVersion = getCurrentVersion();
         await cacheManager.markSuccessFirstLaunch(`v${currentVersion}`);
       } catch (err) {
@@ -137,17 +347,13 @@ function createWindow() {
       }
     }, CACHE_SUCCESS_MARK_DELAY_MS);
   });
-  // 主窗口焦点时，保证设置窗口在上层
   mainWindow.on('focus', () => {
     if (settingsWindow && !settingsWindow.isDestroyed() && !settingsWindow.isMinimized()) {
       settingsWindow.moveTop();
     }
   });
-  // 主窗口移动/缩放时，同步光晕位置
   mainWindow.on('move', syncGlowPosition);
   mainWindow.on('resize', syncGlowPosition);
-  // 监听主窗口关闭事件，窗口完全关闭时触发
-  // 将窗口对象置为null，解除引用防止内存泄漏
   mainWindow.on('closed', () => mainWindow = null);
 }
 
@@ -159,44 +365,27 @@ function createSettingsWindow() {
     settingsWindow.focus();
     return;
   }
-  // 创建设置窗口实例（无边框透明样式，固定尺寸）
   settingsWindow = new BrowserWindow({
-    // 窗口宽度
     width: 400,
-     // 窗口高度
     height: 500,
-    // 禁用系统默认窗口边框
     frame: false,
-    // 隐藏系统标题栏
     titleBarStyle: 'hidden',
-    // 开启窗口透明效果
     transparent: true,
-    // 关闭窗口阴影
     hasShadow: false,
-    // 禁止用户缩放窗口
     resizable: false,
     webPreferences: {
-      // 关闭Node集成，保障安全
       nodeIntegration: false,
-      // 开启上下文隔离，保障安全
       contextIsolation: true,
-      // 预加载脚本
       preload: path.join(__dirname, '../preload/index.js')
     },
-    // 初始隐藏窗口，避免白屏闪烁
     show: false
   });
   settingsWindow.loadFile(path.join(__dirname, '../renderer/modules/note/settings/settings.html'));
-  // 监听设置窗口加载完成事件，避免白屏闪烁
   settingsWindow.once('ready-to-show', () => {
-    // 显示设置窗口
     settingsWindow.show();
-    // 执行同步发光元素位置的函数，确保打开时位置正确
     syncGlowPosition();
   });
-  // 设置窗口移动时，同步光晕位置
   settingsWindow.on('move', syncGlowPosition);
-  // 窗口状态事件
   settingsWindow.on('minimize', () => {
     mainWindow?.webContents.send('settings-window-minimized');
   });
@@ -211,15 +400,13 @@ function createSettingsWindow() {
 }
 ipcMain.handle('open-settings-window', createSettingsWindow);
 
-// ========== 关于窗口创建，关于窗口在设置窗口上面，且不锁死设置面板 ==========
+// ========== 关于窗口创建 ==========
 function createAboutWindow() {
   if (aboutWindow) {
-    // 已存在则直接置顶
-    aboutWindow.moveTop(); 
+    aboutWindow.moveTop();
     aboutWindow.focus();
     return;
   }
-  // 不设parent，彻底避免锁死设置窗口
   aboutWindow = new BrowserWindow({
     width: 400,
     height: 300,
@@ -234,10 +421,8 @@ function createAboutWindow() {
     show: false
   });
   aboutWindow.loadFile(path.join(__dirname, '../renderer/modules/note/about/about.html'));
-  // 监听关于窗口就绪事件，就绪后显示窗口并置顶，不干扰其他窗口
   aboutWindow.once('ready-to-show', () => {
     aboutWindow.show();
-    // 仅将关于窗口置顶，不再触发设置窗口置顶 / 唤回
     aboutWindow.moveTop();
   });
   aboutWindow.on('closed', () => aboutWindow = null);
@@ -249,7 +434,7 @@ ipcMain.handle('app:get-version', () => {
   return app.getVersion();
 });
 
-// ========== 更新配置IPC ==========
+// ========== 更新配置IPC（原有，保留） ==========
 const {
   readConfig,
   writeConfig,
@@ -259,37 +444,26 @@ const {
   getUpdateBehavior
 } = require('./updater/config-manager');
 
-// 读取完整配置
 ipcMain.handle('updater-config:read', async () => {
   return await readConfig();
 });
-
-// 写入完整配置
 ipcMain.handle('updater-config:write', async (event, config) => {
   return await writeConfig(config);
 });
-
-// 获取单个配置项
 ipcMain.handle('updater-config:get', async (event, key) => {
   return await getConfigItem(key);
 });
-
-// 设置单个配置项
 ipcMain.handle('updater-config:set', async (event, key, value) => {
   return await setConfigItem(key, value);
 });
-
-// 获取检查频率
 ipcMain.handle('updater-config:getInterval', async () => {
   return await getCheckInterval();
 });
-
-// 获取更新行为
 ipcMain.handle('updater-config:getBehavior', async () => {
   return await getUpdateBehavior();
 });
 
-// 导出当前更新配置为 JSON 文件（用户选择保存路径）
+// 导出配置为 JSON 文件
 ipcMain.handle('updater-config:export-file', async () => {
   try {
     const cfg = await readConfig();
@@ -316,7 +490,7 @@ ipcMain.handle('updater-config:export-file', async () => {
   }
 });
 
-// 从 JSON 文件导入更新配置（白名单字段 + 范围校验，避免污染）
+// 导入配置
 ipcMain.handle('updater-config:import-file', async () => {
   const ALLOWED_BEHAVIORS = new Set(['auto', 'notify-only', 'disabled']);
   const LEGAL_INTERVALS = new Set(INTERVAL_OPTIONS.map(o => o.value).concat([0]));
@@ -340,18 +514,16 @@ ipcMain.handle('updater-config:import-file', async () => {
       return { success: false, error: '文件不是合法的 JSON：' + parseErr.message };
     }
 
-    // 兼容裸配置对象（旧版或手动写的）和 { config: ... } 包裹形式
     const raw = payload && payload.config && typeof payload.config === 'object' ? payload.config : (payload || {});
     if (typeof raw !== 'object' || Array.isArray(raw)) {
       return { success: false, error: '配置格式错误，顶层必须是 JSON 对象' };
     }
 
-    // 读取当前配置作为基底，只覆盖白名单字段，并做类型/范围矫正
     const base = await readConfig();
     const merged = { ...base };
 
     for (const key of Object.keys(raw)) {
-      if (!WHITE_LIST.has(key)) continue; // 非白名单字段直接忽略
+      if (!WHITE_LIST.has(key)) continue;
       const v = raw[key];
       switch (key) {
         case 'updateBehavior':
@@ -377,7 +549,6 @@ ipcMain.handle('updater-config:import-file', async () => {
           break;
         }
         case 'lastCheckTime':
-          // lastCheckTime 允许合法 ISO 字符串或 null
           if (v === null || v === undefined) merged[key] = null;
           else {
             const t = new Date(v).getTime();
@@ -385,14 +556,12 @@ ipcMain.handle('updater-config:import-file', async () => {
           }
           break;
         default:
-          // 其它未知但在白名单内的字段（如果未来新增），直接覆盖仅当类型一致
           if (typeof v === typeof (base[key] ?? v) && !Array.isArray(v)) merged[key] = v;
       }
     }
 
     await writeConfig(merged);
 
-    // 新策略立即生效：保留天数变化则立刻清理一次过期缓存
     if (typeof merged.cacheRetentionDays === 'number') {
       setImmediate(() => cacheManager.cleanupExpired(merged.cacheRetentionDays).catch(e =>
         console.warn('[Main] Import retention changed, cleanup failed (non-critical):', e.message)
@@ -412,7 +581,7 @@ ipcMain.handle('updater:check-now', async () => {
   return { started: true };
 });
 
-// 获取更新状态（供渲染进程查询）
+// 获取更新状态
 ipcMain.handle('updater:get-status', async () => {
   return {
     isUpdating: updaterModule.isUpdating,
@@ -421,12 +590,12 @@ ipcMain.handle('updater:get-status', async () => {
   };
 });
 
-// ========== 开发环境检测 IPC ==========
+// 开发环境检测
 ipcMain.handle('updater:is-dev', async () => {
   return !app.isPackaged;
 });
 
-// ========== 打开项目官网 ==========
+// 打开项目官网
 ipcMain.handle('app:open-official-site', async () => {
   try {
     await shell.openExternal(PROJECT_OFFICIAL_URL);
@@ -437,11 +606,10 @@ ipcMain.handle('app:open-official-site', async () => {
   }
 });
 
-// ========== 打开任意外链（渲染层 dialog 里的 GitHub Releases 链接等）==========
+// 打开任意外链
 ipcMain.handle('app:open-external', async (_evt, url) => {
   const u = String(url || '').trim();
   if (!u) return { success: false, error: 'empty url' };
-  // 简单白名单：只允许 http/https 协议
   if (!/^https?:\/\//i.test(u)) {
     return { success: false, error: 'protocol not allowed' };
   }
@@ -454,15 +622,13 @@ ipcMain.handle('app:open-external', async (_evt, url) => {
   }
 });
 
-// ========== 更新包缓存管理 IPC ==========
-// 规范化保留天数：限制在 [MIN, MAX]，非数字兜底默认
+// ========== 更新包缓存管理 IPC（原有，保留） ==========
 function normalizeRetentionDays(days) {
   const n = Number(days);
   if (!Number.isFinite(n)) return DEFAULT_CACHE_SUCCESS_RETENTION_DAYS;
   return Math.max(CACHE_RETENTION_MIN_DAYS, Math.min(CACHE_RETENTION_MAX_DAYS, Math.round(n)));
 }
 
-// 获取最新版本缓存信息（设置页展示用）
 ipcMain.handle('update-cache:get-info', async () => {
   try {
     let retentionDays = null;
@@ -477,7 +643,6 @@ ipcMain.handle('update-cache:get-info', async () => {
   }
 });
 
-// 读取「成功打开后保留天数」配置（供设置页回填）
 ipcMain.handle('update-cache:get-retention-days', async () => {
   try {
     let days = null;
@@ -491,12 +656,10 @@ ipcMain.handle('update-cache:get-retention-days', async () => {
   }
 });
 
-// 保存「成功打开后保留天数」配置（范围自动夹到 7~30），保存后立即按新策略跑一次清理
 ipcMain.handle('update-cache:set-retention-days', async (_, rawDays) => {
   try {
     const clamped = normalizeRetentionDays(rawDays);
     await setConfigItem('cacheRetentionDays', clamped);
-    // 新策略立即生效，清理一次过期的（异步不阻塞返回）
     setImmediate(() => cacheManager.cleanupExpired(clamped).catch(e =>
       console.warn('[Main] Retention changed, cleanup failed (non-critical):', e.message)
     ));
@@ -507,7 +670,6 @@ ipcMain.handle('update-cache:set-retention-days', async (_, rawDays) => {
   }
 });
 
-// 立即清空全部更新包缓存（设置页按钮触发）
 ipcMain.handle('update-cache:clear-all', async () => {
   try {
     await cacheManager.clearAllCache();
@@ -519,13 +681,16 @@ ipcMain.handle('update-cache:clear-all', async () => {
 });
 
 // ========== 应用生命周期 ==========
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  // 🔽 新增：先执行迁移（确保数据落盘）
+  await migrateFromStore();
+
   // 创建主窗口
   createWindow();
-  
+
   // 初始化更新模块（窗口创建后执行）
   initUpdater();
-  
+
   // 延迟 3 秒后自动检查更新（不阻塞启动）
   setTimeout(() => {
     checkUpdateManually();

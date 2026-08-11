@@ -1,7 +1,7 @@
 // src/preload/index.js - Electron预加载脚本，安全暴露API给渲染进程
 const { contextBridge, ipcRenderer } = require('electron');
 
-// 暴露本地存储API
+// 暴露本地存储API（配置类，笔记类已迁移至文件系统）
 contextBridge.exposeInMainWorld('electronStore', {
   get: (key) => ipcRenderer.invoke('store:get', key),
   set: (key, value) => ipcRenderer.invoke('store:set', key, value),
@@ -16,7 +16,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     return () => ipcRenderer.removeListener(channel, subscription);
   },
 
-  // 更新模块（注意：onUpdateDialog / sendUpdateResponse 是旧版自定义对话框遗留，已删除，使用原生 dialog）
+  // 更新模块
   checkUpdate: () => ipcRenderer.invoke('updater:check'),
   getUpdateStatus: () => ipcRenderer.invoke('updater:status'),
 
@@ -41,24 +41,23 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on('toast:show', (event, data) => callback(data));
   },
 
-  // ========== 新增：开发环境检测、配置变化监听、打开官网 ==========
+  // 开发环境检测、配置变化监听、打开官网
   isDev: () => ipcRenderer.invoke('updater:is-dev'),
   onConfigChanged: (callback) => {
     ipcRenderer.on('config:changed', (event, config) => callback(config));
   },
   openOfficialSite: () => ipcRenderer.invoke('app:open-official-site'),
 
-  // ========== 获取应用版本 ==========
+  // 获取应用版本
   getAppVersion: () => ipcRenderer.invoke('app:get-version'),
 
-  // ========== 更新包缓存管理（设置页用）==========
+  // 更新包缓存管理（设置页用）
   getUpdateCacheInfo: () => ipcRenderer.invoke('update-cache:get-info'),
   clearUpdateCache: () => ipcRenderer.invoke('update-cache:clear-all'),
   getCacheRetentionDays: () => ipcRenderer.invoke('update-cache:get-retention-days'),
   setCacheRetentionDays: (days) => ipcRenderer.invoke('update-cache:set-retention-days', days),
 
-  // ========== 更新器自定义对话框（替换系统原生 dialog.showMessageBox）==========
-  // 主进程发起 -> 渲染层弹 UI -> 用户操作 -> 渲染层回传结果
+  // 更新器自定义对话框（替换系统原生 dialog）
   onUpdateDialogShow: (callback) => {
     const subscription = (event, payload) => callback(payload);
     ipcRenderer.on('updater:dialog-show', subscription);
@@ -66,4 +65,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
   sendUpdateDialogResponse: (dialogId, response) =>
     ipcRenderer.invoke('updater:dialog-response', { dialogId, response })
+});
+
+// ========== 🆕 新增：笔记文件系统 API ==========
+contextBridge.exposeInMainWorld('notesAPI', {
+  list: () => ipcRenderer.invoke('notes:list'),
+  get: (id) => ipcRenderer.invoke('notes:get', id),
+  save: (note) => ipcRenderer.invoke('notes:save', note),
+  delete: (id) => ipcRenderer.invoke('notes:delete', id),
+  restore: (id) => ipcRenderer.invoke('notes:restore', id),
+  permanentDelete: (id) => ipcRenderer.invoke('notes:permanentDelete', id),
 });

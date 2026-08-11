@@ -1,154 +1,178 @@
-// storage-manager.js - Sparklet 存储管理器（Electron 安全版本）
-// 说明：不再使用 chrome.storage.local，改为通过预加载脚本暴露的 window.electronStore API
+// storage-manager.js - Sparklet 文件系统存储管理器
+// 说明：每个笔记独立存储为 .json(元数据) + .md(正文)
 
 class StorageManager {
     constructor() {
-        // 缓存所有笔记数据，避免每次请求都访问持久化存储
         this.notesCache = null;
-        // 标记是否已完成初始化
         this.initialized = false;
     }
 
-    // 初始化存储系统并加载已有笔记
+    // 初始化：从文件系统加载所有笔记
     async init() {
         if (this.initialized) return;
-
-        // 从持久化存储读取笔记数据
-        const result = await window.electronStore.get('sparkletNotes');
-
-        if (!result || !Array.isArray(result)) {
-            // 首次运行或数据格式异常时，创建空数组并保存
-            await window.electronStore.set('sparkletNotes', []);
-            this.notesCache = [];
-        } else {
-            // 使用已存在的笔记列表
-            this.notesCache = result;
-        }
-
+        await this.loadFromFS();
         this.initialized = true;
         return this.notesCache;
     }
 
-    // 返回所有未删除的笔记
+    // 从文件系统加载并缓存
+    async loadFromFS() {
+        try {
+            const result = await window.notesAPI.list();
+            if (result.success) {
+                this.notesCache = result.notes || [];
+            } else {
+                console.error('加载笔记列表失败:', result.error);
+                this.notesCache = [];
+            }
+        } catch (err) {
+            console.error('加载笔记异常:', err);
+            this.notesCache = [];
+        }
+        return this.notesCache;
+    }
+
+    // 返回未删除的笔记
     async getNotes() {
         if (!this.initialized) await this.init();
         return this.notesCache.filter(note => !note.isDeleted);
     }
 
-    // 返回所有笔记，包括已删除项
+    // 返回所有笔记（含已删除）
     async getAllNotes() {
         if (!this.initialized) await this.init();
         return [...this.notesCache];
     }
 
-    // 返回回收站内的已删除笔记
+    // 返回回收站笔记
     async getTrashNotes() {
         if (!this.initialized) await this.init();
         return this.notesCache.filter(note => note.isDeleted);
     }
 
-    // 根据 ID 获取单条笔记
+    // 按 ID 获取单篇笔记（含正文）
     async getNoteById(id) {
         if (!this.initialized) await this.init();
-        return this.notesCache.find(note => note.id === id);
+        try {
+            const result = await window.notesAPI.get(id);
+            if (result.success) {
+                return result.note;
+            }
+            return null;
+        } catch (err) {
+            console.error('获取笔记失败:', err);
+            return null;
+        }
     }
 
-    // 创建一条新笔记并保存
-    async createNote(title = '新笔记', color = '#4285f4') {
+    // 创建新笔记（物理文件落盘）
+    async createNote(title = '无标题', color = '#4285f4') {
         if (!this.initialized) await this.init();
 
         const newNote = {
-            id: `note_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
-            title,
+            id: `note_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            title: title || '无标题',
             content: '',
-            color,
+            color: color || '#4285f4',
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
             isDeleted: false,
             deletedAt: null
         };
 
-        this.notesCache.push(newNote);
-        await this.saveToStorage();
-        return newNote;
+        // 调用 IPC 保存到文件系统
+        const result = await window.notesAPI.save(newNote);
+        if (result.success) {
+            this.notesCache.push(newNote);
+            return newNote;
+        } else {
+            console.error('创建笔记失败:', result.error);
+            throw new Error(result.error);
+        }
     }
 
-    // 更新指定笔记内容并保存
+    // 更新笔记
     async updateNote(id, updates) {
         if (!this.initialized) await this.init();
 
-        const index = this.notesCache.findIndex(note => note.id === id);
+        const index = this.notesCache.findIndex(n => n.id === id);
         if (index === -1) return null;
 
-        this.notesCache[index] = {
-            ...this.notesCache[index],
+        // 获取当前完整数据（含 content）
+        const current = await this.getNoteById(id);
+        if (!current) return null;
+
+        // 合并更新
+        const updated = {
+            ...current,
             ...updates,
             updatedAt: new Date().toISOString()
         };
 
-        await this.saveToStorage();
-        return this.notesCache[index];
+        // 保存到文件系统
+        const result = await window.notesAPI.save(updated);
+        if (result.success) {
+            // 更新缓存（仅元数据部分）
+            const metaOnly = { ...updated };
+            delete metaOnly.content;
+            this.notesCache[index] = metaOnly;
+            return updated;
+        } else {
+            console.error('更新笔记失败:', result.error);
+            return null;
+        }
     }
 
-    // 软删除笔记，将其移动到回收站
+    // 软删除（移回收站）
     async deleteNote(id) {
         if (!this.initialized) await this.init();
-
-        const index = this.notesCache.findIndex(note => note.id === id);
-        if (index === -1) return false;
-
-        this.notesCache[index] = {
-            ...this.notesCache[index],
-            isDeleted: true,
-            deletedAt: new Date().toISOString()
-        };
-
-        await this.saveToStorage();
-        return true;
+        const result = await window.notesAPI.delete(id);
+        if (result.success) {
+            // 刷新缓存
+            await this.loadFromFS();
+            return true;
+        }
+        return false;
     }
 
-    // 从回收站还原笔记
+    // 从回收站恢复
     async restoreNote(id) {
         if (!this.initialized) await this.init();
-
-        const index = this.notesCache.findIndex(note => note.id === id);
-        if (index === -1) return false;
-
-        this.notesCache[index] = {
-            ...this.notesCache[index],
-            isDeleted: false,
-            deletedAt: null
-        };
-
-        await this.saveToStorage();
-        return true;
+        const result = await window.notesAPI.restore(id);
+        if (result.success) {
+            await this.loadFromFS();
+            return true;
+        }
+        return false;
     }
 
-    // 永久删除笔记，从缓存和存储中彻底移除
+    // 永久删除（物理删除文件）
     async permanentlyDeleteNote(id) {
         if (!this.initialized) await this.init();
-
-        this.notesCache = this.notesCache.filter(note => note.id !== id);
-        await this.saveToStorage();
-        return true;
+        const result = await window.notesAPI.permanentDelete(id);
+        if (result.success) {
+            await this.loadFromFS();
+            return true;
+        }
+        return false;
     }
 
-    // 保存缓存到持久化存储
-    async saveToStorage() {
-        await window.electronStore.set('sparkletNotes', this.notesCache);
+    // 刷新缓存（对外暴露，设置页/手动刷新用）
+    async refresh() {
+        await this.loadFromFS();
+        return this.notesCache;
     }
 
-    // 调试方法：输出当前存储状态
+    // 调试
     async debug() {
-        const notes = await this.getAllNotes();
-        console.log('=== 存储调试 ===');
-        console.log('笔记总数:', notes.length);
-        console.log('活跃笔记:', notes.filter(n => !n.isDeleted).length);
-        console.log('回收站笔记:', notes.filter(n => n.isDeleted).length);
-        return notes;
+        await this.loadFromFS();
+        console.log('=== 存储调试 (文件系统) ===');
+        console.log('笔记总数:', this.notesCache.length);
+        console.log('活跃笔记:', this.notesCache.filter(n => !n.isDeleted).length);
+        console.log('回收站笔记:', this.notesCache.filter(n => n.isDeleted).length);
+        return this.notesCache;
     }
 }
 
-// 创建并导出单例实例，确保全局共享同一份存储管理器
 const storageManager = new StorageManager();
 export default storageManager;
