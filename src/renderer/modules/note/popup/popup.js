@@ -121,7 +121,7 @@ async function renderNoteList(notes) {
         li.innerHTML = `
             <span class="note-color-dot" style="background-color: ${note.color};"></span>
             <div class="note-text">
-                <div class="note-title">${note.title || t('main.noteUntitled')}</div>
+                <div class="note-title">${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
                 <div class="note-filename">${note.id}.md</div>
                 <div class="note-time">${formatDate(note.updatedAt)}</div>
             </div>
@@ -314,7 +314,7 @@ async function renderTrashList() {
         li.innerHTML = `
             <span class="note-color-dot" style="background-color: ${note.color};"></span>
             <div class="note-text">
-                <div class="note-title">${note.title || t('main.noteUntitled')}</div>
+                <div class="note-title">${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
                 <div class="note-filename">${note.id}.md</div>
                 <div class="note-time">${t('main.noteDeletedAt')} ${new Date(note.deletedAt).toLocaleString()}</div>
             </div>
