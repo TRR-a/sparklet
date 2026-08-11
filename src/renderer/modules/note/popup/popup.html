@@ -49,7 +49,11 @@
                 <button class="color-option" data-color="#8b5cf6" style="background-color:#8b5cf6;"></button>
             </div>
             <input type="text" id="noteTitle" class="note-title-input" data-i18n-placeholder="main.noteTitlePlaceholder" placeholder="笔记标题...">
+            <div class="editor-toolbar">
+                <button id="previewToggleBtn" class="preview-toggle-btn" title="切换预览">👁️ 预览</button>
+            </div>
             <textarea id="noteArea" class="note-editor" data-i18n-placeholder="main.noteContentPlaceholder" placeholder="记录您的灵感..."></textarea>
+            <div id="notePreview" class="note-preview" style="display: none;"></div>
         </div>
     </div>
 

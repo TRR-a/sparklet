@@ -87,9 +87,20 @@ function updateActiveColor(color) {
 // ==================== 笔记管理函数 ====================
 async function loadNoteIntoEditor(note) {
     if (!note) return;
+    if (isPreviewMode) {
+        isPreviewMode = false;
+        const ta = document.getElementById('noteArea');
+        const pv = document.getElementById('notePreview');
+        const btn = document.getElementById('previewToggleBtn');
+        if (ta) ta.style.display = 'block';
+        if (pv) pv.style.display = 'none';
+        if (btn) { btn.classList.remove('active'); btn.textContent = '👁️ 预览'; }
+    }
     currentNoteId = note.id;
     const titleInput = document.getElementById('noteTitle');
     const contentInput = document.getElementById('noteArea');
+    const previewToggleBtn = document.getElementById('previewToggleBtn');
+    if (previewToggleBtn) previewToggleBtn.addEventListener('click', togglePreview);
     if (titleInput) titleInput.value = note.title || '';
     if (contentInput) contentInput.value = note.content || '';
     updateActiveColor(note.color);
@@ -174,6 +185,62 @@ async function changeNoteColor(color) {
     await renderNoteList(notes);
 }
 
+let isPreviewMode = false;
+
+async function togglePreview() {
+    const textarea = document.getElementById('noteArea');
+    const preview = document.getElementById('notePreview');
+    const btn = document.getElementById('previewToggleBtn');
+    if (!textarea || !preview || !btn) return;
+
+    isPreviewMode = !isPreviewMode;
+
+    if (isPreviewMode) {
+        await saveCurrentNote();
+        preview.innerHTML = renderMarkdown(textarea.value);
+        textarea.style.display = 'none';
+        preview.style.display = 'block';
+        btn.classList.add('active');
+        btn.textContent = '✏️ 编辑';
+    } else {
+        textarea.style.display = 'block';
+        preview.style.display = 'none';
+        btn.classList.remove('active');
+        btn.textContent = '👁️ 预览';
+    }
+}
+
+function renderMarkdown(text) {
+    if (!text) return '<p style="opacity:0.5;">（空笔记）</p>';
+
+    const escapeHtml = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    const codeBlockRegex = /```(\w*)\n?([\s\S]*?)```/g;
+    let lastEnd = 0;
+    const parts = [];
+    let match;
+
+    while ((match = codeBlockRegex.exec(text)) !== null) {
+        if (match.index > lastEnd) {
+            const before = text.slice(lastEnd, match.index).trim();
+            if (before) parts.push(`<p>${escapeHtml(before).replace(/\n/g, '<br>')}</p>`);
+        }
+        const lang = match[1] || '';
+        const code = match[2] || '';
+        const langLabel = lang ? `<span class="code-block-lang">${escapeHtml(lang)}</span>` : '';
+        parts.push(`<div class="code-block">${langLabel}<pre style="margin:0;white-space:pre-wrap;word-wrap:break-word;">${escapeHtml(code)}</pre></div>`);
+        lastEnd = match.index + match[0].length;
+    }
+
+    if (lastEnd < text.length) {
+        const after = text.slice(lastEnd).trim();
+        if (after) parts.push(`<p>${escapeHtml(after).replace(/\n/g, '<br>')}</p>`);
+    }
+
+    if (parts.length === 0) return `<p>${escapeHtml(text).replace(/\n/g, '<br>')}</p>`;
+    return parts.join('');
+}
+
 // ==================== 删除功能 ====================
 async function handleDeleteNote(noteId, listItemElement) {
     if (listItemElement.classList.contains('deleting')) {
@@ -211,6 +278,13 @@ async function toggleTrashView() {
     if (currentView === 'main') {
         currentView = 'trash';
         document.body.classList.add('trash-view');
+        if (isPreviewMode) {
+            isPreviewMode = false;
+            const pv = document.getElementById('notePreview');
+            const btn = document.getElementById('previewToggleBtn');
+            if (pv) pv.style.display = 'none';
+            if (btn) { btn.classList.remove('active'); btn.textContent = '👁️ 预览'; }
+        }
         trashToggleBtn.style.opacity = '1';
         trashToggleBtn.style.color = '#ea4335';
         if (newNoteBtn) newNoteBtn.style.display = 'none';
