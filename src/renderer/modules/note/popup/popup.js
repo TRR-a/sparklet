@@ -97,13 +97,15 @@ async function loadNoteIntoEditor(note) {
         if (btn) { btn.classList.remove('active'); btn.textContent = '👁️ 预览'; }
     }
     currentNoteId = note.id;
+    const fullNote = await storageManager.getNoteById(note.id);
+    if (!fullNote) return;
     const titleInput = document.getElementById('noteTitle');
     const contentInput = document.getElementById('noteArea');
     const previewToggleBtn = document.getElementById('previewToggleBtn');
     if (previewToggleBtn) previewToggleBtn.addEventListener('click', togglePreview);
-    if (titleInput) titleInput.value = note.title || '';
-    if (contentInput) contentInput.value = note.content || '';
-    updateActiveColor(note.color);
+    if (titleInput) titleInput.value = fullNote.title || '';
+    if (contentInput) contentInput.value = fullNote.content || '';
+    updateActiveColor(fullNote.color);
     document.querySelectorAll('.note-list-item').forEach(item => {
         item.classList.toggle('active', item.dataset.noteId === note.id);
     });
