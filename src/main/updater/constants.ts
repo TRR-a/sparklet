@@ -1,0 +1,176 @@
+// Updater module constants configuration [更新模块常量配置]
+
+import * as path from 'path';
+import { app } from 'electron';
+import {
+  INTEGRITY_FILENAME_BLACKLIST,
+  INTEGRITY_EXTENSION_BLACKLIST,
+  isExcludedFromIntegrity
+} from './_integrity-rules';
+import type { NetworkErrorType } from '../../shared/types/updater';
+
+// GitHub repository info [GitHub 仓库信息]
+export const GITHUB_OWNER = 'TRR-a';
+export const GITHUB_REPO = 'sparklet';
+export const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`;
+
+// Temp directory config (three candidates, by priority) [临时目录配置 (三个候选，按优先级)]
+export const TEMP_DIR_NAMES = [
+  'Sparklet-UpdateTemp',
+  'sparklet-updater',
+  'sparklet-update-cache'
+];
+
+// Config directory names (three candidates, by priority) [配置目录名 (三个候选，按优先级)]
+export const CONFIG_DIR_NAMES = [
+  'SparkletConfig',
+  'sparklet-config',
+  '.sparkletconf'
+];
+
+// Default config [默认配置]
+export const DEFAULT_CONFIG = {
+  updateBehavior: 'auto' as 'auto' | 'notify-only' | 'disabled',  // 'auto' | 'notify-only' | 'disabled'
+  checkInterval: 86400000,     // ms, default 24 hours [毫秒，默认 24 小时]
+  lastCheckTime: null as string | null,
+  autoDownload: true,
+  integrityCheck: true,        // Verify app integrity on startup (default true) [启动时校验应用完整性 (默认 true)]
+  cacheRetentionDays: 7        // Retain X days after successful launch (7~30, user configurable; fallback 30 days if never launched) [成功打开后保留 X 天 (7~30，用户可配；未成功打开的兜底 30 天不变)]
+};
+
+// Interval options (display text -> milliseconds) [频率选项 (显示文本 → 毫秒)]
+export const INTERVAL_OPTIONS: Array<{ label: string; value: number }> = [
+  { label: '重启后', value: 0 },
+  { label: '30 分钟', value: 1800000 },
+  { label: '1 小时', value: 3600000 },
+  { label: '1 天', value: 86400000 },
+  { label: '1 周', value: 604800000 }
+];
+
+// Retry config [重试配置]
+export const MAX_RETRY_COUNT = 6;
+export const RETRY_DELAY_MS = 2000;
+
+// Timeout config [超时配置]
+export const DOWNLOAD_TIMEOUT_MS = 60000;
+export const REQUEST_TIMEOUT_MS = 30000;
+
+// Command-line disable flags [命令行禁用参数]
+export const DISABLE_UPDATE_FLAGS = ['--no-update', '--disable-update'];
+
+// Update package filename pattern [更新包文件名格式]
+export const PACKAGE_NAME_PATTERN = /^sparklet-v\d+\.\d+\.\d+-win-x86_64\.zip$/;
+
+// Backward compat: old variable name points to exact filename blacklist [向后兼容：旧变量名指向精确文件名黑名单]
+export const INTEGRITY_BLACKLIST_FILENAMES = INTEGRITY_FILENAME_BLACKLIST;
+
+export {
+  INTEGRITY_FILENAME_BLACKLIST,
+  INTEGRITY_EXTENSION_BLACKLIST,
+  isExcludedFromIntegrity
+};
+
+// ========== Update package cache: retention policy ========== [更新包缓存：保留策略]
+// Retention days after successful launch is user-configurable (7~30, default 7); here we only store default and range [成功打开后的保留天数由用户配置 (7~30，默认 7)，这里只存默认值和范围]
+export const DEFAULT_CACHE_SUCCESS_RETENTION_DAYS = 7;
+export const CACHE_RETENTION_MIN_DAYS = 7;
+export const CACHE_RETENTION_MAX_DAYS = 30;
+// Fallback retention for unused versions (downloaded but never installed/launched/crashed on launch): 30 days (not configurable, to avoid accidental deletion) [没成功用过的版本 (下了没装/装了没成功打开/秒崩)，兜底保留 30 天 (不可配置，避免误删)]
+export const CACHE_UNUSED_RETENTION_DAYS = 30;
+export const CACHE_MAX_VERSIONS = 2;             // Keep at most 2 versions simultaneously [最多同时保留 2 个版本]
+export const CACHE_SUCCESS_MARK_DELAY_MS = 30 * 1000; // Delay 30s after startup before writing successFirstLaunchAt (anti-instant-crash) [启动后延迟 30 秒才写 successFirstLaunchAt (防秒崩)]
+
+// ========== Update package cache: directory name ========== [更新包缓存：目录名]
+export const UPDATE_CACHE_DIRNAME = 'update_cache';
+
+// Get app code root directory (after packaging points to resources/app.asar or resources/app) [获取应用代码根目录 (打包后指向 resources/app.asar 或 resources/app)]
+// Note: do NOT use this directory for filesHash integrity check, because the packaging side computes hash over the entire win-unpacked root [注意：完整性校验 filesHash 不要用这个目录，因为打包端算的是整个 win-unpacked 根]
+export function getAppRoot(): string {
+  return app.getAppPath();
+}
+
+// Get install root directory (= Sparklet.exe directory, corresponds to win-unpacked/ root at packaging time) [获取安装根目录 (= Sparklet.exe 所在目录，对应打包时的 win-unpacked/ 根)]
+// Both filesHash generation and verification should use this as scan root to ensure consistent scope [filesHash 生成端和校验端都应该用这个作为扫描根，保证范围一致]
+export function getInstallRoot(): string {
+  return path.dirname(process.execPath);
+}
+
+// Get user data directory [获取用户数据目录]
+export function getUserDataPath(): string {
+  return app.getPath('userData');
+}
+
+// Get temp directory path [获取临时目录路径]
+export function getTempPath(): string {
+  return app.getPath('temp');
+}
+
+// Get external updater script path [获取外部更新器路径]
+export function getUpdaterScriptPath(): string {
+  if (app.isPackaged) {
+    return path.join(process.resourcesPath, 'updater.js');
+  } else {
+    return path.join(app.getAppPath(), '../resources/updater.js');
+  }
+}
+
+// Get update package cache directory (persistent, under userData) [获取更新包缓存目录 (持久化，位于 userData 下)]
+export function getUpdateCacheDir(): string {
+  return path.join(getUserDataPath(), UPDATE_CACHE_DIRNAME);
+}
+
+// Get update package cache metadata file path (cache.json) [获取更新包缓存的元数据文件路径 (cache.json)]
+export function getUpdateCacheMetaPath(): string {
+  return path.join(getUpdateCacheDir(), 'cache.json');
+}
+
+/**
+ * Classify network/download errors in update flow (for friendly prompts to user) [统一分类更新流程中的网络/下载错误 (给上层做友好提示用)]
+ * @param errorMsg Error message string (from Network error: xxx / Download timeout / status: 403 etc.) [错误消息字符串 (来自 Network error: xxx / Download timeout / status: 403 等)]
+ * @returns Error type [错误类型]
+ *   - offline      : No network / DNS failure / connection refused / timeout / proxy error (pure network layer) [断网 / DNS失败 / 连接拒绝 / 超时 / 代理错误 (纯网络层问题)]
+ *   - rate-limit   : GitHub API rate limit (HTTP 403 + rate limit keyword) [GitHub API 限流 (HTTP 403 + rate limit 关键字)]
+ *   - server-error : HTTP status 4xx/5xx (non-rate-limit) [HTTP 状态码 4xx/5xx (非限流)]
+ *   - write-error  : Local disk write failure (Write error) [写本地磁盘失败 (Write error)]
+ *   - unknown      : Other (JSON parse failure / invalid filename etc.) [其他 (JSON 解析失败 / 文件名不合法等业务错)]
+ */
+export function classifyNetworkError(errorMsg: string | null | undefined): NetworkErrorType {
+  const msg = String(errorMsg || '').toLowerCase();
+  if (!msg) return 'unknown';
+
+  // Disk write error [写磁盘错误]
+  if (msg.startsWith('write error:')) return 'write-error';
+
+  // GitHub rate limit [GitHub 限流]
+  if (msg.includes('rate limit') && msg.includes('exceeded')) return 'rate-limit';
+
+  // HTTP non-2xx status code [HTTP 非 2xx 状态码]
+  const statusMatch = msg.match(/status[:\s]+(\d{3})/);
+  if (statusMatch) {
+    const code = Number(statusMatch[1]);
+    if (code === 403 && (msg.includes('ratelimit') || msg.includes('rate limit'))) return 'rate-limit';
+    if (code >= 400 && code < 600) return 'server-error';
+  }
+
+  // Pure network layer errors [纯网络层错误]
+  if (
+    msg.startsWith('network error:') ||
+    msg.includes('request timeout') ||
+    msg.includes('download timeout') ||
+    msg.includes('enotfound') ||       // DNS resolution failure [DNS 解析失败]
+    msg.includes('eai_again') ||       // DNS retry failure [DNS 重试失败]
+    msg.includes('econnrefused') ||    // Connection refused [连接被拒]
+    msg.includes('econnreset') ||      // Connection reset [连接被重置]
+    msg.includes('etimedout') ||       // Connection timeout [连接超时]
+    msg.includes('esockettimedout') || // Socket timeout [Socket 超时]
+    msg.includes('enetunreach') ||     // Network unreachable [网络不可达]
+    msg.includes('ehostunreach') ||    // Host unreachable [主机不可达]
+    msg.includes('eproto') ||          // Protocol error [协议错误]
+    msg.includes('ssl routines') ||    // TLS/SSL handshake interrupted [TLS/SSL 握手中断]
+    msg.includes('certificate') ||     // Certificate issue (user has proxy/sniffer etc.) [证书问题 (用户开了抓包代理等)]
+    msg.includes('bad gateway') ||     // 502 (proxy issue, also counts as network instability) [502 (代理问题，也按网络不稳定算)]
+    msg.includes('gateway timeout')    // 504
+  ) return 'offline';
+
+  return 'unknown';
+}

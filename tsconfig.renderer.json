@@ -1,0 +1,13 @@
+// Renderer process TypeScript config (ESNext) [渲染进程 TypeScript 配置 (ESNext)]
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  "include": [
+    "src/renderer/**/*.ts",
+    "src/renderer/**/*.d.ts"
+  ]
+}

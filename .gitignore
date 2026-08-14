@@ -1,14 +1,19 @@
-# 依赖目录
+# Dependencies [依赖目录]
 node_modules/
 
-# 构建输出目录
+# Compiled TypeScript output in src/ (keep scripts/ and resources/ as JS) [src/ 下的编译输出 (scripts/ 和 resources/ 保持 JS)]
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+
+# Build output directories [构建输出目录]
 release/
 dist/
 out/
 build/
 app_data/
 
-# Electron / electron-builder 本地缓存（若临时将 ELECTRON_CACHE 放到项目目录下）
+# Electron / electron-builder local cache (if ELECTRON_CACHE is temporarily placed in project directory) [Electron / electron-builder 本地缓存 (若临时将 ELECTRON_CACHE 放到项目目录下)]
 electron-cache/
 .cache/
 electron/
@@ -18,15 +23,15 @@ nsis/
 nsis-resources/
 *.blockmap
 
-# 操作系统生成的文件
+# OS-generated files [操作系统生成的文件]
 .DS_Store
 Thumbs.db
 
-# 日志文件
+# Log files [日志文件]
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# 环境变量文件
+# Environment variable files [环境变量文件]
 .env
 .env.local
