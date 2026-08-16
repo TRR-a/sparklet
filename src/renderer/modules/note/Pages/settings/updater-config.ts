@@ -1,7 +1,7 @@
 // Settings: updater config section - handles update behavior, interval, integrity check [设置：更新配置区域 - 处理更新行为、频率、完整性校验]
 
-import { t } from '../../Modules/i18n';
-import { showToast } from '../../Base/toast';
+import { t } from '../../Modules/i18n.js';
+import { showToast } from '../../Base/toast.js';
 import type { UpdaterConfig } from '../../../../../shared/types/updater';
 
 /** Whether running in dev environment [是否开发环境] */

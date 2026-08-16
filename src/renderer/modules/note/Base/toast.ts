@@ -1,7 +1,7 @@
 // Toast utility - shared toast display for all pages [Toast 工具 - 所有页面共享的 Toast 显示]
 // Supports both string messages and i18n key objects for language switching [支持字符串消息和 i18n key 对象两种格式，支持语言切换]
 
-import { t } from '../Modules/i18n';
+import { t } from '../Modules/i18n.js';
 
 /** Toast type [Toast 类型] */
 export type ToastType = 'info' | 'success' | 'warning' | 'error' | 'danger';

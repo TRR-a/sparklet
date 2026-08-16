@@ -1,10 +1,10 @@
 // Settings: cache management section - handles update package cache info, retention days, clear cache [设置：缓存管理区域 - 处理更新包缓存信息、保留天数、清空缓存]
 
-import { t } from '../../Modules/i18n';
-import { showToast } from '../../Base/toast';
-import { formatDateTime, formatDays } from '../../Base/dom-utils';
-import { showCustomConfirm } from '../../Modules/custom-dialog';
-import { getIsDevEnvironment } from './updater-config';
+import { t } from '../../Modules/i18n.js';
+import { showToast } from '../../Base/toast.js';
+import { formatDateTime, formatDays } from '../../Base/dom-utils.js';
+import { showCustomConfirm } from '../../Modules/custom-dialog.js';
+import { getIsDevEnvironment } from './updater-config.js';
 import type { CacheInfo } from '../../../../../shared/types/updater';
 
 // Retention days config [保留天数配置]

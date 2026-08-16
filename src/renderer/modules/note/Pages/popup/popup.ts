@@ -1,10 +1,10 @@
 // Popup page - Sparklet main popup logic entry point [弹窗页面 - Sparklet 主弹窗逻辑入口]
 // Handles note editing, theme switching, trash, settings window glow sync [处理笔记编辑、主题切换、回收站、设置窗口光晕同步]
 
-import storageManager from '../../Modules/storage-manager';
-import { initI18n, t } from '../../Modules/i18n';
-import { showToast, bindToastListener } from '../../Base/toast';
-import { setTheme, toggleTheme } from '../../Base/theme';
+import storageManager from '../../Modules/storage-manager.js';
+import { initI18n, t } from '../../Modules/i18n.js';
+import { showToast, bindToastListener } from '../../Base/toast.js';
+import { setTheme, toggleTheme } from '../../Base/theme.js';
 import {
   loadNotes,
   saveCurrentNote,
@@ -15,8 +15,8 @@ import {
   renderNoteList,
   getCurrentNoteId,
   setCurrentNoteId
-} from './note-editor';
-import { toggleTrashView } from './trash-view';
+} from './note-editor.js';
+import { toggleTrashView } from './trash-view.js';
 
 /**
  * Bind all popup events [绑定所有弹窗事件]

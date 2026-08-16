@@ -1,8 +1,8 @@
 // Trash view - handles trash list rendering, restore, and permanent delete [回收站视图 - 处理回收站列表渲染、恢复和永久删除]
 
-import storageManager from '../../Modules/storage-manager';
-import { t } from '../../Modules/i18n';
-import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from './note-editor';
+import storageManager from '../../Modules/storage-manager.js';
+import { t } from '../../Modules/i18n.js';
+import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from './note-editor.js';
 
 /** Current view state: 'main' or 'trash' [当前视图状态：'main' 或 'trash'] */
 let currentView = 'main';

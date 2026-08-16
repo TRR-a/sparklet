@@ -1,25 +1,25 @@
 // Settings page - main entry point for settings window logic [设置页面 - 设置窗口逻辑入口]
 // Handles language switching, window control, theme sync, and orchestrates all settings sections [处理语言切换、窗口控制、主题同步，并编排所有设置区域]
 
-import { initI18n, loadLanguage, getCurrentLang, t } from '../../Modules/i18n';
-import { showToast, bindToastListener } from '../../Base/toast';
-import { loadTheme, bindThemeBroadcastListener } from '../../Base/theme';
-import { bindUpdaterDialogListener } from '../../Modules/updater-dialog';
+import { initI18n, loadLanguage, getCurrentLang, t } from '../../Modules/i18n.js';
+import { showToast, bindToastListener } from '../../Base/toast.js';
+import { loadTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
+import { bindUpdaterDialogListener } from '../../Modules/updater-dialog.js';
 import {
   loadUpdaterConfig,
   bindUpdaterEvents,
   loadUpdateHint
-} from './updater-config';
+} from './updater-config.js';
 import {
   loadCacheRetentionDays,
   applyCacheDevLock,
   bindCacheEvents,
   loadCacheInfo
-} from './cache-settings';
+} from './cache-settings.js';
 import {
   applyImportExportDevLock,
   bindImportExportEvents
-} from './config-io';
+} from './config-io.js';
 
 /**
  * Load theme and initialize i18n [加载主题并初始化 i18n]

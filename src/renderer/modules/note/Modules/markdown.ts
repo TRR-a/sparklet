@@ -1,7 +1,7 @@
 // Markdown renderer - lightweight markdown-to-HTML conversion [Markdown 渲染器 - 轻量级 markdown 转 HTML]
 // Supports: code blocks with language labels, paragraph text with line breaks [支持：带语言标签的代码块、带换行的段落文本]
 
-import { escapeHtml } from '../Base/dom-utils';
+import { escapeHtml } from '../Base/dom-utils.js';
 
 /**
  * Render markdown text to HTML (supports code blocks and paragraphs) [将 markdown 文本渲染为 HTML (支持代码块和段落)]

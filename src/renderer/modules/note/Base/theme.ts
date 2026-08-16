@@ -1,6 +1,6 @@
 // Theme management - load, set, and toggle app theme [主题管理 - 加载、设置和切换应用主题]
 
-import { t } from '../Modules/i18n';
+import { t } from '../Modules/i18n.js';
 
 /**
  * Set the current theme on the body element [在 body 元素上设置当前主题]

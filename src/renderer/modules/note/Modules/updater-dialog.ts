@@ -1,8 +1,8 @@
 // Updater custom dialog - replaces native system dialog for update notifications [更新器自定义弹窗 - 替换系统原生弹窗用于更新通知]
 // Handles 8 dialog types: update-confirm, notify-only, restart-confirm, rollback-with-cache, rollback-restart, rollback-no-cache, manual-update-failed, simple-error [处理 8 种弹窗类型]
 
-import { t } from './i18n';
-import { escapeHtml } from '../Base/dom-utils';
+import { t } from './i18n.js';
+import { escapeHtml } from '../Base/dom-utils.js';
 
 /** Dialog button definition [弹窗按钮定义] */
 interface DialogButton {

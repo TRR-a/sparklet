@@ -1,9 +1,9 @@
 // Popup note editor - handles note loading, editing, and list rendering [弹窗笔记编辑器 - 处理笔记加载、编辑和列表渲染]
 
-import storageManager from '../../Modules/storage-manager';
-import { t } from '../../Modules/i18n';
-import { formatDate } from '../../Base/dom-utils';
-import { renderMarkdown } from '../../Modules/markdown';
+import storageManager from '../../Modules/storage-manager.js';
+import { t } from '../../Modules/i18n.js';
+import { formatDate } from '../../Base/dom-utils.js';
+import { renderMarkdown } from '../../Modules/markdown.js';
 
 /** Preview mode state [预览模式状态] */
 let isPreviewMode = false;

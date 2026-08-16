@@ -1,7 +1,7 @@
 // Custom confirm dialog - replaces native window.confirm() for consistent UI [自定义确认弹窗 - 替换系统原生 window.confirm() 以保持 UI 一致]
 // Uses #customConfirmModal element from HTML [使用 HTML 中的 #customConfirmModal 元素]
 
-import { t } from './i18n';
+import { t } from './i18n.js';
 
 /** Custom confirm dialog options [自定义确认弹窗选项] */
 export interface ConfirmOptions {
