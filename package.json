@@ -30,7 +30,7 @@
     "@commitlint/config-conventional": "^21.2.0",
     "@types/node": "^22.0.0",
     "@types/unzipper": "^0.10.9",
-    "electron": "40.0.0",
+    "electron": "40.10.6",
     "electron-builder": "^24.6.4",
     "husky": "^9.1.7",
     "typescript": "^5.6.0"
@@ -72,6 +72,6 @@
     }
   },
   "allowScripts": {
-    "electron@40.0.0": true
+    "electron@40.10.6": true
   }
 }
