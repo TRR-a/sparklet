@@ -1,5 +1,10 @@
 // Base TypeScript configuration [基础 TypeScript 配置]
 {
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.main.json" },
+    { "path": "./tsconfig.renderer.json" }
+  ],
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],

@@ -62,8 +62,16 @@
     "win": {
       "icon": "assets/icons/icon256.ico",
       "target": [
-        { "target": "zip", "arch": ["x64"] }
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     }
+  },
+  "allowScripts": {
+    "electron@40.0.0": true
   }
 }
