@@ -61,6 +61,7 @@ export async function renderNoteList(notes: Array<{ id: string; color: string; t
     const li = document.createElement('li');
     li.className = 'note-list-item';
     li.setAttribute('data-note-id', note.id);
+    li.style.setProperty('--note-color', note.color);
     if (note.id === currentNoteId) li.classList.add('active');
     li.innerHTML = `
       <span class="note-color-dot" style="background-color: ${note.color};"></span>

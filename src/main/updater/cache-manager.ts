@@ -31,7 +31,7 @@ async function ensureCacheReady(): Promise<void> {
   await fs.ensureDir(cacheDir);
   const metaPath = getUpdateCacheMetaPath();
   if (!(await fs.pathExists(metaPath))) {
-    await fs.writeJson(metaPath, { versions: {} }, { spaces: 2 });
+    await fs.writeFile(metaPath, JSON.stringify({ versions: {} }, null, 2), 'utf8');
   }
 }
 
@@ -51,7 +51,7 @@ async function readMeta(): Promise<CacheMeta> {
     const msg = err instanceof Error ? err.message : String(err);
     console.warn('[CacheManager] Failed to parse cache meta, resetting:', msg);
     const fresh: CacheMeta = { versions: {} };
-    await fs.writeJson(metaPath, fresh, { spaces: 2 });
+    await fs.writeFile(metaPath, JSON.stringify(fresh, null, 2), 'utf8');
     return fresh;
   }
 }
@@ -62,7 +62,7 @@ async function readMeta(): Promise<CacheMeta> {
 async function writeMeta(meta: CacheMeta): Promise<void> {
   await ensureCacheReady();
   const metaPath = getUpdateCacheMetaPath();
-  await fs.writeJson(metaPath, meta, { spaces: 2 });
+  await fs.writeFile(metaPath, JSON.stringify(meta, null, 2), 'utf8');
 }
 
 // ---------- Cache registration / sync [缓存注册 / 同步] ----------

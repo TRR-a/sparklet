@@ -69,7 +69,7 @@ export function registerUpdaterConfigIpcHandlers(): void {
         appVersion: app.getVersion(),
         config: cfg
       };
-      await fs.writeJson(filePath, payload, { spaces: 2 });
+      await fs.writeFile(filePath, JSON.stringify(payload, null, 2), 'utf8');
       return { success: true, filePath };
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);

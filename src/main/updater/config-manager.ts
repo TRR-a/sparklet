@@ -123,7 +123,7 @@ export async function writeConfig(config: UpdaterConfig): Promise<ConfigWriteRes
 
   try {
     isSelfWrite = true;
-    await fs.writeJson(filePath, config, { spaces: 2 });
+    await fs.writeFile(filePath, JSON.stringify(config, null, 2), 'utf8');
     console.log('[ConfigManager] Config saved:', config);
     broadcastConfigChange(config);
     return { success: true, error: null };
@@ -153,7 +153,7 @@ export async function startConfigWatcher(): Promise<void> {
   try {
     const exists = await fs.pathExists(filePath);
     if (!exists) {
-      await fs.writeJson(filePath, DEFAULT_CONFIG, { spaces: 2 });
+      await fs.writeFile(filePath, JSON.stringify(DEFAULT_CONFIG, null, 2), 'utf8');
     }
 
     configWatcher = fs.watch(filePath, async (eventType: string) => {

@@ -55,7 +55,7 @@ export async function migrateFromStore(): Promise<void> {
         meta.id = note.id;
 
         // Write metadata [写入元数据]
-        await fs.writeJson(jsonPath, meta, { spaces: 2 });
+        await fs.writeFile(jsonPath, JSON.stringify(meta, null, 2), 'utf8');
         // Write content (if content is null/undefined, write empty string) [写入正文 (如果 content 为 null/undefined，写入空字符串)]
         await fs.writeFile(mdPath, content || '', 'utf8');
 

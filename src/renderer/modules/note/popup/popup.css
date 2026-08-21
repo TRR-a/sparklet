@@ -310,10 +310,10 @@ textarea:focus {
     background-color: var(--color-hover);
 }
 
-/* 选中笔记项高亮样式 */
+/* 选中笔记项高亮样式 (边缘色跟随笔记标签色) [Selected note item highlight (border follows note color)] */
 .note-list-item.active {
     background-color: var(--color-primary-light);
-    border-left: 3px solid var(--color-primary);
+    border-left: 3px solid var(--note-color, var(--color-primary));
 }
 
 /* 笔记标记颜色点 */

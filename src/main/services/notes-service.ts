@@ -100,6 +100,28 @@ export async function getNote(id: string): Promise<NoteGetResult> {
 }
 
 /**
+ * Write file with retry on EPERM (Windows anti-virus/indexing may briefly lock files) [写入文件并在 EPERM 时重试 (Windows 杀毒软件/索引服务可能短暂锁文件)]
+ */
+async function writeFileWithRetry(filePath: string, data: string, maxRetries: number = 3): Promise<void> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      await fs.writeFile(filePath, data, 'utf8');
+      return;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code;
+      if (code === 'EPERM' || code === 'EACCES') {
+        if (attempt < maxRetries) {
+          console.warn(`[NotesFS] writeFile EPERM attempt ${attempt}/${maxRetries}, retrying in 300ms...`);
+          await new Promise(resolve => setTimeout(resolve, 300));
+          continue;
+        }
+      }
+      throw err;
+    }
+  }
+}
+
+/**
  * Save a note (create or update) [保存笔记 (新建或更新)]
  */
 export async function saveNote(noteData: Note): Promise<NoteSaveResult> {
@@ -109,10 +131,10 @@ export async function saveNote(noteData: Note): Promise<NoteSaveResult> {
     const { content, ...meta } = noteData;
 
     const jsonPath = path.join(notesDir, `${noteData.id}.json`);
-    await fs.writeJson(jsonPath, meta, { spaces: 2 });
+    await writeFileWithRetry(jsonPath, JSON.stringify(meta, null, 2));
 
     const mdPath = path.join(notesDir, `${noteData.id}.md`);
-    await fs.writeFile(mdPath, content || '', 'utf8');
+    await writeFileWithRetry(mdPath, content || '');
 
     return { success: true, note: noteData };
   } catch (err) {
@@ -134,7 +156,7 @@ export async function deleteNote(id: string): Promise<NoteOperationResult> {
     const meta = await fs.readJson(jsonPath) as NoteMeta;
     meta.isDeleted = true;
     meta.deletedAt = new Date().toISOString();
-    await fs.writeJson(jsonPath, meta, { spaces: 2 });
+    await writeFileWithRetry(jsonPath, JSON.stringify(meta, null, 2));
 
     return { success: true };
   } catch (err) {
@@ -156,7 +178,7 @@ export async function restoreNote(id: string): Promise<NoteOperationResult> {
     const meta = await fs.readJson(jsonPath) as NoteMeta;
     meta.isDeleted = false;
     meta.deletedAt = null;
-    await fs.writeJson(jsonPath, meta, { spaces: 2 });
+    await writeFileWithRetry(jsonPath, JSON.stringify(meta, null, 2));
 
     return { success: true };
   } catch (err) {
