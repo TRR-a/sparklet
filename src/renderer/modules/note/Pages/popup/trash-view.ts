@@ -66,7 +66,8 @@ export async function toggleTrashView(): Promise<void> {
  * Load main view notes [加载主视图笔记]
  */
 async function loadMainView(): Promise<void> {
-  await storageManager.init();
+  // Refresh from file system to ensure cache is up-to-date [从文件系统刷新确保缓存最新]
+  await storageManager.refresh();
   const notes = await storageManager.getNotes();
   await renderNoteList(notes);
   // Restore first note into editor if available [恢复第一个笔记到编辑器]

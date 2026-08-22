@@ -102,6 +102,8 @@ let saveTimeout: ReturnType<typeof setTimeout> | null = null;
  */
 export async function saveCurrentNote(): Promise<void> {
   if (!currentNoteId) return;
+  // Skip if in trash view (prevent renderNoteList overwriting trash list) [回收站视图中跳过 (防止 renderNoteList 覆盖回收站列表)]
+  if (document.body.classList.contains('trash-view')) return;
   if (saveTimeout) clearTimeout(saveTimeout);
   const titleInput = document.getElementById('noteTitle') as HTMLInputElement | null;
   const contentInput = document.getElementById('noteArea') as HTMLTextAreaElement | null;
