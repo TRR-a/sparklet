@@ -17,7 +17,7 @@ import {
   setCurrentNoteId
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
-import { openProjectFolder, renderWorkspace } from '../../../project/project-view.js';
+import { openProjectFolder, restoreWorkspace } from '../../../project/project-view.js';
 
 /**
  * Bind all popup events [绑定所有弹窗事件]
@@ -34,15 +34,18 @@ function bindEvents(): void {
     projectToggleBtn.addEventListener('click', () => {
       const notesView = document.getElementById('notesView');
       const projectView = document.getElementById('projectView');
+      const editor = document.querySelector('.editor') as HTMLElement | null;
       if (!notesView || !projectView) return;
       const isProject = projectView.classList.contains('active');
       if (isProject) {
         projectView.classList.remove('active');
         notesView.classList.add('active');
+        if (editor) editor.style.display = '';
         projectToggleBtn.style.opacity = '0.7';
       } else {
         notesView.classList.remove('active');
         projectView.classList.add('active');
+        if (editor) editor.style.display = 'none';
         projectToggleBtn.style.opacity = '1';
       }
     });
@@ -138,7 +141,7 @@ async function initApp(): Promise<void> {
   setTheme(theme || 'light');
   bindEvents();
   await loadNotes();
-  renderWorkspace();
+  await restoreWorkspace();
   // Toast listener (from main process) [Toast 监听 (来自主进程)]
   bindToastListener('提示');
   console.log('Sparklet 初始化完成');

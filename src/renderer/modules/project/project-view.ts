@@ -2,6 +2,9 @@
 
 import type { ProjectFileNode } from '../../../shared/types/project';
 
+/** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */
+const WORKSPACE_STORAGE_KEY = 'sparklet:workspace:paths';
+
 /** A single project in the workspace [工作区中的单个项目] */
 interface WorkspaceProject {
   path: string;
@@ -15,6 +18,50 @@ const workspaceProjects: WorkspaceProject[] = [];
 
 /** Set of expanded directory paths (global, absolute paths won't collide) [已展开目录路径集合 (全局，绝对路径不会冲突)] */
 const expandedDirs = new Set<string>();
+
+/**
+ * Persist workspace project paths to localStorage [将工作区项目路径持久化到 localStorage]
+ */
+function saveWorkspacePaths(): void {
+  try {
+    const paths = workspaceProjects.map(p => p.path);
+    localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify(paths));
+  } catch {
+    // Ignore storage errors (quota, private mode, etc.)
+  }
+}
+
+/**
+ * Restore workspace from localStorage (re-reads directory trees) [从 localStorage 恢复工作区 (重新读取目录树)]
+ */
+export async function restoreWorkspace(): Promise<void> {
+  try {
+    const raw = localStorage.getItem(WORKSPACE_STORAGE_KEY);
+    if (!raw) {
+      renderWorkspace();
+      return;
+    }
+    const paths: string[] = JSON.parse(raw);
+    if (!Array.isArray(paths)) {
+      renderWorkspace();
+      return;
+    }
+    for (const projectPath of paths) {
+      const treeResult = await window.projectAPI.readTree(projectPath);
+      if (!treeResult.success || !treeResult.root) continue;
+      expandedDirs.add(projectPath);
+      workspaceProjects.push({
+        path: projectPath,
+        name: treeResult.root.name,
+        root: treeResult.root,
+        expanded: true,
+      });
+    }
+  } catch {
+    // Ignore parse errors
+  }
+  renderWorkspace();
+}
 
 /**
  * Open a folder and add it to the workspace [打开文件夹并添加到工作区]
@@ -52,6 +99,7 @@ export async function openProjectFolder(): Promise<void> {
     expanded: true,
   });
 
+  saveWorkspacePaths();
   renderWorkspace();
 }
 
@@ -66,6 +114,7 @@ export function removeProjectFromWorkspace(projectPath: string): void {
   for (const path of Array.from(expandedDirs)) {
     if (path.startsWith(projectPath)) expandedDirs.delete(path);
   }
+  saveWorkspacePaths();
   renderWorkspace();
 }
 
