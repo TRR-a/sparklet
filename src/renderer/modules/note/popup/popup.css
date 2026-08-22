@@ -1051,9 +1051,9 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 
 /* Toggle arrow [展开箭头] */
 .project-tree-toggle {
-    width: 12px;
+    width: 10px;
     flex-shrink: 0;
-    font-size: 0.55rem;
+    font-size: 0.45rem;
     color: var(--color-text-secondary);
     text-align: center;
     cursor: pointer;
@@ -1063,7 +1063,9 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 /* File/folder icon [文件/文件夹图标] */
 .project-tree-icon {
     flex-shrink: 0;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
+    width: 14px;
+    text-align: center;
 }
 
 /* File name [文件名] */
