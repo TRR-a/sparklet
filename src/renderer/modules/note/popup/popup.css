@@ -1089,6 +1089,77 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     list-style: none;
 }
 
+/* Empty workspace [空工作区] */
+.project-empty {
+    color: var(--color-text-secondary);
+    opacity: 0.5;
+    padding: 24px 12px;
+    font-size: 0.82rem;
+    text-align: center;
+    list-style: none;
+}
+
+/* Project root node [项目根节点] */
+.project-root-node {
+    list-style: none;
+    margin-bottom: 4px;
+}
+
+/* Project root header [项目根标题行] */
+.project-root-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: var(--color-hover);
+}
+
+.project-root-header:hover {
+    background-color: var(--color-primary-light);
+}
+
+/* Project root name [项目根名称] */
+.project-root-name {
+    font-weight: 600;
+}
+
+/* Remove from workspace button [从工作区移除按钮] */
+.project-remove-btn {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.project-remove-btn:hover {
+    background-color: #ea4335;
+    color: white;
+    opacity: 1;
+}
+
+/* Project root children container [项目根子节点容器] */
+.project-root-children {
+    margin-top: 2px;
+    padding-left: 0;
+}
+
 /* Dark theme code block [暗色主题代码块] */
 body[data-theme="dark"] .markdown-body .code-block {
     background-color: #2d2d2d;

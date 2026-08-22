@@ -17,7 +17,7 @@ import {
   setCurrentNoteId
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
-import { openProjectFolder } from '../../../project/project-view.js';
+import { openProjectFolder, renderWorkspace } from '../../../project/project-view.js';
 
 /**
  * Bind all popup events [绑定所有弹窗事件]
@@ -138,6 +138,7 @@ async function initApp(): Promise<void> {
   setTheme(theme || 'light');
   bindEvents();
   await loadNotes();
+  renderWorkspace();
   // Toast listener (from main process) [Toast 监听 (来自主进程)]
   bindToastListener('提示');
   console.log('Sparklet 初始化完成');
