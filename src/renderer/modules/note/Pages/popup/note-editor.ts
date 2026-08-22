@@ -36,6 +36,11 @@ export async function loadNoteIntoEditor(note: { id: string } | null): Promise<v
   const pv = document.getElementById('notePreview');
   if (ta) (ta as HTMLElement).style.display = 'block';
   if (pv) (pv as HTMLElement).style.display = 'none';
+  // Safety: clear stale blur-background if settings glow mask is not shown [安全清除残留的 blur-background (如果设置光晕未显示)]
+  const glowMaskEl = document.getElementById('settingsGlowMask');
+  if (document.body.classList.contains('blur-background') && glowMaskEl && !glowMaskEl.classList.contains('show')) {
+    document.body.classList.remove('blur-background');
+  }
   currentNoteId = note.id;
   const fullNote = await storageManager.getNoteById(note.id);
   if (!fullNote) return;

@@ -47,6 +47,10 @@ export async function toggleTrashView(): Promise<void> {
   } else {
     currentView = 'main';
     document.body.classList.remove('trash-view');
+    // Safety: clear stale blur-background and glow mask [安全清除残留的 blur-background 和光晕遮罩]
+    document.body.classList.remove('blur-background');
+    const glowMask = document.getElementById('settingsGlowMask');
+    if (glowMask) glowMask.classList.remove('show');
     (trashToggleBtn as HTMLElement).style.opacity = '0.7';
     (trashToggleBtn as HTMLElement).style.color = '';
     if (newNoteBtn) (newNoteBtn as HTMLElement).style.display = 'block';
