@@ -101,7 +101,7 @@
   "noteInfo.title": "詳細",
   "noteInfo.value.no": "いいえ",
   "noteInfo.value.yes": "はい",
-  "noteList.empty": "なし",
+  "noteList.empty": "- なし -",
   "noteList.groupPinned": "ピン留め",
   "noteList.groupRecent": "最近",
   "noteMenu.delete": "削除",

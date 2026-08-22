@@ -101,7 +101,7 @@
   "noteInfo.title": "Details",
   "noteInfo.value.no": "Nein",
   "noteInfo.value.yes": "Ja",
-  "noteList.empty": "Keine",
+  "noteList.empty": "- Keine -",
   "noteList.groupPinned": "Angepinnt",
   "noteList.groupRecent": "Kürzlich",
   "noteMenu.delete": "Löschen",

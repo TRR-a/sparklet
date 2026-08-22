@@ -101,7 +101,7 @@
   "noteInfo.title": "Подробности",
   "noteInfo.value.no": "Нет",
   "noteInfo.value.yes": "Да",
-  "noteList.empty": "Нет",
+  "noteList.empty": "- Нет -",
   "noteList.groupPinned": "Закреплено",
   "noteList.groupRecent": "Недавние",
   "noteMenu.delete": "Удалить",

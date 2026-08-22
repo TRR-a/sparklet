@@ -466,6 +466,7 @@ textarea:focus {
     list-style: none;
     cursor: default;
     user-select: none;
+    text-align: center;
 }
 
 /* 三点更多按钮 [More options button] */
