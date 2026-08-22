@@ -359,7 +359,16 @@ async function performUpdate(onProgress: ProgressCallback | null, onComplete: Co
     }
 
     onProgress && onProgress('Preparing temp directory...', 5);
-    const tempResult = await acquireTempDir();
+    const tempResult = await acquireTempDir({
+      showTempDirError: async () => {
+        const res = await promptRendererDialog('temp-dir-error', {}, { fallbackResponse: { buttonIndex: 2 } });
+        return res.buttonIndex;
+      },
+      showDirNotEmptyConfirm: async () => {
+        const res = await promptRendererDialog('temp-dir-not-empty', {}, { fallbackResponse: { buttonIndex: 1 } });
+        return res.buttonIndex;
+      }
+    });
     if (!tempResult.success) {
       onComplete && onComplete(false, 'Unable to acquire temp directory');
       isUpdating = false;

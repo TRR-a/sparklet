@@ -7,6 +7,16 @@ import { TEMP_DIR_NAMES, getTempPath } from './constants';
 import type { TempDirResult } from '../../shared/types/updater';
 
 /**
+ * Dialog callbacks for temp directory errors (provided by caller to use renderer custom UI) [临时目录错误的弹窗回调 (由调用方提供以使用渲染层自定义 UI)]
+ * - showTempDirError: returns 0=Retry, 1=Specify Manually, 2=Cancel
+ * - showDirNotEmptyConfirm: returns 0=Continue, 1=Reselect
+ */
+export interface TempDirDialogs {
+  showTempDirError: () => Promise<number>;
+  showDirNotEmptyConfirm: () => Promise<number>;
+}
+
+/**
  * Clean all items in a directory (keep the directory itself) [清理目录内所有条目 (保留目录本身)]
  * @param dirPath Directory path to clean [待清理的目录路径]
  * @returns Whether cleaning succeeded [是否清理成功]
@@ -31,9 +41,10 @@ export async function cleanDirectory(dirPath: string): Promise<boolean> {
 /**
  * Acquire an available temp directory [获取可用的临时目录]
  * Tries each candidate directory in order; if all fail, prompts user to retry or specify manually [按顺序尝试每个候选目录；若全部失败，提示用户重试或手动指定]
+ * @param dialogs Optional dialog callbacks (uses renderer custom UI when provided, falls back to system dialog otherwise) [可选弹窗回调 (提供时使用渲染层自定义 UI，否则回退到系统弹窗)]
  * @returns Temp directory acquire result [临时目录获取结果]
  */
-export async function acquireTempDir(): Promise<TempDirResult> {
+export async function acquireTempDir(dialogs?: TempDirDialogs): Promise<TempDirResult> {
   const tempBase = getTempPath();
   for (const dirName of TEMP_DIR_NAMES) {
     const fullPath = path.join(tempBase, dirName);
@@ -58,18 +69,26 @@ export async function acquireTempDir(): Promise<TempDirResult> {
   }
 
   console.error('[TempManager] All candidate directories unavailable');
-  const result = await dialog.showMessageBox({
-    type: 'warning',
-    title: 'Update Temp Directory Error',
-    message: 'Unable to create or clean temp directory. Please manually clean Sparklet-* or sparklet-* folders in %TEMP%, or specify an empty directory as update cache.',
-    buttons: ['Retry', 'Specify Manually', 'Cancel'],
-    defaultId: 0,
-    cancelId: 2
-  });
 
-  if (result.response === 0) {
-    return acquireTempDir();
-  } else if (result.response === 1) {
+  // Show error dialog (custom UI if callbacks provided, otherwise system dialog) [显示错误弹窗 (有回调时用自定义 UI，否则用系统弹窗)]
+  let errorResponse: number;
+  if (dialogs?.showTempDirError) {
+    errorResponse = await dialogs.showTempDirError();
+  } else {
+    const result = await dialog.showMessageBox({
+      type: 'warning',
+      title: 'Update Temp Directory Error',
+      message: 'Unable to create or clean temp directory. Please manually clean Sparklet-* or sparklet-* folders in %TEMP%, or specify an empty directory as update cache.',
+      buttons: ['Retry', 'Specify Manually', 'Cancel'],
+      defaultId: 0,
+      cancelId: 2
+    });
+    errorResponse = result.response;
+  }
+
+  if (errorResponse === 0) {
+    return acquireTempDir(dialogs);
+  } else if (errorResponse === 1) {
     const { canceled, filePaths } = await dialog.showOpenDialog({
       title: 'Select Empty Directory as Update Cache',
       properties: ['openDirectory', 'createDirectory']
@@ -81,15 +100,22 @@ export async function acquireTempDir(): Promise<TempDirResult> {
     try {
       const items = await fs.readdir(manualPath);
       if (items.length > 0) {
-        const confirm = await dialog.showMessageBox({
-          type: 'warning',
-          title: 'Directory Not Empty',
-          message: 'Selected directory is not empty. Continue? (It will be cleaned after update)',
-          buttons: ['Continue', 'Reselect'],
-          defaultId: 0,
-          cancelId: 1
-        });
-        if (confirm.response === 1) return acquireTempDir();
+        // Show non-empty directory confirmation (custom UI if callbacks provided) [显示目录非空确认 (有回调时用自定义 UI)]
+        let confirmResponse: number;
+        if (dialogs?.showDirNotEmptyConfirm) {
+          confirmResponse = await dialogs.showDirNotEmptyConfirm();
+        } else {
+          const confirm = await dialog.showMessageBox({
+            type: 'warning',
+            title: 'Directory Not Empty',
+            message: 'Selected directory is not empty. Continue? (It will be cleaned after update)',
+            buttons: ['Continue', 'Reselect'],
+            defaultId: 0,
+            cancelId: 1
+          });
+          confirmResponse = confirm.response;
+        }
+        if (confirmResponse === 1) return acquireTempDir(dialogs);
         await cleanDirectory(manualPath);
       }
     } catch (err) {

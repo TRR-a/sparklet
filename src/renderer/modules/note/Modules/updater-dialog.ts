@@ -203,7 +203,28 @@ export function showUpdaterDialog(
       buttons.push({ index: 0, label: t('dialog.manualFailed.btnOk'), style: 'ok' });
       break;
     }
-    // ========== 8. Simple error (generic) [简单错误 (通用)] ==========
+    // ========== 8. Temp directory error (three buttons) [临时目录错误 (三按钮)] ==========
+    case 'temp-dir-error': {
+      title = t('dialog.tempDirError.title');
+      bodyHtml = `
+        <div class="upd-info-row">${t('dialog.tempDirError.message')}</div>
+      `;
+      buttons.push({ index: 2, label: t('dialog.tempDirError.btnCancel'), style: 'cancel' });
+      buttons.push({ index: 1, label: t('dialog.tempDirError.btnSpecify'), style: 'default' });
+      buttons.push({ index: 0, label: t('dialog.tempDirError.btnRetry'), style: 'ok' });
+      break;
+    }
+    // ========== 9. Directory not empty confirm (two buttons) [目录非空确认 (双按钮)] ==========
+    case 'temp-dir-not-empty': {
+      title = t('dialog.tempDirNotEmpty.title');
+      bodyHtml = `
+        <div class="upd-info-row">${t('dialog.tempDirNotEmpty.message')}</div>
+      `;
+      buttons.push({ index: 1, label: t('dialog.tempDirNotEmpty.btnReselect'), style: 'cancel' });
+      buttons.push({ index: 0, label: t('dialog.tempDirNotEmpty.btnContinue'), style: 'ok' });
+      break;
+    }
+    // ========== 10. Simple error (generic) [简单错误 (通用)] ==========
     case 'simple-error':
     default: {
       title = t(String(params.titleKey || 'dialog.simpleError.title'));
