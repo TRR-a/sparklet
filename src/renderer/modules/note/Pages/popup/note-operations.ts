@@ -81,6 +81,18 @@ export async function togglePinNote(noteId: string): Promise<void> {
 }
 
 /**
+ * Toggle note starred state [切换笔记星标状态]
+ */
+export async function toggleStarNote(noteId: string): Promise<void> {
+  const note = await storageManager.getNoteById(noteId);
+  if (!note) return;
+  const newStarred = !note.starred;
+  await storageManager.updateNote(noteId, { starred: newStarred });
+  const notes = await storageManager.getNotes();
+  await renderNoteList(notes);
+}
+
+/**
  * Handle note deletion (double-click to confirm) [处理笔记删除 (双击确认)]
  */
 export async function handleDeleteNote(noteId: string, listItemElement: HTMLElement): Promise<void> {

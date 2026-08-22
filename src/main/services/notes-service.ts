@@ -17,6 +17,7 @@ interface OldNote {
   isDeleted?: boolean;
   deletedAt?: string | null;
   pinned?: boolean;
+  starred?: boolean;
 }
 
 /** Partial note metadata (without content) [部分笔记元数据 (不含正文)] */
@@ -62,10 +63,14 @@ export async function listNotes(): Promise<NoteListResult> {
     }
 
     notes.sort((a, b) => {
-      // Pinned first, then by updatedAt descending [置顶优先，然后按更新时间降序]
-      const aPinned = a.pinned ? 1 : 0;
-      const bPinned = b.pinned ? 1 : 0;
-      if (aPinned !== bPinned) return bPinned - aPinned;
+      // Pinned first, then starred, then by updatedAt descending [置顶优先，然后星标，然后按更新时间降序]
+      const aPinned = a.pinned ? 2 : 0;
+      const bPinned = b.pinned ? 2 : 0;
+      const aStarred = a.starred ? 1 : 0;
+      const bStarred = b.starred ? 1 : 0;
+      const aRank = aPinned + aStarred;
+      const bRank = bPinned + bStarred;
+      if (aRank !== bRank) return bRank - aRank;
       const aTime = new Date(a.updatedAt || 0).getTime();
       const bTime = new Date(b.updatedAt || 0).getTime();
       return bTime - aTime;

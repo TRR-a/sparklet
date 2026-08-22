@@ -28,11 +28,11 @@ function bindEvents(): void {
   const trashToggleBtn = document.getElementById('trashToggle');
   if (trashToggleBtn) trashToggleBtn.addEventListener('click', toggleTrashView);
 
-  const pinToggleBtn = document.getElementById('pinToggle');
-  if (pinToggleBtn) {
-    pinToggleBtn.addEventListener('click', async () => {
+  const windowPinBtn = document.getElementById('windowPinBtn');
+  if (windowPinBtn) {
+    windowPinBtn.addEventListener('click', async () => {
       const isOnTop = await window.electronAPI.invoke('window-toggle-always-on-top') as boolean;
-      pinToggleBtn.classList.toggle('active', isOnTop);
+      windowPinBtn.classList.toggle('active', isOnTop);
     });
   }
 

@@ -9,11 +9,12 @@ import {
   saveCurrentNote,
   createNewNote,
   handleDeleteNote,
-  togglePinNote
+  togglePinNote,
+  toggleStarNote
 } from './note-operations.js';
 
 // Re-export note operations for backward compatibility [重新导出笔记操作以保持向后兼容]
-export { saveCurrentNote, debounceSave, createNewNote, changeNoteColor, togglePinNote } from './note-operations.js';
+export { saveCurrentNote, debounceSave, createNewNote, changeNoteColor, togglePinNote, toggleStarNote } from './note-operations.js';
 
 /** Preview mode state [预览模式状态] */
 let isPreviewMode = false;
@@ -65,6 +66,7 @@ export async function showNoteInfo(noteId: string): Promise<void> {
     <div class="info-row"><span class="info-label">${t('noteInfo.label.charCount')}</span><span class="info-value">${wordCount}</span></div>
     <div class="info-row"><span class="info-label">${t('noteInfo.label.lineCount')}</span><span class="info-value">${lineCount}</span></div>
     <div class="info-row"><span class="info-label">${t('noteInfo.label.pinned')}</span><span class="info-value">${note.pinned ? '📌 ' + t('noteInfo.value.yes') : t('noteInfo.value.no')}</span></div>
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.starred')}</span><span class="info-value">${note.starred ? '⭐ ' + t('noteInfo.value.yes') : t('noteInfo.value.no')}</span></div>
   `;
 
   (modal as HTMLElement).style.display = 'flex';
@@ -112,6 +114,7 @@ interface NoteListItem {
   title: string;
   updatedAt: string;
   pinned?: boolean;
+  starred?: boolean;
 }
 
 /**
@@ -123,9 +126,10 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
   noteList.innerHTML = '';
   closeAllMenus();
 
-  // Split into pinned and normal groups [分为置顶和普通两组]
+  // Split into pinned, starred, and normal groups [分为置顶、星标、普通三组]
   const pinnedNotes = notes.filter(n => n.pinned);
-  const normalNotes = notes.filter(n => !n.pinned);
+  const starredNotes = notes.filter(n => !n.pinned && n.starred);
+  const normalNotes = notes.filter(n => !n.pinned && !n.starred);
 
   /** Create a single note card element [创建单个笔记卡片元素] */
   const createCard = (note: NoteListItem): HTMLElement => {
@@ -139,11 +143,14 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
     const pinIcon = note.pinned
       ? `<span class="pin-icon" title="${t('tooltip.pinned')}">📌</span>`
       : '';
+    const starIcon = note.starred
+      ? `<span class="star-icon" title="${t('tooltip.starred')}">⭐</span>`
+      : '';
 
     li.innerHTML = `
       <span class="note-color-dot" style="background-color: ${note.color};"></span>
       <div class="note-text">
-        <div class="note-title">${pinIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
+        <div class="note-title">${pinIcon}${starIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
         <div class="note-time">${formatDate(note.updatedAt)}</div>
       </div>
       <button class="note-delete-btn" data-i18n-title="tooltip.deleteNote" title="${t('tooltip.deleteNote')}">🗑️</button>
@@ -151,6 +158,9 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
       <div class="note-more-menu">
         <button class="menu-item pin-toggle" data-action="pin">
           ${note.pinned ? t('noteMenu.unpin') : t('noteMenu.pin')}
+        </button>
+        <button class="menu-item star-toggle" data-action="star">
+          ${note.starred ? t('noteMenu.unstar') : t('noteMenu.star')}
         </button>
         <button class="menu-item note-info" data-action="info">${t('noteMenu.info')}</button>
       </div>
@@ -199,6 +209,8 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
         closeAllMenus();
         if (action === 'pin') {
           await togglePinNote(note.id);
+        } else if (action === 'star') {
+          await toggleStarNote(note.id);
         } else if (action === 'info') {
           await showNoteInfo(note.id);
         }
@@ -222,7 +234,21 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
     noteList.appendChild(empty);
   }
 
-  // Recent group (non-pinned) [最近分组 (未置顶)]
+  // Starred group [星标分组]
+  const starredTitle = document.createElement('li');
+  starredTitle.className = 'note-group-title';
+  starredTitle.textContent = t('noteList.groupStarred');
+  noteList.appendChild(starredTitle);
+  if (starredNotes.length > 0) {
+    starredNotes.forEach(note => noteList.appendChild(createCard(note)));
+  } else {
+    const empty = document.createElement('li');
+    empty.className = 'note-group-empty';
+    empty.textContent = t('noteList.empty');
+    noteList.appendChild(empty);
+  }
+
+  // Recent group (non-pinned, non-starred) [最近分组 (未置顶未星标)]
   const recentTitle = document.createElement('li');
   recentTitle.className = 'note-group-title';
   recentTitle.textContent = t('noteList.groupRecent');
