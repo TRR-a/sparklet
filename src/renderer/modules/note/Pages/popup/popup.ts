@@ -29,28 +29,6 @@ function bindEvents(): void {
   const trashToggleBtn = document.getElementById('trashToggle');
   if (trashToggleBtn) trashToggleBtn.addEventListener('click', toggleTrashView);
 
-  const projectToggleBtn = document.getElementById('projectToggle');
-  if (projectToggleBtn) {
-    projectToggleBtn.addEventListener('click', () => {
-      const notesView = document.getElementById('notesView');
-      const projectView = document.getElementById('projectView');
-      const editor = document.querySelector('.editor') as HTMLElement | null;
-      if (!notesView || !projectView) return;
-      const isProject = projectView.classList.contains('active');
-      if (isProject) {
-        projectView.classList.remove('active');
-        notesView.classList.add('active');
-        if (editor) editor.style.display = '';
-        projectToggleBtn.style.opacity = '0.7';
-      } else {
-        notesView.classList.remove('active');
-        projectView.classList.add('active');
-        if (editor) editor.style.display = 'none';
-        projectToggleBtn.style.opacity = '1';
-      }
-    });
-  }
-
   const openFolderBtn = document.getElementById('openFolderBtn');
   if (openFolderBtn) openFolderBtn.addEventListener('click', openProjectFolder);
 
