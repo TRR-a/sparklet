@@ -450,17 +450,22 @@ textarea:focus {
     padding-top: 4px;
 }
 
-/* 置顶文字标签 [Pin text label] */
-.pin-label {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    background-color: var(--color-primary-light);
-    padding: 1px 6px;
-    border-radius: 4px;
-    margin-right: 6px;
+/* 置顶图标 [Pin icon] */
+.pin-icon {
+    margin-right: 4px;
+    font-size: 0.85em;
     vertical-align: middle;
+}
+
+/* 空组提示 [Empty group hint] */
+.note-group-empty {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    opacity: 0.5;
+    padding: 4px 12px 10px;
+    list-style: none;
+    cursor: default;
+    user-select: none;
 }
 
 /* 三点更多按钮 [More options button] */

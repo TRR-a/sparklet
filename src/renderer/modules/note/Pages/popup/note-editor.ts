@@ -136,14 +136,14 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
     if (note.id === currentNoteId) li.classList.add('active');
     if (note.pinned) li.classList.add('pinned');
 
-    const pinLabel = note.pinned
-      ? `<span class="pin-label">${t('noteList.pinnedLabel')}</span>`
+    const pinIcon = note.pinned
+      ? `<span class="pin-icon" title="${t('tooltip.pinned')}">📌</span>`
       : '';
 
     li.innerHTML = `
       <span class="note-color-dot" style="background-color: ${note.color};"></span>
       <div class="note-text">
-        <div class="note-title">${pinLabel}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
+        <div class="note-title">${pinIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
         <div class="note-time">${formatDate(note.updatedAt)}</div>
       </div>
       <button class="note-delete-btn" data-i18n-title="tooltip.deleteNote" title="${t('tooltip.deleteNote')}">🗑️</button>
@@ -209,21 +209,31 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
   };
 
   // Pinned group [置顶分组]
+  const pinnedTitle = document.createElement('li');
+  pinnedTitle.className = 'note-group-title';
+  pinnedTitle.textContent = t('noteList.groupPinned');
+  noteList.appendChild(pinnedTitle);
   if (pinnedNotes.length > 0) {
-    const title = document.createElement('li');
-    title.className = 'note-group-title';
-    title.textContent = t('noteList.groupPinned');
-    noteList.appendChild(title);
     pinnedNotes.forEach(note => noteList.appendChild(createCard(note)));
+  } else {
+    const empty = document.createElement('li');
+    empty.className = 'note-group-empty';
+    empty.textContent = t('noteList.empty');
+    noteList.appendChild(empty);
   }
 
   // Recent group (non-pinned) [最近分组 (未置顶)]
+  const recentTitle = document.createElement('li');
+  recentTitle.className = 'note-group-title';
+  recentTitle.textContent = t('noteList.groupRecent');
+  noteList.appendChild(recentTitle);
   if (normalNotes.length > 0) {
-    const title = document.createElement('li');
-    title.className = 'note-group-title';
-    title.textContent = t('noteList.groupRecent');
-    noteList.appendChild(title);
     normalNotes.forEach(note => noteList.appendChild(createCard(note)));
+  } else {
+    const empty = document.createElement('li');
+    empty.className = 'note-group-empty';
+    empty.textContent = t('noteList.empty');
+    noteList.appendChild(empty);
   }
 }
 
