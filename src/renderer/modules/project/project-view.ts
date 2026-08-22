@@ -200,7 +200,8 @@ function buildTreeNode(node: ProjectFileNode, depth: number): HTMLElement {
   } else {
     const spacer = document.createElement('span');
     spacer.className = 'project-tree-toggle';
-    spacer.textContent = '';
+    spacer.textContent = '▶';
+    spacer.style.visibility = 'hidden';
     row.appendChild(spacer);
 
     const icon = document.createElement('span');
