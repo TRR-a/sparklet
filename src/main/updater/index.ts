@@ -12,10 +12,12 @@ import { checkForUpdates, getCurrentVersion } from './check';
 import { downloadWithRetry } from './download';
 import {
   verifyReleaseManifest,
-  verifyPackageIntegrity,
+  verifyPackageIntegrity
+} from './verify';
+import {
   selfCheckIntegrity,
   verifyInstalledFiles
-} from './verify';
+} from './verify-integrity';
 import { installUpdate } from './installer';
 import {
   readConfig,
