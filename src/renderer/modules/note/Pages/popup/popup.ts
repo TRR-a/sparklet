@@ -17,6 +17,7 @@ import {
   setCurrentNoteId
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
+import { openProjectFolder } from '../../../project/project-view.js';
 
 /**
  * Bind all popup events [绑定所有弹窗事件]
@@ -27,6 +28,28 @@ function bindEvents(): void {
 
   const trashToggleBtn = document.getElementById('trashToggle');
   if (trashToggleBtn) trashToggleBtn.addEventListener('click', toggleTrashView);
+
+  const projectToggleBtn = document.getElementById('projectToggle');
+  if (projectToggleBtn) {
+    projectToggleBtn.addEventListener('click', () => {
+      const notesView = document.getElementById('notesView');
+      const projectView = document.getElementById('projectView');
+      if (!notesView || !projectView) return;
+      const isProject = projectView.classList.contains('active');
+      if (isProject) {
+        projectView.classList.remove('active');
+        notesView.classList.add('active');
+        projectToggleBtn.style.opacity = '0.7';
+      } else {
+        notesView.classList.remove('active');
+        projectView.classList.add('active');
+        projectToggleBtn.style.opacity = '1';
+      }
+    });
+  }
+
+  const openFolderBtn = document.getElementById('openFolderBtn');
+  if (openFolderBtn) openFolderBtn.addEventListener('click', openProjectFolder);
 
   const windowPinBtn = document.getElementById('windowPinBtn');
   if (windowPinBtn) {

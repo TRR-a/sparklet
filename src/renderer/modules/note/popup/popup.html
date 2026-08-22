@@ -24,6 +24,7 @@
         <!-- 第二行：回收站、设置、主题切换按钮 -->
         <div class="title-row title-row-bottom">
             <div class="action-buttons">
+                <button id="projectToggle" class="icon-btn" data-i18n-title="tooltip.project" title="项目">📁</button>
                 <button id="trashToggle" class="icon-btn" data-i18n-title="tooltip.trash" title="回收站">🗑️</button>
                 <button id="settingsBtn" class="icon-btn" data-i18n-title="tooltip.settings" title="设置">⚙️</button>
                 <button id="themeToggle" class="theme-toggle" aria-label="切换主题"></button>
@@ -35,10 +36,21 @@
     <div class="main-container">
         <!-- 侧边栏：新建笔记按钮 + 笔记列表 -->
         <div class="sidebar">
-            <div class="sidebar-header">
-                <button id="newNoteBtn" class="new-note-btn" data-i18n="main.newNote">+ 新建笔记</button>
+            <!-- 笔记视图 -->
+            <div id="notesView" class="view-panel active">
+                <div class="sidebar-header">
+                    <button id="newNoteBtn" class="new-note-btn" data-i18n="main.newNote">+ 新建笔记</button>
+                </div>
+                <ul id="noteList" class="note-list"></ul>
             </div>
-            <ul id="noteList" class="note-list"></ul>
+            <!-- 项目视图 -->
+            <div id="projectView" class="view-panel">
+                <div class="sidebar-header">
+                    <button id="openFolderBtn" class="new-note-btn">+ 打开文件夹</button>
+                </div>
+                <div id="projectPath" class="project-path"></div>
+                <ul id="projectFileTree" class="project-file-tree"></ul>
+            </div>
         </div>
         <!-- 编辑区：颜色选择、标题输入、内容编辑 -->
         <div class="editor">

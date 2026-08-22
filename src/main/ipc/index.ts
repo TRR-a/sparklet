@@ -8,6 +8,7 @@ import { registerBroadcastIpcHandlers } from './broadcast-ipc';
 import { registerUpdaterIpcHandlers } from './updater-ipc';
 import { registerUpdaterConfigIpcHandlers } from './updater-config-ipc';
 import { registerUpdateCacheIpcHandlers } from './update-cache-ipc';
+import { registerProjectIpcHandlers } from './project-ipc';
 
 /**
  * Register all IPC handlers (notes, store, window, broadcast, updater, config, cache) [注册所有 IPC 处理器 (笔记、存储、窗口、广播、更新、配置、缓存)]
@@ -20,5 +21,6 @@ export function registerAllIpcHandlers(): void {
   registerUpdaterIpcHandlers();
   registerUpdaterConfigIpcHandlers();
   registerUpdateCacheIpcHandlers();
+  registerProjectIpcHandlers();
   console.log('[IPC] All IPC handlers registered');
 }

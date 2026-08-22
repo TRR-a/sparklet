@@ -9,6 +9,7 @@ import type {
 } from '../shared/types/ipc';
 import type { Note, NoteListResult, NoteGetResult, NoteSaveResult, NoteOperationResult } from '../shared/types/notes';
 import type { UpdaterConfig, CacheInfo, ToastData, DialogPayload, DialogResponse } from '../shared/types/updater';
+import type { ProjectAPI, ProjectOpenResult, ProjectTreeResult } from '../shared/types/project';
 
 // ========== Expose local storage API (config class, notes already migrated to file system) [暴露本地存储 API (配置类，笔记类已迁移至文件系统)] ==========
 const electronStoreApi: ElectronStoreAPI = {
@@ -97,11 +98,18 @@ const electronApi: ElectronAPI = {
     ipcRenderer.invoke('updater:dialog-response', { dialogId, response }) as Promise<{ ok: boolean }>,
 };
 
+// ========== Expose project file system API [暴露项目文件系统 API] ==========
+const projectApi: ProjectAPI = {
+  openFolder: () => ipcRenderer.invoke('project:open-folder') as Promise<ProjectOpenResult>,
+  readTree: (dirPath: string) => ipcRenderer.invoke('project:read-tree', dirPath) as Promise<ProjectTreeResult>,
+};
+
 // ========== Expose to renderer process [暴露给渲染进程] ==========
 contextBridge.exposeInMainWorld('electronStore', electronStoreApi);
 contextBridge.exposeInMainWorld('electronAPI', electronApi);
 contextBridge.exposeInMainWorld('notesAPI', notesApi);
+contextBridge.exposeInMainWorld('projectAPI', projectApi);
 
 // Export types for renderer global declarations [导出类型供渲染进程全局声明使用]
-export type { ElectronStoreAPI, NotesAPI, ElectronAPI };
+export type { ElectronStoreAPI, NotesAPI, ElectronAPI, ProjectAPI };
 export type { DialogResponse };

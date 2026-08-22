@@ -994,6 +994,101 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     border-bottom-color: #ddd;
 }
 
+/* ========== Project View [项目视图] ========== */
+
+/* View panel: hidden by default, active shown [视图面板：默认隐藏，active 显示] */
+.view-panel {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.view-panel.active {
+    display: flex;
+}
+
+/* Project path display [项目路径显示] */
+.project-path {
+    font-size: 0.72rem;
+    color: var(--color-text-secondary);
+    padding: 4px 12px 8px;
+    word-break: break-all;
+    opacity: 0.7;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* File tree container [文件树容器] */
+.project-file-tree {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Tree node [树节点] */
+.project-tree-node {
+    list-style: none;
+}
+
+/* Tree row [树行] */
+.project-tree-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-size: 0.82rem;
+}
+
+.project-tree-row:hover {
+    background-color: var(--color-hover);
+}
+
+/* Toggle arrow [展开箭头] */
+.project-tree-toggle {
+    width: 14px;
+    flex-shrink: 0;
+    font-size: 0.6rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* File/folder icon [文件/文件夹图标] */
+.project-tree-icon {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+}
+
+/* File name [文件名] */
+.project-tree-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text);
+}
+
+/* Children list [子节点列表] */
+.project-tree-children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Error message [错误信息] */
+.project-error {
+    color: #ea4335;
+    padding: 12px;
+    font-size: 0.82rem;
+    list-style: none;
+}
+
 /* Dark theme code block [暗色主题代码块] */
 body[data-theme="dark"] .markdown-body .code-block {
     background-color: #2d2d2d;
