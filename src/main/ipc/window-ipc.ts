@@ -4,6 +4,7 @@
 import { app, ipcMain, BrowserWindow } from 'electron';
 import { createSettingsWindow } from '../windows/settings-window';
 import { createAboutWindow } from '../windows/about-window';
+import { getSettingsWindow } from '../windows/window-manager';
 
 /**
  * Register window control IPC handlers [注册窗口控制 IPC 处理器]
@@ -56,6 +57,12 @@ export function registerWindowIpcHandlers(): void {
       return newState;
     }
     return false;
+  });
+
+  // ========== Settings window status query [设置窗口状态查询] ==========
+  ipcMain.handle('is-settings-window-open', () => {
+    const win = getSettingsWindow();
+    return win !== null && !win.isDestroyed();
   });
 }
 

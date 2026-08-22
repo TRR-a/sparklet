@@ -68,6 +68,16 @@ function bindEvents(): void {
 
   window.addEventListener('blur', saveCurrentNote);
 
+  // Safety: clear stale blur-background on focus (query main process for settings window status) [安全：获得焦点时清除残留 blur-background (向主进程查询设置窗口状态)]
+  window.addEventListener('focus', async () => {
+    const isSettingsOpen = await window.electronAPI.invoke('is-settings-window-open') as boolean;
+    if (!isSettingsOpen) {
+      document.body.classList.remove('blur-background');
+      const glowMask = document.getElementById('settingsGlowMask');
+      if (glowMask) glowMask.classList.remove('show');
+    }
+  });
+
   // Settings window glow position sync [设置窗口光晕位置同步]
   window.electronAPI.on('settings-window-moved', (...args: unknown[]) => {
     const data = args[0] as { mainBounds: { x: number; y: number }; settingsBounds: { x: number; y: number; width: number; height: number } };
