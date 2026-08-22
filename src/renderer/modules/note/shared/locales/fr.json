@@ -206,6 +206,7 @@
   "theme.dark": "Passer au thème clair",
   "theme.light": "Passer au thème sombre",
   "toast.defaultMessage": "Avis",
+  "tooltip.backToNotes": "Retour aux notes",
   "tooltip.close": "Fermer",
   "tooltip.deleteNote": "Supprimer la note",
   "tooltip.maximize": "Agrandir",

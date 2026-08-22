@@ -206,6 +206,7 @@
   "theme.dark": "切换到亮色主题",
   "theme.light": "切换到暗色主题",
   "toast.defaultMessage": "提示",
+  "tooltip.backToNotes": "返回笔记",
   "tooltip.close": "关闭",
   "tooltip.deleteNote": "删除笔记",
   "tooltip.maximize": "最大化",

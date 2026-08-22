@@ -206,6 +206,7 @@
   "theme.dark": "Switch to Light Theme",
   "theme.light": "Switch to Dark Theme",
   "toast.defaultMessage": "Notice",
+  "tooltip.backToNotes": "Back to notes",
   "tooltip.close": "Close",
   "tooltip.deleteNote": "Delete Note",
   "tooltip.maximize": "Maximize",

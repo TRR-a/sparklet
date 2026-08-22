@@ -206,6 +206,7 @@
   "theme.dark": "ライトテーマに切り替え",
   "theme.light": "ダークテーマに切り替え",
   "toast.defaultMessage": "通知",
+  "tooltip.backToNotes": "ノートに戻る",
   "tooltip.close": "閉じる",
   "tooltip.deleteNote": "ノートを削除",
   "tooltip.maximize": "最大化",

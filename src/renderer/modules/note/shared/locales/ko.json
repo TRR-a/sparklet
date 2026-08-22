@@ -206,6 +206,7 @@
   "theme.dark": "라이트 테마로 전환",
   "theme.light": "다크 테마로 전환",
   "toast.defaultMessage": "알림",
+  "tooltip.backToNotes": "노트로 돌아가기",
   "tooltip.close": "닫기",
   "tooltip.deleteNote": "노트 삭제",
   "tooltip.maximize": "최대화",

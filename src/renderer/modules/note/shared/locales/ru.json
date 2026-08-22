@@ -206,6 +206,7 @@
   "theme.dark": "Переключиться на светлую тему",
   "theme.light": "Переключиться на тёмную тему",
   "toast.defaultMessage": "Уведомление",
+  "tooltip.backToNotes": "Назад к заметкам",
   "tooltip.close": "Закрыть",
   "tooltip.deleteNote": "Удалить заметку",
   "tooltip.maximize": "Развернуть",

@@ -34,6 +34,8 @@ export async function toggleTrashView(): Promise<void> {
     }
     (trashToggleBtn as HTMLElement).style.opacity = '1';
     (trashToggleBtn as HTMLElement).style.color = '#ea4335';
+    (trashToggleBtn as HTMLElement).textContent = '←';
+    (trashToggleBtn as HTMLElement).title = t('tooltip.backToNotes');
     if (newNoteBtn) (newNoteBtn as HTMLElement).style.display = 'none';
     if (noteTitleInput) (noteTitleInput as HTMLElement).style.display = 'none';
     if (noteEditor) (noteEditor as HTMLElement).style.display = 'none';
@@ -54,6 +56,8 @@ export async function toggleTrashView(): Promise<void> {
     if (glowMask) glowMask.classList.remove('show');
     (trashToggleBtn as HTMLElement).style.opacity = '0.7';
     (trashToggleBtn as HTMLElement).style.color = '';
+    (trashToggleBtn as HTMLElement).textContent = '🗑️';
+    (trashToggleBtn as HTMLElement).title = t('tooltip.trash');
     if (newNoteBtn) (newNoteBtn as HTMLElement).style.display = 'block';
     if (noteTitleInput) (noteTitleInput as HTMLElement).style.display = 'block';
     if (noteEditor) (noteEditor as HTMLElement).style.display = 'block';
