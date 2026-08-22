@@ -141,22 +141,31 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
         <div class="note-title">${pinIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
         <div class="note-time">${formatDate(note.updatedAt)}</div>
       </div>
+      <button class="note-delete-btn" data-i18n-title="tooltip.deleteNote" title="${t('tooltip.deleteNote')}">🗑️</button>
       <button class="note-more-btn" data-i18n-title="tooltip.more" title="${t('tooltip.more')}">⋮</button>
       <div class="note-more-menu">
         <button class="menu-item pin-toggle" data-action="pin">
           ${note.pinned ? t('noteMenu.unpin') : t('noteMenu.pin')}
         </button>
         <button class="menu-item note-info" data-action="info">${t('noteMenu.info')}</button>
-        <button class="menu-item note-delete" data-action="delete">${t('noteMenu.delete')}</button>
       </div>
     `;
 
-    // Click card body → switch note (ignore clicks on more button / menu) [点击卡片主体→切换笔记 (忽略更多按钮/菜单的点击)]
+    // Click card body → switch note (ignore clicks on more/delete button / menu) [点击卡片主体→切换笔记 (忽略更多/删除按钮/菜单的点击)]
     li.addEventListener('click', (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.closest('.note-more-btn') || target.closest('.note-more-menu')) return;
+      if (target.closest('.note-more-btn') || target.closest('.note-more-menu') || target.closest('.note-delete-btn')) return;
       switchNote(note.id);
     });
+
+    // Delete button → double-click confirm (keep original behavior) [删除按钮→双击确认 (保留原行为)]
+    const deleteBtn = li.querySelector('.note-delete-btn');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', async (e: Event) => {
+        e.stopPropagation();
+        await handleDeleteNote(note.id, li);
+      });
+    }
 
     // More button → toggle menu [更多按钮→切换菜单]
     const moreBtn = li.querySelector('.note-more-btn');

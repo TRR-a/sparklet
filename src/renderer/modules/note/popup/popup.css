@@ -308,7 +308,7 @@ textarea:focus {
     align-items: center;
     transition: background-color 0.2s;
     position: relative;
-    padding-right: 40px;
+    padding-right: 72px;
 }
 
 /* 列表项悬停效果 */
@@ -443,7 +443,7 @@ textarea:focus {
 /* 三点更多按钮 [More options button] */
 .note-more-btn {
     position: absolute;
-    right: 6px;
+    right: 36px;
     top: 50%;
     transform: translateY(-50%);
     width: 26px;
