@@ -8,9 +8,7 @@
   "about.nwjsVersion": "Versão do NW.js",
   "about.title": "Sobre o Sparklet",
   "about.version": "Versão 0.2.2",
-  
   "app.name": "Sparklet",
-  
   "confirm.clearCache.message": "Após a exclusão, você não poderá mais usar o cache local para rollback ou reinstalação.\nSe os arquivos do aplicativo estiverem danificados, será necessário baixá-los novamente do site oficial.\n\nTem certeza de que deseja excluir todo o cache de pacotes de atualização agora?",
   "confirm.clearCache.ok": "Excluir agora",
   "confirm.clearCache.title": "Excluir cache de pacotes de atualização?",
@@ -21,7 +19,6 @@
   "confirm.importConfig.message": "As configurações de atualização (estratégia, frequência, dias de retenção etc.) do arquivo importado sobrescreverão as configurações atuais. Continuar?",
   "confirm.importConfig.ok": "Continuar",
   "confirm.importConfig.title": "Sobrescrever as configurações atuais?",
-  
   "dialog.manualFailed.btnOk": "Confirmar",
   "dialog.manualFailed.tip": "Ocorreu um erro durante a atualização. Detalhes:",
   "dialog.manualFailed.title": "Falha na atualização",
@@ -80,12 +77,10 @@
   "dialog.updateConfirm.newVersion": "Nova versão",
   "dialog.updateConfirm.releaseDate": "Data de lançamento",
   "dialog.updateConfirm.title": "Nova versão disponível",
-  
   "fmt.days.about": "aproximadamente {days} dias",
   "fmt.days.count": "{n} dias",
   "fmt.days.zero": "0 dias",
   "fmt.hours.about": "aproximadamente {hours} horas",
-  
   "main.btnPermanentDelete": "Excluir permanentemente",
   "main.btnRestore": "Restaurar",
   "main.confirmPermanentDelete": "Tem certeza de que deseja excluir esta nota permanentemente? Esta ação não pode ser desfeita!",
@@ -95,7 +90,21 @@
   "main.noteTitlePlaceholder": "Título da nota...",
   "main.noteUntitled": "Sem título",
   "main.trashPreviewHint": "Clique em uma nota à esquerda para visualizar",
-  
+  "noteInfo.close": "Fechar",
+  "noteInfo.label.charCount": "Caracteres",
+  "noteInfo.label.createdAt": "Criado",
+  "noteInfo.label.filename": "Arquivo",
+  "noteInfo.label.lineCount": "Linhas",
+  "noteInfo.label.pinned": "Fixado",
+  "noteInfo.label.title": "Título",
+  "noteInfo.label.updatedAt": "Modificado",
+  "noteInfo.title": "Detalhes",
+  "noteInfo.value.no": "Não",
+  "noteInfo.value.yes": "Sim",
+  "noteMenu.delete": "Excluir",
+  "noteMenu.info": "Detalhes",
+  "noteMenu.pin": "Fixar",
+  "noteMenu.unpin": "Desafixar",
   "settings.about": "Sobre o Sparklet",
   "settings.cache.clearBtn": "🗑️ Excluir cache imediatamente",
   "settings.cache.clearing": "Excluindo...",
@@ -194,20 +203,18 @@
   "settings.updaterDisabled": "Desativar completamente as atualizações",
   "settings.updaterInterval": "Frequência de verificação:",
   "settings.updaterNotify": "Apenas notificar, não baixar automaticamente",
-  
   "theme.dark": "Alternar para tema claro",
   "theme.light": "Alternar para tema escuro",
-  
   "toast.defaultMessage": "Aviso",
-  
   "tooltip.close": "Fechar",
   "tooltip.deleteNote": "Excluir nota",
   "tooltip.maximize": "Maximizar",
   "tooltip.minimize": "Minimizar",
+  "tooltip.more": "Mais",
   "tooltip.pin": "Fixar",
+  "tooltip.pinned": "Fixado",
   "tooltip.settings": "Configurações",
   "tooltip.trash": "Lixeira",
-  
   "updater.rollback.errorCopyCache": "❌ Falha ao copiar o arquivo de cache",
   "updater.rollback.errorCopyCache.body": "Falha ao ler ou copiar o pacote de instalação em cache. Tente novamente mais tarde ou baixe do site oficial.",
   "updater.rollback.errorCopyCache.title": "Falha ao copiar o pacote de cache",

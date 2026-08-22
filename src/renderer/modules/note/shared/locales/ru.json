@@ -8,9 +8,7 @@
   "about.nwjsVersion": "Версия NW.js",
   "about.title": "О Sparklet",
   "about.version": "Версия 0.2.2",
-  
   "app.name": "Sparklet",
-  
   "confirm.clearCache.message": "После удаления вы не сможете использовать локальный кеш для отката или переустановки.\nЕсли файлы приложения будут повреждены, вам придётся загружать их заново с официального сайта.\n\nВы уверены, что хотите удалить весь кеш пакетов обновлений сейчас?",
   "confirm.clearCache.ok": "Удалить сейчас",
   "confirm.clearCache.title": "Удалить кеш пакетов обновлений?",
@@ -21,7 +19,6 @@
   "confirm.importConfig.message": "Настройки обновлений (стратегия, частота, срок хранения и т.д.) из импортируемого файла перезапишут текущие. Продолжить?",
   "confirm.importConfig.ok": "Продолжить",
   "confirm.importConfig.title": "Перезаписать текущие настройки?",
-  
   "dialog.manualFailed.btnOk": "ОК",
   "dialog.manualFailed.tip": "Во время обновления произошла ошибка. Подробности:",
   "dialog.manualFailed.title": "Ошибка обновления",
@@ -80,12 +77,10 @@
   "dialog.updateConfirm.newVersion": "Новая версия",
   "dialog.updateConfirm.releaseDate": "Дата выпуска",
   "dialog.updateConfirm.title": "Доступна новая версия",
-  
   "fmt.days.about": "около {days} дней",
   "fmt.days.count": "{n} дней",
   "fmt.days.zero": "0 дней",
   "fmt.hours.about": "около {hours} часов",
-  
   "main.btnPermanentDelete": "Удалить навсегда",
   "main.btnRestore": "Восстановить",
   "main.confirmPermanentDelete": "Вы уверены, что хотите окончательно удалить эту заметку? Это действие необратимо!",
@@ -95,7 +90,21 @@
   "main.noteTitlePlaceholder": "Заголовок заметки...",
   "main.noteUntitled": "Без названия",
   "main.trashPreviewHint": "Нажмите на заметку слева для предпросмотра",
-  
+  "noteInfo.close": "Закрыть",
+  "noteInfo.label.charCount": "Символов",
+  "noteInfo.label.createdAt": "Создано",
+  "noteInfo.label.filename": "Файл",
+  "noteInfo.label.lineCount": "Строк",
+  "noteInfo.label.pinned": "Закреплено",
+  "noteInfo.label.title": "Заголовок",
+  "noteInfo.label.updatedAt": "Изменено",
+  "noteInfo.title": "Подробности",
+  "noteInfo.value.no": "Нет",
+  "noteInfo.value.yes": "Да",
+  "noteMenu.delete": "Удалить",
+  "noteMenu.info": "Подробности",
+  "noteMenu.pin": "Закрепить",
+  "noteMenu.unpin": "Открепить",
   "settings.about": "О Sparklet",
   "settings.cache.clearBtn": "🗑️ Удалить кеш немедленно",
   "settings.cache.clearing": "Удаление...",
@@ -194,20 +203,18 @@
   "settings.updaterDisabled": "Полностью отключить обновления",
   "settings.updaterInterval": "Частота проверки:",
   "settings.updaterNotify": "Только уведомлять, не загружать автоматически",
-  
   "theme.dark": "Переключиться на светлую тему",
   "theme.light": "Переключиться на тёмную тему",
-  
   "toast.defaultMessage": "Уведомление",
-  
   "tooltip.close": "Закрыть",
   "tooltip.deleteNote": "Удалить заметку",
   "tooltip.maximize": "Развернуть",
   "tooltip.minimize": "Свернуть",
+  "tooltip.more": "Ещё",
   "tooltip.pin": "Закрепить",
+  "tooltip.pinned": "Закреплено",
   "tooltip.settings": "Настройки",
   "tooltip.trash": "Корзина",
-  
   "updater.rollback.errorCopyCache": "❌ Ошибка копирования файла кеша",
   "updater.rollback.errorCopyCache.body": "Не удалось прочитать или скопировать кешированный установочный пакет. Повторите попытку позже или скачайте с официального сайта.",
   "updater.rollback.errorCopyCache.title": "Ошибка копирования кеш-пакета",

@@ -80,7 +80,8 @@ class StorageManager {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       isDeleted: false,
-      deletedAt: null
+      deletedAt: null,
+      pinned: false
     };
 
     // Save to file system via IPC [调用 IPC 保存到文件系统]

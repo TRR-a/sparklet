@@ -10,6 +10,7 @@ export interface Note {
   updatedAt: string;
   isDeleted: boolean;
   deletedAt: string | null;
+  pinned: boolean;
 }
 
 /** Note metadata without content [不含正文的笔记元数据] */

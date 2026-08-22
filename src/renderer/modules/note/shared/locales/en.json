@@ -8,9 +8,7 @@
   "about.nwjsVersion": "NW.js Version",
   "about.title": "About Sparklet",
   "about.version": "Version 0.2.2",
-  
   "app.name": "Sparklet",
-  
   "confirm.clearCache.message": "After deletion, you will no longer be able to use local cache for rollback/reinstallation.\nIf application files become corrupted you will have to re-download from the official site.\n\nAre you sure you want to permanently delete ALL update package caches?",
   "confirm.clearCache.ok": "Delete now",
   "confirm.clearCache.title": "Confirm deleting all update package caches?",
@@ -21,7 +19,6 @@
   "confirm.importConfig.message": "Update settings in the imported file (update policy, frequency, retention days, etc.) will overwrite your current settings. Continue?",
   "confirm.importConfig.ok": "Continue import",
   "confirm.importConfig.title": "Overwrite current settings?",
-  
   "dialog.manualFailed.btnOk": "OK",
   "dialog.manualFailed.tip": "An error occurred during the update. Details:",
   "dialog.manualFailed.title": "Update failed",
@@ -80,12 +77,10 @@
   "dialog.updateConfirm.newVersion": "New version",
   "dialog.updateConfirm.releaseDate": "Release date",
   "dialog.updateConfirm.title": "New version available",
-  
   "fmt.days.about": "About {days} days",
   "fmt.days.count": "{n} days",
   "fmt.days.zero": "0 days",
   "fmt.hours.about": "About {hours} hours",
-  
   "main.btnPermanentDelete": "Delete Permanently",
   "main.btnRestore": "Restore",
   "main.confirmPermanentDelete": "Are you sure to permanently delete this note? This action cannot be undone!",
@@ -95,7 +90,21 @@
   "main.noteTitlePlaceholder": "Note Title...",
   "main.noteUntitled": "Untitled",
   "main.trashPreviewHint": "Click a note on the left to preview",
-  
+  "noteInfo.close": "Close",
+  "noteInfo.label.charCount": "Characters",
+  "noteInfo.label.createdAt": "Created",
+  "noteInfo.label.filename": "Filename",
+  "noteInfo.label.lineCount": "Lines",
+  "noteInfo.label.pinned": "Pinned",
+  "noteInfo.label.title": "Title",
+  "noteInfo.label.updatedAt": "Modified",
+  "noteInfo.title": "Details",
+  "noteInfo.value.no": "No",
+  "noteInfo.value.yes": "Yes",
+  "noteMenu.delete": "Delete",
+  "noteMenu.info": "Details",
+  "noteMenu.pin": "Pin",
+  "noteMenu.unpin": "Unpin",
   "settings.about": "About Sparklet",
   "settings.cache.clearBtn": "🗑️ Delete all cache",
   "settings.cache.clearing": "Deleting...",
@@ -194,20 +203,18 @@
   "settings.updaterDisabled": "Disable updates entirely",
   "settings.updaterInterval": "Check frequency:",
   "settings.updaterNotify": "Notify only, no auto download",
-  
   "theme.dark": "Switch to Light Theme",
   "theme.light": "Switch to Dark Theme",
-  
   "toast.defaultMessage": "Notice",
-  
   "tooltip.close": "Close",
   "tooltip.deleteNote": "Delete Note",
   "tooltip.maximize": "Maximize",
   "tooltip.minimize": "Minimize",
+  "tooltip.more": "More",
   "tooltip.pin": "Pin on Top",
+  "tooltip.pinned": "Pinned",
   "tooltip.settings": "Settings",
   "tooltip.trash": "Trash",
-  
   "updater.rollback.errorCopyCache": "❌ Failed to copy cached package",
   "updater.rollback.errorCopyCache.body": "Unable to read or copy the cached installation package. Please retry later or download from the official site.",
   "updater.rollback.errorCopyCache.title": "Cache package copy failed",

@@ -8,9 +8,7 @@
   "about.nwjsVersion": "NW.js-Version",
   "about.title": "Über Sparklet",
   "about.version": "Version 0.2.2",
-  
   "app.name": "Sparklet",
-  
   "confirm.clearCache.message": "Nach dem Löschen können Sie die lokalen Caches nicht mehr für Rollback und Neuinstallation verwenden.\nBei beschädigten Anwendungsdateien muss die App erneut von der Website heruntergeladen werden.\n\nSoll der gesamte Update-Paket-Cache sofort gelöscht werden?",
   "confirm.clearCache.ok": "Sofort löschen",
   "confirm.clearCache.title": "Update-Paket-Cache wirklich löschen?",
@@ -21,7 +19,6 @@
   "confirm.importConfig.message": "Die Update-Einstellungen (Strategie, Häufigkeit, Aufbewahrungstage usw.) aus der importierten Datei überschreiben die aktuellen Einstellungen. Fortfahren?",
   "confirm.importConfig.ok": "Fortfahren",
   "confirm.importConfig.title": "Aktuelle Einstellungen überschreiben?",
-  
   "dialog.manualFailed.btnOk": "Bestätigen",
   "dialog.manualFailed.tip": "Während des Updates ist ein Fehler aufgetreten. Details:",
   "dialog.manualFailed.title": "Update fehlgeschlagen",
@@ -80,12 +77,10 @@
   "dialog.updateConfirm.newVersion": "Neue Version",
   "dialog.updateConfirm.releaseDate": "Veröffentlichungsdatum",
   "dialog.updateConfirm.title": "Neue Version verfügbar",
-  
   "fmt.days.about": "etwa {days} Tage",
   "fmt.days.count": "{n} Tage",
   "fmt.days.zero": "0 Tage",
   "fmt.hours.about": "etwa {hours} Stunden",
-  
   "main.btnPermanentDelete": "Endgültig löschen",
   "main.btnRestore": "Wiederherstellen",
   "main.confirmPermanentDelete": "Möchten Sie diese Notiz wirklich endgültig löschen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
@@ -95,7 +90,21 @@
   "main.noteTitlePlaceholder": "Notiztitel...",
   "main.noteUntitled": "Unbenannt",
   "main.trashPreviewHint": "Klicken Sie links auf eine Notiz für die Vorschau",
-  
+  "noteInfo.close": "Schließen",
+  "noteInfo.label.charCount": "Zeichen",
+  "noteInfo.label.createdAt": "Erstellt",
+  "noteInfo.label.filename": "Dateiname",
+  "noteInfo.label.lineCount": "Zeilen",
+  "noteInfo.label.pinned": "Angepinnt",
+  "noteInfo.label.title": "Titel",
+  "noteInfo.label.updatedAt": "Geändert",
+  "noteInfo.title": "Details",
+  "noteInfo.value.no": "Nein",
+  "noteInfo.value.yes": "Ja",
+  "noteMenu.delete": "Löschen",
+  "noteMenu.info": "Details",
+  "noteMenu.pin": "Anpinnen",
+  "noteMenu.unpin": "Lösen",
   "settings.about": "Über Sparklet",
   "settings.cache.clearBtn": "🗑️ Cache sofort löschen",
   "settings.cache.clearing": "Lösche...",
@@ -194,20 +203,18 @@
   "settings.updaterDisabled": "Updates vollständig deaktivieren",
   "settings.updaterInterval": "Prüfhäufigkeit:",
   "settings.updaterNotify": "Nur benachrichtigen, nicht automatisch herunterladen",
-  
   "theme.dark": "Zu hellem Thema wechseln",
   "theme.light": "Zu dunklem Thema wechseln",
-  
   "toast.defaultMessage": "Hinweis",
-  
   "tooltip.close": "Schließen",
   "tooltip.deleteNote": "Notiz löschen",
   "tooltip.maximize": "Maximieren",
   "tooltip.minimize": "Minimieren",
+  "tooltip.more": "Mehr",
   "tooltip.pin": "Anheften",
+  "tooltip.pinned": "Angepinnt",
   "tooltip.settings": "Einstellungen",
   "tooltip.trash": "Papierkorb",
-  
   "updater.rollback.errorCopyCache": "❌ Kopieren der Cache-Datei fehlgeschlagen",
   "updater.rollback.errorCopyCache.body": "Lesen oder Kopieren des Cache-Installationspakets fehlgeschlagen. Bitte später erneut versuchen oder von der Website herunterladen.",
   "updater.rollback.errorCopyCache.title": "Kopieren des Cache-Pakets fehlgeschlagen",

@@ -1,4 +1,4 @@
-// Note operations - create, save, delete, color change [笔记操作 - 创建、保存、删除、颜色更改]
+// Note operations - create, save, delete, color change, pin toggle [笔记操作 - 创建、保存、删除、颜色更改、置顶切换]
 
 import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
@@ -64,6 +64,18 @@ export async function changeNoteColor(color: string): Promise<void> {
   if (!currentNoteId) return;
   await storageManager.updateNote(currentNoteId, { color });
   updateActiveColor(color);
+  const notes = await storageManager.getNotes();
+  await renderNoteList(notes);
+}
+
+/**
+ * Toggle note pinned state [切换笔记置顶状态]
+ */
+export async function togglePinNote(noteId: string): Promise<void> {
+  const note = await storageManager.getNoteById(noteId);
+  if (!note) return;
+  const newPinned = !note.pinned;
+  await storageManager.updateNote(noteId, { pinned: newPinned });
   const notes = await storageManager.getNotes();
   await renderNoteList(notes);
 }

@@ -8,9 +8,7 @@
   "about.nwjsVersion": "NW.js 版本",
   "about.title": "关于 Sparklet",
   "about.version": "版本 0.2.2",
-  
   "app.name": "Sparklet",
-  
   "confirm.clearCache.message": "删除后将无法再使用本地缓存进行回滚重装。\n若应用文件出现损坏，将只能从官网重新下载。\n\n确定要立即删除全部更新包缓存吗？",
   "confirm.clearCache.ok": "立即删除",
   "confirm.clearCache.title": "确认删除更新包缓存？",
@@ -21,7 +19,6 @@
   "confirm.importConfig.message": "导入文件中的更新设置（更新策略、频率、保留天数等）会覆盖当前设置，是否继续？",
   "confirm.importConfig.ok": "继续导入",
   "confirm.importConfig.title": "覆盖当前设置？",
-  
   "dialog.manualFailed.btnOk": "确定",
   "dialog.manualFailed.tip": "更新过程中出现错误，详情如下：",
   "dialog.manualFailed.title": "更新失败",
@@ -80,12 +77,10 @@
   "dialog.updateConfirm.newVersion": "新版本",
   "dialog.updateConfirm.releaseDate": "发布日期",
   "dialog.updateConfirm.title": "发现新版本",
-  
   "fmt.days.about": "约 {days} 天",
   "fmt.days.count": "{n} 天",
   "fmt.days.zero": "0 天",
   "fmt.hours.about": "约 {hours} 小时",
-  
   "main.btnPermanentDelete": "彻底删除",
   "main.btnRestore": "还原",
   "main.confirmPermanentDelete": "确定要永久删除此笔记吗？此操作不可撤销！",
@@ -95,7 +90,21 @@
   "main.noteTitlePlaceholder": "笔记标题...",
   "main.noteUntitled": "无标题",
   "main.trashPreviewHint": "点击左侧笔记查看预览",
-  
+  "noteInfo.close": "关闭",
+  "noteInfo.label.charCount": "字数",
+  "noteInfo.label.createdAt": "创建时间",
+  "noteInfo.label.filename": "文件名",
+  "noteInfo.label.lineCount": "行数",
+  "noteInfo.label.pinned": "置顶",
+  "noteInfo.label.title": "标题",
+  "noteInfo.label.updatedAt": "修改时间",
+  "noteInfo.title": "详细信息",
+  "noteInfo.value.no": "否",
+  "noteInfo.value.yes": "是",
+  "noteMenu.delete": "删除",
+  "noteMenu.info": "详细信息",
+  "noteMenu.pin": "置顶",
+  "noteMenu.unpin": "取消置顶",
   "settings.about": "关于 Sparklet",
   "settings.cache.clearBtn": "🗑️ 立即删除缓存",
   "settings.cache.clearing": "删除中...",
@@ -194,20 +203,18 @@
   "settings.updaterDisabled": "完全禁用更新",
   "settings.updaterInterval": "检查频率：",
   "settings.updaterNotify": "仅提醒，不自动下载",
-  
   "theme.dark": "切换到亮色主题",
   "theme.light": "切换到暗色主题",
-  
   "toast.defaultMessage": "提示",
-  
   "tooltip.close": "关闭",
   "tooltip.deleteNote": "删除笔记",
   "tooltip.maximize": "最大化",
   "tooltip.minimize": "最小化",
+  "tooltip.more": "更多",
   "tooltip.pin": "置顶",
+  "tooltip.pinned": "已置顶",
   "tooltip.settings": "设置",
   "tooltip.trash": "回收站",
-  
   "updater.rollback.errorCopyCache": "❌ 复制缓存文件失败",
   "updater.rollback.errorCopyCache.body": "读取或复制缓存安装包失败，请稍后重试或去官网下载。",
   "updater.rollback.errorCopyCache.title": "缓存包复制失败",

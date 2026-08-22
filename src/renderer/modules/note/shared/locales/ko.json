@@ -8,9 +8,7 @@
   "about.nwjsVersion": "NW.js 버전",
   "about.title": "Sparklet 정보",
   "about.version": "버전 0.2.2",
-  
   "app.name": "Sparklet",
-  
   "confirm.clearCache.message": "삭제하면 로컬 캐시를 사용한 롤백이나 재설치가 불가능해집니다.\n애플리케이션 파일이 손상된 경우 공식 사이트에서 다시 다운로드해야 합니다.\n\n지금 모든 업데이트 패키지 캐시를 삭제하시겠습니까?",
   "confirm.clearCache.ok": "지금 삭제",
   "confirm.clearCache.title": "업데이트 패키지 캐시를 삭제하시겠습니까?",
@@ -21,7 +19,6 @@
   "confirm.importConfig.message": "가져온 파일의 업데이트 설정(정책, 빈도, 보관 일수 등)이 현재 설정을 덮어씁니다. 계속하시겠습니까?",
   "confirm.importConfig.ok": "계속",
   "confirm.importConfig.title": "현재 설정을 덮어쓰시겠습니까?",
-  
   "dialog.manualFailed.btnOk": "확인",
   "dialog.manualFailed.tip": "업데이트 중 오류가 발생했습니다. 상세:",
   "dialog.manualFailed.title": "업데이트 실패",
@@ -80,12 +77,10 @@
   "dialog.updateConfirm.newVersion": "새 버전",
   "dialog.updateConfirm.releaseDate": "출시일",
   "dialog.updateConfirm.title": "새 버전 사용 가능",
-  
   "fmt.days.about": "약 {days}일",
   "fmt.days.count": "{n}일",
   "fmt.days.zero": "0일",
   "fmt.hours.about": "약 {hours}시간",
-  
   "main.btnPermanentDelete": "영구 삭제",
   "main.btnRestore": "복원",
   "main.confirmPermanentDelete": "이 노트를 영구 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다!",
@@ -95,7 +90,21 @@
   "main.noteTitlePlaceholder": "노트 제목...",
   "main.noteUntitled": "제목 없음",
   "main.trashPreviewHint": "왼쪽의 노트를 클릭하여 미리보기",
-  
+  "noteInfo.close": "닫기",
+  "noteInfo.label.charCount": "글자 수",
+  "noteInfo.label.createdAt": "생성일",
+  "noteInfo.label.filename": "파일명",
+  "noteInfo.label.lineCount": "줄 수",
+  "noteInfo.label.pinned": "고정",
+  "noteInfo.label.title": "제목",
+  "noteInfo.label.updatedAt": "수정일",
+  "noteInfo.title": "상세 정보",
+  "noteInfo.value.no": "아니오",
+  "noteInfo.value.yes": "예",
+  "noteMenu.delete": "삭제",
+  "noteMenu.info": "상세 정보",
+  "noteMenu.pin": "고정",
+  "noteMenu.unpin": "고정 해제",
   "settings.about": "Sparklet 정보",
   "settings.cache.clearBtn": "🗑️ 캐시 즉시 삭제",
   "settings.cache.clearing": "삭제 중...",
@@ -194,20 +203,18 @@
   "settings.updaterDisabled": "업데이트 완전 비활성화",
   "settings.updaterInterval": "확인 빈도:",
   "settings.updaterNotify": "알림만, 자동 다운로드 안 함",
-  
   "theme.dark": "라이트 테마로 전환",
   "theme.light": "다크 테마로 전환",
-  
   "toast.defaultMessage": "알림",
-  
   "tooltip.close": "닫기",
   "tooltip.deleteNote": "노트 삭제",
   "tooltip.maximize": "최대화",
   "tooltip.minimize": "최소화",
+  "tooltip.more": "더보기",
   "tooltip.pin": "상단 고정",
+  "tooltip.pinned": "고정됨",
   "tooltip.settings": "설정",
   "tooltip.trash": "휴지통",
-  
   "updater.rollback.errorCopyCache": "❌ 캐시 파일 복사 실패",
   "updater.rollback.errorCopyCache.body": "캐시된 설치 패키지 읽기 또는 복사에 실패했습니다. 나중에 다시 시도하거나 공식 사이트에서 다운로드하세요.",
   "updater.rollback.errorCopyCache.title": "캐시 패키지 복사 실패",

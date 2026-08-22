@@ -23,7 +23,6 @@
         <!-- 第二行：回收站、设置、主题切换按钮 -->
         <div class="title-row title-row-bottom">
             <div class="action-buttons">
-                <button id="pinToggle" class="icon-btn" data-i18n-title="tooltip.pin" title="置顶">📌</button>
                 <button id="trashToggle" class="icon-btn" data-i18n-title="tooltip.trash" title="回收站">🗑️</button>
                 <button id="settingsBtn" class="icon-btn" data-i18n-title="tooltip.settings" title="设置">⚙️</button>
                 <button id="themeToggle" class="theme-toggle" aria-label="切换主题"></button>
@@ -69,6 +68,17 @@
             <div class="custom-confirm-buttons">
                 <button id="confirmCancelBtn" class="custom-confirm-btn cancel">取消</button>
                 <button id="confirmOkBtn" class="custom-confirm-btn ok">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 笔记详细信息弹窗 -->
+    <div id="noteInfoModal" class="custom-confirm-overlay" style="display: none;">
+        <div class="custom-confirm-box note-info-box">
+            <div class="custom-confirm-title" data-i18n="noteInfo.title">详细信息</div>
+            <div id="noteInfoBody" class="note-info-body"></div>
+            <div class="custom-confirm-buttons">
+                <button id="noteInfoCloseBtn" class="custom-confirm-btn ok" data-i18n="noteInfo.close">关闭</button>
             </div>
         </div>
     </div>

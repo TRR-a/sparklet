@@ -1,5 +1,5 @@
-// Popup note editor - handles note loading, editing state, and list rendering [弹窗笔记编辑器 - 处理笔记加载、编辑状态和列表渲染]
-// Note operations (save/create/delete/color) moved to note-operations.ts [笔记操作 (保存/创建/删除/颜色) 已移至 note-operations.ts]
+// Popup note editor - handles note loading, editing state, list rendering, and card menu [弹窗笔记编辑器 - 处理笔记加载、编辑状态、列表渲染和卡片菜单]
+// Note operations (save/create/delete/color/pin) moved to note-operations.ts [笔记操作 (保存/创建/删除/颜色/置顶) 已移至 note-operations.ts]
 
 import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
@@ -8,17 +8,21 @@ import { renderMarkdown } from '../../Modules/markdown.js';
 import {
   saveCurrentNote,
   createNewNote,
-  handleDeleteNote
+  handleDeleteNote,
+  togglePinNote
 } from './note-operations.js';
 
 // Re-export note operations for backward compatibility [重新导出笔记操作以保持向后兼容]
-export { saveCurrentNote, debounceSave, createNewNote, changeNoteColor } from './note-operations.js';
+export { saveCurrentNote, debounceSave, createNewNote, changeNoteColor, togglePinNote } from './note-operations.js';
 
 /** Preview mode state [预览模式状态] */
 let isPreviewMode = false;
 
 /** Current active note ID [当前选中的笔记 ID] */
 let currentNoteId: string | null = null;
+
+/** Currently open more-menu note ID (null = no menu open) [当前打开更多菜单的笔记 ID (null=无菜单打开)] */
+let openMenuNoteId: string | null = null;
 
 /**
  * Update active color indicator [更新颜色选中状态]
@@ -30,10 +34,48 @@ export function updateActiveColor(color: string): void {
 }
 
 /**
+ * Close all open note more-menus [关闭所有打开的笔记更多菜单]
+ */
+function closeAllMenus(): void {
+  document.querySelectorAll('.note-more-menu.show').forEach(menu => {
+    menu.classList.remove('show');
+  });
+  openMenuNoteId = null;
+}
+
+/**
+ * Show note detail info modal [显示笔记详细信息弹窗]
+ */
+export async function showNoteInfo(noteId: string): Promise<void> {
+  const note = await storageManager.getNoteById(noteId);
+  if (!note) return;
+
+  const modal = document.getElementById('noteInfoModal');
+  const bodyEl = document.getElementById('noteInfoBody');
+  if (!modal || !bodyEl) return;
+
+  const wordCount = note.content ? note.content.length : 0;
+  const lineCount = note.content ? note.content.split('\n').length : 0;
+
+  bodyEl.innerHTML = `
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.title')}</span><span class="info-value">${note.title || t('main.noteUntitled')}</span></div>
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.filename')}</span><span class="info-value info-mono">${note.id}.md</span></div>
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.createdAt')}</span><span class="info-value">${formatDate(note.createdAt)}</span></div>
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.updatedAt')}</span><span class="info-value">${formatDate(note.updatedAt)}</span></div>
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.charCount')}</span><span class="info-value">${wordCount}</span></div>
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.lineCount')}</span><span class="info-value">${lineCount}</span></div>
+    <div class="info-row"><span class="info-label">${t('noteInfo.label.pinned')}</span><span class="info-value">${note.pinned ? '📌 ' + t('noteInfo.value.yes') : t('noteInfo.value.no')}</span></div>
+  `;
+
+  (modal as HTMLElement).style.display = 'flex';
+}
+
+/**
  * Load note into editor [加载笔记到编辑器]
  */
 export async function loadNoteIntoEditor(note: { id: string } | null): Promise<void> {
   if (!note) return;
+  closeAllMenus();
   // Exit preview mode if active [如果处于预览模式则退出]
   if (isPreviewMode) {
     isPreviewMode = false;
@@ -63,38 +105,95 @@ export async function loadNoteIntoEditor(note: { id: string } | null): Promise<v
   });
 }
 
+/** Note list item data [笔记列表项数据] */
+interface NoteListItem {
+  id: string;
+  color: string;
+  title: string;
+  updatedAt: string;
+  pinned?: boolean;
+}
+
 /**
  * Render the note list [渲染笔记列表]
  */
-export async function renderNoteList(notes: Array<{ id: string; color: string; title: string; updatedAt: string }>): Promise<void> {
+export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
   const noteList = document.getElementById('noteList');
   if (!noteList) return;
   noteList.innerHTML = '';
+  closeAllMenus();
+
   notes.forEach(note => {
     const li = document.createElement('li');
     li.className = 'note-list-item';
     li.setAttribute('data-note-id', note.id);
     li.style.setProperty('--note-color', note.color);
     if (note.id === currentNoteId) li.classList.add('active');
+    if (note.pinned) li.classList.add('pinned');
+
+    const pinIcon = note.pinned
+      ? `<span class="pin-icon" title="${t('tooltip.pinned')}">📌</span>`
+      : '';
+
     li.innerHTML = `
       <span class="note-color-dot" style="background-color: ${note.color};"></span>
       <div class="note-text">
-        <div class="note-title">${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
-        <div class="note-filename">${note.id}.md</div>
+        <div class="note-title">${pinIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
         <div class="note-time">${formatDate(note.updatedAt)}</div>
       </div>
-      <button class="note-delete-btn" data-i18n-title="tooltip.deleteNote" title="${t('tooltip.deleteNote')}">🗑️</button>
+      <button class="note-more-btn" data-i18n-title="tooltip.more" title="${t('tooltip.more')}">⋮</button>
+      <div class="note-more-menu">
+        <button class="menu-item pin-toggle" data-action="pin">
+          ${note.pinned ? t('noteMenu.unpin') : t('noteMenu.pin')}
+        </button>
+        <button class="menu-item note-info" data-action="info">${t('noteMenu.info')}</button>
+        <button class="menu-item note-delete" data-action="delete">${t('noteMenu.delete')}</button>
+      </div>
     `;
+
+    // Click card body → switch note (ignore clicks on more button / menu) [点击卡片主体→切换笔记 (忽略更多按钮/菜单的点击)]
     li.addEventListener('click', (e: MouseEvent) => {
-      if (!(e.target as HTMLElement).classList.contains('note-delete-btn')) switchNote(note.id);
+      const target = e.target as HTMLElement;
+      if (target.closest('.note-more-btn') || target.closest('.note-more-menu')) return;
+      switchNote(note.id);
     });
-    const deleteBtn = li.querySelector('.note-delete-btn');
-    if (deleteBtn) {
-      deleteBtn.addEventListener('click', async (e: Event) => {
+
+    // More button → toggle menu [更多按钮→切换菜单]
+    const moreBtn = li.querySelector('.note-more-btn');
+    if (moreBtn) {
+      moreBtn.addEventListener('click', (e: Event) => {
         e.stopPropagation();
-        await handleDeleteNote(note.id, li);
+        const menu = li.querySelector('.note-more-menu');
+        if (!menu) return;
+        const isOpen = menu.classList.contains('show');
+        closeAllMenus();
+        if (!isOpen) {
+          menu.classList.add('show');
+          openMenuNoteId = note.id;
+        }
       });
     }
+
+    // Menu items [菜单项]
+    const menu = li.querySelector('.note-more-menu');
+    if (menu) {
+      menu.addEventListener('click', async (e: Event) => {
+        e.stopPropagation();
+        const btn = (e.target as HTMLElement).closest('[data-action]') as HTMLElement | null;
+        if (!btn) return;
+        const action = btn.getAttribute('data-action');
+        closeAllMenus();
+
+        if (action === 'pin') {
+          await togglePinNote(note.id);
+        } else if (action === 'info') {
+          await showNoteInfo(note.id);
+        } else if (action === 'delete') {
+          await handleDeleteNote(note.id, li);
+        }
+      });
+    }
+
     noteList.appendChild(li);
   });
 }
@@ -155,10 +254,39 @@ export function getPreviewMode(): boolean {
 }
 
 /**
+ * Bind global click-to-close menu handler (call once on init) [绑定全局点击关闭菜单处理器 (初始化时调用一次)]
+ */
+export function bindNoteMenuGlobalHandler(): void {
+  document.addEventListener('click', (e: MouseEvent) => {
+    if (!(e.target as HTMLElement).closest('.note-more-btn') && !(e.target as HTMLElement).closest('.note-more-menu')) {
+      closeAllMenus();
+    }
+  });
+
+  // Close note info modal on overlay click [点击遮罩关闭详细信息弹窗]
+  const modal = document.getElementById('noteInfoModal');
+  if (modal) {
+    modal.addEventListener('click', (e: MouseEvent) => {
+      if (e.target === modal) {
+        (modal as HTMLElement).style.display = 'none';
+      }
+    });
+  }
+  const closeBtn = document.getElementById('noteInfoCloseBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      const m = document.getElementById('noteInfoModal');
+      if (m) (m as HTMLElement).style.display = 'none';
+    });
+  }
+}
+
+/**
  * Load notes on startup [启动时加载笔记]
  */
 export async function loadNotes(): Promise<void> {
   await storageManager.init();
+  bindNoteMenuGlobalHandler();
   // Bind preview toggle button once (avoid listener accumulation) [绑定预览切换按钮 (避免监听器累积)]
   const previewToggleBtn = document.getElementById('previewToggleBtn');
   if (previewToggleBtn) previewToggleBtn.addEventListener('click', togglePreview);

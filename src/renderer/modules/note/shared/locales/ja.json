@@ -8,9 +8,7 @@
   "about.nwjsVersion": "NW.js バージョン",
   "about.title": "Sparkletについて",
   "about.version": "バージョン 0.2.2",
-  
   "app.name": "Sparklet",
-  
   "confirm.clearCache.message": "削除すると、ローカルキャッシュを使用したロールバックや再インストールができなくなります。\nアプリケーションファイルが破損した場合は、公式サイトから再ダウンロードする必要があります。\n\n今すぐ全ての更新パッケージキャッシュを削除しますか？",
   "confirm.clearCache.ok": "今すぐ削除",
   "confirm.clearCache.title": "更新パッケージキャッシュを削除しますか？",
@@ -21,7 +19,6 @@
   "confirm.importConfig.message": "インポートファイル内の更新設定（ポリシー、頻度、保持日数など）が現在の設定を上書きします。続行しますか？",
   "confirm.importConfig.ok": "続行",
   "confirm.importConfig.title": "現在の設定を上書きしますか？",
-  
   "dialog.manualFailed.btnOk": "確定",
   "dialog.manualFailed.tip": "更新中にエラーが発生しました。詳細：",
   "dialog.manualFailed.title": "更新に失敗しました",
@@ -80,12 +77,10 @@
   "dialog.updateConfirm.newVersion": "新しいバージョン",
   "dialog.updateConfirm.releaseDate": "リリース日",
   "dialog.updateConfirm.title": "新しいバージョンがあります",
-  
   "fmt.days.about": "約 {days} 日",
   "fmt.days.count": "{n} 日",
   "fmt.days.zero": "0 日",
   "fmt.hours.about": "約 {hours} 時間",
-  
   "main.btnPermanentDelete": "完全に削除",
   "main.btnRestore": "復元",
   "main.confirmPermanentDelete": "このノートを完全に削除してもよろしいですか？この操作は元に戻せません！",
@@ -95,7 +90,21 @@
   "main.noteTitlePlaceholder": "ノートタイトル...",
   "main.noteUntitled": "無題",
   "main.trashPreviewHint": "左のノートをクリックしてプレビュー",
-  
+  "noteInfo.close": "閉じる",
+  "noteInfo.label.charCount": "文字数",
+  "noteInfo.label.createdAt": "作成日",
+  "noteInfo.label.filename": "ファイル名",
+  "noteInfo.label.lineCount": "行数",
+  "noteInfo.label.pinned": "ピン留め",
+  "noteInfo.label.title": "タイトル",
+  "noteInfo.label.updatedAt": "更新日",
+  "noteInfo.title": "詳細",
+  "noteInfo.value.no": "いいえ",
+  "noteInfo.value.yes": "はい",
+  "noteMenu.delete": "削除",
+  "noteMenu.info": "詳細",
+  "noteMenu.pin": "ピン留め",
+  "noteMenu.unpin": "ピン留め解除",
   "settings.about": "Sparkletについて",
   "settings.cache.clearBtn": "🗑️ キャッシュを即時削除",
   "settings.cache.clearing": "削除中...",
@@ -194,20 +203,18 @@
   "settings.updaterDisabled": "更新を完全に無効化",
   "settings.updaterInterval": "確認頻度：",
   "settings.updaterNotify": "通知のみ、自動ダウンロードしない",
-  
   "theme.dark": "ライトテーマに切り替え",
   "theme.light": "ダークテーマに切り替え",
-  
   "toast.defaultMessage": "通知",
-  
   "tooltip.close": "閉じる",
   "tooltip.deleteNote": "ノートを削除",
   "tooltip.maximize": "最大化",
   "tooltip.minimize": "最小化",
+  "tooltip.more": "その他",
   "tooltip.pin": "最前面に固定",
+  "tooltip.pinned": "ピン留め",
   "tooltip.settings": "設定",
   "tooltip.trash": "ゴミ箱",
-  
   "updater.rollback.errorCopyCache": "❌ キャッシュファイルのコピーに失敗しました",
   "updater.rollback.errorCopyCache.body": "キャッシュされたインストールパッケージの読み取りまたはコピーに失敗しました。後でもう一度試すか、公式サイトからダウンロードしてください。",
   "updater.rollback.errorCopyCache.title": "キャッシュパッケージのコピーに失敗",
