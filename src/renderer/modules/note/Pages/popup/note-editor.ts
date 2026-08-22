@@ -28,20 +28,19 @@ export async function loadNoteIntoEditor(note: { id: string } | null): Promise<v
   // Exit preview mode if active [如果处于预览模式则退出]
   if (isPreviewMode) {
     isPreviewMode = false;
-    const ta = document.getElementById('noteArea');
-    const pv = document.getElementById('notePreview');
     const btn = document.getElementById('previewToggleBtn');
-    if (ta) (ta as HTMLElement).style.display = 'block';
-    if (pv) (pv as HTMLElement).style.display = 'none';
     if (btn) { btn.classList.remove('active'); btn.textContent = '👁️ 预览'; }
   }
+  // Safety: ensure editor textarea is visible and preview is hidden [安全检查：确保编辑器文本区可见且预览隐藏]
+  const ta = document.getElementById('noteArea');
+  const pv = document.getElementById('notePreview');
+  if (ta) (ta as HTMLElement).style.display = 'block';
+  if (pv) (pv as HTMLElement).style.display = 'none';
   currentNoteId = note.id;
   const fullNote = await storageManager.getNoteById(note.id);
   if (!fullNote) return;
   const titleInput = document.getElementById('noteTitle') as HTMLInputElement | null;
   const contentInput = document.getElementById('noteArea') as HTMLTextAreaElement | null;
-  const previewToggleBtn = document.getElementById('previewToggleBtn');
-  if (previewToggleBtn) previewToggleBtn.addEventListener('click', togglePreview);
   if (titleInput) titleInput.value = fullNote.title || '';
   if (contentInput) contentInput.value = fullNote.content || '';
   updateActiveColor(fullNote.color);
@@ -230,6 +229,9 @@ export function getPreviewMode(): boolean {
  */
 export async function loadNotes(): Promise<void> {
   await storageManager.init();
+  // Bind preview toggle button once (avoid listener accumulation) [绑定预览切换按钮 (避免监听器累积)]
+  const previewToggleBtn = document.getElementById('previewToggleBtn');
+  if (previewToggleBtn) previewToggleBtn.addEventListener('click', togglePreview);
   const notes = await storageManager.getNotes();
   if (notes.length === 0) {
     const newNote = await storageManager.createNote(t('main.noteUntitled'));
