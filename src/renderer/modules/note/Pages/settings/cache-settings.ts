@@ -1,121 +1,18 @@
-// Settings: cache management section - handles update package cache info, retention days, clear cache [设置：缓存管理区域 - 处理更新包缓存信息、保留天数、清空缓存]
+// Settings: cache management section - handles cache info display, clear cache, dev lock [设置：缓存管理区域 - 处理缓存信息展示、清空缓存、开发环境锁定]
 
 import { t } from '../../Modules/i18n.js';
 import { showToast } from '../../Base/toast.js';
 import { formatDateTime, formatDays } from '../../Base/dom-utils.js';
 import { showCustomConfirm } from '../../Modules/custom-dialog.js';
 import { getIsDevEnvironment } from './updater-config.js';
+import {
+  applyRetentionUI,
+  saveRetentionDays,
+  loadCacheRetentionDays
+} from './cache-retention.js';
 import type { CacheInfo } from '../../../../../shared/types/updater';
 
-// Retention days config [保留天数配置]
-const RETENTION_MIN = 7;
-const RETENTION_MAX = 30;
-const RETENTION_DEFAULT = 7;
-
-let currentRetentionDays = RETENTION_DEFAULT;
-let retentionSaveTimer: ReturnType<typeof setTimeout> | null = null;
-
-/**
- * Normalize retention days to valid range [min, max] as integer [规范化保留天数到合法范围 [min, max] 并取整]
- */
-function clampRetentionDays(days: unknown): number {
-  const n = Number(days);
-  if (!Number.isFinite(n)) return RETENTION_DEFAULT;
-  return Math.max(RETENTION_MIN, Math.min(RETENTION_MAX, Math.round(n)));
-}
-
-/**
- * Update "current: X days" label text, optionally with bump animation [更新「当前：X 天」文本，可选带弹跳动画]
- */
-function updateRetentionCurrentLabel(days: number, animate: boolean = false): void {
-  const label = document.getElementById('cacheRetentionCurrent');
-  if (!label) return;
-  const safeDays = clampRetentionDays(days);
-  label.textContent = t('fmt.days.count').replace('{n}', String(safeDays));
-  if (animate) {
-    label.classList.remove('bump');
-    // Force reflow to trigger animation [强制 reflow 触发动画]
-    void label.offsetWidth;
-    label.classList.add('bump');
-  }
-}
-
-/**
- * Apply retention days to UI: slider value, preset buttons highlight, current label [根据传入的天数同步刷新 UI：滑杆 value、快捷按钮高亮、当前文本]
- */
-function applyRetentionUI(days: number, animate: boolean = false): void {
-  const safeDays = clampRetentionDays(days);
-  currentRetentionDays = safeDays;
-
-  // Slider [滑杆]
-  const slider = document.getElementById('cacheRetentionSlider') as HTMLInputElement | null;
-  if (slider && Number(slider.value) !== safeDays) {
-    slider.value = String(safeDays);
-  }
-
-  // Preset buttons active state [快捷按钮 active]
-  const presets = document.querySelectorAll('#cacheRetentionPresets .retention-preset');
-  presets.forEach(btn => {
-    const d = Number(btn.getAttribute('data-days'));
-    btn.classList.toggle('active', d === safeDays);
-  });
-
-  updateRetentionCurrentLabel(safeDays, animate);
-}
-
-/**
- * Save retention days to main process config (debounced 250ms on slider drag to avoid high-frequency IPC) [保存到主进程配置 (滑杆拖动时防抖 250ms 再提交，避免高频 IPC)]
- */
-async function saveRetentionDays(days: number, immediate: boolean = false): Promise<void> {
-  if (!window.electronAPI || !window.electronAPI.setCacheRetentionDays) return;
-  const safeDays = clampRetentionDays(days);
-
-  if (retentionSaveTimer) {
-    clearTimeout(retentionSaveTimer);
-    retentionSaveTimer = null;
-  }
-
-  const doSave = async (): Promise<void> => {
-    retentionSaveTimer = null;
-    try {
-      const result = await window.electronAPI.setCacheRetentionDays(safeDays);
-      if (result && result.success) {
-        // After saving, refresh remainingDays once (cleanup may have changed it) [保存后按新策略刷新一次 remainingDays (可能立即有清理导致变化)]
-        await loadCacheInfo();
-        const daysStr = result.days !== undefined ? String(result.days) : String(safeDays);
-        showToast(t('settings.toast.retentionSaved').replace('{days}', daysStr));
-      } else if (result && result.error) {
-        showToast(t('settings.toast.saveFailedPrefix') + result.error);
-      }
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      console.error('保存保留天数失败:', msg);
-      showToast(t('settings.toast.saveFailed'));
-    }
-  };
-
-  if (immediate) {
-    await doSave();
-  } else {
-    retentionSaveTimer = setTimeout(doSave, 250);
-  }
-}
-
-/**
- * Load cache retention days from main process and apply to UI [从主进程读取当前配置并应用到 UI]
- */
-export async function loadCacheRetentionDays(): Promise<void> {
-  if (!window.electronAPI || !window.electronAPI.getCacheRetentionDays) return;
-  try {
-    const result = await window.electronAPI.getCacheRetentionDays();
-    const days = result && Number.isFinite(result.days) ? result.days! : RETENTION_DEFAULT;
-    applyRetentionUI(days, false);
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error('加载保留天数配置失败:', msg);
-    applyRetentionUI(RETENTION_DEFAULT, false);
-  }
-}
+export { loadCacheRetentionDays };
 
 /**
  * Render cache info to UI [渲染缓存信息到 UI]
@@ -304,7 +201,7 @@ export function bindCacheEvents(): void {
       if ((btn as HTMLButtonElement).disabled) return;
       const days = Number(btn.getAttribute('data-days'));
       applyRetentionUI(days, true);
-      saveRetentionDays(days, true);
+      saveRetentionDays(days, true, loadCacheInfo);
     });
   });
 
@@ -322,7 +219,7 @@ export function bindCacheEvents(): void {
       if (slider.disabled) return;
       const days = Number(slider.value);
       applyRetentionUI(days, true);
-      saveRetentionDays(days, true);
+      saveRetentionDays(days, true, loadCacheInfo);
     });
   }
 }
