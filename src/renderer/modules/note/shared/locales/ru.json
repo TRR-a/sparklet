@@ -9,6 +9,7 @@
   "main.btnRestore": "Восстановить",
   "main.btnPermanentDelete": "Удалить навсегда",
   "main.confirmPermanentDelete": "Вы уверены, что хотите окончательно удалить эту заметку? Это действие необратимо!",
+  "main.trashPreviewHint": "Нажмите на заметку слева для предпросмотра",
   
   "settings.title": "Настройки",
   "settings.language": "Язык",
@@ -38,6 +39,7 @@
   "theme.light": "Переключиться на тёмную тему",
   "theme.dark": "Переключиться на светлую тему",
   
+  "tooltip.pin": "Закрепить",
   "tooltip.trash": "Корзина",
   "tooltip.settings": "Настройки",
   "tooltip.minimize": "Свернуть",

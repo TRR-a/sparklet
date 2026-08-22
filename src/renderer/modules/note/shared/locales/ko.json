@@ -9,6 +9,7 @@
   "main.btnRestore": "복원",
   "main.btnPermanentDelete": "영구 삭제",
   "main.confirmPermanentDelete": "이 노트를 영구 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다!",
+  "main.trashPreviewHint": "왼쪽의 노트를 클릭하여 미리보기",
   
   "settings.title": "설정",
   "settings.language": "언어",
@@ -38,6 +39,7 @@
   "theme.light": "다크 테마로 전환",
   "theme.dark": "라이트 테마로 전환",
   
+  "tooltip.pin": "상단 고정",
   "tooltip.trash": "휴지통",
   "tooltip.settings": "설정",
   "tooltip.minimize": "최소화",

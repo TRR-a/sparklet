@@ -9,6 +9,7 @@
   "main.btnRestore": "Restore",
   "main.btnPermanentDelete": "Delete Permanently",
   "main.confirmPermanentDelete": "Are you sure to permanently delete this note? This action cannot be undone!",
+  "main.trashPreviewHint": "Click a note on the left to preview",
   
   "settings.title": "Settings",
   "settings.language": "Language",
@@ -38,6 +39,7 @@
   "theme.light": "Switch to Dark Theme",
   "theme.dark": "Switch to Light Theme",
   
+  "tooltip.pin": "Pin on Top",
   "tooltip.trash": "Trash",
   "tooltip.settings": "Settings",
   "tooltip.minimize": "Minimize",

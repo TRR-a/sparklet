@@ -233,6 +233,12 @@ textarea:focus {
     background-color: var(--color-hover);
 }
 
+/* 置顶按钮激活状态 */
+#pinToggle.active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
 /* 主界面虚化效果 */
 .blur-background {
     filter: blur(2px);
@@ -617,7 +623,7 @@ body[data-theme="dark"] .note-preview .code-block-lang {
 
 /* 回收站视图选中笔记项样式 */
 .trash-view .note-list-item.active {
-    border-left: none !important;
+    border-left: 3px solid var(--note-color) !important;
     background-color: var(--color-hover);
 }
 
@@ -649,6 +655,32 @@ body[data-theme="dark"] .note-preview .code-block-lang {
 .permanent-delete-btn {
     background-color: #ea4335;
     color: white;
+}
+
+/* 回收站预览提示文本 */
+.trash-preview-hint {
+    text-align: center;
+    color: var(--color-text);
+    opacity: 0.4;
+    padding: 40px 0;
+    font-size: 14px;
+}
+
+/* 回收站预览标题 */
+.trash-preview-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding: 0 12px;
+    color: var(--color-text);
+}
+
+/* 回收站预览内容 */
+.trash-preview-content {
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text);
 }
 
 /* 设置窗口光晕遮罩层 */

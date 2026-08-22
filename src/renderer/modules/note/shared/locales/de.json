@@ -9,6 +9,7 @@
   "main.btnRestore": "Wiederherstellen",
   "main.btnPermanentDelete": "Endgültig löschen",
   "main.confirmPermanentDelete": "Möchten Sie diese Notiz wirklich endgültig löschen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
+  "main.trashPreviewHint": "Klicken Sie links auf eine Notiz für die Vorschau",
   
   "settings.title": "Einstellungen",
   "settings.language": "Sprache",
@@ -38,6 +39,7 @@
   "theme.light": "Zu dunklem Thema wechseln",
   "theme.dark": "Zu hellem Thema wechseln",
   
+  "tooltip.pin": "Anheften",
   "tooltip.trash": "Papierkorb",
   "tooltip.settings": "Einstellungen",
   "tooltip.minimize": "Minimieren",

@@ -3,6 +3,8 @@
 import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
 import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from './note-editor.js';
+import { renderMarkdown } from '../../Modules/markdown.js';
+import { escapeHtml } from '../../Base/dom-utils.js';
 
 /** Current view state: 'main' or 'trash' [当前视图状态：'main' 或 'trash'] */
 let currentView = 'main';
@@ -15,6 +17,9 @@ export async function toggleTrashView(): Promise<void> {
   const newNoteBtn = document.getElementById('newNoteBtn');
   const noteTitleInput = document.getElementById('noteTitle');
   const noteEditor = document.getElementById('noteArea');
+  const colorPalette = document.querySelector('.color-palette') as HTMLElement | null;
+  const editorToolbar = document.querySelector('.editor-toolbar') as HTMLElement | null;
+  const notePreview = document.getElementById('notePreview');
   if (!trashToggleBtn) return;
 
   if (currentView === 'main') {
@@ -23,9 +28,7 @@ export async function toggleTrashView(): Promise<void> {
     // Exit preview mode if active [如果处于预览模式则退出]
     if (getPreviewMode()) {
       setPreviewMode(false);
-      const pv = document.getElementById('notePreview');
       const btn = document.getElementById('previewToggleBtn');
-      if (pv) (pv as HTMLElement).style.display = 'none';
       if (btn) { btn.classList.remove('active'); btn.textContent = '👁️ 预览'; }
     }
     (trashToggleBtn as HTMLElement).style.opacity = '1';
@@ -33,6 +36,13 @@ export async function toggleTrashView(): Promise<void> {
     if (newNoteBtn) (newNoteBtn as HTMLElement).style.display = 'none';
     if (noteTitleInput) (noteTitleInput as HTMLElement).style.display = 'none';
     if (noteEditor) (noteEditor as HTMLElement).style.display = 'none';
+    if (colorPalette) colorPalette.style.display = 'none';
+    if (editorToolbar) editorToolbar.style.display = 'none';
+    // Show preview area with initial hint [显示预览区域并展示初始提示]
+    if (notePreview) {
+      notePreview.innerHTML = `<p class="trash-preview-hint">${t('main.trashPreviewHint')}</p>`;
+      notePreview.style.display = 'block';
+    }
     await renderTrashList();
   } else {
     currentView = 'main';
@@ -42,6 +52,12 @@ export async function toggleTrashView(): Promise<void> {
     if (newNoteBtn) (newNoteBtn as HTMLElement).style.display = 'block';
     if (noteTitleInput) (noteTitleInput as HTMLElement).style.display = 'block';
     if (noteEditor) (noteEditor as HTMLElement).style.display = 'block';
+    if (colorPalette) colorPalette.style.display = 'flex';
+    if (editorToolbar) editorToolbar.style.display = 'flex';
+    if (notePreview) {
+      notePreview.style.display = 'none';
+      notePreview.innerHTML = '';
+    }
     await loadMainView();
   }
 }
@@ -74,6 +90,8 @@ export async function renderTrashList(): Promise<void> {
   trashedNotes.forEach(note => {
     const li = document.createElement('li');
     li.className = 'note-list-item';
+    li.setAttribute('data-note-id', note.id);
+    li.style.setProperty('--note-color', note.color);
     li.innerHTML = `
       <span class="note-color-dot" style="background-color: ${note.color};"></span>
       <div class="note-text">
@@ -86,6 +104,15 @@ export async function renderTrashList(): Promise<void> {
         <button class="permanent-delete-btn" data-note-id="${note.id}">${t('main.btnPermanentDelete')}</button>
       </div>
     `;
+    li.addEventListener('click', (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest('.trash-actions')) {
+        document.querySelectorAll('.trash-view .note-list-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        li.classList.add('active');
+        showTrashPreview(note.id);
+      }
+    });
     noteList.appendChild(li);
   });
   document.querySelectorAll('.restore-btn').forEach(btn => {
@@ -102,6 +129,20 @@ export async function renderTrashList(): Promise<void> {
       await permanentlyDeleteNote(target.getAttribute('data-note-id') || '');
     });
   });
+}
+
+/**
+ * Show trash note preview in editor area [在编辑区显示回收站笔记预览]
+ */
+async function showTrashPreview(noteId: string): Promise<void> {
+  const note = await storageManager.getNoteById(noteId);
+  if (!note) return;
+  const notePreview = document.getElementById('notePreview');
+  if (notePreview) {
+    const titleHtml = escapeHtml(note.title || t('main.noteUntitled'));
+    const contentHtml = renderMarkdown(note.content || '');
+    notePreview.innerHTML = `<h2 class="trash-preview-title">${titleHtml}</h2><div class="trash-preview-content">${contentHtml}</div>`;
+  }
 }
 
 /**

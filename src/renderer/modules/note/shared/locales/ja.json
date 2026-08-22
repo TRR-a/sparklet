@@ -9,6 +9,7 @@
   "main.btnRestore": "復元",
   "main.btnPermanentDelete": "完全に削除",
   "main.confirmPermanentDelete": "このノートを完全に削除してもよろしいですか？この操作は元に戻せません！",
+  "main.trashPreviewHint": "左のノートをクリックしてプレビュー",
   
   "settings.title": "設定",
   "settings.language": "言語",
@@ -38,6 +39,7 @@
   "theme.light": "ダークテーマに切り替え",
   "theme.dark": "ライトテーマに切り替え",
   
+  "tooltip.pin": "最前面に固定",
   "tooltip.trash": "ゴミ箱",
   "tooltip.settings": "設定",
   "tooltip.minimize": "最小化",

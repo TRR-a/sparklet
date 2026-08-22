@@ -9,6 +9,7 @@
   "main.btnRestore": "还原",
   "main.btnPermanentDelete": "彻底删除",
   "main.confirmPermanentDelete": "确定要永久删除此笔记吗？此操作不可撤销！",
+  "main.trashPreviewHint": "点击左侧笔记查看预览",
   
   "settings.title": "设置",
   "settings.language": "语言",
@@ -38,6 +39,7 @@
   "theme.light": "切换到暗色主题",
   "theme.dark": "切换到亮色主题",
   
+  "tooltip.pin": "置顶",
   "tooltip.trash": "回收站",
   "tooltip.settings": "设置",
   "tooltip.minimize": "最小化",

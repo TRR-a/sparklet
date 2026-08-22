@@ -9,6 +9,7 @@
   "main.btnRestore": "Restaurar",
   "main.btnPermanentDelete": "Eliminar definitivamente",
   "main.confirmPermanentDelete": "¿Está seguro de que desea eliminar esta nota de forma permanente? ¡Esta acción no se puede deshacer!",
+  "main.trashPreviewHint": "Haga clic en una nota a la izquierda para vista previa",
   
   "settings.title": "Configuración",
   "settings.language": "Idioma",
@@ -38,6 +39,7 @@
   "theme.light": "Cambiar a tema oscuro",
   "theme.dark": "Cambiar a tema claro",
   
+  "tooltip.pin": "Fijar",
   "tooltip.trash": "Papelera",
   "tooltip.settings": "Configuración",
   "tooltip.minimize": "Minimizar",

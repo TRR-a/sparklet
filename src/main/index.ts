@@ -7,6 +7,7 @@ import { createMainWindow } from './windows/main-window';
 import { getMainWindow } from './windows/window-manager';
 import { initUpdater, checkUpdateManually } from './updater';
 import { registerAllIpcHandlers } from './ipc';
+import { registerDevToolsShortcut } from './ipc/window-ipc';
 
 /**
  * Application lifecycle: ready [应用生命周期：就绪]
@@ -17,6 +18,9 @@ app.whenReady().then(async () => {
 
   // 2. Register all IPC handlers [注册所有 IPC 处理器]
   registerAllIpcHandlers();
+
+  // 2.1 Register Ctrl+Shift+I shortcut for DevTools (covers all windows) [注册 Ctrl+Shift+I 快捷键用于开发者工具 (覆盖所有窗口)]
+  registerDevToolsShortcut();
 
   // 3. Create main window [创建主窗口]
   createMainWindow();
