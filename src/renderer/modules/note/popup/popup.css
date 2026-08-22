@@ -1037,11 +1037,12 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 3px 8px;
-    border-radius: 4px;
+    padding: 2px 6px;
+    border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.15s;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
 }
 
 .project-tree-row:hover {
@@ -1050,9 +1051,9 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 
 /* Toggle arrow [展开箭头] */
 .project-tree-toggle {
-    width: 14px;
+    width: 12px;
     flex-shrink: 0;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: var(--color-text-secondary);
     text-align: center;
     cursor: pointer;
@@ -1062,7 +1063,7 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 /* File/folder icon [文件/文件夹图标] */
 .project-tree-icon {
     flex-shrink: 0;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
 }
 
 /* File name [文件名] */
@@ -1079,6 +1080,9 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     list-style: none;
     margin: 0;
     padding: 0;
+    padding-left: 10px;
+    margin-left: 6px;
+    border-left: 1px solid var(--color-border);
 }
 
 /* Error message [错误信息] */
@@ -1110,17 +1114,16 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 5px 8px;
-    border-radius: 4px;
+    padding: 3px 6px;
+    border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.15s;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    background-color: var(--color-hover);
 }
 
 .project-root-header:hover {
-    background-color: var(--color-primary-light);
+    background-color: var(--color-hover);
 }
 
 /* Project root name [项目根名称] */
@@ -1156,8 +1159,10 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 
 /* Project root children container [项目根子节点容器] */
 .project-root-children {
-    margin-top: 2px;
-    padding-left: 0;
+    margin-top: 1px;
+    padding-left: 10px;
+    margin-left: 6px;
+    border-left: 1px solid var(--color-border);
 }
 
 /* Dark theme code block [暗色主题代码块] */

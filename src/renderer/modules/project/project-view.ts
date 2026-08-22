@@ -172,7 +172,6 @@ function buildTreeNode(node: ProjectFileNode, depth: number): HTMLElement {
   const li = document.createElement('li');
   li.className = 'project-tree-node';
   li.setAttribute('data-path', node.path);
-  li.style.paddingLeft = `${depth * 16}px`;
 
   const row = document.createElement('div');
   row.className = 'project-tree-row';
