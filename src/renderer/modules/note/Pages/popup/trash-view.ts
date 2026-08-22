@@ -2,6 +2,7 @@
 
 import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
+import { showCustomConfirm } from '../../Modules/custom-dialog.js';
 import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from './note-editor.js';
 import { renderMarkdown } from '../../Modules/markdown.js';
 import { escapeHtml } from '../../Base/dom-utils.js';
@@ -162,7 +163,14 @@ async function restoreFromTrash(noteId: string): Promise<void> {
  * Permanently delete note (with confirmation) [永久删除笔记 (带确认)]
  */
 async function permanentlyDeleteNote(noteId: string): Promise<void> {
-  if (!confirm(t('main.confirmPermanentDelete'))) return;
+  const confirmed = await showCustomConfirm({
+    title: t('confirm.default.title'),
+    message: t('main.confirmPermanentDelete'),
+    okText: t('main.btnPermanentDelete'),
+    cancelText: t('confirm.default.cancel'),
+    okDanger: true
+  });
+  if (!confirmed) return;
   const success = await storageManager.permanentlyDeleteNote(noteId);
   if (success) await renderTrashList();
 }

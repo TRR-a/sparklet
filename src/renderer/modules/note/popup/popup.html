@@ -61,6 +61,18 @@
     <!-- 设置窗口光晕遮罩层：用于视觉效果与位置同步 -->
     <div id="settingsGlowMask" class="settings-glow-mask"></div>
 
+    <!-- 自定义确认弹窗（替换系统原生 confirm，避免 Electron 焦点丢失问题）-->
+    <div id="customConfirmModal" class="custom-confirm-overlay" style="display: none;">
+        <div class="custom-confirm-box">
+            <div class="custom-confirm-title" id="confirmTitle">确认</div>
+            <div class="custom-confirm-message" id="confirmMessage">确定要执行此操作吗？</div>
+            <div class="custom-confirm-buttons">
+                <button id="confirmCancelBtn" class="custom-confirm-btn cancel">取消</button>
+                <button id="confirmOkBtn" class="custom-confirm-btn ok">确定</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 主弹窗逻辑脚本 -->
     <script type="module" src="../Pages/popup/popup.js"></script>
 </body>
