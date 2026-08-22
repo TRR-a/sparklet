@@ -1036,12 +1036,12 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 .project-tree-row {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     padding: 1px 6px;
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.15s;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     line-height: 1.3;
 }
 
