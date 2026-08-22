@@ -433,10 +433,33 @@ textarea:focus {
     background-color: var(--color-primary-light);
 }
 
-/* 置顶图标 [Pin icon] */
-.pin-icon {
-    margin-right: 4px;
-    font-size: 0.85em;
+/* 分组标题 [Group title] */
+.note-group-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    padding: 12px 12px 6px;
+    list-style: none;
+    cursor: default;
+    user-select: none;
+}
+
+.note-group-title:first-child {
+    padding-top: 4px;
+}
+
+/* 置顶文字标签 [Pin text label] */
+.pin-label {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 6px;
     vertical-align: middle;
 }
 

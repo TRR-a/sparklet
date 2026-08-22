@@ -123,7 +123,12 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
   noteList.innerHTML = '';
   closeAllMenus();
 
-  notes.forEach(note => {
+  // Split into pinned and normal groups [分为置顶和普通两组]
+  const pinnedNotes = notes.filter(n => n.pinned);
+  const normalNotes = notes.filter(n => !n.pinned);
+
+  /** Create a single note card element [创建单个笔记卡片元素] */
+  const createCard = (note: NoteListItem): HTMLElement => {
     const li = document.createElement('li');
     li.className = 'note-list-item';
     li.setAttribute('data-note-id', note.id);
@@ -131,14 +136,14 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
     if (note.id === currentNoteId) li.classList.add('active');
     if (note.pinned) li.classList.add('pinned');
 
-    const pinIcon = note.pinned
-      ? `<span class="pin-icon" title="${t('tooltip.pinned')}">📌</span>`
+    const pinLabel = note.pinned
+      ? `<span class="pin-label">${t('noteList.pinnedLabel')}</span>`
       : '';
 
     li.innerHTML = `
       <span class="note-color-dot" style="background-color: ${note.color};"></span>
       <div class="note-text">
-        <div class="note-title">${pinIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
+        <div class="note-title">${pinLabel}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
         <div class="note-time">${formatDate(note.updatedAt)}</div>
       </div>
       <button class="note-delete-btn" data-i18n-title="tooltip.deleteNote" title="${t('tooltip.deleteNote')}">🗑️</button>
@@ -151,14 +156,14 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
       </div>
     `;
 
-    // Click card body → switch note (ignore clicks on more/delete button / menu) [点击卡片主体→切换笔记 (忽略更多/删除按钮/菜单的点击)]
+    // Click card body → switch note [点击卡片主体→切换笔记]
     li.addEventListener('click', (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.closest('.note-more-btn') || target.closest('.note-more-menu') || target.closest('.note-delete-btn')) return;
       switchNote(note.id);
     });
 
-    // Delete button → double-click confirm (keep original behavior) [删除按钮→双击确认 (保留原行为)]
+    // Delete button → double-click confirm [删除按钮→双击确认]
     const deleteBtn = li.querySelector('.note-delete-btn');
     if (deleteBtn) {
       deleteBtn.addEventListener('click', async (e: Event) => {
@@ -192,19 +197,34 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
         if (!btn) return;
         const action = btn.getAttribute('data-action');
         closeAllMenus();
-
         if (action === 'pin') {
           await togglePinNote(note.id);
         } else if (action === 'info') {
           await showNoteInfo(note.id);
-        } else if (action === 'delete') {
-          await handleDeleteNote(note.id, li);
         }
       });
     }
 
-    noteList.appendChild(li);
-  });
+    return li;
+  };
+
+  // Pinned group [置顶分组]
+  if (pinnedNotes.length > 0) {
+    const title = document.createElement('li');
+    title.className = 'note-group-title';
+    title.textContent = t('noteList.groupPinned');
+    noteList.appendChild(title);
+    pinnedNotes.forEach(note => noteList.appendChild(createCard(note)));
+  }
+
+  // Recent group (non-pinned) [最近分组 (未置顶)]
+  if (normalNotes.length > 0) {
+    const title = document.createElement('li');
+    title.className = 'note-group-title';
+    title.textContent = t('noteList.groupRecent');
+    noteList.appendChild(title);
+    normalNotes.forEach(note => noteList.appendChild(createCard(note)));
+  }
 }
 
 /**
