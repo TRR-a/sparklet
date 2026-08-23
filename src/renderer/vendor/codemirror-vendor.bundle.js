@@ -31208,8 +31208,10 @@ export {
   Compartment,
   EditorState,
   EditorView,
+  HighlightStyle,
   basicSetup,
   css,
+  defaultHighlightStyle,
   defaultKeymap,
   history,
   historyKeymap,
@@ -31219,5 +31221,7 @@ export {
   keymap,
   markdown,
   oneDark,
-  python
+  python,
+  syntaxHighlighting,
+  tags as t
 };

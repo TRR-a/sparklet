@@ -11,7 +11,9 @@ import {
   json,
   markdown,
   python,
-  oneDark,
+  HighlightStyle,
+  syntaxHighlighting,
+  t,
 } from '../../vendor/codemirror-vendor.bundle.js';
 import type { Extension } from '@codemirror/state';
 
@@ -357,6 +359,103 @@ function isDarkTheme(): boolean {
   return document.body.getAttribute('data-theme') === 'dark';
 }
 
+/**
+ * Blue dark theme for CodeMirror (VS Code Dark+ inspired, transparent background)
+ * [CodeMirror 蓝色暗色主题 (灵感来自 VS Code Dark+，透明背景)]
+ */
+const blueTheme = [
+  EditorView.theme({
+    '&': {
+      backgroundColor: 'transparent !important',
+      color: '#d4d4d4',
+      height: '100%',
+    },
+    '.cm-content': {
+      caretColor: '#569cd6',
+    },
+    '.cm-cursor, .cm-dropCursor': {
+      borderLeftColor: '#569cd6',
+    },
+    '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection': {
+      backgroundColor: 'rgba(38, 79, 120, 0.6) !important',
+    },
+    '.cm-activeLine': {
+      backgroundColor: 'rgba(255, 255, 255, 0.04)',
+    },
+    '.cm-activeLineGutter': {
+      backgroundColor: 'rgba(255, 255, 255, 0.04)',
+    },
+    '.cm-gutters': {
+      backgroundColor: 'transparent !important',
+      color: '#6e7681',
+      border: 'none',
+      borderRight: '1px solid rgba(128, 128, 128, 0.15)',
+    },
+    '.cm-gutter': {
+      backgroundColor: 'transparent !important',
+    },
+    '.cm-lineNumbers .cm-gutterElement': {
+      color: '#6e7681',
+    },
+    '.cm-foldPlaceholder': {
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: '#569cd6',
+    },
+    '.cm-matchingBracket, &.cm-focused .cm-matchingBracket': {
+      backgroundColor: 'rgba(86, 156, 214, 0.2)',
+      outline: '1px solid rgba(86, 156, 214, 0.4)',
+    },
+    '.cm-searchMatch': {
+      backgroundColor: 'rgba(86, 156, 214, 0.3)',
+      outline: '1px solid rgba(86, 156, 214, 0.5)',
+    },
+    '.cm-searchMatch.cm-searchMatch-selected': {
+      backgroundColor: 'rgba(86, 156, 214, 0.5)',
+    },
+    '.cm-tooltip': {
+      backgroundColor: '#252526',
+      border: '1px solid #3c3c3c',
+    },
+    '.cm-tooltip-autocomplete': {
+      '& > ul > li[aria-selected]': {
+        backgroundColor: 'rgba(86, 156, 214, 0.2)',
+        color: '#d4d4d4',
+      },
+    },
+    '.cm-panels': {
+      backgroundColor: '#252526',
+      color: '#d4d4d4',
+    },
+    '.cm-panels input': {
+      backgroundColor: '#3c3c3c',
+      color: '#d4d4d4',
+      border: '1px solid #3c3c3c',
+    },
+  }, { dark: true }),
+  syntaxHighlighting(HighlightStyle.define([
+    { tag: [t.keyword, t.operatorKeyword, t.modifier, t.controlKeyword, t.moduleKeyword], color: '#569cd6' },
+    { tag: [t.definitionKeyword, t.namespace], color: '#c586c0' },
+    { tag: [t.name, t.variableName], color: '#9cdcfe' },
+    { tag: [t.function(t.variableName), t.labelName], color: '#dcdcaa' },
+    { tag: [t.propertyName, t.attributeName], color: '#9cdcfe' },
+    { tag: [t.typeName, t.className, t.tagName], color: '#4ec9b0' },
+    { tag: [t.number, t.bool, t.null], color: '#b5cea8' },
+    { tag: [t.string, t.docString, t.special(t.string)], color: '#ce9178' },
+    { tag: [t.comment, t.lineComment, t.blockComment, t.docComment], color: '#6a9955', fontStyle: 'italic' },
+    { tag: [t.angleBracket, t.squareBracket, t.paren, t.brace], color: '#d4d4d4' },
+    { tag: [t.operator, t.punctuation, t.separator], color: '#d4d4d4' },
+    { tag: [t.regexp, t.escape], color: '#d16969' },
+    { tag: [t.meta, t.annotation], color: '#dcdcaa' },
+    { tag: [t.heading], color: '#569cd6', fontWeight: 'bold' },
+    { tag: [t.quote], color: '#6a9955' },
+    { tag: [t.link], color: '#569cd6' },
+    { tag: [t.url], color: '#9cdcfe' },
+    { tag: [t.atom, t.constant(t.name)], color: '#569cd6' },
+    { tag: [t.standard(t.name)], color: '#4ec9b0' },
+  ])),
+];
+
 /** Get workspace projects (for external use) [获取工作区项目 (供外部使用)] */
 export function getWorkspaceProjects(): WorkspaceProject[] {
   return workspaceProjects;
@@ -439,8 +538,8 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
     const langExt = getLanguageExtension(fileName);
     if (langExt) extensions.push(langExt);
 
-    // Dark theme [暗色主题]
-    if (isDarkTheme()) extensions.push(oneDark);
+    // Blue dark theme [蓝色暗色主题]
+    if (isDarkTheme()) extensions.push(...blueTheme);
 
     editorView = new EditorView({
       doc: result.content,
