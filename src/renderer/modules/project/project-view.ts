@@ -138,8 +138,8 @@ export function renderWorkspace(): void {
 
   if (workspaceProjects.length === 0) {
     const empty = document.createElement('li');
-    empty.className = 'project-empty';
-    empty.textContent = '点击 + 打开文件夹';
+    empty.className = 'note-group-empty';
+    empty.textContent = '- 无 -';
     treeEl.appendChild(empty);
     return;
   }
