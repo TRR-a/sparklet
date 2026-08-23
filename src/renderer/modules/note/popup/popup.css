@@ -996,11 +996,8 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 
 /* ========== Project View [项目视图] ========== */
 
-/* Project section in sidebar (below note list) [侧边栏中的项目区域 (笔记列表下方)] */
+/* Project section in sidebar [侧边栏中的项目区域] */
 .project-section {
-    border-top: 1px solid var(--color-border);
-    margin-top: 4px;
-    padding-top: 4px;
     flex-shrink: 0;
 }
 

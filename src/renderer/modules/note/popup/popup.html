@@ -33,12 +33,11 @@
     
     <!-- 主内容区：左侧笔记列表，右侧编辑区 -->
     <div class="main-container">
-        <!-- 侧边栏：新建笔记按钮 + 笔记列表 + 项目工作区 -->
+        <!-- 侧边栏：项目工作区 + 笔记列表 -->
         <div class="sidebar">
             <div class="sidebar-header">
                 <button id="newNoteBtn" class="new-note-btn" data-i18n="main.newNote">+ 新建笔记</button>
             </div>
-            <ul id="noteList" class="note-list"></ul>
             <div class="project-section">
                 <div class="project-group-header">
                     <span class="project-group-title">项目</span>
@@ -46,6 +45,7 @@
                 </div>
                 <ul id="projectFileTree" class="project-file-tree"></ul>
             </div>
+            <ul id="noteList" class="note-list"></ul>
         </div>
         <!-- 编辑区：颜色选择、标题输入、内容编辑 -->
         <div class="editor">
