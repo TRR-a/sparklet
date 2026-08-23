@@ -1,7 +1,12 @@
 // Project view - workspace with multiple folders, remove from workspace [项目视图 - 多文件夹工作区，从工作区移除]
 
 import type { ProjectFileNode } from '../../../shared/types/project';
-import hljs from 'highlight.js';
+
+// highlight.js loaded as UMD global via <script> in popup.html [highlight.js 通过 popup.html 中的 <script> 作为 UMD 全局加载]
+declare const hljs: {
+  highlight: (code: string, options: { language: string }) => { value: string };
+  highlightAuto: (code: string) => { value: string };
+};
 
 /** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */
 const WORKSPACE_STORAGE_KEY = 'sparklet:workspace:paths';
