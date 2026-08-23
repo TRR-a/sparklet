@@ -1,6 +1,7 @@
 // Project view - workspace with multiple folders, remove from workspace [项目视图 - 多文件夹工作区，从工作区移除]
 
 import type { ProjectFileNode } from '../../../shared/types/project';
+import hljs from 'highlight.js';
 
 /** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */
 const WORKSPACE_STORAGE_KEY = 'sparklet:workspace:paths';
@@ -319,6 +320,27 @@ export function getWorkspaceProjects(): WorkspaceProject[] {
 }
 
 /**
+ * Map file extension to highlight.js language name [将文件扩展名映射到 highlight.js 语言名]
+ */
+function getHighlightLanguage(fileName: string): string | null {
+  const ext = fileName.split('.').pop()?.toLowerCase() || '';
+  const map: Record<string, string> = {
+    ts: 'typescript', tsx: 'typescript', js: 'javascript', jsx: 'javascript',
+    mjs: 'javascript', cjs: 'javascript',
+    py: 'python', java: 'java', go: 'go', rs: 'rust',
+    c: 'c', cpp: 'cpp', h: 'c', hpp: 'cpp',
+    html: 'xml', xhtml: 'xml', xml: 'xml', svg: 'xml',
+    css: 'css', scss: 'scss', sass: 'scss', less: 'less',
+    json: 'json', jsonc: 'json', yaml: 'yaml', yml: 'yaml', toml: 'ini',
+    md: 'markdown', markdown: 'markdown',
+    sh: 'bash', bash: 'bash', zsh: 'bash', ps1: 'powershell',
+    sql: 'sql', dockerfile: 'dockerfile',
+  };
+  if (map[ext] !== undefined) return map[ext];
+  return null;
+}
+
+/**
  * Preview a file in the right panel [在右侧面板预览文件]
  */
 export async function previewFile(filePath: string, fileName: string): Promise<void> {
@@ -359,10 +381,25 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
     contentEl.innerHTML = '';
     contentEl.appendChild(img);
   } else if (result.content !== undefined) {
-    // Text or SVG [文本或 SVG]
+    // Text or SVG: highlight if language detected [文本或 SVG：如果检测到语言则高亮]
+    const lang = getHighlightLanguage(fileName);
+    let highlighted: string;
+    if (lang) {
+      try {
+        highlighted = hljs.highlight(result.content, { language: lang }).value;
+      } catch {
+        highlighted = hljs.highlightAuto(result.content).value;
+      }
+    } else {
+      try {
+        highlighted = hljs.highlightAuto(result.content).value;
+      } catch {
+        highlighted = result.content;
+      }
+    }
     const pre = document.createElement('pre');
-    pre.className = 'file-preview-text';
-    pre.textContent = result.content;
+    pre.className = 'file-preview-text hljs';
+    pre.innerHTML = `<code>${highlighted}</code>`;
     contentEl.innerHTML = '';
     contentEl.appendChild(pre);
   } else {

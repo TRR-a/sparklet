@@ -1195,11 +1195,14 @@ body[data-theme="light"] .markdown-body .code-block-lang {
 
 .file-preview-text {
     margin: 0;
+    white-space: pre;
+    border-radius: 4px;
+}
+
+.file-preview-text code {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 0.78rem;
     line-height: 1.5;
-    white-space: pre;
-    color: var(--color-text);
 }
 
 .file-preview-image {
