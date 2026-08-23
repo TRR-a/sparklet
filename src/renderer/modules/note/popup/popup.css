@@ -1209,6 +1209,31 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     padding: 0;
 }
 
+/* Editable file textarea [可编辑文件文本框] */
+.file-editor-textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: var(--color-text);
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    white-space: pre;
+    overflow: auto;
+    tab-size: 2;
+}
+
+/* Unsaved indicator dot [未保存指示圆点] */
+.file-preview-name.dirty::after {
+    content: '●';
+    margin-left: 6px;
+    font-size: 0.7rem;
+    color: var(--color-accent, #4a9eff);
+}
+
 .file-preview-image {
     max-width: 100%;
     max-height: 100%;

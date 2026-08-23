@@ -103,6 +103,8 @@ const projectApi: ProjectAPI = {
   openFolder: () => ipcRenderer.invoke('project:open-folder') as Promise<ProjectOpenResult>,
   readTree: (dirPath: string) => ipcRenderer.invoke('project:read-tree', dirPath) as Promise<ProjectTreeResult>,
   readFile: (filePath: string) => ipcRenderer.invoke('project:read-file', filePath) as Promise<ProjectFileReadResult>,
+  writeFile: (filePath: string, content: string) =>
+    ipcRenderer.invoke('project:write-file', filePath, content) as Promise<{ success: boolean; error?: string }>,
 };
 
 // ========== Expose to renderer process [暴露给渲染进程] ==========

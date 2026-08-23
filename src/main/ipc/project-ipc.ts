@@ -1,7 +1,7 @@
 // Project IPC handlers [项目 IPC 处理器]
 
 import { ipcMain } from 'electron';
-import { openFolderDialog, readDirectoryTree, readFileForPreview } from '../services/project-service';
+import { openFolderDialog, readDirectoryTree, readFile, writeFile } from '../services/project-service';
 
 /**
  * Register project IPC handlers [注册项目 IPC 处理器]
@@ -17,8 +17,13 @@ export function registerProjectIpcHandlers(): void {
     return readDirectoryTree(dirPath);
   });
 
-  // Read file for preview [读取文件用于预览]
+  // Read file [读取文件]
   ipcMain.handle('project:read-file', async (_event, filePath: string) => {
-    return readFileForPreview(filePath);
+    return readFile(filePath);
+  });
+
+  // Write file [写入文件]
+  ipcMain.handle('project:write-file', async (_event, filePath: string, content: string) => {
+    return writeFile(filePath, content);
   });
 }

@@ -2,12 +2,6 @@
 
 import type { ProjectFileNode } from '../../../shared/types/project';
 
-// highlight.js loaded as UMD global via <script> in popup.html [highlight.js 通过 popup.html 中的 <script> 作为 UMD 全局加载]
-declare const hljs: {
-  highlight: (code: string, options: { language: string }) => { value: string };
-  highlightAuto: (code: string) => { value: string };
-};
-
 /** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */
 const WORKSPACE_STORAGE_KEY = 'sparklet:workspace:paths';
 
@@ -325,28 +319,7 @@ export function getWorkspaceProjects(): WorkspaceProject[] {
 }
 
 /**
- * Map file extension to highlight.js language name [将文件扩展名映射到 highlight.js 语言名]
- */
-function getHighlightLanguage(fileName: string): string | null {
-  const ext = fileName.split('.').pop()?.toLowerCase() || '';
-  const map: Record<string, string> = {
-    ts: 'typescript', tsx: 'typescript', js: 'javascript', jsx: 'javascript',
-    mjs: 'javascript', cjs: 'javascript',
-    py: 'python', java: 'java', go: 'go', rs: 'rust',
-    c: 'c', cpp: 'cpp', h: 'c', hpp: 'cpp',
-    html: 'xml', xhtml: 'xml', xml: 'xml', svg: 'xml',
-    css: 'css', scss: 'scss', sass: 'scss', less: 'less',
-    json: 'json', jsonc: 'json', yaml: 'yaml', yml: 'yaml', toml: 'ini',
-    md: 'markdown', markdown: 'markdown',
-    sh: 'bash', bash: 'bash', zsh: 'bash', ps1: 'powershell',
-    sql: 'sql', dockerfile: 'dockerfile',
-  };
-  if (map[ext] !== undefined) return map[ext];
-  return null;
-}
-
-/**
- * Preview a file in the right panel [在右侧面板预览文件]
+ * Preview a file in the right panel [在右侧面板打开文件]
  */
 export async function previewFile(filePath: string, fileName: string): Promise<void> {
   const previewEl = document.getElementById('filePreview');
@@ -354,7 +327,12 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
   const contentEl = document.getElementById('filePreviewContent');
   if (!previewEl || !nameEl || !contentEl) return;
 
+  // Reset edit state [重置编辑状态]
+  currentEditPath = null;
+  currentEditName = null;
+  isDirty = false;
   nameEl.textContent = fileName;
+  nameEl.classList.remove('dirty');
   contentEl.innerHTML = '<div class="file-preview-loading">加载中...</div>';
 
   // Show preview, hide note editor [显示预览，隐藏笔记编辑器]
@@ -362,18 +340,13 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
 
   const result = await window.projectAPI.readFile(filePath);
   if (!result.success) {
-    if (result.tooLarge) {
-      const sizeKB = ((result.size || 0) / 1024).toFixed(1);
-      contentEl.innerHTML = `<div class="file-preview-error">文件过大 (${sizeKB} KB)，超过 1MB 限制</div>`;
-    } else {
-      contentEl.innerHTML = `<div class="file-preview-error">无法预览: ${result.error || '未知错误'}</div>`;
-    }
+    contentEl.innerHTML = `<div class="file-preview-error">无法打开: ${result.error || '未知错误'}</div>`;
     return;
   }
 
   if (result.isBinary) {
     const sizeKB = ((result.size || 0) / 1024).toFixed(1);
-    contentEl.innerHTML = `<div class="file-preview-binary">二进制文件 (${sizeKB} KB)<br>不支持预览</div>`;
+    contentEl.innerHTML = `<div class="file-preview-binary">二进制文件 (${sizeKB} KB)<br>不支持编辑</div>`;
     return;
   }
 
@@ -386,29 +359,59 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
     contentEl.innerHTML = '';
     contentEl.appendChild(img);
   } else if (result.content !== undefined) {
-    // Text or SVG: highlight if language detected [文本或 SVG：如果检测到语言则高亮]
-    const lang = getHighlightLanguage(fileName);
-    let highlighted: string;
-    if (lang) {
-      try {
-        highlighted = hljs.highlight(result.content, { language: lang }).value;
-      } catch {
-        highlighted = hljs.highlightAuto(result.content).value;
-      }
-    } else {
-      try {
-        highlighted = hljs.highlightAuto(result.content).value;
-      } catch {
-        highlighted = result.content;
-      }
-    }
-    const pre = document.createElement('pre');
-    pre.className = 'file-preview-text hljs';
-    pre.innerHTML = `<code>${highlighted}</code>`;
+    // Text or SVG: editable textarea [文本或 SVG：可编辑 textarea]
+    currentEditPath = filePath;
+    currentEditName = fileName;
+
+    const textarea = document.createElement('textarea');
+    textarea.className = 'file-editor-textarea';
+    textarea.value = result.content;
+    textarea.spellcheck = false;
     contentEl.innerHTML = '';
-    contentEl.appendChild(pre);
+    contentEl.appendChild(textarea);
+
+    // Mark dirty on input [输入时标记未保存]
+    textarea.addEventListener('input', () => {
+      if (!isDirty) {
+        isDirty = true;
+        nameEl.classList.add('dirty');
+      }
+    });
+
+    // Ctrl+S to save [Ctrl+S 保存]
+    textarea.addEventListener('keydown', (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        void saveCurrentFile();
+      }
+    });
+
+    textarea.focus();
   } else {
     contentEl.innerHTML = '<div class="file-preview-error">不支持的文件类型</div>';
+  }
+}
+
+/** Current editing file state [当前编辑文件状态] */
+let currentEditPath: string | null = null;
+let currentEditName: string | null = null;
+let isDirty = false;
+
+/**
+ * Save the currently open file [保存当前打开的文件]
+ */
+export async function saveCurrentFile(): Promise<void> {
+  if (!currentEditPath) return;
+  const textarea = document.querySelector('.file-editor-textarea') as HTMLTextAreaElement | null;
+  const nameEl = document.getElementById('filePreviewName');
+  if (!textarea) return;
+
+  const result = await window.projectAPI.writeFile(currentEditPath, textarea.value);
+  if (result.success) {
+    isDirty = false;
+    nameEl?.classList.remove('dirty');
+  } else {
+    alert(`保存失败: ${result.error || '未知错误'}`);
   }
 }
 
@@ -435,5 +438,10 @@ function showFilePreviewPanel(show: boolean): void {
  * Close file preview and restore note editor [关闭文件预览并恢复笔记编辑器]
  */
 export function closeFilePreview(): void {
+  currentEditPath = null;
+  currentEditName = null;
+  isDirty = false;
+  const nameEl = document.getElementById('filePreviewName');
+  nameEl?.classList.remove('dirty');
   showFilePreviewPanel(false);
 }

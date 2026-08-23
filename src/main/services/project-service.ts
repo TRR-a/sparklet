@@ -3,10 +3,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { dialog } from 'electron';
-import type { ProjectFileNode, ProjectTreeResult, ProjectOpenResult, ProjectFileReadResult } from '../../shared/types/project';
-
-/** Max file size for preview (1MB) [预览的最大文件大小 (1MB)] */
-const MAX_PREVIEW_SIZE = 1024 * 1024;
+import type { ProjectFileNode, ProjectTreeResult, ProjectOpenResult, ProjectFileReadResult, ProjectFileWriteResult } from '../../shared/types/project';
 
 /** Image extensions [图片扩展名] */
 const IMAGE_EXTS = new Set(['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp', 'ico']);
@@ -125,9 +122,9 @@ async function buildNode(nodePath: string, depth: number): Promise<ProjectFileNo
 }
 
 /**
- * Read a file for preview (text or image) [读取文件用于预览 (文本或图片)]
+ * Read a file (text or image) [读取文件 (文本或图片)]
  */
-export async function readFileForPreview(filePath: string): Promise<ProjectFileReadResult> {
+export async function readFile(filePath: string): Promise<ProjectFileReadResult> {
   try {
     const stat = await fs.stat(filePath);
     if (!stat.isFile()) {
@@ -136,13 +133,9 @@ export async function readFileForPreview(filePath: string): Promise<ProjectFileR
 
     const ext = filePath.split('.').pop()?.toLowerCase() || '';
 
-    // Binary files (not images) → don't read content, regardless of size [二进制文件 (非图片) → 不读内容，不管大小]
+    // Binary files (not images) → don't read content [二进制文件 (非图片) → 不读内容]
     if (BINARY_EXTS.has(ext) && !IMAGE_EXTS.has(ext)) {
       return { success: true, isBinary: true, size: stat.size };
-    }
-
-    if (stat.size > MAX_PREVIEW_SIZE) {
-      return { success: false, tooLarge: true, size: stat.size };
     }
 
     if (IMAGE_EXTS.has(ext)) {
@@ -161,6 +154,19 @@ export async function readFileForPreview(filePath: string): Promise<ProjectFileR
       return { success: true, isBinary: true, size: stat.size };
     }
     return { success: true, content, size: stat.size };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, error: msg };
+  }
+}
+
+/**
+ * Write text content to a file [写入文本内容到文件]
+ */
+export async function writeFile(filePath: string, content: string): Promise<ProjectFileWriteResult> {
+  try {
+    await fs.writeFile(filePath, content, 'utf-8');
+    return { success: true };
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     return { success: false, error: msg };

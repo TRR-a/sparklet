@@ -24,14 +24,19 @@ export interface ProjectOpenResult {
   error?: string;
 }
 
-/** Result of reading a file for preview [读取文件用于预览的结果] */
+/** Result of reading a file [读取文件结果] */
 export interface ProjectFileReadResult {
   success: boolean;
   content?: string;
   isImage?: boolean;
   isBinary?: boolean;
-  tooLarge?: boolean;
   size?: number;
+  error?: string;
+}
+
+/** Result of writing a file [写入文件结果] */
+export interface ProjectFileWriteResult {
+  success: boolean;
   error?: string;
 }
 
@@ -40,4 +45,5 @@ export interface ProjectAPI {
   openFolder: () => Promise<ProjectOpenResult>;
   readTree: (dirPath: string) => Promise<ProjectTreeResult>;
   readFile: (filePath: string) => Promise<ProjectFileReadResult>;
+  writeFile: (filePath: string, content: string) => Promise<ProjectFileWriteResult>;
 }
