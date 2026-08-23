@@ -1142,6 +1142,7 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     flex-direction: column;
     flex: 1;
     overflow: hidden;
+    min-width: 0;
 }
 
 .file-preview-header {
@@ -1188,6 +1189,7 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     flex: 1;
     overflow: auto;
     padding: 12px;
+    min-width: 0;
 }
 
 .file-preview-text {
