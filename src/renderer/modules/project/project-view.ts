@@ -225,16 +225,6 @@ function buildTreeNode(node: ProjectFileNode, depth: number): HTMLElement {
     toggle.className = 'project-tree-toggle';
     const isExpanded = expandedDirs.has(node.path);
     toggle.textContent = isExpanded ? '▼' : '▶';
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (expandedDirs.has(node.path)) {
-        expandedDirs.delete(node.path);
-      } else {
-        expandedDirs.add(node.path);
-      }
-      // Re-render the project that contains this node [重新渲染包含此节点的项目]
-      rerenderProjectContaining(node.path);
-    });
     row.appendChild(toggle);
 
     const icon = document.createElement('span');
@@ -259,10 +249,19 @@ function buildTreeNode(node: ProjectFileNode, depth: number): HTMLElement {
   name.textContent = node.name;
   row.appendChild(name);
 
-  // Click file → preview; click directory → toggle [点击文件→预览；点击目录→展开/折叠]
-  if (!node.isDirectory) {
+  // Click row: directory → toggle expand, file → preview [点击行：目录→展开/折叠，文件→预览]
+  row.style.cursor = 'pointer';
+  if (node.isDirectory) {
+    row.addEventListener('click', () => {
+      if (expandedDirs.has(node.path)) {
+        expandedDirs.delete(node.path);
+      } else {
+        expandedDirs.add(node.path);
+      }
+      rerenderProjectContaining(node.path);
+    });
+  } else {
     row.addEventListener('click', () => previewFile(node.path, node.name));
-    row.style.cursor = 'pointer';
   }
 
   li.appendChild(row);
