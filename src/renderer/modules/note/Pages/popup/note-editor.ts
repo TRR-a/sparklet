@@ -12,6 +12,7 @@ import {
   togglePinNote,
   toggleStarNote
 } from './note-operations.js';
+import { closeFilePreview } from '../../../project/project-view.js';
 
 // Re-export note operations for backward compatibility [重新导出笔记操作以保持向后兼容]
 export { saveCurrentNote, debounceSave, createNewNote, changeNoteColor, togglePinNote, toggleStarNote } from './note-operations.js';
@@ -267,6 +268,7 @@ export async function renderNoteList(notes: NoteListItem[]): Promise<void> {
  * Switch to a different note [切换笔记]
  */
 export async function switchNote(noteId: string): Promise<void> {
+  closeFilePreview();
   await saveCurrentNote();
   const note = await storageManager.getNoteById(noteId);
   if (note) await loadNoteIntoEditor(note);

@@ -47,7 +47,7 @@
                 <ul id="projectFileTree" class="project-file-tree"></ul>
             </div>
         </div>
-        <!-- 编辑区：颜色选择、标题输入、内容编辑 -->
+        <!-- 编辑区：颜色选择、标题输入、内容编辑、文件预览 -->
         <div class="editor">
             <div class="color-palette">
                 <button class="color-option active" data-color="#4285f4" style="background-color:#4285f4;"></button>
@@ -62,6 +62,14 @@
             </div>
             <textarea id="noteArea" class="note-editor" data-i18n-placeholder="main.noteContentPlaceholder" placeholder="记录您的灵感..."></textarea>
             <div id="notePreview" class="note-preview" style="display: none;"></div>
+            <!-- 文件预览区域 [File preview area] -->
+            <div id="filePreview" class="file-preview" style="display: none;">
+                <div class="file-preview-header">
+                    <span id="filePreviewName" class="file-preview-name"></span>
+                    <button id="filePreviewClose" class="file-preview-close" title="关闭">×</button>
+                </div>
+                <div id="filePreviewContent" class="file-preview-content"></div>
+            </div>
         </div>
     </div>
 

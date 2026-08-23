@@ -17,7 +17,7 @@ import {
   setCurrentNoteId
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
-import { openProjectFolder, restoreWorkspace } from '../../../project/project-view.js';
+import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../project/project-view.js';
 
 /**
  * Bind all popup events [绑定所有弹窗事件]
@@ -31,6 +31,9 @@ function bindEvents(): void {
 
   const openFolderBtn = document.getElementById('openFolderBtn');
   if (openFolderBtn) openFolderBtn.addEventListener('click', openProjectFolder);
+
+  const filePreviewClose = document.getElementById('filePreviewClose');
+  if (filePreviewClose) filePreviewClose.addEventListener('click', closeFilePreview);
 
   const windowPinBtn = document.getElementById('windowPinBtn');
   if (windowPinBtn) {

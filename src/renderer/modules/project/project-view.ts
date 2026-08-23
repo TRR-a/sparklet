@@ -259,6 +259,12 @@ function buildTreeNode(node: ProjectFileNode, depth: number): HTMLElement {
   name.textContent = node.name;
   row.appendChild(name);
 
+  // Click file → preview; click directory → toggle [点击文件→预览；点击目录→展开/折叠]
+  if (!node.isDirectory) {
+    row.addEventListener('click', () => previewFile(node.path, node.name));
+    row.style.cursor = 'pointer';
+  }
+
   li.appendChild(row);
 
   // Render children if directory and expanded
@@ -311,4 +317,76 @@ function getFileIcon(filename: string): string {
 /** Get workspace projects (for external use) [获取工作区项目 (供外部使用)] */
 export function getWorkspaceProjects(): WorkspaceProject[] {
   return workspaceProjects;
+}
+
+/**
+ * Preview a file in the right panel [在右侧面板预览文件]
+ */
+export async function previewFile(filePath: string, fileName: string): Promise<void> {
+  const previewEl = document.getElementById('filePreview');
+  const nameEl = document.getElementById('filePreviewName');
+  const contentEl = document.getElementById('filePreviewContent');
+  if (!previewEl || !nameEl || !contentEl) return;
+
+  nameEl.textContent = fileName;
+  contentEl.innerHTML = '<div class="file-preview-loading">加载中...</div>';
+
+  // Show preview, hide note editor [显示预览，隐藏笔记编辑器]
+  showFilePreviewPanel(true);
+
+  const result = await window.projectAPI.readFile(filePath);
+  if (!result.success) {
+    if (result.tooLarge) {
+      const sizeKB = ((result.size || 0) / 1024).toFixed(1);
+      contentEl.innerHTML = `<div class="file-preview-error">文件过大 (${sizeKB} KB)，超过 1MB 限制</div>`;
+    } else {
+      contentEl.innerHTML = `<div class="file-preview-error">无法预览: ${result.error || '未知错误'}</div>`;
+    }
+    return;
+  }
+
+  if (result.isImage && !result.content) {
+    // Raster image: use file:// URL [光栅图片：使用 file:// URL]
+    const img = document.createElement('img');
+    img.src = `file:///${filePath.replace(/\\/g, '/')}`;
+    img.className = 'file-preview-image';
+    img.alt = fileName;
+    contentEl.innerHTML = '';
+    contentEl.appendChild(img);
+  } else if (result.content !== undefined) {
+    // Text or SVG [文本或 SVG]
+    const pre = document.createElement('pre');
+    pre.className = 'file-preview-text';
+    pre.textContent = result.content;
+    contentEl.innerHTML = '';
+    contentEl.appendChild(pre);
+  } else {
+    contentEl.innerHTML = '<div class="file-preview-error">不支持的文件类型</div>';
+  }
+}
+
+/**
+ * Show or hide the file preview panel [显示或隐藏文件预览面板]
+ */
+function showFilePreviewPanel(show: boolean): void {
+  const previewEl = document.getElementById('filePreview');
+  const colorPalette = document.querySelector('.color-palette') as HTMLElement | null;
+  const noteTitle = document.getElementById('noteTitle');
+  const editorToolbar = document.querySelector('.editor-toolbar') as HTMLElement | null;
+  const noteArea = document.getElementById('noteArea');
+  const notePreview = document.getElementById('notePreview');
+
+  if (previewEl) previewEl.style.display = show ? 'flex' : 'none';
+  if (colorPalette) colorPalette.style.display = show ? 'none' : '';
+  if (noteTitle) noteTitle.style.display = show ? 'none' : '';
+  if (editorToolbar) editorToolbar.style.display = show ? 'none' : '';
+  if (noteArea) noteArea.style.display = show ? 'none' : '';
+  if (notePreview) notePreview.style.display = show ? 'none' : '';
+}
+
+/**
+ * Close file preview and restore note editor [关闭文件预览并恢复笔记编辑器]
+ */
+export function closeFilePreview(): void {
+  showFilePreviewPanel(false);
 }

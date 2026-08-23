@@ -24,8 +24,19 @@ export interface ProjectOpenResult {
   error?: string;
 }
 
+/** Result of reading a file for preview [读取文件用于预览的结果] */
+export interface ProjectFileReadResult {
+  success: boolean;
+  content?: string;
+  isImage?: boolean;
+  tooLarge?: boolean;
+  size?: number;
+  error?: string;
+}
+
 /** Project API exposed to renderer [暴露给渲染进程的项目 API] */
 export interface ProjectAPI {
   openFolder: () => Promise<ProjectOpenResult>;
   readTree: (dirPath: string) => Promise<ProjectTreeResult>;
+  readFile: (filePath: string) => Promise<ProjectFileReadResult>;
 }

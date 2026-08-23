@@ -9,7 +9,7 @@ import type {
 } from '../shared/types/ipc';
 import type { Note, NoteListResult, NoteGetResult, NoteSaveResult, NoteOperationResult } from '../shared/types/notes';
 import type { UpdaterConfig, CacheInfo, ToastData, DialogPayload, DialogResponse } from '../shared/types/updater';
-import type { ProjectAPI, ProjectOpenResult, ProjectTreeResult } from '../shared/types/project';
+import type { ProjectAPI, ProjectOpenResult, ProjectTreeResult, ProjectFileReadResult } from '../shared/types/project';
 
 // ========== Expose local storage API (config class, notes already migrated to file system) [暴露本地存储 API (配置类，笔记类已迁移至文件系统)] ==========
 const electronStoreApi: ElectronStoreAPI = {
@@ -102,6 +102,7 @@ const electronApi: ElectronAPI = {
 const projectApi: ProjectAPI = {
   openFolder: () => ipcRenderer.invoke('project:open-folder') as Promise<ProjectOpenResult>,
   readTree: (dirPath: string) => ipcRenderer.invoke('project:read-tree', dirPath) as Promise<ProjectTreeResult>,
+  readFile: (filePath: string) => ipcRenderer.invoke('project:read-file', filePath) as Promise<ProjectFileReadResult>,
 };
 
 // ========== Expose to renderer process [暴露给渲染进程] ==========
