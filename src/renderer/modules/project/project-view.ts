@@ -1,6 +1,19 @@
 // Project view - workspace with multiple folders, remove from workspace [项目视图 - 多文件夹工作区，从工作区移除]
 
 import type { ProjectFileNode } from '../../../shared/types/project';
+import {
+  EditorView,
+  basicSetup,
+  keymap,
+  javascript,
+  css,
+  html,
+  json,
+  markdown,
+  python,
+  oneDark,
+} from '../../vendor/codemirror-vendor.bundle.js';
+import type { Extension } from '@codemirror/state';
 
 /** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */
 const WORKSPACE_STORAGE_KEY = 'sparklet:workspace:paths';
@@ -18,6 +31,9 @@ const workspaceProjects: WorkspaceProject[] = [];
 
 /** Set of expanded directory paths (global, absolute paths won't collide) [已展开目录路径集合 (全局，绝对路径不会冲突)] */
 const expandedDirs = new Set<string>();
+
+/** Active CodeMirror editor view [当前 CodeMirror 编辑器实例] */
+let editorView: EditorView | null = null;
 
 /**
  * Persist workspace project paths to localStorage [将工作区项目路径持久化到 localStorage]
@@ -313,6 +329,34 @@ function getFileIcon(filename: string): string {
   return iconMap[ext] || '📄';
 }
 
+/**
+ * Get CodeMirror language extension for a file name [根据文件名获取 CodeMirror 语言扩展]
+ */
+function getLanguageExtension(fileName: string): Extension | null {
+  const ext = fileName.split('.').pop()?.toLowerCase() || '';
+  switch (ext) {
+    case 'ts': case 'tsx': case 'js': case 'jsx': case 'mjs': case 'cjs':
+      return javascript({ typescript: ext === 'ts' || ext === 'tsx', jsx: ext === 'tsx' || ext === 'jsx' });
+    case 'css': case 'scss': case 'less':
+      return css();
+    case 'html': case 'htm': case 'svg': case 'xml':
+      return html();
+    case 'json': case 'jsonc':
+      return json();
+    case 'md': case 'markdown':
+      return markdown();
+    case 'py':
+      return python();
+    default:
+      return null;
+  }
+}
+
+/** Check if dark theme is active [检查是否暗色主题] */
+function isDarkTheme(): boolean {
+  return document.body.getAttribute('data-theme') === 'dark';
+}
+
 /** Get workspace projects (for external use) [获取工作区项目 (供外部使用)] */
 export function getWorkspaceProjects(): WorkspaceProject[] {
   return workspaceProjects;
@@ -359,34 +403,52 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
     contentEl.innerHTML = '';
     contentEl.appendChild(img);
   } else if (result.content !== undefined) {
-    // Text or SVG: editable textarea [文本或 SVG：可编辑 textarea]
+    // Text or SVG: CodeMirror editor [文本或 SVG：CodeMirror 编辑器]
     currentEditPath = filePath;
     currentEditName = fileName;
 
-    const textarea = document.createElement('textarea');
-    textarea.className = 'file-editor-textarea';
-    textarea.value = result.content;
-    textarea.spellcheck = false;
+    // Destroy previous editor if any [销毁之前的编辑器]
+    if (editorView) {
+      editorView.destroy();
+      editorView = null;
+    }
+
     contentEl.innerHTML = '';
-    contentEl.appendChild(textarea);
 
-    // Mark dirty on input [输入时标记未保存]
-    textarea.addEventListener('input', () => {
-      if (!isDirty) {
-        isDirty = true;
-        nameEl.classList.add('dirty');
-      }
+    const extensions: Extension[] = [
+      basicSetup,
+      keymap.of([
+        {
+          key: 'Mod-s',
+          run: () => {
+            void saveCurrentFile();
+            return true;
+          },
+        },
+      ]),
+      EditorView.updateListener.of(update => {
+        if (update.docChanged && !isDirty) {
+          isDirty = true;
+          nameEl.classList.add('dirty');
+        }
+      }),
+      EditorView.lineWrapping,
+    ];
+
+    // Language extension [语言扩展]
+    const langExt = getLanguageExtension(fileName);
+    if (langExt) extensions.push(langExt);
+
+    // Dark theme [暗色主题]
+    if (isDarkTheme()) extensions.push(oneDark);
+
+    editorView = new EditorView({
+      doc: result.content,
+      extensions,
+      parent: contentEl,
     });
 
-    // Ctrl+S to save [Ctrl+S 保存]
-    textarea.addEventListener('keydown', (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-        e.preventDefault();
-        void saveCurrentFile();
-      }
-    });
-
-    textarea.focus();
+    editorView.focus();
   } else {
     contentEl.innerHTML = '<div class="file-preview-error">不支持的文件类型</div>';
   }
@@ -401,12 +463,11 @@ let isDirty = false;
  * Save the currently open file [保存当前打开的文件]
  */
 export async function saveCurrentFile(): Promise<void> {
-  if (!currentEditPath) return;
-  const textarea = document.querySelector('.file-editor-textarea') as HTMLTextAreaElement | null;
+  if (!currentEditPath || !editorView) return;
   const nameEl = document.getElementById('filePreviewName');
-  if (!textarea) return;
 
-  const result = await window.projectAPI.writeFile(currentEditPath, textarea.value);
+  const content = editorView.state.doc.toString();
+  const result = await window.projectAPI.writeFile(currentEditPath, content);
   if (result.success) {
     isDirty = false;
     nameEl?.classList.remove('dirty');
@@ -438,6 +499,10 @@ function showFilePreviewPanel(show: boolean): void {
  * Close file preview and restore note editor [关闭文件预览并恢复笔记编辑器]
  */
 export function closeFilePreview(): void {
+  if (editorView) {
+    editorView.destroy();
+    editorView = null;
+  }
   currentEditPath = null;
   currentEditName = null;
   isDirty = false;

@@ -1209,21 +1209,20 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     padding: 0;
 }
 
-/* Editable file textarea [可编辑文件文本框] */
-.file-editor-textarea {
-    width: 100%;
+/* CodeMirror editor container [CodeMirror 编辑器容器] */
+.file-preview-content .cm-editor {
     height: 100%;
-    border: none;
-    outline: none;
-    resize: none;
-    background: transparent;
-    color: var(--color-text);
+    font-size: 0.82rem;
+}
+
+.file-preview-content .cm-scroller {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.78rem;
-    line-height: 1.5;
-    white-space: pre;
     overflow: auto;
-    tab-size: 2;
+}
+
+.file-preview-content .cm-gutters {
+    background: transparent;
+    border-right: 1px solid var(--color-border, rgba(128,128,128,0.2));
 }
 
 /* Unsaved indicator dot [未保存指示圆点] */
