@@ -4,7 +4,7 @@
 import storageManager from '../../Modules/storage-manager.js';
 import { initI18n, t } from '../../Modules/i18n.js';
 import { showToast, bindToastListener } from '../../Base/toast.js';
-import { setTheme } from '../../Base/theme.js';
+import { setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
 import {
   loadNotes,
   saveCurrentNote,
@@ -117,6 +117,7 @@ async function initApp(): Promise<void> {
   await initI18n();
   const theme = await window.electronStore.get('theme') as string | undefined;
   setTheme(theme || 'light');
+  bindThemeBroadcastListener();
   bindEvents();
   await loadNotes();
   await restoreWorkspace();
