@@ -1222,6 +1222,14 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     padding: 24px;
 }
 
+.file-preview-binary {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+    line-height: 1.6;
+}
+
 /* Empty workspace [空工作区] */
 .project-empty {
     color: var(--color-text-secondary);

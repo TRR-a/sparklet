@@ -29,6 +29,7 @@ export interface ProjectFileReadResult {
   success: boolean;
   content?: string;
   isImage?: boolean;
+  isBinary?: boolean;
   tooLarge?: boolean;
   size?: number;
   error?: string;

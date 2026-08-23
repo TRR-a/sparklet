@@ -11,6 +11,20 @@ const MAX_PREVIEW_SIZE = 1024 * 1024;
 /** Image extensions [图片扩展名] */
 const IMAGE_EXTS = new Set(['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp', 'ico']);
 
+/** Binary file extensions (never preview as text) [二进制文件扩展名 (绝不作为文本预览)] */
+const BINARY_EXTS = new Set([
+  'dll', 'pak', 'exe', 'bin', 'so', 'dylib', 'class', 'pyc', 'pyo',
+  'o', 'obj', 'lib', 'a', 'dll', 'sys', 'drv', 'efi',
+  'zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'zst',
+  'mp3', 'wav', 'flac', 'ogg', 'm4a', 'aac',
+  'mp4', 'mov', 'avi', 'mkv', 'webm', 'flv',
+  'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx',
+  'woff', 'woff2', 'ttf', 'otf', 'eot',
+  'wasm', 'node', 'dat', 'db', 'sqlite', 'sqlite3',
+  'png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'ico', // images handled separately but also binary
+  'psd', 'ai', 'sketch', 'fig',
+]);
+
 /** Directories to skip when scanning [扫描时跳过的目录] */
 const SKIP_DIRS = new Set([
   'node_modules', '.git', '.svn', '.hg', 'dist', 'build',
@@ -124,6 +138,12 @@ export async function readFileForPreview(filePath: string): Promise<ProjectFileR
     }
 
     const ext = filePath.split('.').pop()?.toLowerCase() || '';
+
+    // Binary files (not images) → don't read content [二进制文件 (非图片) → 不读内容]
+    if (BINARY_EXTS.has(ext) && !IMAGE_EXTS.has(ext)) {
+      return { success: true, isBinary: true, size: stat.size };
+    }
+
     if (IMAGE_EXTS.has(ext)) {
       // For SVG, read as text; for other images, we'll use file:// URL in renderer
       if (ext === 'svg') {
@@ -135,6 +155,10 @@ export async function readFileForPreview(filePath: string): Promise<ProjectFileR
     }
 
     const content = await fs.readFile(filePath, 'utf-8');
+    // Fallback: detect binary by null bytes [兜底：通过 null 字节检测二进制]
+    if (content.includes('\0')) {
+      return { success: true, isBinary: true, size: stat.size };
+    }
     return { success: true, content, size: stat.size };
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);

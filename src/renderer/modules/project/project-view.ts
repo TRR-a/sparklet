@@ -344,6 +344,12 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
     return;
   }
 
+  if (result.isBinary) {
+    const sizeKB = ((result.size || 0) / 1024).toFixed(1);
+    contentEl.innerHTML = `<div class="file-preview-binary">二进制文件 (${sizeKB} KB)<br>不支持预览</div>`;
+    return;
+  }
+
   if (result.isImage && !result.content) {
     // Raster image: use file:// URL [光栅图片：使用 file:// URL]
     const img = document.createElement('img');
