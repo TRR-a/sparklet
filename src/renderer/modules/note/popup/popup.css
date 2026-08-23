@@ -1195,8 +1195,7 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 0.78rem;
     line-height: 1.5;
-    white-space: pre-wrap;
-    word-break: break-all;
+    white-space: pre;
     color: var(--color-text);
 }
 

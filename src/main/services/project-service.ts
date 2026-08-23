@@ -133,15 +133,16 @@ export async function readFileForPreview(filePath: string): Promise<ProjectFileR
     if (!stat.isFile()) {
       return { success: false, error: 'Not a file' };
     }
-    if (stat.size > MAX_PREVIEW_SIZE) {
-      return { success: false, tooLarge: true, size: stat.size };
-    }
 
     const ext = filePath.split('.').pop()?.toLowerCase() || '';
 
-    // Binary files (not images) → don't read content [二进制文件 (非图片) → 不读内容]
+    // Binary files (not images) → don't read content, regardless of size [二进制文件 (非图片) → 不读内容，不管大小]
     if (BINARY_EXTS.has(ext) && !IMAGE_EXTS.has(ext)) {
       return { success: true, isBinary: true, size: stat.size };
+    }
+
+    if (stat.size > MAX_PREVIEW_SIZE) {
+      return { success: false, tooLarge: true, size: stat.size };
     }
 
     if (IMAGE_EXTS.has(ext)) {
