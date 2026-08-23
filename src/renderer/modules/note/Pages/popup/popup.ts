@@ -4,7 +4,7 @@
 import storageManager from '../../Modules/storage-manager.js';
 import { initI18n, t } from '../../Modules/i18n.js';
 import { showToast, bindToastListener } from '../../Base/toast.js';
-import { setTheme, toggleTheme } from '../../Base/theme.js';
+import { setTheme } from '../../Base/theme.js';
 import {
   loadNotes,
   saveCurrentNote,
@@ -23,9 +23,6 @@ import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../
  * Bind all popup events [绑定所有弹窗事件]
  */
 function bindEvents(): void {
-  const themeToggleBtn = document.getElementById('themeToggle');
-  if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
-
   const trashToggleBtn = document.getElementById('trashToggle');
   if (trashToggleBtn) trashToggleBtn.addEventListener('click', toggleTrashView);
 

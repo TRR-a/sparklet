@@ -3,7 +3,7 @@
 
 import { initI18n, loadLanguage, getCurrentLang, t } from '../../Modules/i18n.js';
 import { showToast, bindToastListener } from '../../Base/toast.js';
-import { loadTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
+import { loadTheme, setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
 import { bindUpdaterDialogListener } from '../../Modules/updater-dialog.js';
 import {
   loadUpdaterConfig,
@@ -25,7 +25,10 @@ import {
  * Load theme and initialize i18n [加载主题并初始化 i18n]
  */
 async function loadThemeAndI18n(): Promise<void> {
-  await loadTheme();
+  const currentTheme = await loadTheme();
+  const themeSelect = document.getElementById('themeSelect') as HTMLSelectElement | null;
+  if (themeSelect) themeSelect.value = currentTheme;
+
   const currentLang = await initI18n();
   const languageSelect = document.getElementById('languageSelect') as HTMLSelectElement | null;
   if (languageSelect) languageSelect.value = currentLang;
@@ -143,5 +146,17 @@ if (languageSelect) {
       console.log('语言已切换为：', newLang);
       await loadUpdateHint();
     }
+  });
+}
+
+// ==================== Theme switch [主题切换] ==========
+const themeSelect = document.getElementById('themeSelect');
+if (themeSelect) {
+  themeSelect.addEventListener('change', async (e: Event) => {
+    const target = e.target as HTMLSelectElement;
+    const newTheme = target.value;
+    setTheme(newTheme);
+    await window.electronStore.set('theme', newTheme);
+    await window.electronAPI.invoke('theme-changed', newTheme);
   });
 }
