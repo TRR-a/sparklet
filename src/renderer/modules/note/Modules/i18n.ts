@@ -3,7 +3,7 @@
 
 // ==================== Global state [全局状态] ====================
 let currentTranslations: Record<string, string> = {};
-let currentLang = 'zh-CN';
+let currentLang = 'en';
 
 /**
  * Load specified language pack and update all translated text on the page [加载指定语言包并更新页面所有翻译文本]
@@ -70,8 +70,8 @@ export async function loadLanguage(lang: string, isBroadcast: boolean = false): 
  * @returns Currently loaded language code [当前加载的语言代码]
  */
 export async function initI18n(): Promise<string> {
-  // Read saved language setting from local storage, default to Simplified Chinese [从本地存储读取保存的语言设置，默认简体中文]
-  const savedLang = await window.electronStore.get('language') as string || 'zh-CN';
+  // Read saved language setting from local storage, default to English [从本地存储读取保存的语言设置，默认英语]
+  const savedLang = await window.electronStore.get('language') as string || 'en';
   await loadLanguage(savedLang, true);
 
   // Listen for language broadcast from main process to update all windows in real-time [监听主进程的语言切换广播，实时更新所有窗口]
