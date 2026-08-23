@@ -133,21 +133,16 @@ function toggleProject(projectPath: string): void {
  */
 export function renderWorkspace(): void {
   const treeEl = document.getElementById('projectFileTree');
-  const pathEl = document.getElementById('projectPath');
   if (!treeEl) return;
   treeEl.innerHTML = '';
 
   if (workspaceProjects.length === 0) {
-    if (pathEl) pathEl.textContent = '';
     const empty = document.createElement('li');
     empty.className = 'project-empty';
-    empty.textContent = '点击上方按钮打开文件夹';
+    empty.textContent = '点击 + 打开文件夹';
     treeEl.appendChild(empty);
     return;
   }
-
-  // Show count in path area [在路径区域显示数量]
-  if (pathEl) pathEl.textContent = `${workspaceProjects.length} 个项目`;
 
   for (const project of workspaceProjects) {
     treeEl.appendChild(buildProjectNode(project));

@@ -1004,6 +1004,48 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     flex-shrink: 0;
 }
 
+/* Project group header [项目分组标题] */
+.project-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px 4px;
+    user-select: none;
+}
+
+.project-group-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+}
+
+/* Small add button in group header [分组标题中的小添加按钮] */
+.project-add-btn {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: all 0.15s;
+    padding: 0;
+}
+
+.project-add-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+    opacity: 1;
+}
+
 /* View panel: hidden by default, active shown [视图面板：默认隐藏，active 显示] */
 .view-panel {
     display: flex;
