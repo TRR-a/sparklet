@@ -32,6 +32,18 @@
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
+/* 蓝色主题变量 */
+[data-theme="blue"] {
+    --color-bg: #0d1b2a;
+    --color-text: #c8d6e5;
+    --color-border: #1b3a5c;
+    --color-primary: #4a9eff;
+    --color-primary-light: rgba(74, 158, 255, 0.15);
+    --color-hover: #152238;
+    --color-textarea-bg: #0a1623;
+    --shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
 /* 配置页面基础样式 */
 body {
     width: 100vw;
@@ -729,12 +741,14 @@ body[data-theme="light"] .note-preview .code-block-lang {
     border-bottom-color: #ddd;
 }
 
-body[data-theme="dark"] .note-preview .code-block {
+body[data-theme="dark"] .note-preview .code-block,
+body[data-theme="blue"] .note-preview .code-block {
     background-color: #2d2d2d;
     border: 1px solid #3d3d3d;
 }
 
-body[data-theme="dark"] .note-preview .code-block-lang {
+body[data-theme="dark"] .note-preview .code-block-lang,
+body[data-theme="blue"] .note-preview .code-block-lang {
     color: #888;
     border-bottom-color: #3d3d3d;
 }
@@ -1255,11 +1269,13 @@ body[data-theme="light"] .file-preview-content .cm-editor {
 }
 
 /* Dark theme scrollbar [暗色主题滚动条] */
-body[data-theme="dark"] ::-webkit-scrollbar-thumb {
+body[data-theme="dark"] ::-webkit-scrollbar-thumb,
+body[data-theme="blue"] ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.15);
 }
 
-body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+body[data-theme="blue"] ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.25);
 }
 
@@ -1336,12 +1352,14 @@ body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
     border-left: 1px solid var(--color-border);
 }
 
-/* Dark theme code block [暗色主题代码块] */
-body[data-theme="dark"] .markdown-body .code-block {
+/* Dark/blue theme code block [暗色/蓝色主题代码块] */
+body[data-theme="dark"] .markdown-body .code-block,
+body[data-theme="blue"] .markdown-body .code-block {
     background-color: #2d2d2d;
     border: 1px solid #3d3d3d;
 }
-body[data-theme="dark"] .markdown-body .code-block-lang {
+body[data-theme="dark"] .markdown-body .code-block-lang,
+body[data-theme="blue"] .markdown-body .code-block-lang {
     color: #888;
     border-bottom-color: #3d3d3d;
 }
@@ -1366,8 +1384,9 @@ body[data-theme="dark"] .markdown-body .code-block-lang {
       0 0 30px 15px rgba(100, 100, 100, 0.04);
 }
 
-/* 暗色主题光晕样式 */
-[data-theme="dark"] .settings-glow-mask {
+/* 暗色/蓝色主题光晕样式 */
+[data-theme="dark"] .settings-glow-mask,
+[data-theme="blue"] .settings-glow-mask {
     box-shadow: 
       0 0 8px 3px rgba(96, 165, 250, 0.15),
       0 0 15px 6px rgba(96, 165, 250, 0.1),
@@ -1413,6 +1432,11 @@ body[data-theme="dark"] .markdown-body .code-block-lang {
 [data-theme="dark"] .custom-confirm-box {
     background: rgba(40, 40, 40, 0.95);
     border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+}
+[data-theme="blue"] .custom-confirm-box {
+    background: rgba(13, 27, 42, 0.95);
+    border-color: rgba(74, 158, 255, 0.2);
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
 }
 @keyframes confirmPopIn {

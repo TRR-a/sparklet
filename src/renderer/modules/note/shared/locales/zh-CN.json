@@ -240,5 +240,6 @@
     "updater.toast.updateFailedGeneric":  "⚠️ 更新失败，请稍后重试或去官网手动下载",
     "updater.toast.updateFailedWithReason":  "❌ 更新失败：{reason}",
     "settings.appearance":  "外观",
-    "settings.theme":  "主题："
+    "settings.theme":  "主题：",
+    "theme.blue":  "蓝色"
 }

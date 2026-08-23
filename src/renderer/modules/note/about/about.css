@@ -27,6 +27,15 @@ html {
   --color-border: #444444;
 }
 
+/* 蓝色主题样式变量 */
+[data-theme="blue"] {
+  --color-text-primary: #e8f0fe;
+  --color-text-secondary: #a0b4c8;
+  --color-primary: #4a9eff;
+  --color-bg: #0d1b2a;
+  --color-border: #1b3a5c;
+}
+
 /* 页面基础样式，适配无边框窗口与主题切换 */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

@@ -240,5 +240,6 @@
     "updater.toast.updateFailedGeneric":  "⚠️ Error en la actualización, intente más tarde o descargue manualmente desde el sitio web",
     "updater.toast.updateFailedWithReason":  "❌ Error en la actualización: {reason}",
     "settings.appearance":  "Apariencia",
-    "settings.theme":  "Tema:"
+    "settings.theme":  "Tema:",
+    "theme.blue":  "Azul"
 }

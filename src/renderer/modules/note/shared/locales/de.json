@@ -240,5 +240,6 @@
     "updater.toast.updateFailedGeneric":  "⚠️ Update fehlgeschlagen, bitte später erneut versuchen oder manuell von der Website herunterladen",
     "updater.toast.updateFailedWithReason":  "❌ Update fehlgeschlagen: {reason}",
     "settings.appearance":  "Erscheinungsbild",
-    "settings.theme":  "Design:"
+    "settings.theme":  "Design:",
+    "theme.blue":  "Blau"
 }

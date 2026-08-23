@@ -240,5 +240,6 @@
     "updater.toast.updateFailedGeneric":  "⚠️ 更新に失敗しました。後でもう一度試すか、公式サイトから手動でダウンロードしてください",
     "updater.toast.updateFailedWithReason":  "❌ 更新に失敗しました：{reason}",
     "settings.appearance":  "外観",
-    "settings.theme":  "テーマ："
+    "settings.theme":  "テーマ：",
+    "theme.blue":  "ブルー"
 }

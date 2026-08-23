@@ -354,9 +354,10 @@ function getLanguageExtension(fileName: string): Extension | null {
   }
 }
 
-/** Check if dark theme is active [检查是否暗色主题] */
+/** Check if a dark-colored theme is active (dark or blue) [检查是否暗色类主题 (dark 或 blue)] */
 function isDarkTheme(): boolean {
-  return document.body.getAttribute('data-theme') === 'dark';
+  const theme = document.body.getAttribute('data-theme');
+  return theme === 'dark' || theme === 'blue';
 }
 
 /**

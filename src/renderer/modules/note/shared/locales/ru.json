@@ -240,5 +240,6 @@
     "updater.toast.updateFailedGeneric":  "⚠️ Ошибка обновления, повторите попытку позже или скачайте вручную с официального сайта",
     "updater.toast.updateFailedWithReason":  "❌ Ошибка обновления: {reason}",
     "settings.appearance":  "Внешний вид",
-    "settings.theme":  "Тема:"
+    "settings.theme":  "Тема:",
+    "theme.blue":  "Синяя"
 }
