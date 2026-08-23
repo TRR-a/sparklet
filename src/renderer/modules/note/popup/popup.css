@@ -1197,12 +1197,16 @@ body[data-theme="light"] .markdown-body .code-block-lang {
     margin: 0;
     white-space: pre;
     border-radius: 4px;
+    background: transparent !important;
+    padding: 0 !important;
 }
 
 .file-preview-text code {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 0.78rem;
     line-height: 1.5;
+    background: transparent;
+    padding: 0;
 }
 
 .file-preview-image {
