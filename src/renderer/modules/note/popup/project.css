@@ -1,0 +1,356 @@
+﻿/* project.css - split from popup.css */
+/* ========== Project View [项目视图] ========== */
+
+/* Project section in sidebar [侧边栏中的项目区域] */
+.project-section {
+    flex-shrink: 0;
+}
+
+/* Project group header [项目分组标题] */
+.project-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px 4px;
+    user-select: none;
+}
+
+.project-group-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+}
+
+/* Small add button in group header [分组标题中的小添加按钮] */
+.project-add-btn {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: all 0.15s;
+    padding: 0;
+}
+
+.project-add-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+    opacity: 1;
+}
+
+/* View panel: hidden by default, active shown [视图面板：默认隐藏，active 显示] */
+.view-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Project path display [项目路径显示] */
+.project-path {
+    font-size: 0.72rem;
+    color: var(--color-text-secondary);
+    padding: 4px 12px 8px;
+    word-break: break-all;
+    opacity: 0.7;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* File tree container [文件树容器] */
+.project-file-tree {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    flex-shrink: 0;
+}
+
+/* Tree node [树节点] */
+.project-tree-node {
+    list-style: none;
+}
+
+/* Tree row [树行] */
+.project-tree-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.project-tree-row:hover {
+    background-color: var(--color-hover);
+}
+
+/* Toggle arrow [展开箭头] */
+.project-tree-toggle {
+    width: 10px;
+    flex-shrink: 0;
+    font-size: 0.45rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* File/folder icon [文件/文件夹图标] */
+.project-tree-icon {
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    width: 14px;
+    text-align: center;
+}
+
+/* File name [文件名] */
+.project-tree-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text);
+}
+
+/* Children list [子节点列表] */
+.project-tree-children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    margin-left: 6px;
+    border-left: 1px solid var(--color-border);
+}
+
+/* Error message [错误信息] */
+.project-error {
+    color: #ea4335;
+    padding: 12px;
+    font-size: 0.82rem;
+    list-style: none;
+}
+
+/* ========== File Preview [文件预览] ========== */
+
+.file-preview {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.file-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+}
+
+.file-preview-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-preview-close {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.15s;
+}
+
+.file-preview-close:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+}
+
+.file-preview-content {
+    flex: 1;
+    overflow: auto;
+    padding: 12px;
+    min-width: 0;
+}
+
+.file-preview-text {
+    margin: 0;
+    white-space: pre;
+    border-radius: 4px;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.file-preview-text code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    background: transparent;
+    padding: 0;
+}
+
+/* CodeMirror editor container [CodeMirror 编辑器容器] */
+.file-preview-content .cm-editor {
+    height: 100%;
+    font-size: 0.82rem;
+    background: transparent !important;
+}
+
+.file-preview-content .cm-editor.cm-focused {
+    outline: none !important;
+}
+
+.file-preview-content .cm-scroller {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    overflow: auto;
+}
+
+.file-preview-content .cm-gutters {
+    background: transparent !important;
+    border-right: 1px solid var(--color-border, rgba(128,128,128,0.2));
+}
+
+.file-preview-content .cm-content {
+    caret-color: var(--color-text);
+}
+
+body[data-theme="light"] .file-preview-content .cm-editor {
+    color: var(--color-text);
+}
+
+/* Unsaved indicator dot [未保存指示圆点] */
+.file-preview-name.dirty::after {
+    content: '●';
+    margin-left: 6px;
+    font-size: 0.7rem;
+    color: var(--color-accent, #4a9eff);
+}
+
+.file-preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.file-preview-loading {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+}
+
+.file-preview-error {
+    color: #ea4335;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+}
+
+.file-preview-binary {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+    line-height: 1.6;
+}
+
+/* Empty workspace [空工作区] */
+.project-empty {
+    color: var(--color-text-secondary);
+    opacity: 0.5;
+    padding: 24px 12px;
+    font-size: 0.82rem;
+    text-align: center;
+    list-style: none;
+}
+
+/* Project root node [项目根节点] */
+.project-root-node {
+    list-style: none;
+    margin-bottom: 4px;
+}
+
+/* Project root header [项目根标题行] */
+.project-root-header {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.project-root-header:hover {
+    background-color: var(--color-hover);
+}
+
+/* Project root name [项目根名称] */
+.project-root-name {
+    font-weight: 600;
+}
+
+/* Remove from workspace button [从工作区移除按钮] */
+.project-remove-btn {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.project-remove-btn:hover {
+    background-color: #ea4335;
+    color: white;
+    opacity: 1;
+}
+
+/* Project root children container [项目根子节点容器] */
+.project-root-children {
+    margin-top: 1px;
+    padding-left: 10px;
+    margin-left: 6px;
+    border-left: 1px solid var(--color-border);
+}
+

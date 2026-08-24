@@ -1,0 +1,147 @@
+﻿/* settings-form.css - form elements, cards, buttons */
+/* ==================== 内容区域（可滚动） ==================== */
+.settings-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;      /* 允许垂直滚动 */
+    overflow-x: hidden;    /* 禁止水平滚动 */
+    box-sizing: border-box;
+}
+
+/* 美化滚动条（可选） */
+.settings-content::-webkit-scrollbar {
+    width: 6px;
+}
+.settings-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.settings-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+[data-theme="dark"] .settings-content::-webkit-scrollbar-thumb , [data-theme="blue"] .settings-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ==================== 设置卡片 ==================== */
+/* 玻璃拟态卡片 */
+.settings-section {
+    margin-bottom: 24px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .settings-section , [data-theme="blue"] .settings-section {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.settings-section:last-child { margin-bottom: 0; }
+
+.settings-section h3 {
+    margin: 0 0 16px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 0.9;
+    color: var(--color-text-primary);
+}
+
+/* ==================== 表单元素 ==================== */
+/* 标签文字 */
+.setting-item label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+    color: var(--color-text-secondary);
+}
+
+/* 下拉框样式（修复 Windows 多箭头问题） */
+.language-select {
+    width: 100%;
+    padding: 10px 40px 10px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    /* 隐藏原生箭头 */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    overflow: hidden !important;
+    /* 自定义箭头 */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333333"><path d="M7 10l5 5 5-5z"/></svg>') !important;
+    background-repeat: no-repeat !important;
+    background-position: right 8px center !important;
+    background-size: 16px !important;
+}
+
+/* 针对 IE/Edge 内核 */
+.language-select::-ms-expand {
+    display: none !important;
+}
+
+.language-select::-ms-value {
+    background: transparent !important;
+    color: inherit !important;
+}
+
+[data-theme="dark"] .language-select , [data-theme="blue"] .language-select {
+    background: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e0e0e0"><path d="M7 10l5 5 5-5z"/></svg>') !important;
+}
+
+.language-select:hover { border-color: var(--color-primary); }
+.language-select:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(66, 133, 245, 0.15); }
+
+/* 下拉选项样式 */
+.language-select option {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333333;
+}
+
+[data-theme="dark"] .language-select option , [data-theme="blue"] .language-select option {
+    background-color: rgba(30, 30, 30, 0.95);
+    color: #e0e0e0;
+}
+
+/* ==================== 按钮组 ==================== */
+.button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.button-group .settings-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 16px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.button-group .settings-btn:hover { opacity: 0.9; }
+.button-group .settings-btn:active { transform: scale(0.98); }
+
+/* ==================== 更新区块样式（引入独立样式） ==================== */
+@import url('settings-updater.css');
+

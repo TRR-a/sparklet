@@ -1,0 +1,414 @@
+﻿/* note-list.css - split from popup.css */
+.new-note-btn {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+
+/* 新建按钮悬停效果样式 */
+.new-note-btn:hover {
+    opacity: 0.9;
+}
+
+/* 笔记列表样式 */
+.note-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* 笔记列表项基础样式 */
+.note-list-item {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+    position: relative;
+    padding-right: 72px;
+}
+
+/* 列表项悬停效果 */
+.note-list-item:hover {
+    background-color: var(--color-hover);
+}
+
+/* 选中笔记项高亮样式 (边缘色跟随笔记标签色) [Selected note item highlight (border follows note color)] */
+.note-list-item.active {
+    background-color: var(--color-primary-light);
+    border-left: 3px solid var(--note-color, var(--color-primary));
+}
+
+/* 笔记标记颜色点 */
+.note-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+/* 笔记文本框显示样式 */
+.note-text {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+/* 笔记标题样式 */
+.note-title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+/* 笔记时间显示样式 */
+.note-time {
+    font-size: 0.75em;
+    opacity: 0.7;
+}
+
+/* 笔记文件名显示样式 */
+.note-filename {
+    font-size: 0.7em;
+    opacity: 0.5;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-overflow: clip;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.note-filename::-webkit-scrollbar {
+    display: none;
+}
+
+.note-format-tag {
+    font-size: 0.7em;
+    color: var(--color-text-secondary);
+    font-weight: normal;
+    margin-left: 6px;
+}
+
+/* 删除按钮样式 */
+.note-delete-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    opacity: 0.3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+}
+
+/* 悬停显示删除按钮 */
+.note-list-item:hover .note-delete-btn {
+    opacity: 0.8;
+}
+
+/* 删除按钮悬停高亮 */
+.note-delete-btn:hover {
+    opacity: 1;
+    background-color: #ef4444;
+    color: white;
+}
+
+/* 笔记删除状态样式 */
+.note-list-item.deleting {
+    background-color: rgba(234, 67, 53, 0.1) !important;
+    border-left-color: #ea4335 !important;
+}
+
+/* 删除状态按钮高亮 */
+.note-list-item.deleting .note-delete-btn {
+    opacity: 1;
+    background-color: #ef4444;
+    color: white;
+}
+
+/* 置顶笔记卡片 [Pinned note card] */
+.note-list-item.pinned {
+    background-color: var(--color-hover);
+}
+
+.note-list-item.pinned.active {
+    background-color: var(--color-primary-light);
+}
+
+/* 分组标题 [Group title] */
+.note-group-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    padding: 12px 12px 6px;
+    list-style: none;
+    cursor: default;
+    user-select: none;
+}
+
+.note-group-title:first-child {
+    padding-top: 4px;
+}
+
+/* 置顶图标 [Pin icon] */
+.pin-icon {
+    margin-right: 4px;
+    font-size: 0.85em;
+    vertical-align: middle;
+}
+
+/* 星标图标 [Star icon] */
+.star-icon {
+    margin-right: 4px;
+    font-size: 0.85em;
+    vertical-align: middle;
+}
+
+/* 空组提示 [Empty group hint] */
+.note-group-empty {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    opacity: 0.5;
+    padding: 4px 12px 10px;
+    list-style: none;
+    cursor: default;
+    user-select: none;
+    text-align: center;
+}
+
+/* 三点更多按钮 [More options button] */
+.note-more-btn {
+    position: absolute;
+    right: 36px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    opacity: 0.35;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    line-height: 1;
+    transition: all 0.15s;
+    padding: 0;
+}
+
+.note-list-item:hover .note-more-btn {
+    opacity: 0.7;
+}
+
+.note-more-btn:hover {
+    opacity: 1 !important;
+    background-color: var(--color-hover);
+}
+
+/* 更多菜单 [More menu] */
+.note-more-menu {
+    position: absolute;
+    right: 8px;
+    top: calc(100% - 4px);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    padding: 4px;
+    min-width: 140px;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.note-more-menu.show {
+    display: flex;
+}
+
+/* 菜单项 [Menu item] */
+.note-more-menu .menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+}
+
+.note-more-menu .menu-item:hover {
+    background-color: var(--color-hover);
+}
+
+.note-more-menu .menu-item.note-delete {
+    color: #ea4335;
+}
+
+.note-more-menu .menu-item.note-delete:hover {
+    background-color: rgba(234, 67, 53, 0.1);
+}
+
+/* 详细信息弹窗 [Note info modal] */
+.note-info-box {
+    min-width: 320px;
+    max-width: 400px;
+}
+
+.note-info-body {
+    margin: 16px 0;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-border);
+    gap: 12px;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.info-value {
+    color: var(--color-text);
+    font-size: 0.85rem;
+    text-align: right;
+    word-break: break-all;
+}
+
+.info-mono {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.78rem;
+}
+
+
+/* 回收站视图相关样式 */
+.trash-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: var(--color-text);
+    opacity: 0.7;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+/* 回收站切换按钮悬停效果 */
+.trash-toggle-btn:hover {
+    opacity: 1;
+    background-color: var(--color-hover);
+}
+
+/* 回收站视图下笔记项样式 */
+.trash-view .note-list-item {
+    opacity: 0.7;
+    border-left: none !important;
+    padding-left: 12px;
+}
+
+/* 回收站视图选中笔记项样式 */
+.trash-view .note-list-item.active {
+    border-left: 3px solid var(--note-color) !important;
+    background-color: var(--color-hover);
+}
+
+/* 回收站操作栏布局样式 */
+.trash-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* 恢复或永久删除按钮基础样式 */
+.restore-btn, .permanent-delete-btn {
+    flex: 1;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* 恢复按钮样式 */
+.restore-btn {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* 永久删除按钮样式 */
+.permanent-delete-btn {
+    background-color: #ea4335;
+    color: white;
+}
+
+/* 回收站预览提示文本 */
+.trash-preview-hint {
+    text-align: center;
+    color: var(--color-text);
+    opacity: 0.4;
+    padding: 40px 0;
+    font-size: 14px;
+}
+
+/* 回收站预览标题 */
+.trash-preview-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding: 0 12px;
+    color: var(--color-text);
+}
+
+/* 回收站预览内容 */
+.trash-preview-content {
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text);
+}
+
