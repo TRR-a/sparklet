@@ -5,7 +5,7 @@
 import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
 import { renderMarkdown } from '../../Modules/markdown.js';
-import { closeFilePreview } from '../../../project/project-view.js';
+import { closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 import { saveCurrentNote } from './note-operations.js';
 import { closeAllMenus, renderNoteList, bindNoteMenuGlobalHandler } from './note-list.js';
 

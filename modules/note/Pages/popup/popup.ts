@@ -17,7 +17,7 @@ import {
   setCurrentNoteId
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
-import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../project/project-view.js';
+import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 
 /**
  * Bind all popup events [绑定所有弹窗事件]

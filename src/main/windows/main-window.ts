@@ -1,4 +1,4 @@
-// Main window creation [主窗口创建]
+﻿// Main window creation [涓荤獥鍙ｅ垱寤篯
 
 import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
@@ -7,17 +7,17 @@ import { getCurrentVersion } from '../updater/check';
 import * as cacheManager from '../updater/cache-manager';
 import { CACHE_SUCCESS_MARK_DELAY_MS } from '../updater/constants';
 
-// Preload script path (relative to this file at src/main/windows/) [Preload 脚本路径 (相对于本文件 src/main/windows/)]
+// Preload script path (relative to this file at src/main/windows/) [Preload 鑴氭湰璺緞 (鐩稿浜庢湰鏂囦欢 src/main/windows/)]
 const PRELOAD_PATH = path.join(__dirname, '../../preload/index.js');
 
-// Popup HTML path [Popup HTML 路径]
-const POPUP_HTML = path.join(__dirname, '../../renderer/modules/note/popup/popup.html');
+// Popup HTML path [Popup HTML 璺緞]
+const POPUP_HTML = path.join(__dirname, '../../../modules/note/popup/popup.html');
 
-// Icon path [图标路径]
+// Icon path [鍥炬爣璺緞]
 const ICON_PATH = path.join(__dirname, '../../../assets/icons/icon128.png');
 
 /**
- * Create the main application window [创建主应用窗口]
+ * Create the main application window [鍒涘缓涓诲簲鐢ㄧ獥鍙
  */
 export function createMainWindow(): void {
   Menu.setApplicationMenu(null);

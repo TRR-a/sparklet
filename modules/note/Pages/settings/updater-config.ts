@@ -2,7 +2,7 @@
 
 import { t } from '../../Modules/i18n.js';
 import { showToast } from '../../Base/toast.js';
-import type { UpdaterConfig } from '../../../../../shared/types/updater';
+import type { UpdaterConfig } from '../../../../src/shared/types/updater';
 
 /** Whether running in dev environment [是否开发环境] */
 let isDevEnvironment = false;

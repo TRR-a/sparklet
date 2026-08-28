@@ -1,7 +1,7 @@
 // Storage manager - Sparklet file system storage manager [存储管理器 - Sparklet 文件系统存储管理器]
 // Each note is stored independently as .json (metadata) + .md (content) [每个笔记独立存储为 .json (元数据) + .md (正文)]
 
-import type { Note, NoteMeta } from '../../../../shared/types/notes';
+import type { Note, NoteMeta } from '../../../src/shared/types/notes';
 
 /** Storage manager class for note CRUD operations with caching [笔记增删改查的存储管理器类] */
 class StorageManager {

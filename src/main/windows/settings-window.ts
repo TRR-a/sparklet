@@ -1,17 +1,17 @@
-// Settings window creation [设置窗口创建]
+﻿// Settings window creation [璁剧疆绐楀彛鍒涘缓]
 
 import { BrowserWindow } from 'electron';
 import * as path from 'path';
 import { setSettingsWindow, getSettingsWindow, getMainWindow, syncGlowPosition } from './window-manager';
 
-// Preload script path [Preload 脚本路径]
+// Preload script path [Preload 鑴氭湰璺緞]
 const PRELOAD_PATH = path.join(__dirname, '../../preload/index.js');
 
-// Settings HTML path [Settings HTML 路径]
-const SETTINGS_HTML = path.join(__dirname, '../../renderer/modules/note/settings/settings.html');
+// Settings HTML path [Settings HTML 璺緞]
+const SETTINGS_HTML = path.join(__dirname, '../../../modules/note/settings/settings.html');
 
 /**
- * Create the settings window (single instance) [创建设置窗口 (单实例)]
+ * Create the settings window (single instance) [鍒涘缓璁剧疆绐楀彛 (鍗曞疄渚?]
  */
 export function createSettingsWindow(): void {
   const existing = getSettingsWindow();

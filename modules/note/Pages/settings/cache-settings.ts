@@ -10,7 +10,7 @@ import {
   saveRetentionDays,
   loadCacheRetentionDays
 } from './cache-retention.js';
-import type { CacheInfo } from '../../../../../shared/types/updater';
+import type { CacheInfo } from '../../../../src/shared/types/updater';
 
 export { loadCacheRetentionDays };
 

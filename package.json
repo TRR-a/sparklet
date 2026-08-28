@@ -61,6 +61,9 @@
       "src/**/*",
       "!src/**/*.ts",
       "!src/**/*.js.map",
+      "modules/**/*",
+      "!modules/**/*.ts",
+      "!modules/**/*.js.map",
       "assets/**/*",
       "node_modules/**/*"
     ],

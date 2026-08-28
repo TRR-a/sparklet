@@ -8,6 +8,8 @@
   },
   "include": [
     "src/renderer/**/*.ts",
-    "src/renderer/**/*.d.ts"
+    "src/renderer/**/*.d.ts",
+    "modules/**/*.ts",
+    "modules/**/*.d.ts"
   ]
 }
