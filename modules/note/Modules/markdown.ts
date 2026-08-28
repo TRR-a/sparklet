@@ -3,6 +3,7 @@
 
 import { escapeHtml } from '../Base/dom-utils.js';
 import { renderBlocks } from './markdown-renderers.js';
+import hljs from '../vendor/highlight-vendor.bundle.js';
 
 /**
  * Render markdown text to HTML [将 markdown 文本渲染为 HTML]
@@ -23,11 +24,21 @@ export function renderMarkdown(text: string): string {
     if (match.index > lastEnd) {
       parts.push(renderBlocks(text.slice(lastEnd, match.index)));
     }
-    // Code block [代码块]
-    const lang = match[1] || '';
+    // Code block with syntax highlighting [带语法高亮的代码块]
+    const lang = (match[1] || '').toLowerCase();
     const code = match[2] || '';
     const langLabel = lang ? `<span class="code-block-lang">${escapeHtml(lang)}</span>` : '';
-    parts.push(`<div class="code-block">${langLabel}<pre>${escapeHtml(code)}</pre></div>`);
+    let highlighted: string;
+    try {
+      if (lang && hljs.getLanguage(lang)) {
+        highlighted = hljs.highlight(code, { language: lang }).value;
+      } else {
+        highlighted = hljs.highlightAuto(code).value;
+      }
+    } catch {
+      highlighted = escapeHtml(code);
+    }
+    parts.push(`<div class="code-block">${langLabel}<pre><code class="hljs${lang ? ' language-' + escapeHtml(lang) : ''}">${highlighted}</code></pre></div>`);
     lastEnd = match.index + match[0].length;
   }
 

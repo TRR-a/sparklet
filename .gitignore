@@ -12,6 +12,8 @@ modules/**/*.d.ts
 # Exception: vendor bundles (third-party ESM bundles built by esbuild) [例外：vendor 打包文件 (esbuild 构建的第三方 ESM 包)]
 !src/renderer/vendor/*.js
 !src/renderer/vendor/*.d.ts
+!modules/**/vendor/*.bundle.js
+!modules/**/vendor/*.bundle.d.ts
 
 # Build output directories [构建输出目录]
 release/
