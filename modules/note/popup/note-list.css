@@ -1,4 +1,4 @@
-﻿/* note-list.css - split from popup.css */
+/* note-list.css - split from popup.css */
 .new-note-btn {
     width: 100%;
     padding: 10px 12px;
@@ -168,8 +168,27 @@
     color: var(--color-text-secondary);
     padding: 12px 12px 6px;
     list-style: none;
-    cursor: default;
+    cursor: pointer;
     user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.note-group-title:hover {
+    color: var(--color-text);
+}
+
+/* 折叠箭头 [Collapse caret] */
+.group-caret {
+    font-size: 0.62rem;
+    width: 10px;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+}
+
+.note-group-title.collapsed .group-caret {
+    transform: rotate(-90deg);
 }
 
 .note-group-title:first-child {
@@ -341,6 +360,11 @@
 .trash-toggle-btn:hover {
     opacity: 1;
     background-color: var(--color-hover);
+}
+
+/* 回收站视图下隐藏项目工作区 [Hide project workspace in trash view] */
+.trash-view .project-section {
+    display: none !important;
 }
 
 /* 回收站视图下笔记项样式 */

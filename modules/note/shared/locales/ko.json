@@ -106,6 +106,7 @@
     "noteList.groupPinned":  "고정됨",
     "noteList.groupRecent":  "최근",
     "noteList.groupStarred":  "별표",
+    "noteList.groupOthers":  "기타",
     "noteMenu.delete":  "삭제",
     "noteMenu.info":  "상세 정보",
     "noteMenu.pin":  "고정",

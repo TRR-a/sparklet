@@ -106,6 +106,7 @@
     "noteList.groupPinned":  "Pinned",
     "noteList.groupRecent":  "Recent",
     "noteList.groupStarred":  "Starred",
+    "noteList.groupOthers":  "Others",
     "noteMenu.delete":  "Delete",
     "noteMenu.info":  "Details",
     "noteMenu.pin":  "Pin",

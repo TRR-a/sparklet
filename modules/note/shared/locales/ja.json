@@ -106,6 +106,7 @@
     "noteList.groupPinned":  "ピン留め",
     "noteList.groupRecent":  "最近",
     "noteList.groupStarred":  "スター",
+    "noteList.groupOthers":  "その他",
     "noteMenu.delete":  "削除",
     "noteMenu.info":  "詳細",
     "noteMenu.pin":  "ピン留め",

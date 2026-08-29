@@ -106,6 +106,7 @@
     "noteList.groupPinned":  "Épinglés",
     "noteList.groupRecent":  "Récents",
     "noteList.groupStarred":  "Favoris",
+    "noteList.groupOthers":  "Autres",
     "noteMenu.delete":  "Supprimer",
     "noteMenu.info":  "Détails",
     "noteMenu.pin":  "Épingler",

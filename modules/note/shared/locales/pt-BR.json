@@ -106,6 +106,7 @@
     "noteList.groupPinned":  "Fixados",
     "noteList.groupRecent":  "Recentes",
     "noteList.groupStarred":  "Favoritos",
+    "noteList.groupOthers":  "Outros",
     "noteMenu.delete":  "Excluir",
     "noteMenu.info":  "Detalhes",
     "noteMenu.pin":  "Fixar",

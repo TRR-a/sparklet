@@ -4,6 +4,8 @@ import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
 import { showCustomConfirm } from '../../Modules/custom-dialog.js';
 import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from './note-editor.js';
+import { createGroupTitle, createGroupEmpty, applyGroup } from './note-list.js';
+import type { NoteListItem } from './note-list.js';
 import { renderMarkdown } from '../../Modules/markdown.js';
 import { escapeHtml } from '../../Base/dom-utils.js';
 
@@ -90,22 +92,24 @@ async function loadMainView(): Promise<void> {
 }
 
 /**
- * Render trash list [渲染回收站列表]
+ * Create a single trash note card [创建单个回收站笔记卡片]
+ * @param note Trashed note metadata [回收站笔记元数据]
+ * @returns Card list element [卡片 li 元素]
  */
-export async function renderTrashList(): Promise<void> {
-  const trashedNotes = await storageManager.getTrashNotes();
-  const noteList = document.getElementById('noteList');
-  if (!noteList) return;
-  noteList.innerHTML = '';
-  trashedNotes.forEach(note => {
-    const li = document.createElement('li');
-    li.className = 'note-list-item';
-    li.setAttribute('data-note-id', note.id);
-    li.style.setProperty('--note-color', note.color);
-    li.innerHTML = `
+function createTrashCard(note: NoteListItem): HTMLElement {
+  const li = document.createElement('li');
+  li.className = 'note-list-item';
+  li.setAttribute('data-note-id', note.id);
+  li.style.setProperty('--note-color', note.color);
+
+  const starIcon = note.starred
+    ? `<span class="star-icon" title="${t('tooltip.starred')}">⭐</span>`
+    : '';
+
+  li.innerHTML = `
       <span class="note-color-dot" style="background-color: ${note.color};"></span>
       <div class="note-text">
-        <div class="note-title">${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
+        <div class="note-title">${starIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
         <div class="note-filename">${note.id}.md</div>
         <div class="note-time">${t('main.noteDeletedAt')} ${new Date(note.deletedAt || '').toLocaleString()}</div>
       </div>
@@ -114,17 +118,47 @@ export async function renderTrashList(): Promise<void> {
         <button class="permanent-delete-btn" data-note-id="${note.id}">${t('main.btnPermanentDelete')}</button>
       </div>
     `;
-    li.addEventListener('click', (e: MouseEvent) => {
-      if (!(e.target as HTMLElement).closest('.trash-actions')) {
-        document.querySelectorAll('.trash-view .note-list-item').forEach(item => {
-          item.classList.remove('active');
-        });
-        li.classList.add('active');
-        showTrashPreview(note.id);
-      }
-    });
-    noteList.appendChild(li);
+  li.addEventListener('click', (e: MouseEvent) => {
+    if (!(e.target as HTMLElement).closest('.trash-actions')) {
+      document.querySelectorAll('.trash-view .note-list-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      li.classList.add('active');
+      void showTrashPreview(note.id);
+    }
   });
+  return li;
+}
+
+/**
+ * Render trash list, grouped into starred / others (both collapsible) [渲染回收站列表，分为星标/其他两组 (均可折叠)]
+ */
+export async function renderTrashList(): Promise<void> {
+  const trashedNotes = await storageManager.getTrashNotes();
+  const noteList = document.getElementById('noteList');
+  if (!noteList) return;
+  noteList.innerHTML = '';
+
+  // Split starred trashed notes from the rest [拆分星标删除笔记与其余笔记]
+  const starredNotes = trashedNotes.filter(note => note.starred);
+  const otherNotes = trashedNotes.filter(note => !note.starred);
+
+  // Starred group [星标分组]
+  noteList.appendChild(createGroupTitle('trash-starred', t('noteList.groupStarred')));
+  if (starredNotes.length > 0) {
+    starredNotes.forEach(note => noteList.appendChild(applyGroup(createTrashCard(note), 'trash-starred')));
+  } else {
+    noteList.appendChild(createGroupEmpty());
+  }
+
+  // Others group [其他分组]
+  noteList.appendChild(createGroupTitle('trash-others', t('noteList.groupOthers')));
+  if (otherNotes.length > 0) {
+    otherNotes.forEach(note => noteList.appendChild(applyGroup(createTrashCard(note), 'trash-others')));
+  } else {
+    noteList.appendChild(createGroupEmpty());
+  }
+
   document.querySelectorAll('.restore-btn').forEach(btn => {
     btn.addEventListener('click', async (e: Event) => {
       e.stopPropagation();

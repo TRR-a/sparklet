@@ -106,6 +106,7 @@
     "noteList.groupPinned":  "置顶",
     "noteList.groupRecent":  "最近",
     "noteList.groupStarred":  "星标",
+    "noteList.groupOthers":  "其他",
     "noteMenu.delete":  "删除",
     "noteMenu.info":  "详细信息",
     "noteMenu.pin":  "置顶",

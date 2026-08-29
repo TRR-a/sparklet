@@ -12,6 +12,64 @@ import {
 /** Currently open more-menu note ID (null = no menu open) [当前打开更多菜单的笔记 ID (null=无菜单打开)] */
 let openMenuNoteId: string | null = null;
 
+/** Collapsed group keys, kept across re-renders [折叠的分组键，重渲染后保持] */
+export const collapsedGroups = new Set<string>();
+
+/**
+ * Create a collapsible group title [创建可折叠的分组标题]
+ * @param key Group identity for collapse state [分组折叠状态键]
+ * @param label Group label text [分组标题文本]
+ * @returns Group title list element [分组标题 li 元素]
+ */
+export function createGroupTitle(key: string, label: string): HTMLElement {
+  const title = document.createElement('li');
+  title.className = 'note-group-title';
+  const isCollapsed = collapsedGroups.has(key);
+  if (isCollapsed) title.classList.add('collapsed');
+  title.innerHTML =
+    `<span class="group-caret">${isCollapsed ? '▶' : '▼'}</span>` +
+    `<span class="group-label">${label}</span>`;
+
+  title.addEventListener('click', () => {
+    const collapsed = title.classList.toggle('collapsed');
+    const caret = title.querySelector('.group-caret');
+    if (caret) caret.textContent = collapsed ? '▶' : '▼';
+    if (collapsed) collapsedGroups.add(key);
+    else collapsedGroups.delete(key);
+
+    // Toggle every following sibling until the next group title [切换到下一个分组标题前的所有兄弟元素]
+    let next = title.nextElementSibling;
+    while (next && !next.classList.contains('note-group-title')) {
+      (next as HTMLElement).style.display = collapsed ? 'none' : '';
+      next = next.nextElementSibling;
+    }
+  });
+
+  return title;
+}
+
+/**
+ * Create an empty-group placeholder [创建空分组占位项]
+ * @returns Empty hint list element [-无- 提示 li 元素]
+ */
+export function createGroupEmpty(): HTMLElement {
+  const empty = document.createElement('li');
+  empty.className = 'note-group-empty';
+  empty.textContent = t('noteList.empty');
+  return empty;
+}
+
+/**
+ * Apply a group key + initial collapse state to a card element [为卡片元素设置分组键与初始折叠状态]
+ * @param card Card element [卡片元素]
+ * @param key Group key [分组键]
+ */
+export function applyGroup(card: HTMLElement, key: string): HTMLElement {
+  card.dataset.group = key;
+  if (collapsedGroups.has(key)) card.style.display = 'none';
+  return card;
+}
+
 /**
  * Close all open note more-menus [关闭所有打开的笔记更多菜单]
  */
@@ -58,6 +116,7 @@ export interface NoteListItem {
   updatedAt: string;
   pinned?: boolean;
   starred?: boolean;
+  deletedAt?: string | null;
 }
 
 /**
@@ -166,45 +225,27 @@ export async function renderNoteList(notes: NoteListItem[], activeNoteId: string
   };
 
   // Pinned group [置顶分组]
-  const pinnedTitle = document.createElement('li');
-  pinnedTitle.className = 'note-group-title';
-  pinnedTitle.textContent = t('noteList.groupPinned');
-  noteList.appendChild(pinnedTitle);
+  noteList.appendChild(createGroupTitle('pinned', t('noteList.groupPinned')));
   if (pinnedNotes.length > 0) {
-    pinnedNotes.forEach(note => noteList.appendChild(createCard(note)));
+    pinnedNotes.forEach(note => noteList.appendChild(applyGroup(createCard(note), 'pinned')));
   } else {
-    const empty = document.createElement('li');
-    empty.className = 'note-group-empty';
-    empty.textContent = t('noteList.empty');
-    noteList.appendChild(empty);
+    noteList.appendChild(createGroupEmpty());
   }
 
   // Starred group [星标分组]
-  const starredTitle = document.createElement('li');
-  starredTitle.className = 'note-group-title';
-  starredTitle.textContent = t('noteList.groupStarred');
-  noteList.appendChild(starredTitle);
+  noteList.appendChild(createGroupTitle('starred', t('noteList.groupStarred')));
   if (starredNotes.length > 0) {
-    starredNotes.forEach(note => noteList.appendChild(createCard(note)));
+    starredNotes.forEach(note => noteList.appendChild(applyGroup(createCard(note), 'starred')));
   } else {
-    const empty = document.createElement('li');
-    empty.className = 'note-group-empty';
-    empty.textContent = t('noteList.empty');
-    noteList.appendChild(empty);
+    noteList.appendChild(createGroupEmpty());
   }
 
   // Recent group (non-pinned, non-starred) [最近分组 (未置顶未星标)]
-  const recentTitle = document.createElement('li');
-  recentTitle.className = 'note-group-title';
-  recentTitle.textContent = t('noteList.groupRecent');
-  noteList.appendChild(recentTitle);
+  noteList.appendChild(createGroupTitle('recent', t('noteList.groupRecent')));
   if (normalNotes.length > 0) {
-    normalNotes.forEach(note => noteList.appendChild(createCard(note)));
+    normalNotes.forEach(note => noteList.appendChild(applyGroup(createCard(note), 'recent')));
   } else {
-    const empty = document.createElement('li');
-    empty.className = 'note-group-empty';
-    empty.textContent = t('noteList.empty');
-    noteList.appendChild(empty);
+    noteList.appendChild(createGroupEmpty());
   }
 }
 

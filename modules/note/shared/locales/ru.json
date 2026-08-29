@@ -106,6 +106,7 @@
     "noteList.groupPinned":  "Закреплено",
     "noteList.groupRecent":  "Недавние",
     "noteList.groupStarred":  "Избранное",
+    "noteList.groupOthers":  "Другие",
     "noteMenu.delete":  "Удалить",
     "noteMenu.info":  "Подробности",
     "noteMenu.pin":  "Закрепить",
