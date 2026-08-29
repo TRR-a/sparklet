@@ -372,6 +372,10 @@
     opacity: 0.7;
     border-left: none !important;
     padding-left: 12px;
+    /* Wrap so the action buttons drop to their own row [换行让操作按钮独占一行] */
+    flex-wrap: wrap;
+    align-items: center;
+    padding-right: 12px;
 }
 
 /* 回收站视图选中笔记项样式 */
@@ -380,11 +384,16 @@
     background-color: var(--color-hover);
 }
 
-/* 回收站操作栏布局样式 */
+/* 回收站操作栏：独占卡片第二行并与文本左对齐 [Trash action row: own line, aligned with note text] */
 .trash-actions {
     display: flex;
     gap: 8px;
     margin-top: 8px;
+    flex: 0 0 100%;
+    width: 100%;
+    box-sizing: border-box;
+    /* color dot (12px) + its right margin (10px) [对齐颜色点后的文本] */
+    padding-left: 22px;
 }
 
 /* 恢复或永久删除按钮基础样式 */
