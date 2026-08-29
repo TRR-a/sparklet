@@ -30,7 +30,8 @@ export async function saveCurrentNote(): Promise<void> {
   const finalTitle = title || content.substring(0, 20) || t('main.noteUntitled');
   await storageManager.updateNote(currentNoteId, { title: finalTitle, content });
   const notes = await storageManager.getNotes();
-  await renderNoteList(notes);
+  // Keep the open note highlighted after the list re-renders [重渲染后保持当前打开笔记高亮]
+  await renderNoteList(notes, currentNoteId);
 }
 
 /**
@@ -47,7 +48,7 @@ export function debounceSave(): void {
 export async function createNewNote(): Promise<void> {
   const newNote = await storageManager.createNote(t('main.noteUntitled'));
   const notes = await storageManager.getNotes();
-  await renderNoteList(notes);
+  await renderNoteList(notes, newNote.id);
   await loadNoteIntoEditor(newNote);
   const titleInput = document.getElementById('noteTitle') as HTMLInputElement | null;
   if (titleInput) {
@@ -65,7 +66,7 @@ export async function changeNoteColor(color: string): Promise<void> {
   await storageManager.updateNote(currentNoteId, { color });
   updateActiveColor(color);
   const notes = await storageManager.getNotes();
-  await renderNoteList(notes);
+  await renderNoteList(notes, currentNoteId);
 }
 
 /**
@@ -77,7 +78,7 @@ export async function togglePinNote(noteId: string): Promise<void> {
   const newPinned = !note.pinned;
   await storageManager.updateNote(noteId, { pinned: newPinned });
   const notes = await storageManager.getNotes();
-  await renderNoteList(notes);
+  await renderNoteList(notes, getCurrentNoteId());
 }
 
 /**
@@ -89,7 +90,7 @@ export async function toggleStarNote(noteId: string): Promise<void> {
   const newStarred = !note.starred;
   await storageManager.updateNote(noteId, { starred: newStarred });
   const notes = await storageManager.getNotes();
-  await renderNoteList(notes);
+  await renderNoteList(notes, getCurrentNoteId());
 }
 
 /**
@@ -100,7 +101,7 @@ export async function handleDeleteNote(noteId: string, listItemElement: HTMLElem
     const success = await storageManager.deleteNote(noteId);
     if (!success) return;
     const activeNotes = await storageManager.getNotes();
-    await renderNoteList(activeNotes);
+    await renderNoteList(activeNotes, getCurrentNoteId());
     const currentNoteId = getCurrentNoteId();
     if (noteId === currentNoteId) {
       if (activeNotes.length > 0) {
