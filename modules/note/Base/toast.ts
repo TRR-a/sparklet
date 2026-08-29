@@ -2,6 +2,7 @@
 // Supports both string messages and i18n key objects for language switching [支持字符串消息和 i18n key 对象两种格式，支持语言切换]
 
 import { t } from '../Modules/i18n.js';
+import { updaterApi } from '../../../src/renderer/core/index.js';
 
 /** Toast type [Toast 类型] */
 export type ToastType = 'info' | 'success' | 'warning' | 'error' | 'danger';
@@ -85,7 +86,7 @@ export function showToast(
  * Bind Toast listener to receive Toast events from main process [绑定 Toast 监听，接收来自主进程的 Toast 事件]
  */
 export function bindToastListener(defaultFallback: string = '提示'): void {
-  window.electronAPI.onToastShow((data: ToastEventData) => {
+  updaterApi.onToastShow((data: ToastEventData) => {
     const message = resolveToastMessage(data.message, defaultFallback);
     const duration = data.duration || 3000;
     const type = (data.type || 'info') as ToastType;

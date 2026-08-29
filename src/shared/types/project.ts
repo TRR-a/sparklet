@@ -39,11 +39,3 @@ export interface ProjectFileWriteResult {
   success: boolean;
   error?: string;
 }
-
-/** Project API exposed to renderer [暴露给渲染进程的项目 API] */
-export interface ProjectAPI {
-  openFolder: () => Promise<ProjectOpenResult>;
-  readTree: (dirPath: string) => Promise<ProjectTreeResult>;
-  readFile: (filePath: string) => Promise<ProjectFileReadResult>;
-  writeFile: (filePath: string, content: string) => Promise<ProjectFileWriteResult>;
-}

@@ -3,6 +3,7 @@
 
 import { buildDialogContent, openExternal } from './updater-dialog-content.js';
 import type { DialogButton } from './updater-dialog-content.js';
+import { updaterApi } from '../../../src/renderer/core/index.js';
 
 /** Updater dialog params from main process [来自主进程的更新器弹窗参数] */
 export interface UpdaterDialogParams {
@@ -34,9 +35,9 @@ export function showUpdaterDialog(
   /** Send user response back to main process [将用户响应回传给主进程] */
   const sendResponse = async (buttonIndex: number, extra: Record<string, unknown> = {}): Promise<void> => {
     (modalEl as HTMLElement).style.display = 'none';
-    if (window.electronAPI && window.electronAPI.sendUpdateDialogResponse) {
+    if (window.sparklet) {
       try {
-        await window.electronAPI.sendUpdateDialogResponse(dialogId, { buttonIndex, ...extra });
+        await updaterApi.sendDialogResponse(dialogId, { buttonIndex, ...extra });
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err);
         console.warn('sendUpdateDialogResponse failed:', msg);
@@ -82,9 +83,10 @@ export function showUpdaterDialog(
  * Bind updater dialog listener (receives dialog show events from main process) [绑定更新器弹窗监听 (接收来自主进程的弹窗显示事件)]
  */
 export function bindUpdaterDialogListener(): void {
-  if (!window.electronAPI || !window.electronAPI.onUpdateDialogShow) return;
-  window.electronAPI.onUpdateDialogShow((payload: UpdaterDialogParams) => {
-    console.log('[Settings] Received updater dialog show:', payload.dialogType);
-    showUpdaterDialog(payload.dialogId, payload.dialogType, payload.params || {}, payload.timeoutMs || 0);
+  if (!window.sparklet) return;
+  updaterApi.onDialogShow((payload) => {
+    const p = payload as unknown as UpdaterDialogParams;
+    console.log('[Settings] Received updater dialog show:', p.dialogType);
+    showUpdaterDialog(p.dialogId, p.dialogType, p.params || {}, p.timeoutMs || 0);
   });
 }

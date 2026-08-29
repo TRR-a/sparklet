@@ -7,6 +7,7 @@ import {
   toggleProject,
   removeProjectFromWorkspace,
 } from './project-workspace.js';
+import { projectApi } from './api/project-api.js';
 
 /**
  * Render the entire workspace [渲染整个工作区]
@@ -168,7 +169,7 @@ function buildTreeNode(node: ProjectFileNode, depth: number): HTMLElement {
 async function rerenderProjectContaining(dirPath: string): Promise<void> {
   const project = workspaceProjects.find(p => dirPath.startsWith(p.path));
   if (!project) return;
-  const result = await window.projectAPI.readTree(project.path);
+  const result = await projectApi.readTree(project.path);
   if (result.success && result.root) {
     project.root = result.root;
     renderWorkspace();

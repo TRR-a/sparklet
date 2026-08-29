@@ -3,6 +3,7 @@
 import { t } from '../../Modules/i18n.js';
 import { showToast } from '../../Base/toast.js';
 import type { UpdaterConfig } from '../../../../src/shared/types/updater';
+import { appApi, updaterApi, broadcastApi } from '../../../../src/renderer/core/index.js';
 
 /** Whether running in dev environment [是否开发环境] */
 let isDevEnvironment = false;
@@ -35,10 +36,10 @@ export function updateStatusText(text: string, isError: boolean = false): void {
  */
 export async function loadUpdaterConfig(): Promise<void> {
   try {
-    isDevEnvironment = await window.electronAPI.isDev();
+    isDevEnvironment = await appApi.isDev();
     console.log('[Settings] Is dev environment:', isDevEnvironment);
 
-    updaterConfig = await window.electronAPI.getUpdaterConfig();
+    updaterConfig = await updaterApi.getConfig();
     if (!updaterConfig) return;
 
     const behaviorSelect = document.getElementById('updateBehaviorSelect') as HTMLSelectElement | null;
@@ -122,7 +123,7 @@ export async function saveUpdaterConfig(): Promise<void> {
   }
 
   try {
-    const result = await window.electronAPI.setUpdaterConfig(newConfig);
+    const result = await updaterApi.setConfig(newConfig);
     if (result.success) {
       updaterConfig = newConfig;
       showToast(t('settings.toast.configSaved'));
@@ -154,7 +155,7 @@ export async function handleCheckNow(): Promise<void> {
   updateStatusText(t('settings.status.checkingUpdate'));
 
   try {
-    await window.electronAPI.checkUpdateNow();
+    await updaterApi.checkUpdateNow();
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error('手动检查失败:', msg);
@@ -187,7 +188,7 @@ export function bindUpdaterEvents(): void {
     checkBtn.addEventListener('click', handleCheckNow);
   }
 
-  window.electronAPI.onUpdaterStatusChange((data: { checking?: boolean; done?: boolean; error?: string }) => {
+  updaterApi.onStatusChange((data: { checking?: boolean; done?: boolean; error?: string }) => {
     const btn = document.getElementById('checkNowBtn') as HTMLButtonElement | null;
     if (data.checking) {
       if (btn) { btn.disabled = true; btn.textContent = t('settings.status.checking'); }
@@ -203,14 +204,14 @@ export function bindUpdaterEvents(): void {
     }
   });
 
-  window.electronAPI.onUpdaterProgress((data: { msg?: string; percent?: number }) => {
+  updaterApi.onProgress((data: { msg?: string; percent?: number }) => {
     if (data.msg) {
       updateStatusText(data.msg + (data.percent !== undefined ? ` (${data.percent}%)` : ''));
     }
   });
 
   // Listen for config changes (auto refresh when config file modified externally) [监听配置变化 (手动修改配置文件后自动刷新)]
-  window.electronAPI.onConfigChanged(async (config: UpdaterConfig) => {
+  broadcastApi.onConfigChanged(async (config: UpdaterConfig) => {
     console.log('[Settings] Config changed externally, reloading...');
     updaterConfig = config;
     await loadUpdaterConfig();
@@ -223,7 +224,7 @@ export function bindUpdaterEvents(): void {
  */
 export async function loadUpdateHint(): Promise<void> {
   try {
-    const version = await window.electronAPI.getAppVersion();
+    const version = await appApi.getVersion();
     const hint = t('settings.updateHint');
     const updateHintEl = document.getElementById('updateHint');
     if (updateHintEl) {

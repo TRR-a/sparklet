@@ -1,6 +1,8 @@
 // i18n module - internationalization support [i18n 模块 - 多语言国际化支持]
 // Provides page text, placeholder, tooltip translation and language switching [提供页面文本、占位符、工具提示等翻译功能]
 
+import { storeApi, broadcastApi } from '../../../src/renderer/core/index.js';
+
 // ==================== Global state [全局状态] ====================
 let currentTranslations: Record<string, string> = {};
 let currentLang = 'en';
@@ -53,8 +55,8 @@ export async function loadLanguage(lang: string, isBroadcast: boolean = false): 
 
     // When not triggered by broadcast, save setting and broadcast language change event [非广播触发时，保存设置并广播语言切换事件]
     if (!isBroadcast) {
-      await window.electronStore.set('language', lang);
-      await window.electronAPI.invoke('language-changed', lang);
+      await storeApi.set('language', lang);
+      await broadcastApi.notifyLanguageChanged(lang);
     }
 
     return true;
@@ -71,11 +73,11 @@ export async function loadLanguage(lang: string, isBroadcast: boolean = false): 
  */
 export async function initI18n(): Promise<string> {
   // Read saved language setting from local storage, default to English [从本地存储读取保存的语言设置，默认英语]
-  const savedLang = await window.electronStore.get('language') as string || 'en';
+  const savedLang = await storeApi.get<string>('language') || 'en';
   await loadLanguage(savedLang, true);
 
   // Listen for language broadcast from main process to update all windows in real-time [监听主进程的语言切换广播，实时更新所有窗口]
-  window.electronAPI.on('language-broadcast', (lang: unknown) => {
+  broadcastApi.onLanguageBroadcast((lang: unknown) => {
     loadLanguage(lang as string, true);
   });
 

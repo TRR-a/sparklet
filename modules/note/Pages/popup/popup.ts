@@ -2,19 +2,16 @@
 // Handles note editing, theme switching, trash, settings window glow sync [处理笔记编辑、主题切换、回收站、设置窗口光晕同步]
 
 import storageManager from '../../Modules/storage-manager.js';
-import { initI18n, t } from '../../Modules/i18n.js';
-import { showToast, bindToastListener } from '../../Base/toast.js';
+import { initI18n } from '../../Modules/i18n.js';
+import { bindToastListener } from '../../Base/toast.js';
 import { setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
+import { storeApi, windowApi } from '../../../../src/renderer/core/index.js';
 import {
   loadNotes,
   saveCurrentNote,
   debounceSave,
   createNewNote,
   changeNoteColor,
-  loadNoteIntoEditor,
-  renderNoteList,
-  getCurrentNoteId,
-  setCurrentNoteId
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
 import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
@@ -35,7 +32,7 @@ function bindEvents(): void {
   const windowPinBtn = document.getElementById('windowPinBtn');
   if (windowPinBtn) {
     windowPinBtn.addEventListener('click', async () => {
-      const isOnTop = await window.electronAPI.invoke('window-toggle-always-on-top') as boolean;
+      const isOnTop = await windowApi.toggleAlwaysOnTop();
       windowPinBtn.classList.toggle('active', isOnTop);
     });
   }
@@ -46,16 +43,16 @@ function bindEvents(): void {
       document.body.classList.add('blur-background');
       const glowMask = document.getElementById('settingsGlowMask');
       if (glowMask) glowMask.classList.add('show');
-      await window.electronAPI.invoke('open-settings-window');
+      await windowApi.openSettings();
     });
   }
 
   const minimizeBtn = document.querySelector('.window-btn.minimize');
   const maximizeBtn = document.querySelector('.window-btn.maximize');
   const closeBtn = document.querySelector('.window-btn.close');
-  if (minimizeBtn) minimizeBtn.addEventListener('click', () => window.electronAPI.invoke('window-minimize'));
-  if (maximizeBtn) maximizeBtn.addEventListener('click', () => window.electronAPI.invoke('window-maximize'));
-  if (closeBtn) closeBtn.addEventListener('click', () => window.electronAPI.invoke('window-close'));
+  if (minimizeBtn) minimizeBtn.addEventListener('click', () => void windowApi.minimize());
+  if (maximizeBtn) maximizeBtn.addEventListener('click', () => void windowApi.maximize());
+  if (closeBtn) closeBtn.addEventListener('click', () => void windowApi.close());
 
   const newNoteBtn = document.getElementById('newNoteBtn');
   if (newNoteBtn) newNoteBtn.addEventListener('click', createNewNote);
@@ -74,7 +71,7 @@ function bindEvents(): void {
 
   // Safety: clear stale blur-background on focus (query main process for settings window status) [安全：获得焦点时清除残留 blur-background (向主进程查询设置窗口状态)]
   window.addEventListener('focus', async () => {
-    const isSettingsOpen = await window.electronAPI.invoke('is-settings-window-open') as boolean;
+    const isSettingsOpen = await windowApi.isSettingsOpen();
     if (!isSettingsOpen) {
       document.body.classList.remove('blur-background');
       const glowMask = document.getElementById('settingsGlowMask');
@@ -83,7 +80,7 @@ function bindEvents(): void {
   });
 
   // Settings window glow position sync [设置窗口光晕位置同步]
-  window.electronAPI.on('settings-window-moved', (...args: unknown[]) => {
+  windowApi.onSettingsMoved((...args: unknown[]) => {
     const data = args[0] as { mainBounds: { x: number; y: number }; settingsBounds: { x: number; y: number; width: number; height: number } };
     const glowMask = document.getElementById('settingsGlowMask');
     if (!glowMask) return;
@@ -95,7 +92,7 @@ function bindEvents(): void {
     (glowMask as HTMLElement).style.height = `${data.settingsBounds.height}px`;
   });
 
-  window.electronAPI.on('settings-window-overlap', (...args: unknown[]) => {
+  windowApi.onSettingsOverlap((...args: unknown[]) => {
     const isOverlapping = args[0] as boolean;
     const glowMask = document.getElementById('settingsGlowMask');
     if (isOverlapping) {
@@ -115,7 +112,7 @@ async function initApp(): Promise<void> {
   console.log('Sparklet 初始化...');
   await storageManager.init();
   await initI18n();
-  const theme = await window.electronStore.get('theme') as string | undefined;
+  const theme = await storeApi.get<string>('theme');
   setTheme(theme || 'light');
   bindThemeBroadcastListener();
   bindEvents();
@@ -133,19 +130,19 @@ document.addEventListener('DOMContentLoaded', initApp);
 (window as unknown as { debugStorage: () => Promise<unknown> }).debugStorage = () => storageManager.debug();
 
 // ==================== Window state listeners [窗口状态监听] ====================
-window.electronAPI.on('settings-window-closed', () => {
+windowApi.onSettingsClosed(() => {
   document.body.classList.remove('blur-background');
   const glowMask = document.getElementById('settingsGlowMask');
   if (glowMask) glowMask.classList.remove('show');
 });
 
-window.electronAPI.on('settings-window-minimized', () => {
+windowApi.onSettingsMinimized(() => {
   document.body.classList.remove('blur-background');
   const glowMask = document.getElementById('settingsGlowMask');
   if (glowMask) glowMask.classList.remove('show');
 });
 
-window.electronAPI.on('settings-window-restored', () => {
+windowApi.onSettingsRestored(() => {
   document.body.classList.add('blur-background');
   const glowMask = document.getElementById('settingsGlowMask');
   if (glowMask) glowMask.classList.add('show');

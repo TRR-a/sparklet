@@ -1,6 +1,7 @@
 // Project workspace - state, persistence, add/remove projects [项目工作区 - 状态、持久化、增删项目]
 
 import type { ProjectFileNode } from '../../../shared/types/project';
+import { projectApi } from './api/project-api.js';
 
 /** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */
 const WORKSPACE_STORAGE_KEY = 'sparklet:workspace:paths';
@@ -49,7 +50,7 @@ export async function restoreWorkspace(): Promise<void> {
       return;
     }
     for (const projectPath of paths) {
-      const treeResult = await window.projectAPI.readTree(projectPath);
+      const treeResult = await projectApi.readTree(projectPath);
       if (!treeResult.success || !treeResult.root) continue;
       expandedDirs.add(projectPath);
       workspaceProjects.push({
@@ -70,7 +71,7 @@ export async function restoreWorkspace(): Promise<void> {
  */
 export async function openProjectFolder(): Promise<void> {
   const { renderWorkspace } = await import('./project-tree.js');
-  const result = await window.projectAPI.openFolder();
+  const result = await projectApi.openFolder();
   if (!result.success || result.canceled || !result.path) return;
 
   // Avoid duplicates [避免重复]
@@ -79,7 +80,7 @@ export async function openProjectFolder(): Promise<void> {
     return;
   }
 
-  const treeResult = await window.projectAPI.readTree(result.path);
+  const treeResult = await projectApi.readTree(result.path);
   if (!treeResult.success || !treeResult.root) {
     workspaceProjects.push({
       path: result.path,

@@ -11,6 +11,7 @@ import {
   loadCacheRetentionDays
 } from './cache-retention.js';
 import type { CacheInfo } from '../../../../src/shared/types/updater';
+import { updaterApi } from '../../../../src/renderer/core/index.js';
 
 export { loadCacheRetentionDays };
 
@@ -57,7 +58,7 @@ export function renderCacheInfo(info: CacheInfo | null): void {
  */
 export async function loadCacheInfo(): Promise<void> {
   try {
-    const result = await window.electronAPI.getUpdateCacheInfo();
+    const result = await updaterApi.getCacheInfo();
     if (result && result.success && result.info) {
       renderCacheInfo(result.info);
     } else {
@@ -85,7 +86,7 @@ export async function handleClearCache(): Promise<void> {
   // Check if there's any cache first [先读一次看看有没有缓存]
   let hasCache = false;
   try {
-    const r = await window.electronAPI.getUpdateCacheInfo();
+    const r = await updaterApi.getCacheInfo();
     hasCache = !!(r && r.success && r.info && r.info.hasCache);
   } catch { /* ignore [忽略] */ }
 
@@ -109,7 +110,7 @@ export async function handleClearCache(): Promise<void> {
   if (btn) { btn.disabled = true; btn.textContent = t('settings.cache.clearing'); }
 
   try {
-    const result = await window.electronAPI.clearUpdateCache();
+    const result = await updaterApi.clearCache();
     if (result && result.success) {
       showToast(t('settings.toast.cacheCleared'));
       await loadCacheInfo();

@@ -6,6 +6,7 @@ import { showToast } from '../../Base/toast.js';
 import { showCustomConfirm } from '../../Modules/custom-dialog.js';
 import { getIsDevEnvironment, loadUpdaterConfig } from './updater-config.js';
 import { loadCacheRetentionDays, applyCacheDevLock, loadCacheInfo } from './cache-settings.js';
+import { updaterApi } from '../../../../src/renderer/core/index.js';
 
 /**
  * Apply dev environment lock to import/export buttons [应用开发环境锁定到导入/导出按钮]
@@ -42,12 +43,12 @@ export function applyImportExportDevLock(): void {
  * Handle export updater config button click [处理导出更新配置按钮点击]
  */
 export async function handleExportUpdaterConfig(): Promise<void> {
-  if (!window.electronAPI || !window.electronAPI.exportUpdaterConfig) {
+  if (!window.sparklet) {
     showToast(t('settings.toast.exportUnsupported'));
     return;
   }
   try {
-    const result = await window.electronAPI.exportUpdaterConfig();
+    const result = await updaterApi.exportConfig();
     if (!result) {
       showToast(t('settings.toast.exportFailed'));
       return;
@@ -70,7 +71,7 @@ export async function handleExportUpdaterConfig(): Promise<void> {
  * Handle import updater config button click [处理导入更新配置按钮点击]
  */
 export async function handleImportUpdaterConfig(): Promise<void> {
-  if (!window.electronAPI || !window.electronAPI.importUpdaterConfig) {
+  if (!window.sparklet) {
     showToast(t('settings.toast.importUnsupported'));
     return;
   }
@@ -86,7 +87,7 @@ export async function handleImportUpdaterConfig(): Promise<void> {
   if (!ok) return;
 
   try {
-    const result = await window.electronAPI.importUpdaterConfig();
+    const result = await updaterApi.importConfig();
     if (!result) {
       showToast(t('settings.toast.importFailed'));
       return;

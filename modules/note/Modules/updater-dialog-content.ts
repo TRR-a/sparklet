@@ -2,6 +2,7 @@
 
 import { t } from './i18n.js';
 import { escapeHtml } from '../Base/dom-utils.js';
+import { windowApi } from '../../../src/renderer/core/index.js';
 
 /** Dialog button definition [弹窗按钮定义] */
 export interface DialogButton {
@@ -22,8 +23,8 @@ export interface DialogContent {
  * Open external URL via main process IPC (with http/https protocol whitelist) [通过主进程 IPC 打开外链 (带 http/https 协议白名单)]
  */
 export function openExternal(url: string): void {
-  if (window.electronAPI && window.electronAPI.invoke) {
-    window.electronAPI.invoke('app:open-external', url).catch((): void => {});
+  if (window.sparklet) {
+    windowApi.openExternal(url).catch((): void => {});
   }
 }
 

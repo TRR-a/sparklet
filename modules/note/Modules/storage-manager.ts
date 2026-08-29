@@ -2,6 +2,7 @@
 // Each note is stored independently as .json (metadata) + .md (content) [每个笔记独立存储为 .json (元数据) + .md (正文)]
 
 import type { Note, NoteMeta } from '../../../src/shared/types/notes';
+import { noteApi } from '../api/note-api.js';
 
 /** Storage manager class for note CRUD operations with caching [笔记增删改查的存储管理器类] */
 class StorageManager {
@@ -19,7 +20,7 @@ class StorageManager {
   /** Load from file system and cache [从文件系统加载并缓存] */
   async loadFromFS(): Promise<NoteMeta[]> {
     try {
-      const result = await window.notesAPI.list();
+      const result = await noteApi.list();
       if (result.success && result.notes) {
         this.notesCache = result.notes;
       } else {
@@ -56,7 +57,7 @@ class StorageManager {
   async getNoteById(id: string): Promise<Note | null> {
     if (!this.initialized) await this.init();
     try {
-      const result = await window.notesAPI.get(id);
+      const result = await noteApi.get(id);
       if (result.success && result.note) {
         return result.note;
       }
@@ -86,7 +87,7 @@ class StorageManager {
     };
 
     // Save to file system via IPC [调用 IPC 保存到文件系统]
-    const result = await window.notesAPI.save(newNote);
+    const result = await noteApi.save(newNote);
     if (result.success) {
       const { content, ...meta } = newNote;
       this.notesCache!.push(meta);
@@ -117,7 +118,7 @@ class StorageManager {
     };
 
     // Save to file system [保存到文件系统]
-    const result = await window.notesAPI.save(updated);
+    const result = await noteApi.save(updated);
     if (result.success) {
       // Update cache (metadata only) [更新缓存 (仅元数据部分)]
       const { content, ...metaOnly } = updated;
@@ -133,7 +134,7 @@ class StorageManager {
   /** Soft delete (move to trash) [软删除 (移回收站)] */
   async deleteNote(id: string): Promise<boolean> {
     if (!this.initialized) await this.init();
-    const result = await window.notesAPI.delete(id);
+    const result = await noteApi.delete(id);
     if (result.success) {
       // Refresh cache [刷新缓存]
       await this.loadFromFS();
@@ -145,7 +146,7 @@ class StorageManager {
   /** Restore from trash [从回收站恢复] */
   async restoreNote(id: string): Promise<boolean> {
     if (!this.initialized) await this.init();
-    const result = await window.notesAPI.restore(id);
+    const result = await noteApi.restore(id);
     if (result.success) {
       await this.loadFromFS();
       return true;
@@ -156,7 +157,7 @@ class StorageManager {
   /** Permanently delete (physically remove files) [永久删除 (物理删除文件)] */
   async permanentlyDeleteNote(id: string): Promise<boolean> {
     if (!this.initialized) await this.init();
-    const result = await window.notesAPI.permanentDelete(id);
+    const result = await noteApi.permanentDelete(id);
     if (result.success) {
       await this.loadFromFS();
       return true;

@@ -5,6 +5,7 @@ import { initI18n, loadLanguage, getCurrentLang, t } from '../../Modules/i18n.js
 import { showToast, bindToastListener } from '../../Base/toast.js';
 import { loadTheme, setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
 import { bindUpdaterDialogListener } from '../../Modules/updater-dialog.js';
+import { storeApi, windowApi, appApi, broadcastApi } from '../../../../src/renderer/core/index.js';
 import {
   loadUpdaterConfig,
   bindUpdaterEvents,
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Config change: re-apply dev environment locks (ensure isDev consistency) [配置变化时，重新应用一次开发环境锁定 (确保 isDev 一致)]
-window.electronAPI.on('config:changed', () => {
+broadcastApi.onConfigChanged(() => {
   applyImportExportDevLock();
   applyCacheDevLock();
 });
@@ -64,14 +65,14 @@ window.electronAPI.on('config:changed', () => {
 const minimizeBtn = document.querySelector('.window-btn.minimize');
 if (minimizeBtn) {
   minimizeBtn.addEventListener('click', () => {
-    window.electronAPI.invoke('window-minimize');
+    void windowApi.minimize();
   });
 }
 
 const closeBtn = document.querySelector('.window-btn.close');
 if (closeBtn) {
   closeBtn.addEventListener('click', () => {
-    window.electronAPI.invoke('window-close');
+    void windowApi.close();
   });
 }
 
@@ -79,14 +80,14 @@ if (closeBtn) {
 const openDevToolsBtn = document.getElementById('openDevToolsBtn');
 if (openDevToolsBtn) {
   openDevToolsBtn.addEventListener('click', () => {
-    window.electronAPI.invoke('open-dev-tools-window');
+    void windowApi.openDevTools();
   });
 }
 
 const openAboutBtn = document.getElementById('openAboutBtn');
 if (openAboutBtn) {
   openAboutBtn.addEventListener('click', () => {
-    window.electronAPI.invoke('open-about-window');
+    void windowApi.openAbout();
   });
 }
 
@@ -94,7 +95,7 @@ const openOfficialSiteBtn = document.getElementById('openOfficialSiteBtn');
 if (openOfficialSiteBtn) {
   openOfficialSiteBtn.addEventListener('click', async () => {
     try {
-      const result = await window.electronAPI.openOfficialSite();
+      const result = await appApi.openOfficialSite();
       if (!result || !result.success) {
         showToast(t('settings.toast.openSiteFailed'));
       }
@@ -156,7 +157,7 @@ if (themeSelect) {
     const target = e.target as HTMLSelectElement;
     const newTheme = target.value;
     setTheme(newTheme);
-    await window.electronStore.set('theme', newTheme);
-    await window.electronAPI.invoke('theme-changed', newTheme);
+    await storeApi.set('theme', newTheme);
+    await broadcastApi.notifyThemeChanged(newTheme);
   });
 }

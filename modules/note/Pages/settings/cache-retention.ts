@@ -1,6 +1,7 @@
 // Cache retention days configuration - slider, presets, UI sync [缓存保留天数配置 - 滑杆、快捷按钮、UI 同步]
 
 import { t } from '../../Modules/i18n.js';
+import { updaterApi } from '../../../../src/renderer/core/index.js';
 
 // Retention days config [保留天数配置]
 export const RETENTION_MIN = 7;
@@ -74,7 +75,7 @@ export async function saveRetentionDays(
   immediate: boolean = false,
   onSaved?: () => void | Promise<void>
 ): Promise<void> {
-  if (!window.electronAPI || !window.electronAPI.setCacheRetentionDays) return;
+  if (!window.sparklet) return;
   const safeDays = clampRetentionDays(days);
 
   if (retentionSaveTimer) {
@@ -85,7 +86,7 @@ export async function saveRetentionDays(
   const doSave = async (): Promise<void> => {
     retentionSaveTimer = null;
     try {
-      const result = await window.electronAPI.setCacheRetentionDays(safeDays);
+      const result = await updaterApi.setCacheRetentionDays(safeDays);
       if (result && result.success) {
         if (onSaved) await onSaved();
         const daysStr = result.days !== undefined ? String(result.days) : String(safeDays);
@@ -114,9 +115,9 @@ export async function saveRetentionDays(
  * Load cache retention days from main process and apply to UI [从主进程读取当前配置并应用到 UI]
  */
 export async function loadCacheRetentionDays(): Promise<void> {
-  if (!window.electronAPI || !window.electronAPI.getCacheRetentionDays) return;
+  if (!window.sparklet) return;
   try {
-    const result = await window.electronAPI.getCacheRetentionDays();
+    const result = await updaterApi.getCacheRetentionDays();
     const days = result && Number.isFinite(result.days) ? result.days! : RETENTION_DEFAULT;
     applyRetentionUI(days, false);
   } catch (err) {

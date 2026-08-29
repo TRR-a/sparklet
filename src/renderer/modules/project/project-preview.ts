@@ -7,6 +7,7 @@ import {
 } from '../../vendor/codemirror-vendor.bundle.js';
 import type { Extension } from '@codemirror/state';
 import { getLanguageExtension, isDarkTheme, blueTheme } from './project-codemirror.js';
+import { projectApi } from './api/project-api.js';
 
 /** Active CodeMirror editor view [当前 CodeMirror 编辑器实例] */
 let editorView: EditorView | null = null;
@@ -36,7 +37,7 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
   // Show preview, hide note editor [显示预览，隐藏笔记编辑器]
   showFilePreviewPanel(true);
 
-  const result = await window.projectAPI.readFile(filePath);
+  const result = await projectApi.readFile(filePath);
   if (!result.success) {
     contentEl.innerHTML = `<div class="file-preview-error">无法打开: ${result.error || '未知错误'}</div>`;
     return;
@@ -116,7 +117,7 @@ export async function saveCurrentFile(): Promise<void> {
   const nameEl = document.getElementById('filePreviewName');
 
   const content = editorView.state.doc.toString();
-  const result = await window.projectAPI.writeFile(currentEditPath, content);
+  const result = await projectApi.writeFile(currentEditPath, content);
   if (result.success) {
     isDirty = false;
     nameEl?.classList.remove('dirty');
