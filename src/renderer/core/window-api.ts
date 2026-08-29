@@ -1,7 +1,7 @@
 // Core window-control API (renderer side) [核心窗口控制 API (渲染侧)]
 // Wraps window control, secondary-window management and their push events [封装窗口控制、副窗口管理及其推送事件]
 
-import { bus } from './ipc-bus';
+import { bus } from './ipc-bus.js';
 
 export const windowApi = {
   // ---------- Current window controls [当前窗口控制] ----------

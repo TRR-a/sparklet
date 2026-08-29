@@ -1,7 +1,7 @@
 // Core config-store API (renderer side) [核心配置存储 API (渲染侧)]
 // Wraps the store:get / store:set channels [封装 store:get / store:set 通道]
 
-import { bus } from './ipc-bus';
+import { bus } from './ipc-bus.js';
 
 export const storeApi = {
   /** Read a config value [读取配置值] */

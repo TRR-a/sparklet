@@ -1,8 +1,8 @@
 // Core self-updater API (renderer side) [核心自更新 API (渲染侧)]
 // Wraps updater flow, updater config, update-cache and updater dialog/toast channels [封装更新流程、更新配置、更新缓存及更新弹窗/Toast 通道]
 
-import { bus } from './ipc-bus';
-import type { UpdaterConfig, CacheInfo, ToastData, DialogPayload } from '../../shared/types/updater';
+import { bus } from './ipc-bus.js';
+import type { UpdaterConfig, CacheInfo, ToastData, DialogPayload } from '../../shared/types/updater.js';
 
 export const updaterApi = {
   // ---------- Update flow [更新流程] ----------

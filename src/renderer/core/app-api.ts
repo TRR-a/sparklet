@@ -1,7 +1,7 @@
 // Core application API (renderer side) [核心应用 API (渲染侧)]
 // Version, dev-mode detection and official-site link [版本、开发环境检测与官网链接]
 
-import { bus } from './ipc-bus';
+import { bus } from './ipc-bus.js';
 
 export const appApi = {
   /** Whether the app is running in dev mode [是否运行于开发模式] */

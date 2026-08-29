@@ -1,13 +1,13 @@
 // Project module renderer-side API [project 模块渲染侧 API]
 // Talks to the main process through the core IPC bus [经核心 IPC 总线与主进程通信]
 
-import { bus } from '../../../core/ipc-bus';
+import { bus } from '../../../core/ipc-bus.js';
 import type {
   ProjectOpenResult,
   ProjectTreeResult,
   ProjectFileReadResult,
   ProjectFileWriteResult,
-} from '../../../../shared/types/project';
+} from '../../../../shared/types/project.js';
 
 export const projectApi = {
   openFolder(): Promise<ProjectOpenResult> {
