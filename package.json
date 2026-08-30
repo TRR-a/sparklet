@@ -8,7 +8,7 @@
     "build:vendor": "esbuild src/renderer/vendor/codemirror-vendor.ts --bundle --format=esm --outfile=build/src/renderer/vendor/codemirror-vendor.bundle.js && esbuild modules/note/vendor/highlight-vendor.ts --bundle --format=esm --minify --outfile=build/modules/note/vendor/highlight-vendor.bundle.js",
     "build:main": "tsc -p tsconfig.main.json",
     "build:renderer": "tsc -p tsconfig.renderer.json",
-    "build": "npm run build:vendor && npm run build:main && npm run build:renderer && npm run build:copy",
+    "build": "npm run sync-version && npm run build:vendor && npm run build:main && npm run build:renderer && npm run build:copy",
     "start": "npm run build && electron .",
     "dev": "npm run build && electron . --dev",
     "watch:main": "tsc -p tsconfig.main.json --watch",
@@ -16,10 +16,11 @@
     "watch:copy": "node scripts/watch-copy-assets.cjs",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
-    "generate-manifest": "npm run build:main && node scripts/generate-manifest.js",
+    "generate-manifest": "npm run sync-version && npm run build:main && node scripts/generate-manifest.js",
     "prepare": "husky",
     "lint": "echo \"No linter configured yet\"",
-    "build:copy": "node scripts/build-copy-assets.cjs"
+    "build:copy": "node scripts/build-copy-assets.cjs",
+    "sync-version": "node scripts/sync-version.cjs"
   },
   "keywords": [
     "notes",

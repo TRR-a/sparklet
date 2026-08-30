@@ -69,6 +69,12 @@ export function registerWindowIpcHandlers(): void {
     const win = getSettingsWindow();
     return win !== null && !win.isDestroyed();
   });
+
+  // ========== Runtime versions (about panel) [运行时版本 (关于面板)] ==========
+  ipcMain.handle('get-runtime-versions', () => ({
+    electron: process.versions.electron,
+    node: process.versions.node,
+  }));
 }
 
 /**

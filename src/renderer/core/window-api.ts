@@ -22,6 +22,10 @@ export const windowApi = {
   toggleAlwaysOnTop(): Promise<boolean> {
     return bus.invoke<boolean>('window-toggle-always-on-top');
   },
+  /** Get runtime Electron/Node.js versions (about panel) [获取运行时 Electron/Node.js 版本 (关于面板)] */
+  getRuntimeVersions(): Promise<{ electron: string; node: string }> {
+    return bus.invoke<{ electron: string; node: string }>('get-runtime-versions');
+  },
 
   // ---------- Secondary windows [副窗口] ----------
   openSettings(): Promise<unknown> {

@@ -2,16 +2,17 @@
 
 import * as https from 'https';
 import { URL } from 'url';
+import { app } from 'electron';
 import { GITHUB_API_URL, REQUEST_TIMEOUT_MS, classifyNetworkError } from './constants';
 import { extractAssetsFromRelease, type ReleaseData } from './manifest-helper';
 import type { CheckResult } from '../../shared/types/updater';
 
-// Get current app version from package.json [获取当前应用版本号]
+// Get current app version from Electron (value comes from package.json, which is
+// kept in sync with version.json by scripts/sync-version.cjs)
+// [获取当前应用版本号：经 Electron 读取 (值来自 package.json，由 sync-version.cjs
+// 与 version.json 保持同步)]
 export function getCurrentVersion(): string {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  // 4 levels up from build/src/main/updater to the app root in the mirrored build tree [镜像 build 树中从 build/src/main/updater 上 4 级到应用根]
-  const pkg = require('../../../../package.json');
-  return pkg.version || '0.0.0';
+  return app.getVersion() || '0.0.0';
 }
 
 /**

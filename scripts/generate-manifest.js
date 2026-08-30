@@ -26,12 +26,12 @@ const {
   isExcludedFromIntegrity
 } = require('../build/src/main/updater/_integrity-rules');
 
-// 从 package.json 读取内部代号、描述、许可证等信息
+// 从 version.json 读取内部代号（版本唯一权威来源）；描述/许可证仍读 package.json
 async function getPackageInfo() {
-  const pkgPath = path.join(__dirname, '..', 'package.json');
-  const pkg = await fs.readJson(pkgPath);
+  const versionJson = await fs.readJson(path.join(__dirname, '..', 'version.json'));
+  const pkg = await fs.readJson(path.join(__dirname, '..', 'package.json'));
   return {
-    internalCodename: pkg.internalCodename || 'Unknown',
+    internalCodename: versionJson.internalCodename || 'Unknown',
     description: pkg.description || 'Sparklet',
     license: pkg.license || 'MIT'
   };
