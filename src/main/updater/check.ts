@@ -9,7 +9,8 @@ import type { CheckResult } from '../../shared/types/updater';
 // Get current app version from package.json [获取当前应用版本号]
 export function getCurrentVersion(): string {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const pkg = require('../../../package.json');
+  // 4 levels up from build/src/main/updater to the app root in the mirrored build tree [镜像 build 树中从 build/src/main/updater 上 4 级到应用根]
+  const pkg = require('../../../../package.json');
   return pkg.version || '0.0.0';
 }
 

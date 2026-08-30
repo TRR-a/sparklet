@@ -24,7 +24,7 @@ const {
   INTEGRITY_FILENAME_BLACKLIST,
   INTEGRITY_EXTENSION_BLACKLIST,
   isExcludedFromIntegrity
-} = require('../src/main/updater/_integrity-rules');
+} = require('../build/src/main/updater/_integrity-rules');
 
 // 从 package.json 读取内部代号、描述、许可证等信息
 async function getPackageInfo() {

@@ -3,12 +3,12 @@
   "version": "0.2.3",
   "description": "Sparklet",
   "internalCodename": "Mist",
-  "main": "./src/main/index.js",
+  "main": "./build/src/main/index.js",
   "scripts": {
-    "build:vendor": "esbuild src/renderer/vendor/codemirror-vendor.ts --bundle --format=esm --outfile=src/renderer/vendor/codemirror-vendor.bundle.js && esbuild modules/note/vendor/highlight-vendor.ts --bundle --format=esm --minify --outfile=modules/note/vendor/highlight-vendor.bundle.js",
+    "build:vendor": "esbuild src/renderer/vendor/codemirror-vendor.ts --bundle --format=esm --outfile=build/src/renderer/vendor/codemirror-vendor.bundle.js && esbuild modules/note/vendor/highlight-vendor.ts --bundle --format=esm --minify --outfile=build/modules/note/vendor/highlight-vendor.bundle.js",
     "build:main": "tsc -p tsconfig.main.json",
     "build:renderer": "tsc -p tsconfig.renderer.json",
-    "build": "npm run build:vendor && npm run build:main && npm run build:renderer",
+    "build": "npm run build:vendor && npm run build:main && npm run build:renderer && npm run build:copy",
     "start": "npm run build && electron .",
     "dev": "npm run build && electron . --dev",
     "watch:main": "tsc -p tsconfig.main.json --watch",
@@ -17,7 +17,8 @@
     "dist": "npm run build && electron-builder",
     "generate-manifest": "npm run build:main && node scripts/generate-manifest.js",
     "prepare": "husky",
-    "lint": "echo \"No linter configured yet\""
+    "lint": "echo \"No linter configured yet\"",
+    "build:copy": "node scripts/build-copy-assets.cjs"
   },
   "keywords": [
     "notes",
@@ -56,16 +57,11 @@
     "appId": "com.github.trra.sparklet.base.studio",
     "productName": "Sparklet",
     "directories": {
-      "output": "release/v0.2.3"
+      "output": "release/v0.2.3",
+      "buildResources": "assets"
     },
     "files": [
-      "src/**/*",
-      "!src/**/*.ts",
-      "!src/**/*.js.map",
-      "modules/**/*",
-      "!modules/**/*.ts",
-      "!modules/**/*.js.map",
-      "assets/**/*",
+      "build/**/*",
       "node_modules/**/*"
     ],
     "extraResources": [
