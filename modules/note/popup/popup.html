@@ -102,6 +102,18 @@
         </div>
     </div>
 
+    <!-- 退出确认弹窗（双击 Esc 唤起，玻璃拟态，键盘导航：←/→ 切换、Enter 确认、Esc 返回） -->
+    <div id="exitConfirmModal" class="exit-confirm-overlay" style="display: none;">
+        <div class="exit-confirm-box">
+            <div class="exit-confirm-title" data-i18n="dialog.exitConfirm.title">退出 Sparklet</div>
+            <div class="exit-confirm-message" data-i18n="dialog.exitConfirm.message">退出前将自动保存未保存的内容，确定要退出吗？</div>
+            <div class="exit-confirm-buttons">
+                <button id="exitReturnBtn" class="exit-confirm-btn return focused" data-i18n="dialog.exitConfirm.btnReturn">返回</button>
+                <button id="exitQuitBtn" class="exit-confirm-btn quit" data-i18n="dialog.exitConfirm.btnQuit">退出</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 主弹窗逻辑脚本 -->
     <script type="module" src="../Pages/popup/popup.js"></script>
 </body>

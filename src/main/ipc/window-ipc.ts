@@ -30,6 +30,11 @@ export function registerWindowIpcHandlers(): void {
     BrowserWindow.getFocusedWindow()?.close();
   });
 
+  // ========== App quit (from exit-confirm dialog, after saving) [应用退出 (退出确认弹窗用，保存后调用)] ==========
+  ipcMain.handle('app-quit', () => {
+    app.quit();
+  });
+
   // ========== Dev tools [开发者工具] ==========
   ipcMain.handle('open-dev-tools', () => {
     BrowserWindow.getFocusedWindow()?.webContents.openDevTools();

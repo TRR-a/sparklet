@@ -14,6 +14,10 @@ export const windowApi = {
   close(): Promise<unknown> {
     return bus.invoke('window-close');
   },
+  /** Quit the whole app (used by exit-confirm dialog after saving) [退出整个应用 (退出确认弹窗保存后调用)] */
+  quitApp(): Promise<unknown> {
+    return bus.invoke('app-quit');
+  },
   /** Toggle always-on-top, returns the new pinned state [切换窗口置顶，返回新的置顶状态] */
   toggleAlwaysOnTop(): Promise<boolean> {
     return bus.invoke<boolean>('window-toggle-always-on-top');

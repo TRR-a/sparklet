@@ -1,4 +1,4 @@
-﻿{
+{
     "about.appName":  "Sparklet",
     "about.copyright":  "2026 TRR-a",
     "about.desc":  "軽量デスクトップノートツール",
@@ -19,6 +19,10 @@
     "confirm.importConfig.message":  "インポートファイル内の更新設定（ポリシー、頻度、保持日数など）が現在の設定を上書きします。続行しますか？",
     "confirm.importConfig.ok":  "続行",
     "confirm.importConfig.title":  "現在の設定を上書きしますか？",
+    "dialog.exitConfirm.btnQuit":  "終了",
+    "dialog.exitConfirm.btnReturn":  "戻る",
+    "dialog.exitConfirm.message":  "終了前に未保存の内容は自動的に保存されます。終了しますか？",
+    "dialog.exitConfirm.title":  "Sparklet を終了",
     "dialog.manualFailed.btnOk":  "確定",
     "dialog.manualFailed.tip":  "更新中にエラーが発生しました。詳細：",
     "dialog.manualFailed.title":  "更新に失敗しました",

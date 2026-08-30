@@ -1,4 +1,4 @@
-﻿{
+{
     "about.appName":  "Sparklet",
     "about.copyright":  "2026 TRR-a",
     "about.desc":  "Лёгкий инструмент для заметок на рабочем столе",
@@ -19,6 +19,10 @@
     "confirm.importConfig.message":  "Настройки обновлений (стратегия, частота, срок хранения и т.д.) из импортируемого файла перезапишут текущие. Продолжить?",
     "confirm.importConfig.ok":  "Продолжить",
     "confirm.importConfig.title":  "Перезаписать текущие настройки?",
+    "dialog.exitConfirm.btnQuit":  "Выйти",
+    "dialog.exitConfirm.btnReturn":  "Вернуться",
+    "dialog.exitConfirm.message":  "Несохранённый контент будет автоматически сохранён перед выходом. Выйти из приложения?",
+    "dialog.exitConfirm.title":  "Выйти из Sparklet",
     "dialog.manualFailed.btnOk":  "ОК",
     "dialog.manualFailed.tip":  "Во время обновления произошла ошибка. Подробности:",
     "dialog.manualFailed.title":  "Ошибка обновления",

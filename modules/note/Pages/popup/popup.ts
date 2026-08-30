@@ -14,6 +14,7 @@ import {
   changeNoteColor,
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
+import { initExitDialog } from './exit-dialog.js';
 import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 
 /**
@@ -116,6 +117,7 @@ async function initApp(): Promise<void> {
   setTheme(theme || 'light');
   bindThemeBroadcastListener();
   bindEvents();
+  initExitDialog(); // Double-Esc exit confirm dialog [双击 Esc 退出确认弹窗]
   await loadNotes();
   await restoreWorkspace();
   // Toast listener (from main process) [Toast 监听 (来自主进程)]

@@ -1,4 +1,4 @@
-﻿{
+{
     "about.appName":  "Sparklet",
     "about.copyright":  "2026 TRR-a",
     "about.desc":  "Uma ferramenta leve de anotações para desktop",
@@ -19,6 +19,10 @@
     "confirm.importConfig.message":  "As configurações de atualização (estratégia, frequência, dias de retenção etc.) do arquivo importado sobrescreverão as configurações atuais. Continuar?",
     "confirm.importConfig.ok":  "Continuar",
     "confirm.importConfig.title":  "Sobrescrever as configurações atuais?",
+    "dialog.exitConfirm.btnQuit":  "Sair",
+    "dialog.exitConfirm.btnReturn":  "Voltar",
+    "dialog.exitConfirm.message":  "O conteúdo não salvo será salvo automaticamente antes de sair. Deseja realmente sair?",
+    "dialog.exitConfirm.title":  "Sair do Sparklet",
     "dialog.manualFailed.btnOk":  "Confirmar",
     "dialog.manualFailed.tip":  "Ocorreu um erro durante a atualização. Detalhes:",
     "dialog.manualFailed.title":  "Falha na atualização",

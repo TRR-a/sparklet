@@ -1,4 +1,4 @@
-﻿{
+{
     "about.appName":  "Sparklet",
     "about.copyright":  "2026 TRR-a",
     "about.desc":  "A lightweight desktop note tool",
@@ -19,6 +19,10 @@
     "confirm.importConfig.message":  "Update settings in the imported file (update policy, frequency, retention days, etc.) will overwrite your current settings. Continue?",
     "confirm.importConfig.ok":  "Continue import",
     "confirm.importConfig.title":  "Overwrite current settings?",
+    "dialog.exitConfirm.btnQuit":  "Quit",
+    "dialog.exitConfirm.btnReturn":  "Return",
+    "dialog.exitConfirm.message":  "Unsaved content will be saved automatically before quitting. Quit anyway?",
+    "dialog.exitConfirm.title":  "Quit Sparklet",
     "dialog.manualFailed.btnOk":  "OK",
     "dialog.manualFailed.tip":  "An error occurred during the update. Details:",
     "dialog.manualFailed.title":  "Update failed",

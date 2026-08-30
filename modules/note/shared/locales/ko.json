@@ -1,4 +1,4 @@
-﻿{
+{
     "about.appName":  "Sparklet",
     "about.copyright":  "2026 TRR-a",
     "about.desc":  "가벼운 데스크탑 노트 도구",
@@ -19,6 +19,10 @@
     "confirm.importConfig.message":  "가져온 파일의 업데이트 설정(정책, 빈도, 보관 일수 등)이 현재 설정을 덮어씁니다. 계속하시겠습니까?",
     "confirm.importConfig.ok":  "계속",
     "confirm.importConfig.title":  "현재 설정을 덮어쓰시겠습니까?",
+    "dialog.exitConfirm.btnQuit":  "종료",
+    "dialog.exitConfirm.btnReturn":  "돌아가기",
+    "dialog.exitConfirm.message":  "종료 전에 저장되지 않은 내용이 자동으로 저장됩니다. 종료하시겠습니까?",
+    "dialog.exitConfirm.title":  "Sparklet 종료",
     "dialog.manualFailed.btnOk":  "확인",
     "dialog.manualFailed.tip":  "업데이트 중 오류가 발생했습니다. 상세:",
     "dialog.manualFailed.title":  "업데이트 실패",

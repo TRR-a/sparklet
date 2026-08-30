@@ -1,4 +1,4 @@
-﻿{
+{
     "about.appName":  "Sparklet",
     "about.copyright":  "2026 TRR-a",
     "about.desc":  "Ein leichtes Desktop-Notizwerkzeug",
@@ -19,6 +19,10 @@
     "confirm.importConfig.message":  "Die Update-Einstellungen (Strategie, Häufigkeit, Aufbewahrungstage usw.) aus der importierten Datei überschreiben die aktuellen Einstellungen. Fortfahren?",
     "confirm.importConfig.ok":  "Fortfahren",
     "confirm.importConfig.title":  "Aktuelle Einstellungen überschreiben?",
+    "dialog.exitConfirm.btnQuit":  "Beenden",
+    "dialog.exitConfirm.btnReturn":  "Zurück",
+    "dialog.exitConfirm.message":  "Ungespeicherte Inhalte werden vor dem Beenden automatisch gespeichert. Wirklich beenden?",
+    "dialog.exitConfirm.title":  "Sparklet beenden",
     "dialog.manualFailed.btnOk":  "Bestätigen",
     "dialog.manualFailed.tip":  "Während des Updates ist ein Fehler aufgetreten. Details:",
     "dialog.manualFailed.title":  "Update fehlgeschlagen",

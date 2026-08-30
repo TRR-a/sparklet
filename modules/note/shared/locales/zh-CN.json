@@ -1,4 +1,4 @@
-﻿{
+{
     "about.appName":  "Sparklet",
     "about.copyright":  "2026 TRR-a",
     "about.desc":  "一个轻量的桌面笔记工具",
@@ -19,6 +19,10 @@
     "confirm.importConfig.message":  "导入文件中的更新设置（更新策略、频率、保留天数等）会覆盖当前设置，是否继续？",
     "confirm.importConfig.ok":  "继续导入",
     "confirm.importConfig.title":  "覆盖当前设置？",
+    "dialog.exitConfirm.btnQuit":  "退出",
+    "dialog.exitConfirm.btnReturn":  "返回",
+    "dialog.exitConfirm.message":  "退出前将自动保存未保存的内容，确定要退出吗？",
+    "dialog.exitConfirm.title":  "退出 Sparklet",
     "dialog.manualFailed.btnOk":  "确定",
     "dialog.manualFailed.tip":  "更新过程中出现错误，详情如下：",
     "dialog.manualFailed.title":  "更新失败",
