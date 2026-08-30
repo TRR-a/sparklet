@@ -25,7 +25,6 @@ export {
 } from './project-preview.js';
 
 export {
-  getLanguageExtension,
-  isDarkTheme,
-  blueTheme,
-} from './project-codemirror.js';
+  createCodeEditor,
+} from './code-editor.js';
+export type { CodeEditor, CodeEditorOptions } from './code-editor.js';

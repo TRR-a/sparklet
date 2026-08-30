@@ -8,3 +8,4 @@ export { appApi } from './app-api.js';
 export { broadcastApi } from './broadcast-api.js';
 export { updaterApi } from './updater-api.js';
 export { APP_VERSION, APP_CODENAME } from './app-info.js';
+export { highlightCode, getLanguageForFile } from './highlight.js';

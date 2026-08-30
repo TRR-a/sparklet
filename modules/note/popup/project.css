@@ -1,4 +1,4 @@
-﻿/* project.css - split from popup.css */
+/* project.css - split from popup.css */
 /* ========== Project View [项目视图] ========== */
 
 /* Project section in sidebar [侧边栏中的项目区域] */
@@ -214,33 +214,94 @@
     padding: 0;
 }
 
-/* CodeMirror editor container [CodeMirror 编辑器容器] */
-.file-preview-content .cm-editor {
+/* Custom code editor (textarea + highlight overlay) [自研代码编辑器 (textarea + 高亮层叠加)] */
+.code-editor {
+    display: flex;
     height: 100%;
-    font-size: 0.82rem;
-    background: transparent !important;
+    min-height: 0;
+    background: transparent;
 }
 
-.file-preview-content .cm-editor.cm-focused {
-    outline: none !important;
+.code-editor-gutter {
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: 8px 0;
+    border-right: 1px solid var(--color-border, rgba(128, 128, 128, 0.2));
+    user-select: none;
 }
 
-.file-preview-content .cm-scroller {
+.code-editor-gutter-inner {
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    overflow: auto;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary, #888);
+    text-align: right;
+    padding: 0 10px 0 6px;
+    box-sizing: border-box;
 }
 
-.file-preview-content .cm-gutters {
-    background: transparent !important;
-    border-right: 1px solid var(--color-border, rgba(128,128,128,0.2));
+.code-editor-gutter-inner span {
+    display: block;
+    min-height: 1.5em;
 }
 
-.file-preview-content .cm-content {
-    caret-color: var(--color-text);
+.code-editor-scroll {
+    position: relative;
+    flex: 1;
+    min-width: 0;
 }
 
-body[data-theme="light"] .file-preview-content .cm-editor {
+.code-editor-highlight,
+.code-editor-input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    border: none;
+    padding: 8px 12px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    tab-size: 4;
+    box-sizing: border-box;
+}
+
+.code-editor-highlight {
+    overflow: hidden;
+    pointer-events: none;
     color: var(--color-text);
+}
+
+.code-editor-highlight code {
+    background: transparent;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.code-editor-input {
+    overflow: auto;
+    background: transparent;
+    color: transparent;
+    caret-color: var(--color-text);
+    resize: none;
+    outline: none;
+    z-index: 1;
+}
+
+.code-editor-input::selection {
+    background: rgba(74, 158, 255, 0.35);
+}
+
+/* Save error bar (compact variant of file-preview-error) [保存错误条 (file-preview-error 的紧凑变体)] */
+.file-preview-save-error {
+    padding: 6px 12px;
+    text-align: left;
+    font-size: 0.78rem;
+    border-radius: 4px;
+    margin-bottom: 6px;
 }
 
 /* Unsaved indicator dot [未保存指示圆点] */

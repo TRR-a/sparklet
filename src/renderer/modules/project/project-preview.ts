@@ -1,16 +1,13 @@
-// Project file preview - CodeMirror editor and save support [项目文件预览 - CodeMirror 编辑器和保存]
+// Project file preview - custom code editor and save support [项目文件预览 - 自研代码编辑器和保存]
+// Uses the built-in textarea + overlay editor, no third-party dependency
+// [使用内置 textarea + 高亮层编辑器，无第三方依赖]
 
-import {
-  EditorView,
-  basicSetup,
-  keymap,
-} from '../../vendor/codemirror-vendor.bundle.js';
-import type { Extension } from '@codemirror/state';
-import { getLanguageExtension, isDarkTheme, blueTheme } from './project-codemirror.js';
+import { getLanguageForFile } from '../../core/highlight.js';
+import { createCodeEditor, type CodeEditor } from './code-editor.js';
 import { projectApi } from './api/project-api.js';
 
-/** Active CodeMirror editor view [当前 CodeMirror 编辑器实例] */
-let editorView: EditorView | null = null;
+/** Active custom editor instance [当前自研编辑器实例] */
+let editor: CodeEditor | null = null;
 
 /** Current editing file state [当前编辑文件状态] */
 let currentEditPath: string | null = null;
@@ -58,52 +55,33 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
     contentEl.innerHTML = '';
     contentEl.appendChild(img);
   } else if (result.content !== undefined) {
-    // Text or SVG: CodeMirror editor [文本或 SVG：CodeMirror 编辑器]
+    // Text or SVG: custom editor [文本或 SVG：自研编辑器]
     currentEditPath = filePath;
     currentEditName = fileName;
 
     // Destroy previous editor if any [销毁之前的编辑器]
-    if (editorView) {
-      editorView.destroy();
-      editorView = null;
+    if (editor) {
+      editor.destroy();
+      editor = null;
     }
 
     contentEl.innerHTML = '';
 
-    const extensions: Extension[] = [
-      basicSetup,
-      keymap.of([
-        {
-          key: 'Mod-s',
-          run: () => {
-            void saveCurrentFile();
-            return true;
-          },
-        },
-      ]),
-      EditorView.updateListener.of(update => {
-        if (update.docChanged && !isDirty) {
+    editor = createCodeEditor(contentEl, {
+      initialContent: result.content,
+      language: getLanguageForFile(fileName),
+      onChange: () => {
+        if (!isDirty) {
           isDirty = true;
           nameEl.classList.add('dirty');
         }
-      }),
-      EditorView.lineWrapping,
-    ];
-
-    // Language extension [语言扩展]
-    const langExt = getLanguageExtension(fileName);
-    if (langExt) extensions.push(langExt);
-
-    // Blue dark theme [蓝色暗色主题]
-    if (isDarkTheme()) extensions.push(...blueTheme);
-
-    editorView = new EditorView({
-      doc: result.content,
-      extensions,
-      parent: contentEl,
+      },
+      onSave: () => {
+        void saveCurrentFile();
+      },
     });
 
-    editorView.focus();
+    editor.focus();
   } else {
     contentEl.innerHTML = '<div class="file-preview-error">不支持的文件类型</div>';
   }
@@ -113,16 +91,23 @@ export async function previewFile(filePath: string, fileName: string): Promise<v
  * Save the currently open file [保存当前打开的文件]
  */
 export async function saveCurrentFile(): Promise<void> {
-  if (!currentEditPath || !editorView) return;
+  if (!currentEditPath || !editor) return;
   const nameEl = document.getElementById('filePreviewName');
+  const contentEl = document.getElementById('filePreviewContent');
 
-  const content = editorView.state.doc.toString();
+  const content = editor.getValue();
   const result = await projectApi.writeFile(currentEditPath, content);
   if (result.success) {
     isDirty = false;
     nameEl?.classList.remove('dirty');
   } else {
-    alert(`保存失败: ${result.error || '未知错误'}`);
+    console.error('[ProjectPreview] Save failed:', result.error);
+    // In-place error bar instead of native alert [就地错误条，替代原生 alert]
+    const bar = document.createElement('div');
+    bar.className = 'file-preview-error file-preview-save-error';
+    bar.textContent = `保存失败: ${result.error || '未知错误'}`;
+    contentEl?.prepend(bar);
+    setTimeout(() => bar.remove(), 3000);
   }
 }
 
@@ -149,9 +134,9 @@ function showFilePreviewPanel(show: boolean): void {
  * Close file preview and restore note editor [关闭文件预览并恢复笔记编辑器]
  */
 export function closeFilePreview(): void {
-  if (editorView) {
-    editorView.destroy();
-    editorView = null;
+  if (editor) {
+    editor.destroy();
+    editor = null;
   }
   currentEditPath = null;
   currentEditName = null;
