@@ -2,12 +2,26 @@
 // Orchestrates app lifecycle: migration, window creation, updater initialization, IPC registration [编排应用生命周期：迁移、窗口创建、更新模块初始化、IPC 注册]
 
 import { app, BrowserWindow } from 'electron';
+import * as path from 'path';
+import * as fs from 'fs';
 import { migrateFromStore } from './services/migration-service';
 import { createMainWindow } from './windows/main-window';
 import { getMainWindow } from './windows/window-manager';
 import { initUpdater, checkUpdateManually } from './updater';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
+
+// Development: redirect userData to project-local app_data/sparklet-dev/ so dev data
+// (notes, config, update cache, logs) stays isolated from the production profile.
+// Must run before app.whenReady() so all getPath('userData') callers pick it up.
+// [开发环境：将 userData 重定向到项目内 app_data/sparklet-dev/，使开发数据 (笔记/配置/更新缓存/日志)
+// 与生产环境配置隔离。必须在 app.whenReady() 前执行，所有 getPath('userData') 调用方才能生效]
+if (!app.isPackaged) {
+  const devDataDir = path.join(app.getAppPath(), 'app_data', 'sparklet-dev');
+  fs.mkdirSync(devDataDir, { recursive: true });
+  app.setPath('userData', devDataDir);
+  console.log('[Dev] userData redirected to:', devDataDir);
+}
 
 /**
  * Application lifecycle: ready [应用生命周期：就绪]
