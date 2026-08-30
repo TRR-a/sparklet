@@ -39,6 +39,9 @@ nsis-resources/
 .DS_Store
 Thumbs.db
 
+# Editor / IDE local state [编辑器/IDE 本地状态]
+.trae/
+
 # Log files [日志文件]
 npm-debug.log*
 yarn-debug.log*
