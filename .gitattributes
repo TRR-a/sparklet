@@ -1,5 +1,35 @@
+# Default: treat as text, let Git normalize on commit (auto EOL handling)
+# [默认：按文本处理，提交时自动规范化 (auto EOL)]
 * text=auto
-*.json text eol=lf
-*.js text eol=lf
-*.ts text eol=lf
-*.md text eol=lf
+
+# Source & config files: enforce LF in repo (Windows checkout also uses LF to
+# avoid mixed line endings across tools) [源码与配置文件：仓库内强制 LF
+# (Windows 检出也用 LF，避免工具间混合行尾)]
+*.js    text eol=lf
+*.cjs   text eol=lf
+*.mjs   text eol=lf
+*.ts    text eol=lf
+*.json  text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.md    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+
+# Windows-only scripts: keep CRLF (required by some Windows tools)
+# [仅 Windows 脚本：保留 CRLF (部分 Windows 工具要求)]
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# Binary files: never touch [二进制文件：绝不转换]
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
