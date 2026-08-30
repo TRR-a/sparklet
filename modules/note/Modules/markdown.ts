@@ -3,7 +3,7 @@
 
 import { escapeHtml } from '../Base/dom-utils.js';
 import { renderBlocks } from './markdown-renderers.js';
-import hljs from '../vendor/highlight-vendor.bundle.js';
+import { highlightCode } from './highlight.js';
 
 /**
  * Render markdown text to HTML [将 markdown 文本渲染为 HTML]
@@ -30,11 +30,8 @@ export function renderMarkdown(text: string): string {
     const langLabel = lang ? `<span class="code-block-lang">${escapeHtml(lang)}</span>` : '';
     let highlighted: string;
     try {
-      if (lang && hljs.getLanguage(lang)) {
-        highlighted = hljs.highlight(code, { language: lang }).value;
-      } else {
-        highlighted = hljs.highlightAuto(code).value;
-      }
+      // Custom highlighter: JSON/Markdown colored, others plain [自研高亮：JSON/Markdown 着色，其余纯文本]
+      highlighted = highlightCode(code, lang);
     } catch {
       highlighted = escapeHtml(code);
     }

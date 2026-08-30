@@ -5,7 +5,7 @@
   "internalCodename": "Mist",
   "main": "./build/src/main/index.js",
   "scripts": {
-    "build:vendor": "esbuild src/renderer/vendor/codemirror-vendor.ts --bundle --format=esm --outfile=build/src/renderer/vendor/codemirror-vendor.bundle.js && esbuild modules/note/vendor/highlight-vendor.ts --bundle --format=esm --minify --outfile=build/modules/note/vendor/highlight-vendor.bundle.js",
+    "build:vendor": "esbuild src/renderer/vendor/codemirror-vendor.ts --bundle --format=esm --outfile=build/src/renderer/vendor/codemirror-vendor.bundle.js",
     "build:main": "tsc -p tsconfig.main.json",
     "build:renderer": "tsc -p tsconfig.renderer.json",
     "build": "npm run sync-version && npm run build:vendor && npm run build:main && npm run build:renderer && npm run build:copy",
@@ -52,7 +52,6 @@
     "codemirror": "^6.0.2",
     "electron-store": "^8.1.0",
     "fs-extra": "^11.4.0",
-    "highlight.js": "^11.12.0",
     "unzipper": "^0.12.3"
   },
   "build": {
