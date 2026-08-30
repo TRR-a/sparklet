@@ -13,6 +13,7 @@
     "dev": "npm run build && electron . --dev",
     "watch:main": "tsc -p tsconfig.main.json --watch",
     "watch:renderer": "tsc -p tsconfig.renderer.json --watch",
+    "watch:copy": "node scripts/watch-copy-assets.cjs",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "generate-manifest": "npm run build:main && node scripts/generate-manifest.js",

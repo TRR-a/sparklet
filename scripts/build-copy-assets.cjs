@@ -4,6 +4,9 @@
 //
 // tsc emits .js under build/ via outDir, but HTML/CSS/JSON locale/icons are not compiled,
 // so this script mirrors them into build/ to make it a self-contained runnable tree.
+//
+// Exports reusable pieces so watch-copy-assets.cjs can do incremental sync without dup logic.
+// 导出可复用部分，watch-copy-assets.cjs 据此做增量同步，避免逻辑重复。
 const fs = require('fs');
 const path = require('path');
 
@@ -23,7 +26,18 @@ const COPY_ROOTS = [
   { from: 'assets', to: 'assets' },
 ];
 
-let copied = 0;
+/**
+ * Copy a single static asset if its extension is in the whitelist [按白名单复制单个静态资源]
+ * @returns true if copied (extension matched) [扩展名命中则复制并返回 true]
+ */
+function ensureCopyAsset(srcFile, relPath, destPrefix) {
+  const ext = path.extname(srcFile).toLowerCase();
+  if (!STATIC_EXT.has(ext)) return false;
+  const dest = path.join(OUT, destPrefix, relPath);
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  fs.copyFileSync(srcFile, dest);
+  return true;
+}
 
 function walk(dir, cb) {
   if (!fs.existsSync(dir)) return;
@@ -37,21 +51,26 @@ function walk(dir, cb) {
   }
 }
 
-function ensureCopy(srcFile, relPath, destPrefix) {
-  const ext = path.extname(srcFile).toLowerCase();
-  if (!STATIC_EXT.has(ext)) return;
-  const dest = path.join(OUT, destPrefix, relPath);
-  fs.mkdirSync(path.dirname(dest), { recursive: true });
-  fs.copyFileSync(srcFile, dest);
-  copied++;
+/**
+ * Full copy pass: mirror all static assets under COPY_ROOTS into build/ [全量复制：将 COPY_ROOTS 下所有静态资源镜像到 build/]
+ * @returns number of files copied [复制的文件数]
+ */
+function copyAllAssets() {
+  let copied = 0;
+  for (const { from, to } of COPY_ROOTS) {
+    const srcRoot = path.join(ROOT, from);
+    walk(srcRoot, (file) => {
+      const rel = path.relative(srcRoot, file);
+      if (ensureCopyAsset(file, rel, to)) copied++;
+    });
+  }
+  return copied;
 }
 
-for (const { from, to } of COPY_ROOTS) {
-  const srcRoot = path.join(ROOT, from);
-  walk(srcRoot, (file) => {
-    const rel = path.relative(srcRoot, file);
-    ensureCopy(file, rel, to);
-  });
-}
+module.exports = { STATIC_EXT, COPY_ROOTS, OUT, ensureCopyAsset, copyAllAssets };
 
-console.log(`[copy-assets] copied ${copied} static asset(s) into build/`);
+// Run as script [作为脚本直接执行]
+if (require.main === module) {
+  const copied = copyAllAssets();
+  console.log(`[copy-assets] copied ${copied} static asset(s) into build/`);
+}
