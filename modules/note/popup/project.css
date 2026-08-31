@@ -121,6 +121,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--color-text);
+    font-weight: 500; /* Match note-title weight in the same sidebar [与同侧栏笔记标题字重一致] */
 }
 
 /* Children list [子节点列表] */
@@ -231,8 +232,9 @@
 }
 
 .code-editor-gutter-inner {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.78rem;
+    font-family: 'Cascadia Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
     line-height: 1.5;
     color: var(--color-text-secondary, #888);
     text-align: right;
@@ -258,8 +260,9 @@
     margin: 0;
     border: none;
     padding: 8px 12px;
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.78rem;
+    font-family: 'Cascadia Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
     line-height: 1.5;
     white-space: pre;
     word-wrap: normal;
