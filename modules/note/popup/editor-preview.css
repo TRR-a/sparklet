@@ -1,0 +1,62 @@
+/* editor-preview.css - 笔记预览容器与纯文本代码块 */
+
+.note-preview {
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: inherit;
+    padding: 0;
+}
+
+.note-preview p {
+    margin: 0 0 12px 0;
+}
+
+.note-preview .code-block {
+    background-color: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #3d3d3d;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.note-preview .code-block-lang {
+    display: block;
+    font-size: 0.75em;
+    color: #888;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+body[data-theme="light"] .note-preview .code-block {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #e0e0e0;
+}
+
+body[data-theme="light"] .note-preview .code-block-lang {
+    color: #999;
+    border-bottom-color: #ddd;
+}
+
+body[data-theme="dark"] .note-preview .code-block,
+body[data-theme="blue"] .note-preview .code-block {
+    background-color: #2d2d2d;
+    border: 1px solid #3d3d3d;
+}
+
+body[data-theme="dark"] .note-preview .code-block-lang,
+body[data-theme="blue"] .note-preview .code-block-lang {
+    color: #888;
+    border-bottom-color: #3d3d3d;
+}

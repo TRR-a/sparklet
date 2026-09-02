@@ -1,0 +1,57 @@
+/* note-item-text.css - 卡片文本元素（颜色点/标题/时间/文件名/格式标签） */
+
+/* 笔记标记颜色点 */
+.note-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+/* 笔记文本框显示样式 */
+.note-text {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+/* 笔记标题样式 */
+.note-title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+/* 笔记时间显示样式 */
+.note-time {
+    font-size: 0.75em;
+    opacity: 0.7;
+}
+
+/* 笔记文件名显示样式 */
+.note-filename {
+    font-size: 0.7em;
+    opacity: 0.5;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-overflow: clip;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.note-filename::-webkit-scrollbar {
+    display: none;
+}
+
+.note-format-tag {
+    font-size: 0.7em;
+    color: var(--color-text-secondary);
+    font-weight: normal;
+    margin-left: 6px;
+}

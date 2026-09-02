@@ -1,0 +1,49 @@
+/* note-group.css - 分组标题、折叠箭头与空组提示 */
+
+/* 分组标题 [Group title] */
+.note-group-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    padding: 12px 12px 6px;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.note-group-title:hover {
+    color: var(--color-text);
+}
+
+/* 折叠箭头 [Collapse caret] */
+.group-caret {
+    font-size: 0.62rem;
+    width: 10px;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+}
+
+.note-group-title.collapsed .group-caret {
+    transform: rotate(-90deg);
+}
+
+.note-group-title:first-child {
+    padding-top: 4px;
+}
+
+/* 空组提示 [Empty group hint] */
+.note-group-empty {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    opacity: 0.5;
+    padding: 4px 12px 10px;
+    list-style: none;
+    cursor: default;
+    user-select: none;
+    text-align: center;
+}

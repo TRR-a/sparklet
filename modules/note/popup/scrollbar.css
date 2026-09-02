@@ -1,0 +1,31 @@
+/* scrollbar.css - 全局滚动条（亮色/暗色主题） */
+
+/* Light theme scrollbar [亮色主题滚动条] */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* Dark theme scrollbar [暗色主题滚动条] */
+body[data-theme="dark"] ::-webkit-scrollbar-thumb,
+body[data-theme="blue"] ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+body[data-theme="blue"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}

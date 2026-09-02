@@ -1,0 +1,12 @@
+/* about-window.css - 关于窗口容器 */
+
+/* 关于窗口容器样式 */
+.about-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--color-bg);
+    border-radius: 8px;
+    overflow: hidden !important;
+    box-sizing: border-box;
+}

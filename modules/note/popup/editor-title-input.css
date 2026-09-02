@@ -1,0 +1,25 @@
+/* editor-title-input.css - 笔记标题输入框 */
+
+/* 笔记标题输入框样式 */
+.note-title-input {
+    font-size: 1.4em;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    padding: 8px 0;
+    margin-bottom: 16px;
+    width: 100%;
+    border-bottom: 2px solid transparent;
+}
+
+/* 标题输入框聚焦高亮 */
+.note-title-input:focus {
+    outline: none;
+    border-bottom-color: var(--color-primary);
+}
+
+/* 标题输入框占位符透明度 */
+.note-title-input::placeholder {
+    opacity: 0.5;
+}

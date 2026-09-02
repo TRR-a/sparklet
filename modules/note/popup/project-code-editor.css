@@ -1,0 +1,85 @@
+/* project-code-editor.css - 自研代码编辑器（textarea + 高亮层叠加） */
+
+.code-editor {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    background: transparent;
+}
+
+/* 行号槽 */
+.code-editor-gutter {
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: 8px 0;
+    border-right: 1px solid var(--color-border, rgba(128, 128, 128, 0.2));
+    user-select: none;
+}
+
+.code-editor-gutter-inner {
+    font-family: 'Cascadia Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text-secondary, #888);
+    text-align: right;
+    padding: 0 10px 0 6px;
+    box-sizing: border-box;
+}
+
+.code-editor-gutter-inner span {
+    display: block;
+    min-height: 1.5em;
+}
+
+/* 滚动区：高亮层与输入层完全重叠 */
+.code-editor-scroll {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.code-editor-highlight,
+.code-editor-input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    border: none;
+    padding: 8px 12px;
+    font-family: 'Cascadia Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    tab-size: 4;
+    box-sizing: border-box;
+}
+
+.code-editor-highlight {
+    overflow: hidden;
+    pointer-events: none;
+    color: var(--color-text);
+}
+
+.code-editor-highlight code {
+    background: transparent;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.code-editor-input {
+    overflow: auto;
+    background: transparent;
+    color: transparent;
+    caret-color: var(--color-text);
+    resize: none;
+    outline: none;
+    z-index: 1;
+}
+
+.code-editor-input::selection {
+    background: rgba(74, 158, 255, 0.35);
+}

@@ -1,0 +1,78 @@
+/* project-tree.css - 项目文件树（节点、行、图标、子列表、错误提示） */
+
+/* File tree container [文件树容器] */
+.project-file-tree {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    flex-shrink: 0;
+}
+
+/* Tree node [树节点] */
+.project-tree-node {
+    list-style: none;
+}
+
+/* Tree row [树行] */
+.project-tree-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.project-tree-row:hover {
+    background-color: var(--color-hover);
+}
+
+/* Toggle arrow [展开箭头] */
+.project-tree-toggle {
+    width: 10px;
+    flex-shrink: 0;
+    font-size: 0.45rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* File/folder icon [文件/文件夹图标] */
+.project-tree-icon {
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    width: 14px;
+    text-align: center;
+}
+
+/* File name [文件名] */
+.project-tree-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text);
+    font-weight: 500; /* Match note-title weight in the same sidebar [与同侧栏笔记标题字重一致] */
+}
+
+/* Children list [子节点列表] */
+.project-tree-children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    margin-left: 6px;
+    border-left: 1px solid var(--color-border);
+}
+
+/* Error message [错误信息] */
+.project-error {
+    color: #ea4335;
+    padding: 12px;
+    font-size: 0.82rem;
+    list-style: none;
+}

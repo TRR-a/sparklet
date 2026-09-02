@@ -1,0 +1,119 @@
+/* project-preview.css - 文件预览面板（头部、内容区、加载/错误/二进制提示、未保存圆点） */
+
+.file-preview {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.file-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+}
+
+.file-preview-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-preview-close {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.15s;
+}
+
+.file-preview-close:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+}
+
+.file-preview-content {
+    flex: 1;
+    overflow: auto;
+    padding: 12px;
+    min-width: 0;
+}
+
+.file-preview-text {
+    margin: 0;
+    white-space: pre;
+    border-radius: 4px;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.file-preview-text code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    background: transparent;
+    padding: 0;
+}
+
+/* Save error bar (compact variant of file-preview-error) [保存错误条 (file-preview-error 的紧凑变体)] */
+.file-preview-save-error {
+    padding: 6px 12px;
+    text-align: left;
+    font-size: 0.78rem;
+    border-radius: 4px;
+    margin-bottom: 6px;
+}
+
+/* Unsaved indicator dot [未保存指示圆点] */
+.file-preview-name.dirty::after {
+    content: '●';
+    margin-left: 6px;
+    font-size: 0.7rem;
+    color: var(--color-accent, #4a9eff);
+}
+
+.file-preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.file-preview-loading {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+}
+
+.file-preview-error {
+    color: #ea4335;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+}
+
+.file-preview-binary {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 24px;
+    line-height: 1.6;
+}

@@ -1,0 +1,82 @@
+/* editor-highlight.css - 语法高亮三套主题（hljs-* 类名，自研高亮器与 CodeMirror 主题共用） */
+
+/* Light theme (GitHub Light) [亮色主题] */
+body[data-theme="light"] .hljs { color: #24292e; background: transparent; }
+body[data-theme="light"] .hljs-comment,
+body[data-theme="light"] .hljs-quote { color: #6a737d; font-style: italic; }
+body[data-theme="light"] .hljs-keyword,
+body[data-theme="light"] .hljs-selector-tag,
+body[data-theme="light"] .hljs-literal,
+body[data-theme="light"] .hljs-type { color: #d73a49; }
+body[data-theme="light"] .hljs-string,
+body[data-theme="light"] .hljs-doctag,
+body[data-theme="light"] .hljs-regexp { color: #032f62; }
+body[data-theme="light"] .hljs-number,
+body[data-theme="light"] .hljs-built_in,
+body[data-theme="light"] .hljs-attr { color: #005cc5; }
+body[data-theme="light"] .hljs-title,
+body[data-theme="light"] .hljs-section,
+body[data-theme="light"] .hljs-function .hljs-title { color: #6f42c1; }
+body[data-theme="light"] .hljs-variable,
+body[data-theme="light"] .hljs-template-variable,
+body[data-theme="light"] .hljs-name { color: #e36209; }
+body[data-theme="light"] .hljs-tag,
+body[data-theme="light"] .hljs-symbol,
+body[data-theme="light"] .hljs-bullet { color: #22863a; }
+body[data-theme="light"] .hljs-meta { color: #6a737d; }
+body[data-theme="light"] .hljs-strong { font-weight: bold; }
+body[data-theme="light"] .hljs-emphasis { font-style: italic; }
+
+/* Dark theme (One Dark) [暗色主题] */
+body[data-theme="dark"] .hljs { color: #abb2bf; background: transparent; }
+body[data-theme="dark"] .hljs-comment,
+body[data-theme="dark"] .hljs-quote { color: #5c6370; font-style: italic; }
+body[data-theme="dark"] .hljs-keyword,
+body[data-theme="dark"] .hljs-selector-tag,
+body[data-theme="dark"] .hljs-literal,
+body[data-theme="dark"] .hljs-type { color: #c678dd; }
+body[data-theme="dark"] .hljs-string,
+body[data-theme="dark"] .hljs-doctag,
+body[data-theme="dark"] .hljs-regexp { color: #98c379; }
+body[data-theme="dark"] .hljs-number,
+body[data-theme="dark"] .hljs-built_in,
+body[data-theme="dark"] .hljs-attr { color: #d19a66; }
+body[data-theme="dark"] .hljs-title,
+body[data-theme="dark"] .hljs-section,
+body[data-theme="dark"] .hljs-function .hljs-title { color: #61afef; }
+body[data-theme="dark"] .hljs-variable,
+body[data-theme="dark"] .hljs-template-variable,
+body[data-theme="dark"] .hljs-name { color: #e06c75; }
+body[data-theme="dark"] .hljs-tag,
+body[data-theme="dark"] .hljs-symbol,
+body[data-theme="dark"] .hljs-bullet { color: #e06c75; }
+body[data-theme="dark"] .hljs-meta { color: #5c6370; }
+body[data-theme="dark"] .hljs-strong { font-weight: bold; }
+body[data-theme="dark"] .hljs-emphasis { font-style: italic; }
+
+/* Blue theme (Material Ocean) [蓝色主题] */
+body[data-theme="blue"] .hljs { color: #c8d6e5; background: transparent; }
+body[data-theme="blue"] .hljs-comment,
+body[data-theme="blue"] .hljs-quote { color: #5a7a9a; font-style: italic; }
+body[data-theme="blue"] .hljs-keyword,
+body[data-theme="blue"] .hljs-selector-tag,
+body[data-theme="blue"] .hljs-literal,
+body[data-theme="blue"] .hljs-type { color: #c792ea; }
+body[data-theme="blue"] .hljs-string,
+body[data-theme="blue"] .hljs-doctag,
+body[data-theme="blue"] .hljs-regexp { color: #c3e88d; }
+body[data-theme="blue"] .hljs-number,
+body[data-theme="blue"] .hljs-built_in,
+body[data-theme="blue"] .hljs-attr { color: #f78c6c; }
+body[data-theme="blue"] .hljs-title,
+body[data-theme="blue"] .hljs-section,
+body[data-theme="blue"] .hljs-function .hljs-title { color: #82aaff; }
+body[data-theme="blue"] .hljs-variable,
+body[data-theme="blue"] .hljs-template-variable,
+body[data-theme="blue"] .hljs-name { color: #ff5370; }
+body[data-theme="blue"] .hljs-tag,
+body[data-theme="blue"] .hljs-symbol,
+body[data-theme="blue"] .hljs-bullet { color: #ff5370; }
+body[data-theme="blue"] .hljs-meta { color: #5a7a9a; }
+body[data-theme="blue"] .hljs-strong { font-weight: bold; }
+body[data-theme="blue"] .hljs-emphasis { font-style: italic; }

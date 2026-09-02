@@ -1,0 +1,32 @@
+/* editor-color-palette.css - 笔记标签颜色选择器 */
+
+/* 颜色选择器样式 */
+.color-palette {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 2px 4px;
+}
+
+/* 颜色选项基础样式 */
+.color-option {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+}
+
+/* 颜色选项悬停放大 */
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+/* 选中颜色选项高亮 */
+.color-option.active {
+    border-color: var(--color-text);
+    transform: scale(1.1);
+}

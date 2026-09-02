@@ -1,0 +1,13 @@
+/* about-title-text.css - 窗口标题（居中显示） */
+
+/* 窗口标题居中样式 */
+h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+}

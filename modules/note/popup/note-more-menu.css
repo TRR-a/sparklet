@@ -1,0 +1,82 @@
+/* note-more-menu.css - 三点更多按钮与弹出菜单 */
+
+/* 三点更多按钮 [More options button] */
+.note-more-btn {
+    position: absolute;
+    right: 36px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    opacity: 0.35;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    line-height: 1;
+    transition: all 0.15s;
+    padding: 0;
+}
+
+.note-list-item:hover .note-more-btn {
+    opacity: 0.7;
+}
+
+.note-more-btn:hover {
+    opacity: 1 !important;
+    background-color: var(--color-hover);
+}
+
+/* 更多菜单 [More menu] */
+.note-more-menu {
+    position: absolute;
+    right: 8px;
+    top: calc(100% - 4px);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    padding: 4px;
+    min-width: 140px;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.note-more-menu.show {
+    display: flex;
+}
+
+/* 菜单项 [Menu item] */
+.note-more-menu .menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+}
+
+.note-more-menu .menu-item:hover {
+    background-color: var(--color-hover);
+}
+
+.note-more-menu .menu-item.note-delete {
+    color: #ea4335;
+}
+
+.note-more-menu .menu-item.note-delete:hover {
+    background-color: rgba(234, 67, 53, 0.1);
+}

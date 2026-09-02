@@ -1,0 +1,12 @@
+/* about-content.css - 内容区域布局 */
+
+/* 关于窗口内容区域布局 */
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    text-align: center;
+}

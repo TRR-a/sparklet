@@ -1,0 +1,29 @@
+/* about-window-btn.css - 窗口关闭按钮 */
+
+/* 窗口关闭按钮基础样式 */
+.window-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    color: white;
+    background-color: #ef4444;
+}
+
+/* 关闭按钮悬停效果 */
+.window-btn:hover {
+    filter: brightness(0.85);
+    transform: scale(1.08);
+}
+
+/* 关闭按钮点击效果 */
+.window-btn:active {
+    filter: brightness(0.7);
+    transform: scale(0.95);
+}

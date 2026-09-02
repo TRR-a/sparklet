@@ -1,0 +1,26 @@
+/* popup-main-layout.css - 主容器两栏布局与侧边栏骨架 */
+
+/* 主容器：两栏布局样式 */
+.main-container {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* 左侧边栏样式 */
+.sidebar {
+    width: 25%;
+    min-width: 120px;
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* 侧边栏头部样式 */
+.sidebar-header {
+    padding: 8px 0 16px 0;
+    flex-shrink: 0;
+}

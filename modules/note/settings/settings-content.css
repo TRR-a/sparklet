@@ -1,0 +1,24 @@
+/* settings-content.css - 内容区域（可滚动）与滚动条 */
+
+.settings-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;      /* 允许垂直滚动 */
+    overflow-x: hidden;    /* 禁止水平滚动 */
+    box-sizing: border-box;
+}
+
+/* 美化滚动条 */
+.settings-content::-webkit-scrollbar {
+    width: 6px;
+}
+.settings-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.settings-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+[data-theme="dark"] .settings-content::-webkit-scrollbar-thumb , [data-theme="blue"] .settings-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}

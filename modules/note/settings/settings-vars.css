@@ -1,0 +1,25 @@
+/* settings-vars.css - 主题变量（亮色/暗色/蓝色三套） */
+
+:root {
+  /* 亮色主题文字颜色 */
+  --color-text-primary: #111111;
+  --color-text-secondary: #333333;
+  --color-text-muted: #666666;
+  /* 主色调 */
+  --color-primary: #4285f4;
+}
+
+[data-theme="dark"] {
+  /* 暗色主题文字颜色 */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --color-text-muted: #a0a0a0;
+  --color-primary: #8ab4f8;
+}
+
+[data-theme="blue"] {
+  --color-text-primary: #e8f0fe;
+  --color-text-secondary: #c8d6e5;
+  --color-text-muted: #7a8fa6;
+  --color-primary: #4a9eff;
+}

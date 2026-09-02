@@ -1,0 +1,30 @@
+/* editor-toolbar.css - 编辑器工具栏与预览切换按钮 */
+
+.editor-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 0 8px 0;
+}
+
+.preview-toggle-btn {
+    background: none;
+    border: 1px solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-sm, 6px);
+    padding: 4px 12px;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: var(--color-text);
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+.preview-toggle-btn:hover {
+    opacity: 1;
+    background-color: var(--color-hover, rgba(0,0,0,0.05));
+}
+
+.preview-toggle-btn.active {
+    opacity: 1;
+    background-color: var(--color-primary-light, rgba(66,133,244,0.1));
+    border-color: var(--color-primary, #4285f4);
+}

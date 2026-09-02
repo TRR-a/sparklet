@@ -1,0 +1,42 @@
+/* note-info-modal.css - 笔记详细信息弹窗 */
+
+/* 详细信息弹窗 [Note info modal] */
+.note-info-box {
+    min-width: 320px;
+    max-width: 400px;
+}
+
+.note-info-body {
+    margin: 16px 0;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-border);
+    gap: 12px;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.info-value {
+    color: var(--color-text);
+    font-size: 0.85rem;
+    text-align: right;
+    word-break: break-all;
+}
+
+.info-mono {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.78rem;
+}

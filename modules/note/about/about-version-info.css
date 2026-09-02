@@ -1,0 +1,15 @@
+/* about-version-info.css - 运行时依赖信息（Electron/Node 版本） */
+
+/* 版本信息样式 */
+.version-info {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* 依赖信息使用主色 */
+.version-info p {
+    margin: 3px 0;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    font-family: inherit;
+}

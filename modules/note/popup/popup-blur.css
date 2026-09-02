@@ -1,0 +1,7 @@
+/* popup-blur.css - 主界面虚化效果（设置面板打开时） */
+
+.blur-background {
+    filter: blur(2px);
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}

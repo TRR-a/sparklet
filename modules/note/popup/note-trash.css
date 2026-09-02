@@ -1,0 +1,102 @@
+/* note-trash.css - 回收站视图（切换按钮、卡片样式、恢复/永久删除、预览） */
+
+/* 回收站切换按钮 */
+.trash-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: var(--color-text);
+    opacity: 0.7;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+/* 回收站切换按钮悬停效果 */
+.trash-toggle-btn:hover {
+    opacity: 1;
+    background-color: var(--color-hover);
+}
+
+/* 回收站视图下隐藏项目工作区 [Hide project workspace in trash view] */
+.trash-view .project-section {
+    display: none !important;
+}
+
+/* 回收站视图下笔记项样式 */
+.trash-view .note-list-item {
+    opacity: 0.7;
+    border-left: none !important;
+    padding-left: 12px;
+    /* Wrap so the action buttons drop to their own row [换行让操作按钮独占一行] */
+    flex-wrap: wrap;
+    align-items: center;
+    padding-right: 12px;
+}
+
+/* 回收站视图选中笔记项样式 */
+.trash-view .note-list-item.active {
+    border-left: 3px solid var(--note-color) !important;
+    background-color: var(--color-hover);
+}
+
+/* 回收站操作栏：独占卡片第二行并与文本左对齐 [Trash action row: own line, aligned with note text] */
+.trash-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex: 0 0 100%;
+    width: 100%;
+    box-sizing: border-box;
+    /* color dot (12px) + its right margin (10px) [对齐颜色点后的文本] */
+    padding-left: 22px;
+}
+
+/* 恢复或永久删除按钮基础样式 */
+.restore-btn, .permanent-delete-btn {
+    flex: 1;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* 恢复按钮样式 */
+.restore-btn {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* 永久删除按钮样式 */
+.permanent-delete-btn {
+    background-color: #ea4335;
+    color: white;
+}
+
+/* 回收站预览提示文本 */
+.trash-preview-hint {
+    text-align: center;
+    color: var(--color-text);
+    opacity: 0.4;
+    padding: 40px 0;
+    font-size: 14px;
+}
+
+/* 回收站预览标题 */
+.trash-preview-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding: 0 12px;
+    color: var(--color-text);
+}
+
+/* 回收站预览内容 */
+.trash-preview-content {
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text);
+}

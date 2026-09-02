@@ -5,12 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparklet</title>
-    <!-- 引入弹窗样式 -->
-    <link rel="stylesheet" href="popup.css">
+    <!-- 引入弹窗样式（按原大文件顺序加载，保持级联一致） -->
+    <!-- popup 基础：重置/变量/文本域 -->
+    <link rel="stylesheet" href="popup-base.css">
+    <link rel="stylesheet" href="popup-vars.css">
+    <link rel="stylesheet" href="popup-textarea.css">
+    <!-- 标题栏与按钮 -->
+    <link rel="stylesheet" href="popup-titlebar.css">
+    <link rel="stylesheet" href="popup-controls.css">
+    <link rel="stylesheet" href="popup-icon-btn.css">
+    <!-- 虚化效果与主布局 -->
+    <link rel="stylesheet" href="popup-blur.css">
+    <link rel="stylesheet" href="popup-main-layout.css">
+    <!-- 笔记列表：按钮/列表/卡片/置顶/分组/菜单/信息/回收站 -->
+    <link rel="stylesheet" href="note-new-btn.css">
     <link rel="stylesheet" href="note-list.css">
+    <link rel="stylesheet" href="note-item-text.css">
+    <link rel="stylesheet" href="note-delete-btn.css">
+    <link rel="stylesheet" href="note-pinned.css">
+    <link rel="stylesheet" href="note-group.css">
+    <link rel="stylesheet" href="note-more-menu.css">
+    <link rel="stylesheet" href="note-info-modal.css">
+    <link rel="stylesheet" href="note-trash.css">
+    <!-- 编辑器：容器/调色板/标题/文本域/工具栏/预览/高亮/markdown -->
     <link rel="stylesheet" href="editor.css">
-    <link rel="stylesheet" href="project.css">
-    <link rel="stylesheet" href="dialogs.css">
+    <link rel="stylesheet" href="editor-color-palette.css">
+    <link rel="stylesheet" href="editor-title-input.css">
+    <link rel="stylesheet" href="editor-textarea.css">
+    <link rel="stylesheet" href="editor-toolbar.css">
+    <link rel="stylesheet" href="editor-preview.css">
+    <link rel="stylesheet" href="editor-highlight.css">
+    <link rel="stylesheet" href="editor-markdown.css">
+    <!-- 项目视图：侧栏/文件树/预览/代码编辑器/根节点 -->
+    <link rel="stylesheet" href="project-sidebar.css">
+    <link rel="stylesheet" href="project-tree.css">
+    <link rel="stylesheet" href="project-preview.css">
+    <link rel="stylesheet" href="project-code-editor.css">
+    <link rel="stylesheet" href="project-root.css">
+    <!-- 弹窗：滚动条/光晕遮罩/确认弹窗/退出弹窗 -->
+    <link rel="stylesheet" href="scrollbar.css">
+    <link rel="stylesheet" href="glow-mask.css">
+    <link rel="stylesheet" href="dialog-confirm.css">
+    <link rel="stylesheet" href="dialog-exit.css">
 </head>
 <body>
     <!-- 标题栏：包含窗口控制、应用名称、工具按钮 -->

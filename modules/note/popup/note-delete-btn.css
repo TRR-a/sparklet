@@ -1,0 +1,47 @@
+/* note-delete-btn.css - 删除按钮与删除进行中状态 */
+
+/* 删除按钮样式 */
+.note-delete-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    opacity: 0.3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+}
+
+/* 悬停显示删除按钮 */
+.note-list-item:hover .note-delete-btn {
+    opacity: 0.8;
+}
+
+/* 删除按钮悬停高亮 */
+.note-delete-btn:hover {
+    opacity: 1;
+    background-color: #ef4444;
+    color: white;
+}
+
+/* 笔记删除状态样式 */
+.note-list-item.deleting {
+    background-color: rgba(234, 67, 53, 0.1) !important;
+    border-left-color: #ea4335 !important;
+}
+
+/* 删除状态按钮高亮 */
+.note-list-item.deleting .note-delete-btn {
+    opacity: 1;
+    background-color: #ef4444;
+    color: white;
+}

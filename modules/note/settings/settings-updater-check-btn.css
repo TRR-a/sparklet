@@ -1,0 +1,44 @@
+/* settings-updater-check-btn.css - 立即检查按钮组与开发环境锁定 */
+
+.updater-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.updater-actions .check-now-btn {
+  padding: 8px 18px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.updater-actions .check-now-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.updater-actions .check-now-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.updater-actions .check-now-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 开发环境锁定状态 */
+#checkNowBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #888;
+}
+
+#checkNowBtn:disabled:hover {
+  opacity: 0.6;
+  transform: none;
+}

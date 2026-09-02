@@ -1,0 +1,24 @@
+/* settings-buttons.css - 按钮组 */
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.button-group .settings-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 16px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.button-group .settings-btn:hover { opacity: 0.9; }
+.button-group .settings-btn:active { transform: scale(0.98); }

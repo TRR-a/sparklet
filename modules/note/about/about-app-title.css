@@ -1,0 +1,10 @@
+/* about-app-title.css - Sparklet 大标题 */
+
+/*  设置面板Sparklet标题 */
+h1 {
+    font-size: 3rem;
+    margin: 0 0 2px 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}

@@ -1,0 +1,28 @@
+/* about-vars.css - 主题样式变量（亮色/暗色/蓝色三套） */
+
+/* 主题样式变量定义 */
+:root {
+  --color-text-primary: #111111;
+  --color-text-secondary: #666666;
+  --color-primary: #4285f4;
+  --color-bg: #ffffff;
+  --color-border: #e0e0e0;
+}
+
+/* 深色主题样式变量 */
+[data-theme="dark"] {
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0a0;
+  --color-primary: #8ab4f8;
+  --color-bg: #1e1e1e;
+  --color-border: #444444;
+}
+
+/* 蓝色主题样式变量 */
+[data-theme="blue"] {
+  --color-text-primary: #e8f0fe;
+  --color-text-secondary: #a0b4c8;
+  --color-primary: #4a9eff;
+  --color-bg: #0d1b2a;
+  --color-border: #1b3a5c;
+}

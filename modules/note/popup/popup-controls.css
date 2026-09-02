@@ -1,0 +1,58 @@
+/* popup-controls.css - 窗口控制按钮（红绿灯：最小化/最大化/关闭/置顶） */
+
+/* 窗口控制按钮 */
+.window-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    color: white;
+    flex-shrink: 0;
+}
+
+/* 最小化按钮背景色 */
+.window-btn.minimize {
+    background-color: #f1c40f;
+}
+
+/* 最大化按钮背景色 */
+.window-btn.maximize {
+    background-color: #2ecc71;
+}
+
+/* 关闭按钮背景色 */
+.window-btn.close {
+    background-color: #e74c3c;
+}
+
+/* 窗口置顶按钮背景色 */
+.window-btn.pin {
+    background-color: #3498db;
+    font-size: 0.9rem;
+}
+
+.window-btn.pin.active {
+    background-color: #2980b9;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+}
+
+/* 按钮悬停变暗放大样式 */
+.window-btn.minimize:hover,
+.window-btn.maximize:hover,
+.window-btn.close:hover,
+.window-btn.pin:hover {
+    filter: brightness(0.8);
+    transform: scale(1.1);
+}
+
+/* 按钮点击效果 */
+.window-btn:active {
+    filter: brightness(0.6);
+    transform: scale(0.95);
+}

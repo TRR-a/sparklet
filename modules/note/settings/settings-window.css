@@ -1,0 +1,28 @@
+/* settings-window.css - 玻璃拟态窗口容器 */
+
+.settings-window {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    overflow: hidden !important;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .settings-window , [data-theme="blue"] .settings-window {
+    background: rgba(30, 30, 30, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="blue"] .settings-window {
+    background: rgba(13, 27, 42, 0.8);
+    border: 1px solid rgba(74, 158, 255, 0.15);
+    box-shadow: inset 0 1px 0 rgba(74, 158, 255, 0.1);
+}

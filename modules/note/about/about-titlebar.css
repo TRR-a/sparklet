@@ -1,0 +1,18 @@
+/* about-titlebar.css - 可拖动标题栏 */
+
+/* 可拖动标题栏样式 */
+.title-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 6px 16px;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    -webkit-app-region: drag;
+    box-sizing: border-box;
+}
+
+/* 窗口控制按钮禁止拖动 */
+.window-controls {
+    -webkit-app-region: no-drag;
+}

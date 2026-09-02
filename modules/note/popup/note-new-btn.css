@@ -1,0 +1,18 @@
+/* note-new-btn.css - 新建笔记按钮 */
+
+.new-note-btn {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+
+/* 新建按钮悬停效果样式 */
+.new-note-btn:hover {
+    opacity: 0.9;
+}

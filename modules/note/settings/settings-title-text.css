@@ -1,0 +1,12 @@
+/* settings-title-text.css - 标题栏居中标题文字 */
+
+.window-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--color-primary);
+}

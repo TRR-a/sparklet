@@ -1,0 +1,24 @@
+/* settings-base.css - 页面基础（html/body 重置与全局外观） */
+/* 说明：玻璃拟态设计，支持亮色/暗色主题 */
+
+/* 禁止页面整体滚动，但内容区独立滚动 */
+html {
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden !important;
+    transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
+}

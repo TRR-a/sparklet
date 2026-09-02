@@ -1,0 +1,29 @@
+/* popup-icon-btn.css - 图标按钮（标题栏功能按钮） */
+
+/* 图标按钮样式 */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* 图标按钮悬停效果 */
+.icon-btn:hover {
+    background-color: var(--color-hover);
+}
+
+/* 置顶按钮激活状态 */
+#pinToggle.active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}

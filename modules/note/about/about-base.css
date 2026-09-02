@@ -1,0 +1,24 @@
+/* about-base.css - 页面初始化与基础样式 */
+
+/* 初始化页面，禁止滚动，铺满窗口 */
+html {
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 页面基础样式，适配无边框窗口与主题切换 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden !important;
+    transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
+}

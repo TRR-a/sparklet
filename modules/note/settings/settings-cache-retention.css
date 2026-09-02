@@ -1,0 +1,146 @@
+/* settings-cache-retention.css - 保留天数选择器（预设按钮 + 滑杆） */
+
+.cache-retention-block {
+  margin-bottom: 14px;
+  padding: 14px 14px 12px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08));
+  border: 1px solid rgba(59,130,246,0.18);
+  border-radius: 10px;
+}
+[data-theme="dark"] .cache-retention-block , [data-theme="blue"] .cache-retention-block {
+  background: linear-gradient(135deg, rgba(59,130,246,0.14), rgba(139,92,246,0.14));
+  border-color: rgba(59,130,246,0.28);
+}
+
+.cache-retention-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 10px;
+}
+
+/* 当前天数徽标（切换时弹跳动画） */
+.cache-retention-current {
+  color: var(--color-primary);
+  font-size: 1rem;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: rgba(59,130,246,0.15);
+  transition: transform 0.2s;
+}
+.cache-retention-current.bump {
+  animation: bump 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+@keyframes bump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* 预设天数按钮 */
+.cache-retention-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.retention-preset {
+  flex: 1 1 0;
+  min-width: 52px;
+  padding: 7px 0;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(128,128,128,0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+[data-theme="dark"] .retention-preset , [data-theme="blue"] .retention-preset {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+}
+.retention-preset:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+.retention-preset:active:not(:disabled) {
+  transform: translateY(0);
+}
+.retention-preset.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 3px 10px rgba(59,130,246,0.35);
+}
+.retention-preset:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 滑杆行 */
+.cache-retention-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.cache-retention-slider-row .slider-min,
+.cache-retention-slider-row .slider-max {
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.6;
+  min-width: 18px;
+  text-align: center;
+}
+#cacheRetentionSlider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(128,128,128,0.25);
+  outline: none;
+}
+#cacheRetentionSlider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+#cacheRetentionSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.45);
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+#cacheRetentionSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+#cacheRetentionSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.45);
+  cursor: pointer;
+}
+
+/* 底部提示 */
+.cache-retention-tip {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  opacity: 0.72;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}

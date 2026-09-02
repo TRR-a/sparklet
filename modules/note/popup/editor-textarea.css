@@ -1,0 +1,22 @@
+/* editor-textarea.css - 笔记编辑器文本区域 */
+
+/* 笔记编辑器文本区域样式 */
+.note-editor {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 14px;
+    line-height: 1.6;
+    resize: none;
+    font-family: inherit;
+    padding: 0;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/* 编辑器聚焦去除默认轮廓 */
+.note-editor:focus {
+    outline: none;
+}

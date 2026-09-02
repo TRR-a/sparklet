@@ -1,0 +1,47 @@
+/* settings-cache-info.css - 更新包缓存信息面板 */
+
+.cache-info {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.4);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+[data-theme="dark"] .cache-info , [data-theme="blue"] .cache-info {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.cache-info .cache-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px dashed rgba(128, 128, 128, 0.2);
+}
+.cache-info .cache-row:last-child {
+  border-bottom: none;
+}
+.cache-info .cache-label {
+  opacity: 0.75;
+  margin-right: 12px;
+  white-space: nowrap;
+}
+.cache-info .cache-value {
+  font-weight: 600;
+  text-align: right;
+  word-break: break-all;
+}
+.cache-info .cache-empty {
+  text-align: center;
+  opacity: 0.6;
+  padding: 8px 0;
+}
+.cache-info .cache-highlight {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+.cache-info .cache-warn {
+  color: #f59e0b;
+  font-weight: 500;
+}
