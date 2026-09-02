@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparklet</title>
+    <link rel="stylesheet" href="kernel.css">
+</head>
+<body>
+    <!-- 标题栏：窗口控制 + 应用名 -->
+    <div class="title-bar">
+        <div class="title-row title-row-top">
+            <div class="window-controls">
+                <button id="windowPinBtn" class="window-btn pin" title="窗口置顶">📌</button>
+                <button class="window-btn minimize" title="最小化">−</button>
+                <button class="window-btn maximize" title="最大化">□</button>
+                <button class="window-btn close" title="关闭">×</button>
+            </div>
+            <h1 class="app-title">Sparklet</h1>
+        </div>
+    </div>
+
+    <!-- 内核内容区：欢迎标题 + 插件网格 / 空状态 -->
+    <main class="kernel-main">
+        <section class="kernel-hero">
+            <div class="kernel-title" data-i18n="kernel.title">Sparklet Hub</div>
+            <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>
+        </section>
+        <section id="pluginGrid" class="plugin-grid"></section>
+        <section id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-icon">🧩</div>
+            <div class="empty-title" data-i18n="kernel.emptyTitle">未安装任何插件</div>
+            <div class="empty-desc" data-i18n="kernel.emptyDesc">安装插件以解锁更多功能</div>
+        </section>
+    </main>
+
+    <!-- 底部版本信息 -->
+    <footer class="kernel-footer">
+        <span id="kernelVersion"></span>
+    </footer>
+
+    <script type="module" src="./kernel.js"></script>
+</body>
+</html>

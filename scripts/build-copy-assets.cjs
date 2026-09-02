@@ -24,6 +24,8 @@ const STATIC_EXT = new Set([
 const COPY_ROOTS = [
   { from: 'modules', to: 'modules' },
   { from: 'assets', to: 'assets' },
+  // Kernel (microkernel Hub) static assets; its .ts compiles to the same folder [内核 (微内核 Hub) 静态资源；其 .ts 编译到同目录]
+  { from: 'src/renderer/kernel', to: 'src/renderer/kernel' },
 ];
 
 /**

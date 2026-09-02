@@ -5,8 +5,8 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import { migrateFromStore } from './services/migration-service';
-import { createMainWindow } from './windows/main-window';
-import { getMainWindow } from './windows/window-manager';
+import { createKernelWindow } from './windows/kernel-window';
+import { getKernelWindow } from './windows/window-manager';
 import { initUpdater, checkUpdateManually } from './updater';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
@@ -36,8 +36,10 @@ app.whenReady().then(async () => {
   // 2.1 Register Ctrl+Shift+I shortcut for DevTools (covers all windows) [注册 Ctrl+Shift+I 快捷键用于开发者工具 (覆盖所有窗口)]
   registerDevToolsShortcut();
 
-  // 3. Create main window [创建主窗口]
-  createMainWindow();
+  // 3. Create the kernel (Hub) window. Plugins are discovered on demand by the
+  //    kernel UI via plugins:list; no plugin is required to boot.
+  //    [创建内核 (Hub) 窗口。插件由内核 UI 按需经 plugins:list 发现，无需任何插件即可启动]
+  createKernelWindow();
 
   // 4. Initialize updater module (after window creation) [初始化更新模块 (窗口创建后执行)]
   initUpdater();
@@ -61,8 +63,8 @@ app.on('window-all-closed', () => {
  * Application lifecycle: activate (macOS) [应用生命周期：激活 (macOS)]
  */
 app.on('activate', () => {
-  if (getMainWindow() === null) {
-    createMainWindow();
+  if (getKernelWindow() === null) {
+    createKernelWindow();
   }
 });
 

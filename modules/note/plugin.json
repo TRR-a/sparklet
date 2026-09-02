@@ -1,0 +1,13 @@
+{
+  "id": "note",
+  "name": "Notes",
+  "nameI18n": {
+    "en": "Notes",
+    "zh-CN": "笔记"
+  },
+  "description": "Note-taking module: rich notes, projects, themes",
+  "version": "0.2.3",
+  "author": "TRR-a",
+  "main": "popup/popup.html",
+  "icon": "icon.png"
+}
