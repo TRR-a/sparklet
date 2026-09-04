@@ -15,6 +15,7 @@ import {
 } from './note-editor.js';
 import { toggleTrashView } from './trash-view.js';
 import { initExitDialog } from './exit-dialog.js';
+import { initNoteQuickJump } from './note-quick-jump.js';
 import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 
 /**
@@ -118,6 +119,7 @@ async function initApp(): Promise<void> {
   bindThemeBroadcastListener();
   bindEvents();
   initExitDialog(); // Double-Esc exit confirm dialog [双击 Esc 退出确认弹窗]
+  initNoteQuickJump(); // Ctrl+digit quick jump to first 10 visible notes [Ctrl+数字快速跳转前 10 个可见笔记]
   await loadNotes();
   await restoreWorkspace();
   // Toast listener (from main process) [Toast 监听 (来自主进程)]

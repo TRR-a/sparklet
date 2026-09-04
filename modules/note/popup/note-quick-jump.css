@@ -1,0 +1,19 @@
+/* note-quick-jump.css - Ctrl+数字快速跳转角标 */
+
+/* 快速跳转角标 (按住 Ctrl 时显示在前 10 个可见卡片上) [Quick-jump chip (shown on first 10 visible cards while Ctrl held)] */
+.note-quick-hint {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(107, 114, 128, 0.85);
+    color: #ffffff;
+    font-size: 10px;
+    line-height: 1.4;
+    font-weight: 600;
+    font-family: Consolas, 'Courier New', monospace;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 5;
+}
