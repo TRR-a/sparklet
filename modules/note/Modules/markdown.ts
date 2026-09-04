@@ -1,8 +1,8 @@
 // Markdown renderer - lightweight markdown-to-HTML conversion [Markdown 渲染器 - 轻量级 markdown 转 HTML]
-// Main entry point; block/inline/table renderers moved to markdown-renderers.ts [主入口；块级/行内/表格渲染器已移至 markdown-renderers.ts]
+// Main entry point; block/inline/table renderers in markdown-block.ts / markdown-inline.ts / markdown-table.ts [主入口；块级/行内/表格渲染器在 markdown-block.ts / markdown-inline.ts / markdown-table.ts]
 
 import { escapeHtml } from '../Base/dom-utils.js';
-import { renderBlocks } from './markdown-renderers.js';
+import { renderBlocks } from './markdown-block.js';
 import { highlightCode } from '../../../src/renderer/core/highlight.js';
 
 /**

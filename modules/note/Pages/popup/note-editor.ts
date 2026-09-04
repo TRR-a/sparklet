@@ -1,18 +1,22 @@
 // Popup note editor - editor state, loading, switching, preview, startup [弹窗笔记编辑器 - 编辑器状态、加载、切换、预览、启动]
 // Note operations (save/create/delete/color/pin) in note-operations.ts [笔记操作 (保存/创建/删除/颜色/置顶) 在 note-operations.ts]
-// List rendering & card menu in note-list.ts [列表渲染与卡片菜单在 note-list.ts]
+// List rendering in note-list.ts, card in note-card.ts, menus in note-menu.ts [列表渲染在 note-list.ts、卡片在 note-card.ts、菜单在 note-menu.ts]
 
 import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
 import { renderMarkdown } from '../../Modules/markdown.js';
 import { closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 import { saveCurrentNote } from './note-operations.js';
-import { closeAllMenus, renderNoteList, bindNoteMenuGlobalHandler } from './note-list.js';
+import { renderNoteList } from './note-list.js';
+import { closeAllMenus, bindNoteMenuGlobalHandler } from './note-menu.js';
+import { bindNoteInfoModalHandlers } from './note-info-modal.js';
 
 // Re-export note operations for backward compatibility [重新导出笔记操作以保持向后兼容]
 export { saveCurrentNote, debounceSave, createNewNote, changeNoteColor, togglePinNote, toggleStarNote } from './note-operations.js';
 // Re-export list rendering for backward compatibility [重新导出列表渲染以保持向后兼容]
-export { renderNoteList, bindNoteMenuGlobalHandler, showNoteInfo } from './note-list.js';
+export { renderNoteList } from './note-list.js';
+export { bindNoteMenuGlobalHandler } from './note-menu.js';
+export { showNoteInfo } from './note-info-modal.js';
 export type { NoteListItem } from './note-list.js';
 
 /** Preview mode state [预览模式状态] */
@@ -127,6 +131,7 @@ export function getPreviewMode(): boolean {
 export async function loadNotes(): Promise<void> {
   await storageManager.init();
   bindNoteMenuGlobalHandler();
+  bindNoteInfoModalHandlers();
   // Bind preview toggle button once (avoid listener accumulation) [绑定预览切换按钮 (避免监听器累积)]
   const previewToggleBtn = document.getElementById('previewToggleBtn');
   if (previewToggleBtn) previewToggleBtn.addEventListener('click', togglePreview);

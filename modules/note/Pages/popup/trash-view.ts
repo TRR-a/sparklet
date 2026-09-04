@@ -4,7 +4,7 @@ import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
 import { showCustomConfirm } from '../../Modules/custom-dialog.js';
 import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from './note-editor.js';
-import { createGroupTitle, createGroupEmpty, applyGroup } from './note-list.js';
+import { createGroupTitle, createGroupEmpty, applyGroup } from './note-group.js';
 import type { NoteListItem } from './note-list.js';
 import { renderMarkdown } from '../../Modules/markdown.js';
 import { escapeHtml } from '../../Base/dom-utils.js';

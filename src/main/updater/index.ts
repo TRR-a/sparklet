@@ -11,10 +11,8 @@ import {
 } from './config-manager';
 import * as cacheManager from './cache-manager';
 import { ensureDialogResponseHandler, broadcastToast } from './dialog';
-import {
-  selfCheckIntegrity,
-  verifyInstalledFiles,
-} from './verify-integrity';
+import { selfCheckIntegrity } from './integrity-self-check';
+import { verifyInstalledFiles } from './integrity-files-verify';
 import { getCurrentVersion } from './check';
 import { handleIntegrityRollback } from './rollback';
 import { updaterStateInternal } from './update-state';

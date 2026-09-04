@@ -1,6 +1,7 @@
-// Markdown renderers - block-level, inline, and table rendering [Markdown 渲染器 - 块级、行内和表格渲染]
+// Markdown block renderer - headings, lists, quotes, tables, paragraphs [Markdown 块级渲染器 - 标题、列表、引用、表格、段落]
 
-import { escapeHtml } from '../Base/dom-utils.js';
+import { renderInline } from './markdown-inline.js';
+import { renderTable, isTableSeparator } from './markdown-table.js';
 
 /**
  * Render block-level elements [渲染块级元素]
@@ -114,105 +115,11 @@ export function renderBlocks(text: string): string {
 }
 
 /**
- * Render inline formatting [渲染行内格式]
- * @param text Text to process [待处理文本]
- * @returns HTML string with inline formatting [带行内格式的 HTML 字符串]
- */
-export function renderInline(text: string): string {
-  let result = escapeHtml(text);
-
-  // Extract inline code first (prevent inner formatting) [先提取行内代码 (防止内部被格式化)]
-  const codePlaceholders: string[] = [];
-  result = result.replace(/`([^`]+)`/g, (_match: string, code: string) => {
-    codePlaceholders.push(code);
-    return `\x00CODE${codePlaceholders.length - 1}\x00`;
-  });
-
-  // Images (must be before links) [图片 (必须在链接之前)]
-  result = result.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="md-img">');
-
-  // Links [链接]
-  result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-
-  // Bold [粗体 **text**]
-  result = result.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-
-  // Strikethrough [删除线 ~~text~~]
-  result = result.replace(/~~([^~]+)~~/g, '<del>$1</del>');
-
-  // Italic [斜体 *text*] - avoid matching ** (bold) [避免匹配 ** (粗体)]
-  result = result.replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, '$1<em>$2</em>');
-
-  // Restore inline code [恢复行内代码]
-  result = result.replace(/\x00CODE(\d+)\x00/g, (_match: string, idx: string) => `<code class="inline-code">${codePlaceholders[parseInt(idx)]}</code>`);
-
-  return result;
-}
-
-/**
- * Render table from parsed lines [从解析行渲染表格]
- * @param lines Table lines: [header, separator, ...rows] [表格行：表头、分隔行、数据行]
- * @returns Table HTML [表格 HTML]
- */
-function renderTable(lines: string[]): string {
-  const header = parseTableRow(lines[0]);
-  const separator = lines[1];
-
-  // Parse alignment from separator [从分隔行解析对齐方式]
-  const aligns = parseTableRow(separator).map((cell: string) => {
-    const trimmed = cell.trim();
-    if (trimmed.startsWith(':') && trimmed.endsWith(':')) return 'center';
-    if (trimmed.endsWith(':')) return 'right';
-    return 'left';
-  });
-
-  let html = '<table class="md-table"><thead><tr>';
-  header.forEach((cell: string, idx: number) => {
-    const align = aligns[idx] || 'left';
-    html += `<th style="text-align:${align}">${renderInline(cell)}</th>`;
-  });
-  html += '</tr></thead><tbody>';
-
-  for (let i = 2; i < lines.length; i++) {
-    const cells = parseTableRow(lines[i]);
-    html += '<tr>';
-    cells.forEach((cell: string, idx: number) => {
-      const align = aligns[idx] || 'left';
-      html += `<td style="text-align:${align}">${renderInline(cell)}</td>`;
-    });
-    html += '</tr>';
-  }
-  html += '</tbody></table>';
-  return html;
-}
-
-/**
- * Parse table row into cells [将表格行解析为单元格]
- * @param line Table row line [表格行]
- * @returns Array of cell contents [单元格内容数组]
- */
-function parseTableRow(line: string): string[] {
-  let trimmed = line.trim();
-  if (trimmed.startsWith('|')) trimmed = trimmed.slice(1);
-  if (trimmed.endsWith('|')) trimmed = trimmed.slice(0, -1);
-  return trimmed.split('|').map((cell: string) => cell.trim());
-}
-
-/**
- * Check if line is a table separator [检查行是否为表格分隔行]
- * @param line Line to check [待检查行]
- * @returns True if separator [是分隔行则返回 true]
- */
-function isTableSeparator(line: string): boolean {
-  return /^[|:\s-]+$/.test(line) && line.includes('-') && line.includes('|');
-}
-
-/**
  * Check if line starts a block-level element [检查行是否为块级元素开始]
  * @param line Line to check [待检查行]
  * @returns True if block start [是块级元素则返回 true]
  */
-function isBlockStart(line: string): boolean {
+export function isBlockStart(line: string): boolean {
   return /^(#{1,6})\s+/.test(line) ||
          /^[-*]\s+/.test(line) ||
          /^\d+\.\s+/.test(line) ||

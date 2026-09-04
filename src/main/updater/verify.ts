@@ -1,5 +1,5 @@
 // Two-layer verification: manifest integrity + SHA256 [双层校验：清单完整性 + SHA256]
-// Update package verification only; runtime integrity checks (exe self-check, installed files) moved to verify-integrity.ts [仅更新包校验；运行时完整性校验 (exe 自检、已安装文件) 已移至 verify-integrity.ts]
+// Update package verification only; runtime integrity checks (exe self-check, installed files) moved to integrity-self-check.ts / integrity-files-verify.ts [仅更新包校验；运行时完整性校验 (exe 自检、已安装文件) 已移至 integrity-self-check.ts / integrity-files-verify.ts]
 
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
