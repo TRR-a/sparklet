@@ -11,18 +11,44 @@ import {
 } from '../popup/note-editor.js';
 import { refreshNoteListView, clearSearch } from './note-search.js';
 
-/** Save timeout reference [保存防抖定时器] */
+/** Save debounce delay [保存防抖延迟] */
+const SAVE_DEBOUNCE_MS = 800;
+
+/**
+ * Max wait before a continuous typing session is force-saved
+ * [连续输入时的最大等待，超时强制落盘 (防抖定时器随按键不断重置，否则持续打字永不保存)]
+ */
+const SAVE_MAX_WAIT_MS = 5000;
+
+/** Trailing debounce timer [尾随防抖定时器] */
 let saveTimeout: ReturnType<typeof setTimeout> | null = null;
+
+/** Max-wait force-save timer [最大等待强制保存定时器] */
+let maxWaitTimeout: ReturnType<typeof setTimeout> | null = null;
+
+/**
+ * Clear pending save timers [清理待触发的保存定时器]
+ */
+function clearSaveTimers(): void {
+  if (saveTimeout) {
+    clearTimeout(saveTimeout);
+    saveTimeout = null;
+  }
+  if (maxWaitTimeout) {
+    clearTimeout(maxWaitTimeout);
+    maxWaitTimeout = null;
+  }
+}
 
 /**
  * Save current note [保存当前笔记]
  */
 export async function saveCurrentNote(): Promise<void> {
+  clearSaveTimers();
   const currentNoteId = getCurrentNoteId();
   if (!currentNoteId) return;
   // Skip if in trash view (prevent renderNoteList overwriting trash list) [回收站视图中跳过 (防止 renderNoteList 覆盖回收站列表)]
   if (document.body.classList.contains('trash-view')) return;
-  if (saveTimeout) clearTimeout(saveTimeout);
   const titleInput = document.getElementById('noteTitle') as HTMLInputElement | null;
   const contentInput = document.getElementById('noteArea') as HTMLTextAreaElement | null;
   if (!titleInput || !contentInput) return;
@@ -36,11 +62,22 @@ export async function saveCurrentNote(): Promise<void> {
 }
 
 /**
- * Debounced save (800ms delay) [防抖保存 (800ms 延迟)]
+ * Debounced save: 800ms trailing + 5s max wait
+ * [防抖保存：800ms 尾随触发 + 连续输入最多 5s 强制落盘]
  */
 export function debounceSave(): void {
   if (saveTimeout) clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(saveCurrentNote, 800);
+  saveTimeout = setTimeout(() => {
+    saveTimeout = null;
+    void saveCurrentNote();
+  }, SAVE_DEBOUNCE_MS);
+
+  if (!maxWaitTimeout) {
+    maxWaitTimeout = setTimeout(() => {
+      maxWaitTimeout = null;
+      void saveCurrentNote();
+    }, SAVE_MAX_WAIT_MS);
+  }
 }
 
 /**

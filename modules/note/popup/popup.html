@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="note-group.css">
     <link rel="stylesheet" href="note-more-menu.css">
     <link rel="stylesheet" href="note-info-modal.css">
+    <link rel="stylesheet" href="history-modal.css">
     <link rel="stylesheet" href="note-quick-jump.css">
     <link rel="stylesheet" href="shortcut-panel.css">
     <link rel="stylesheet" href="note-trash.css">
@@ -143,6 +144,21 @@
             <div id="noteInfoBody" class="note-info-body"></div>
             <div class="custom-confirm-buttons">
                 <button id="noteInfoCloseBtn" class="custom-confirm-btn ok" data-i18n="noteInfo.close">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 笔记历史记录弹窗（左侧快照列表 + 右侧差异预览 + 恢复） -->
+    <div id="noteHistoryModal" class="custom-confirm-overlay" style="display: none;">
+        <div class="custom-confirm-box history-box">
+            <div class="custom-confirm-title" data-i18n="history.title">历史记录</div>
+            <div class="history-layout">
+                <div id="noteHistoryList" class="history-list"></div>
+                <div id="noteHistoryDetail" class="history-detail"></div>
+            </div>
+            <div class="custom-confirm-buttons">
+                <button id="noteHistoryRestoreBtn" class="custom-confirm-btn history-restore-btn" data-i18n="history.restore" style="display: none;">恢复此版本</button>
+                <button id="noteHistoryCloseBtn" class="custom-confirm-btn cancel" data-i18n="history.close">关闭</button>
             </div>
         </div>
     </div>

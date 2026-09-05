@@ -1,9 +1,18 @@
 // Notes file system storage service [笔记文件系统存储服务]
 // Each note is stored independently as .json (metadata) + .md (content) [每个笔记独立存储为 .json (元数据) + .md (正文)]
+//
+// Crash safety [崩溃安全]：
+//   - All writes are atomic (temp + rename, see note-io.ts) [所有写入均为原子写 (临时文件+重命名)]
+//   - saveNote writes .md before .json so a crash between the two keeps the
+//     valuable content file newer than its metadata [先写 .md 后写 .json，两步之间崩溃时正文不会比元数据旧]
+//   - Saves trigger throttled history snapshots; deletes snapshot first
+//     [保存触发限频历史快照；删除前先快照]
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { app } from 'electron';
+import { getNotesDir, ensureNotesDir, isValidNoteId } from './note-paths';
+import { writeFileAtomic } from './note-io';
+import { maybeSnapshotOnSave, snapshotNote, removeHistory } from './note-history';
 import type { Note, NoteMeta, NoteListResult, NoteGetResult, NoteSaveResult, NoteOperationResult, NoteSearchResult } from '../../shared/types/notes';
 
 /** Old note format from electron-store (before migration) [旧 electron-store 中的笔记格式 (迁移前)] */
@@ -26,18 +35,7 @@ type NoteMetaPartial = Partial<NoteMeta>;
 /**
  * Get notes directory path [获取笔记目录路径]
  */
-export function getNotesDir(): string {
-  return path.join(app.getPath('userData'), 'notes');
-}
-
-/**
- * Ensure notes directory exists [确保笔记目录存在]
- */
-export async function ensureNotesDir(): Promise<string> {
-  const dir = getNotesDir();
-  await fs.ensureDir(dir);
-  return dir;
-}
+export { getNotesDir, ensureNotesDir } from './note-paths';
 
 /**
  * List all notes (without content) [列出所有笔记 (不含 content)]
@@ -88,7 +86,7 @@ export async function listNotes(): Promise<NoteListResult> {
  */
 export async function getNote(id: string): Promise<NoteGetResult> {
   try {
-    if (!id) throw new Error('Note ID required');
+    if (!id || !isValidNoteId(id)) throw new Error('Note ID required');
     const notesDir = getNotesDir();
     const jsonPath = path.join(notesDir, `${id}.json`);
     const mdPath = path.join(notesDir, `${id}.md`);
@@ -110,41 +108,27 @@ export async function getNote(id: string): Promise<NoteGetResult> {
 }
 
 /**
- * Write file with retry on EPERM (Windows anti-virus/indexing may briefly lock files) [写入文件并在 EPERM 时重试 (Windows 杀毒软件/索引服务可能短暂锁文件)]
- */
-async function writeFileWithRetry(filePath: string, data: string, maxRetries: number = 3): Promise<void> {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      await fs.writeFile(filePath, data, 'utf8');
-      return;
-    } catch (err) {
-      const code = (err as NodeJS.ErrnoException).code;
-      if (code === 'EPERM' || code === 'EACCES') {
-        if (attempt < maxRetries) {
-          console.warn(`[NotesFS] writeFile EPERM attempt ${attempt}/${maxRetries}, retrying in 300ms...`);
-          await new Promise(resolve => setTimeout(resolve, 300));
-          continue;
-        }
-      }
-      throw err;
-    }
-  }
-}
-
-/**
  * Save a note (create or update) [保存笔记 (新建或更新)]
+ * Atomic writes: .md first, then .json (content is the valuable artifact) [原子写入：先 .md 后 .json (正文是关键资产)]
  */
 export async function saveNote(noteData: Note): Promise<NoteSaveResult> {
   try {
-    if (!noteData || !noteData.id) throw new Error('Invalid note data');
+    if (!noteData || !noteData.id || !isValidNoteId(noteData.id)) throw new Error('Invalid note data');
     const notesDir = await ensureNotesDir();
     const { content, ...meta } = noteData;
 
-    const jsonPath = path.join(notesDir, `${noteData.id}.json`);
-    await writeFileWithRetry(jsonPath, JSON.stringify(meta, null, 2));
-
     const mdPath = path.join(notesDir, `${noteData.id}.md`);
-    await writeFileWithRetry(mdPath, content || '');
+    await writeFileAtomic(mdPath, content || '');
+
+    const jsonPath = path.join(notesDir, `${noteData.id}.json`);
+    await writeFileAtomic(jsonPath, JSON.stringify(meta, null, 2));
+
+    // Throttled history snapshot (failure must never break the save) [限频历史快照 (失败不影响保存)]
+    try {
+      await maybeSnapshotOnSave(noteData);
+    } catch (err) {
+      console.warn('[NotesFS] history snapshot failed:', err);
+    }
 
     return { success: true, note: noteData };
   } catch (err) {
@@ -210,17 +194,26 @@ export async function searchNotes(query: string): Promise<NoteSearchResult> {
 
 /**
  * Soft delete (move to trash) [软删除 (移入回收站)]
+ * Snapshots the full note first so pre-delete content stays recoverable [先全量快照，删除前内容可恢复]
  */
 export async function deleteNote(id: string): Promise<NoteOperationResult> {
   try {
-    if (!id) throw new Error('Note ID required');
+    if (!id || !isValidNoteId(id)) throw new Error('Note ID required');
     const notesDir = getNotesDir();
     const jsonPath = path.join(notesDir, `${id}.json`);
+
+    // Snapshot pre-delete state (best-effort) [删除前快照 (尽力而为)]
+    try {
+      const note = await getNote(id);
+      if (note.success && note.note) await snapshotNote(note.note);
+    } catch (err) {
+      console.warn('[NotesFS] pre-delete snapshot failed:', err);
+    }
 
     const meta = await fs.readJson(jsonPath) as NoteMeta;
     meta.isDeleted = true;
     meta.deletedAt = new Date().toISOString();
-    await writeFileWithRetry(jsonPath, JSON.stringify(meta, null, 2));
+    await writeFileAtomic(jsonPath, JSON.stringify(meta, null, 2));
 
     return { success: true };
   } catch (err) {
@@ -235,14 +228,14 @@ export async function deleteNote(id: string): Promise<NoteOperationResult> {
  */
 export async function restoreNote(id: string): Promise<NoteOperationResult> {
   try {
-    if (!id) throw new Error('Note ID required');
+    if (!id || !isValidNoteId(id)) throw new Error('Note ID required');
     const notesDir = getNotesDir();
     const jsonPath = path.join(notesDir, `${id}.json`);
 
     const meta = await fs.readJson(jsonPath) as NoteMeta;
     meta.isDeleted = false;
     meta.deletedAt = null;
-    await writeFileWithRetry(jsonPath, JSON.stringify(meta, null, 2));
+    await writeFileAtomic(jsonPath, JSON.stringify(meta, null, 2));
 
     return { success: true };
   } catch (err) {
@@ -253,17 +246,18 @@ export async function restoreNote(id: string): Promise<NoteOperationResult> {
 }
 
 /**
- * Permanently delete (physically remove .json + .md) [永久删除 (物理删除 .json + .md)]
+ * Permanently delete (physically remove .json + .md + history) [永久删除 (物理删除 .json + .md + 历史)]
  */
 export async function permanentDeleteNote(id: string): Promise<NoteOperationResult> {
   try {
-    if (!id) throw new Error('Note ID required');
+    if (!id || !isValidNoteId(id)) throw new Error('Note ID required');
     const notesDir = getNotesDir();
     const jsonPath = path.join(notesDir, `${id}.json`);
     const mdPath = path.join(notesDir, `${id}.md`);
 
     if (await fs.pathExists(jsonPath)) await fs.remove(jsonPath);
     if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
+    await removeHistory(id);
 
     return { success: true };
   } catch (err) {

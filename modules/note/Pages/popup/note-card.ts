@@ -9,6 +9,7 @@ import {
 } from './note-operations.js';
 import { closeAllMenus, toggleCardMenu } from './note-menu.js';
 import { showNoteInfo } from './note-info-modal.js';
+import { showNoteHistory } from './note-history-modal.js';
 import type { NoteListItem } from './note-list.js';
 
 /**
@@ -47,6 +48,7 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
       <button class="menu-item star-toggle" data-action="star">
         ${note.starred ? t('noteMenu.unstar') : t('noteMenu.star')}
       </button>
+      <button class="menu-item note-history" data-action="history">${t('noteMenu.history')}</button>
       <button class="menu-item note-info" data-action="info">${t('noteMenu.info')}</button>
     </div>
   `;
@@ -89,6 +91,8 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
         await togglePinNote(note.id);
       } else if (action === 'star') {
         await toggleStarNote(note.id);
+      } else if (action === 'history') {
+        await showNoteHistory(note.id);
       } else if (action === 'info') {
         await showNoteInfo(note.id);
       }

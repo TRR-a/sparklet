@@ -9,6 +9,9 @@ import type {
   NoteSaveResult,
   NoteOperationResult,
   NoteSearchResult,
+  NoteHistoryResult,
+  NoteSnapshotResult,
+  NoteIntegrityReportResult,
 } from '../../../src/shared/types/notes.js';
 
 export const noteApi = {
@@ -32,5 +35,17 @@ export const noteApi = {
   },
   search(query: string): Promise<NoteSearchResult> {
     return bus.invoke<NoteSearchResult>('notes:search', query);
+  },
+  history(id: string): Promise<NoteHistoryResult> {
+    return bus.invoke<NoteHistoryResult>('notes:history', id);
+  },
+  getSnapshot(id: string, ts: string): Promise<NoteSnapshotResult> {
+    return bus.invoke<NoteSnapshotResult>('notes:history:snapshot', id, ts);
+  },
+  restoreSnapshot(id: string, ts: string): Promise<NoteSaveResult> {
+    return bus.invoke<NoteSaveResult>('notes:history:restore', id, ts);
+  },
+  integrityReport(): Promise<NoteIntegrityReportResult> {
+    return bus.invoke<NoteIntegrityReportResult>('notes:integrity:report');
   },
 };

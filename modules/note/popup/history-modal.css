@@ -1,0 +1,152 @@
+/* history-modal.css - 笔记历史记录弹窗（快照列表 + 行级差异预览 + 恢复） */
+
+.history-box {
+    width: 680px;
+    max-width: 92vw;
+    height: 480px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Layout: snapshot list (left) + diff detail (right) [左快照列表 + 右差异详情] */
+.history-layout {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+    margin-bottom: 14px;
+}
+
+.history-list {
+    width: 200px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 4px;
+}
+
+.history-item {
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.12s, border-color 0.12s;
+}
+.history-item:hover {
+    background: rgba(128, 128, 128, 0.12);
+}
+.history-item.selected {
+    background: rgba(66, 133, 244, 0.14);
+    border-color: rgba(66, 133, 244, 0.45);
+}
+
+.history-item-time {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text);
+    opacity: 0.85;
+}
+.history-item-title {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    opacity: 0.65;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+.history-item-chars {
+    font-size: 0.72rem;
+    color: var(--color-text);
+    opacity: 0.45;
+    margin-top: 2px;
+}
+
+.history-detail {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.07);
+    padding: 8px 0;
+}
+
+.history-empty,
+.history-hint {
+    padding: 24px 16px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--color-text);
+    opacity: 0.5;
+}
+
+.history-diff-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    opacity: 0.6;
+    padding: 4px 12px 8px;
+}
+
+/* Diff rows: added (snapshot has, current lacks) shows green with "+";
+   removed shows red with "−" [差异行：快照新增为绿 +；删除为红 −] */
+.history-diff,
+.history-diff-fallback {
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+.history-diff-fallback {
+    padding: 4px 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-text);
+    opacity: 0.8;
+}
+.history-diff-add,
+.history-diff-del,
+.history-diff-ctx {
+    display: flex;
+    padding: 0 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.history-diff-sign {
+    flex-shrink: 0;
+    width: 16px;
+    user-select: none;
+    opacity: 0.7;
+}
+.history-diff-text {
+    flex: 1;
+    min-width: 0;
+}
+.history-diff-add {
+    background: rgba(52, 199, 89, 0.16);
+    color: #1e8e3e;
+}
+.history-diff-del {
+    background: rgba(239, 68, 68, 0.14);
+    color: #d93025;
+}
+.history-diff-ctx {
+    color: var(--color-text);
+    opacity: 0.55;
+}
+[data-theme="dark"] .history-diff-add,
+[data-theme="blue"] .history-diff-add {
+    color: #6dd58c;
+}
+[data-theme="dark"] .history-diff-del,
+[data-theme="blue"] .history-diff-del {
+    color: #ff8a80;
+}
+
+/* Restore button styled as primary (not destructive red) [恢复按钮为主色调 (非危险红色)] */
+.history-restore-btn {
+    background: #4285f4;
+    color: white;
+}

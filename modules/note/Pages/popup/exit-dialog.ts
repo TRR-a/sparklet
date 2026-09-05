@@ -38,7 +38,7 @@ function getQuitBtn(): HTMLElement | null {
  * Check if another modal is currently open (its Esc handling wins over double-Esc) [检查是否有其他弹窗打开 (它们的 Esc 优先于双击检测)]
  */
 function isOtherModalOpen(): boolean {
-  const ids = ['customConfirmModal', 'noteInfoModal', 'shortcutModal'];
+  const ids = ['customConfirmModal', 'noteInfoModal', 'noteHistoryModal', 'shortcutModal'];
   return ids.some(id => {
     const el = document.getElementById(id);
     return el !== null && (el as HTMLElement).style.display !== 'none';

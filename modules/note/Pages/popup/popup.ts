@@ -20,6 +20,7 @@ import { initNoteSearch } from './note-search.js';
 import { initShortcutPanel } from './shortcut-panel.js';
 import { initGlobalShortcuts } from './global-shortcuts.js';
 import { initVirtualList } from './note-virtual-list.js';
+import { bindNoteHistoryModalHandlers, showNoteHistoryStartupToast } from './note-history-modal.js';
 import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 
 /**
@@ -128,6 +129,8 @@ async function initApp(): Promise<void> {
   initNoteSearch(); // Sidebar full-text search box [侧栏全文搜索框]
   initShortcutPanel(); // Keyboard shortcut panel (⌨️ / F1) [快捷键面板 (⌨️ / F1)]
   initGlobalShortcuts(); // Ctrl+F / Ctrl+N / Ctrl+P [全局快捷键]
+  bindNoteHistoryModalHandlers(); // Note history modal (list / diff / restore) [笔记历史弹窗 (列表/差异/恢复)]
+  await showNoteHistoryStartupToast(); // Startup integrity repair notice [启动完整性修复提示]
   await loadNotes();
   await restoreWorkspace();
   // Toast listener (from main process) [Toast 监听 (来自主进程)]

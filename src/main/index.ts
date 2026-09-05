@@ -10,6 +10,7 @@ import { getKernelWindow } from './windows/window-manager';
 import { initUpdater, checkUpdateManually } from './updater';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
+import { runStartupIntegrityScan } from './services/note-integrity';
 
 // Development: redirect userData to project-local app_data/sparklet-dev/ so dev data
 // (notes, config, update cache, logs) stays isolated from the production profile.
@@ -29,6 +30,11 @@ if (!app.isPackaged) {
 app.whenReady().then(async () => {
   // 1. Run migration first (ensure data is persisted) [先执行迁移 (确保数据落盘)]
   await migrateFromStore();
+
+  // 1.1 Startup integrity scan: clean tmp leftovers, repair corrupt note files
+  // from history snapshots (before any renderer can query notes)
+  // [启动完整性扫描：清理临时残留，从历史快照修复损坏笔记 (先于任何渲染进程查询)]
+  await runStartupIntegrityScan();
 
   // 2. Register all IPC handlers [注册所有 IPC 处理器]
   registerAllIpcHandlers();
