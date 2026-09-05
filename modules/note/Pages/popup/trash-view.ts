@@ -1,10 +1,13 @@
-// Trash view - handles trash list rendering, restore, and permanent delete [回收站视图 - 处理回收站列表渲染、恢复和永久删除]
+// Trash view - handles trash list rendering, restore, and permanent delete [回收站视图 - 处理回收站列表渲染、恢复、永久删除]
 
 import storageManager from '../../Modules/storage-manager.js';
 import { t } from '../../Modules/i18n.js';
 import { showCustomConfirm } from '../../Modules/custom-dialog.js';
 import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from './note-editor.js';
-import { createGroupTitle, createGroupEmpty, applyGroup } from './note-group.js';
+import { createGroupTitle, createGroupEmpty, collapsedGroups } from './note-group.js';
+import { closeAllMenus } from './note-menu.js';
+import { renderVirtualNoteList, type VirtualItem } from './note-virtual-list.js';
+import { clearSearch } from './note-search.js';
 import type { NoteListItem } from './note-list.js';
 import { renderMarkdown } from '../../Modules/markdown.js';
 import { escapeHtml } from '../../Base/dom-utils.js';
@@ -23,11 +26,14 @@ export async function toggleTrashView(): Promise<void> {
   const colorPalette = document.querySelector('.color-palette') as HTMLElement | null;
   const editorToolbar = document.querySelector('.editor-toolbar') as HTMLElement | null;
   const notePreview = document.getElementById('notePreview');
+  const searchBox = document.querySelector('.note-search-box') as HTMLElement | null;
   if (!trashToggleBtn) return;
 
   if (currentView === 'main') {
     currentView = 'trash';
     document.body.classList.add('trash-view');
+    clearSearch(); // Search is main-view only [搜索仅主视图可用]
+    if (searchBox) searchBox.style.display = 'none';
     // Exit preview mode if active [如果处于预览模式则退出]
     if (getPreviewMode()) {
       setPreviewMode(false);
@@ -42,7 +48,7 @@ export async function toggleTrashView(): Promise<void> {
     if (noteTitleInput) (noteTitleInput as HTMLElement).style.display = 'none';
     if (noteEditor) (noteEditor as HTMLElement).style.display = 'none';
     if (colorPalette) colorPalette.style.display = 'none';
-    if (editorToolbar) editorToolbar.style.display = 'none';
+    if (editorToolbar) (editorToolbar as HTMLElement).style.display = 'none';
     // Show preview area with initial hint [显示预览区域并展示初始提示]
     if (notePreview) {
       notePreview.innerHTML = `<p class="trash-preview-hint">${t('main.trashPreviewHint')}</p>`;
@@ -52,7 +58,7 @@ export async function toggleTrashView(): Promise<void> {
   } else {
     currentView = 'main';
     document.body.classList.remove('trash-view');
-    // Safety: clear stale blur-background and glow mask [安全清除残留的 blur-background 和光晕遮罩]
+    // Safety: clear stale blur-background and glow mask [安全清除残留 blur-background 和光晕遮罩]
     document.body.classList.remove('blur-background');
     const glowMask = document.getElementById('settingsGlowMask');
     if (glowMask) glowMask.classList.remove('show');
@@ -64,7 +70,8 @@ export async function toggleTrashView(): Promise<void> {
     if (noteTitleInput) (noteTitleInput as HTMLElement).style.display = 'block';
     if (noteEditor) (noteEditor as HTMLElement).style.display = 'block';
     if (colorPalette) colorPalette.style.display = 'flex';
-    if (editorToolbar) editorToolbar.style.display = 'flex';
+    if (editorToolbar) (editorToolbar as HTMLElement).style.display = 'flex';
+    if (searchBox) searchBox.style.display = 'block';
     if (notePreview) {
       notePreview.style.display = 'none';
       notePreview.innerHTML = '';
@@ -92,7 +99,7 @@ async function loadMainView(): Promise<void> {
 }
 
 /**
- * Create a single trash note card [创建单个回收站笔记卡片]
+ * Create a single trash note card (restore/delete buttons self-bound) [创建单个回收站笔记卡片 (还原/删除按钮自绑定)]
  * @param note Trashed note metadata [回收站笔记元数据]
  * @returns Card list element [卡片 li 元素]
  */
@@ -127,6 +134,21 @@ function createTrashCard(note: NoteListItem): HTMLElement {
       void showTrashPreview(note.id);
     }
   });
+
+  const restoreBtn = li.querySelector('.restore-btn');
+  if (restoreBtn) {
+    restoreBtn.addEventListener('click', async (e: Event) => {
+      e.stopPropagation();
+      await restoreFromTrash(note.id);
+    });
+  }
+  const deleteBtn = li.querySelector('.permanent-delete-btn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', async (e: Event) => {
+      e.stopPropagation();
+      await permanentlyDeleteNote(note.id);
+    });
+  }
   return li;
 }
 
@@ -134,45 +156,32 @@ function createTrashCard(note: NoteListItem): HTMLElement {
  * Render trash list, grouped into starred / others (both collapsible) [渲染回收站列表，分为星标/其他两组 (均可折叠)]
  */
 export async function renderTrashList(): Promise<void> {
+  if (!document.getElementById('noteList')) return;
+  closeAllMenus();
   const trashedNotes = await storageManager.getTrashNotes();
-  const noteList = document.getElementById('noteList');
-  if (!noteList) return;
-  noteList.innerHTML = '';
 
   // Split starred trashed notes from the rest [拆分星标删除笔记与其余笔记]
   const starredNotes = trashedNotes.filter(note => note.starred);
   const otherNotes = trashedNotes.filter(note => !note.starred);
 
-  // Starred group [星标分组]
-  noteList.appendChild(createGroupTitle('trash-starred', t('noteList.groupStarred')));
-  if (starredNotes.length > 0) {
-    starredNotes.forEach(note => noteList.appendChild(applyGroup(createTrashCard(note), 'trash-starred')));
-  } else {
-    noteList.appendChild(createGroupEmpty());
-  }
+  const items: VirtualItem[] = [];
+  const pushGroup = (key: string, label: string, group: NoteListItem[]) => {
+    items.push({ kind: 'title', key, label });
+    if (collapsedGroups.has(key)) return;
+    if (group.length > 0) {
+      group.forEach(note => items.push({ kind: 'card', note, variant: 'trash' }));
+    } else {
+      items.push({ kind: 'empty' });
+    }
+  };
+  pushGroup('trash-starred', t('noteList.groupStarred'), starredNotes);
+  pushGroup('trash-others', t('noteList.groupOthers'), otherNotes);
 
-  // Others group [其他分组]
-  noteList.appendChild(createGroupTitle('trash-others', t('noteList.groupOthers')));
-  if (otherNotes.length > 0) {
-    otherNotes.forEach(note => noteList.appendChild(applyGroup(createTrashCard(note), 'trash-others')));
-  } else {
-    noteList.appendChild(createGroupEmpty());
-  }
-
-  document.querySelectorAll('.restore-btn').forEach(btn => {
-    btn.addEventListener('click', async (e: Event) => {
-      e.stopPropagation();
-      const target = e.target as HTMLElement;
-      await restoreFromTrash(target.getAttribute('data-note-id') || '');
-    });
-  });
-  document.querySelectorAll('.permanent-delete-btn').forEach(btn => {
-    btn.addEventListener('click', async (e: Event) => {
-      e.stopPropagation();
-      const target = e.target as HTMLElement;
-      await permanentlyDeleteNote(target.getAttribute('data-note-id') || '');
-    });
-  });
+  renderVirtualNoteList(items, {
+    createTitle: item => createGroupTitle(item.key, item.label, () => void renderTrashList()),
+    createEmpty: item => createGroupEmpty(item.label),
+    createCard: item => createTrashCard(item.note),
+  }, { activeNoteId: null });
 }
 
 /**

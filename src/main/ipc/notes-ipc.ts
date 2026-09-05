@@ -8,7 +8,8 @@ import {
   saveNote,
   deleteNote,
   restoreNote,
-  permanentDeleteNote
+  permanentDeleteNote,
+  searchNotes
 } from '../services/notes-service';
 import type { Note } from '../../shared/types/notes';
 
@@ -44,5 +45,10 @@ export function registerNotesIpcHandlers(): void {
   // 6. Permanently delete (physically remove .json + .md) [永久删除 (物理删除 .json + .md)]
   ipcMain.handle('notes:permanentDelete', async (_event, id: string) => {
     return permanentDeleteNote(id);
+  });
+
+  // 7. Full-text search across title + content [全文搜索标题与正文]
+  ipcMain.handle('notes:search', async (_event, query: string) => {
+    return searchNotes(query);
   });
 }

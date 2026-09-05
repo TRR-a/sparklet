@@ -43,3 +43,10 @@ export interface NoteOperationResult {
   success: boolean;
   error?: string;
 }
+
+/** Result of full-text search (title + content) [全文搜索结果 (标题 + 正文)] */
+export interface NoteSearchResult {
+  success: boolean;
+  notes?: NoteMeta[];
+  error?: string;
+}

@@ -17,7 +17,8 @@
     <!-- 虚化效果与主布局 -->
     <link rel="stylesheet" href="popup-blur.css">
     <link rel="stylesheet" href="popup-main-layout.css">
-    <!-- 笔记列表：按钮/列表/卡片/置顶/分组/菜单/信息/回收站 -->
+    <!-- 笔记列表：搜索框/按钮/列表/卡片/置顶/分组/菜单/信息/回收站 -->
+    <link rel="stylesheet" href="note-search.css">
     <link rel="stylesheet" href="note-new-btn.css">
     <link rel="stylesheet" href="note-list.css">
     <link rel="stylesheet" href="note-item-text.css">
@@ -27,6 +28,7 @@
     <link rel="stylesheet" href="note-more-menu.css">
     <link rel="stylesheet" href="note-info-modal.css">
     <link rel="stylesheet" href="note-quick-jump.css">
+    <link rel="stylesheet" href="shortcut-panel.css">
     <link rel="stylesheet" href="note-trash.css">
     <!-- 编辑器：容器/调色板/标题/文本域/工具栏/预览/高亮/markdown -->
     <link rel="stylesheet" href="editor.css">
@@ -62,10 +64,11 @@
             </div>
             <h1 class="app-title" data-i18n="app.name">Sparklet</h1>
         </div>
-        <!-- 第二行：回收站、设置按钮 -->
+        <!-- 第二行：回收站、快捷键、设置按钮 -->
         <div class="title-row title-row-bottom">
             <div class="action-buttons">
                 <button id="trashToggle" class="icon-btn" data-i18n-title="tooltip.trash" title="回收站">🗑️</button>
+                <button id="shortcutBtn" class="icon-btn" data-i18n-title="tooltip.shortcuts" title="快捷键">⌨️</button>
                 <button id="settingsBtn" class="icon-btn" data-i18n-title="tooltip.settings" title="设置">⚙️</button>
             </div>
         </div>
@@ -73,9 +76,14 @@
     
     <!-- 主内容区：左侧笔记列表，右侧编辑区 -->
     <div class="main-container">
-        <!-- 侧边栏：笔记列表 + 项目工作区 -->
+        <!-- 侧边栏：搜索框、笔记列表 + 项目工作区 -->
         <div class="sidebar">
             <div class="sidebar-header">
+                <div class="note-search-box">
+                    <span class="note-search-icon">🔍</span>
+                    <input type="text" id="noteSearchInput" class="note-search-input" data-i18n-placeholder="search.placeholder" placeholder="搜索笔记...">
+                    <button id="noteSearchClear" class="note-search-clear" data-i18n-title="search.clear" title="清空" style="display: none;">×</button>
+                </div>
                 <button id="newNoteBtn" class="new-note-btn" data-i18n="main.newNote">+ 新建笔记</button>
             </div>
             <ul id="noteList" class="note-list"></ul>
@@ -147,6 +155,17 @@
             <div class="exit-confirm-buttons">
                 <button id="exitReturnBtn" class="exit-confirm-btn return focused" data-i18n="dialog.exitConfirm.btnReturn">返回</button>
                 <button id="exitQuitBtn" class="exit-confirm-btn quit" data-i18n="dialog.exitConfirm.btnQuit">退出</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快捷键面板弹窗（⌨️ 按钮或 F1 唤起，玻璃拟态速查表） -->
+    <div id="shortcutModal" class="shortcut-overlay" style="display: none;">
+        <div class="shortcut-box">
+            <div class="shortcut-title" data-i18n="shortcutPanel.title">快捷键</div>
+            <div id="shortcutPanelBody" class="shortcut-body"></div>
+            <div class="shortcut-buttons">
+                <button id="shortcutPanelCloseBtn" class="shortcut-close-btn" data-i18n="shortcutPanel.close">关闭</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,139 @@
+/* shortcut-panel.css - 快捷键面板弹窗（玻璃拟态速查表，F1/⌨️ 按钮唤起） */
+
+/* 遮罩层 [Overlay] */
+.shortcut-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: confirmFadeIn 0.18s ease;
+}
+
+/* 玻璃拟态主体（与退出确认弹窗同一套观感） [Glassmorphism box (same look as exit-confirm dialog)] */
+.shortcut-box {
+    width: 360px;
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 16px;
+    padding: 24px 24px 20px;
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    animation: confirmPopIn 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+[data-theme="dark"] .shortcut-box {
+    background: rgba(30, 34, 40, 0.6);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+[data-theme="blue"] .shortcut-box {
+    background: rgba(16, 32, 52, 0.6);
+    border-color: rgba(96, 165, 250, 0.28);
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(125, 211, 252, 0.12);
+}
+
+.shortcut-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--color-text);
+}
+
+/* 内容区（超高时独立滚动） [Body (scrolls independently when too tall)] */
+.shortcut-body {
+    overflow-y: auto;
+    min-height: 0;
+}
+
+/* 分组 [Group] */
+.shortcut-group {
+    margin-bottom: 14px;
+}
+
+.shortcut-group-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* 单行：动作 + 组合键 [Row: action + key combo] */
+.shortcut-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 7px 0;
+    font-size: 0.88rem;
+    color: var(--color-text);
+}
+
+.shortcut-action {
+    opacity: 0.85;
+}
+
+/* kbd 徽章 [kbd chip] */
+.shortcut-keys kbd {
+    display: inline-block;
+    padding: 3px 9px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.76rem;
+    color: var(--color-text);
+    background: rgba(127, 127, 127, 0.14);
+    border: 1px solid var(--color-border);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+/* 底部按钮区 [Bottom buttons] */
+.shortcut-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+.shortcut-close-btn {
+    padding: 9px 22px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(180deg, #4f8df9, #3b6fe0);
+    box-shadow: 0 2px 8px rgba(59, 111, 224, 0.35);
+    transition: box-shadow 0.15s ease, transform 0.12s ease, filter 0.15s ease;
+}
+
+.shortcut-close-btn:hover {
+    filter: brightness(1.08);
+}
+
+.shortcut-close-btn:active {
+    transform: scale(0.97);
+}
+
+.shortcut-close-btn:focus-visible {
+    outline: 2px solid rgba(125, 211, 252, 0.95);
+    outline-offset: 2px;
+}

@@ -17,6 +17,8 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    /* 虚拟列表补丁会替换窗口内容，禁用浏览器滚动锚定避免滚动位置跳动 [Virtual list patches replace window content; disable scroll anchoring to avoid jumps] */
+    overflow-anchor: none;
 }
 
 /* 侧边栏头部样式 */

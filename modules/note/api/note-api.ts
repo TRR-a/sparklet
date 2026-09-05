@@ -8,6 +8,7 @@ import type {
   NoteGetResult,
   NoteSaveResult,
   NoteOperationResult,
+  NoteSearchResult,
 } from '../../../src/shared/types/notes.js';
 
 export const noteApi = {
@@ -28,5 +29,8 @@ export const noteApi = {
   },
   permanentDelete(id: string): Promise<NoteOperationResult> {
     return bus.invoke<NoteOperationResult>('notes:permanentDelete', id);
+  },
+  search(query: string): Promise<NoteSearchResult> {
+    return bus.invoke<NoteSearchResult>('notes:search', query);
   },
 };

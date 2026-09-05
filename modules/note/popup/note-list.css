@@ -8,6 +8,12 @@
     flex-shrink: 0;
 }
 
+/* 虚拟列表上下占位元素（撑起完整虚拟高度，见 note-virtual-list.ts） [Virtual list spacers (hold the full virtual height, see note-virtual-list.ts)] */
+.virtual-spacer {
+    list-style: none;
+    width: 100%;
+}
+
 /* 笔记列表项基础样式 */
 .note-list-item {
     padding: 12px;

@@ -9,6 +9,7 @@ import {
   getCurrentNoteId,
   setCurrentNoteId
 } from '../popup/note-editor.js';
+import { refreshNoteListView, clearSearch } from './note-search.js';
 
 /** Save timeout reference [保存防抖定时器] */
 let saveTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -29,9 +30,9 @@ export async function saveCurrentNote(): Promise<void> {
   const content = contentInput.value;
   const finalTitle = title || content.substring(0, 20) || t('main.noteUntitled');
   await storageManager.updateNote(currentNoteId, { title: finalTitle, content });
-  const notes = await storageManager.getNotes();
   // Keep the open note highlighted after the list re-renders [重渲染后保持当前打开笔记高亮]
-  await renderNoteList(notes, currentNoteId);
+  // Also refreshes search results when a search is active [搜索激活时同样刷新搜索结果]
+  await refreshNoteListView();
 }
 
 /**
@@ -46,6 +47,8 @@ export function debounceSave(): void {
  * Create a new note [创建新笔记]
  */
 export async function createNewNote(): Promise<void> {
+  // A brand-new note rarely matches the active query - drop the search first [新笔记通常不匹配当前关键词 - 先退出搜索]
+  clearSearch();
   const newNote = await storageManager.createNote(t('main.noteUntitled'));
   const notes = await storageManager.getNotes();
   await renderNoteList(notes, newNote.id);
@@ -65,8 +68,7 @@ export async function changeNoteColor(color: string): Promise<void> {
   if (!currentNoteId) return;
   await storageManager.updateNote(currentNoteId, { color });
   updateActiveColor(color);
-  const notes = await storageManager.getNotes();
-  await renderNoteList(notes, currentNoteId);
+  await refreshNoteListView();
 }
 
 /**
@@ -77,8 +79,7 @@ export async function togglePinNote(noteId: string): Promise<void> {
   if (!note) return;
   const newPinned = !note.pinned;
   await storageManager.updateNote(noteId, { pinned: newPinned });
-  const notes = await storageManager.getNotes();
-  await renderNoteList(notes, getCurrentNoteId());
+  await refreshNoteListView();
 }
 
 /**
@@ -89,8 +90,7 @@ export async function toggleStarNote(noteId: string): Promise<void> {
   if (!note) return;
   const newStarred = !note.starred;
   await storageManager.updateNote(noteId, { starred: newStarred });
-  const notes = await storageManager.getNotes();
-  await renderNoteList(notes, getCurrentNoteId());
+  await refreshNoteListView();
 }
 
 /**
@@ -100,10 +100,10 @@ export async function handleDeleteNote(noteId: string, listItemElement: HTMLElem
   if (listItemElement.classList.contains('deleting')) {
     const success = await storageManager.deleteNote(noteId);
     if (!success) return;
-    const activeNotes = await storageManager.getNotes();
-    await renderNoteList(activeNotes, getCurrentNoteId());
+    await refreshNoteListView();
     const currentNoteId = getCurrentNoteId();
     if (noteId === currentNoteId) {
+      const activeNotes = await storageManager.getNotes();
       if (activeNotes.length > 0) {
         const firstNote = activeNotes[0];
         setCurrentNoteId(firstNote.id);

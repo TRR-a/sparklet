@@ -8,6 +8,7 @@ import { renderMarkdown } from '../../Modules/markdown.js';
 import { closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 import { saveCurrentNote } from './note-operations.js';
 import { renderNoteList } from './note-list.js';
+import { syncActiveNoteInList } from './note-virtual-list.js';
 import { closeAllMenus, bindNoteMenuGlobalHandler } from './note-menu.js';
 import { bindNoteInfoModalHandlers } from './note-info-modal.js';
 
@@ -64,9 +65,8 @@ export async function loadNoteIntoEditor(note: { id: string } | null): Promise<v
   if (titleInput) titleInput.value = fullNote.title || '';
   if (contentInput) contentInput.value = fullNote.content || '';
   updateActiveColor(fullNote.color);
-  document.querySelectorAll('.note-list-item').forEach((item: Element) => {
-    item.classList.toggle('active', item.getAttribute('data-note-id') === note.id);
-  });
+  // Sync active card highlight through the virtual list (attached + cached cards) [经虚拟列表同步卡片高亮 (含离屏缓存卡片)]
+  syncActiveNoteInList(note.id);
 }
 
 /**

@@ -1,4 +1,7 @@
 // Note group helpers - collapsible group titles and empty placeholders [笔记分组 - 可折叠分组标题与空占位]
+// Collapse state is data-level: the virtual list model rebuilds without the group's cards,
+// so toggling only flips the flag and calls onRebuild [折叠是数据级状态：虚拟列表模型重建时跳过该组卡片，
+// 切换只翻转标记并回调重建]
 
 import { t } from '../../Modules/i18n.js';
 
@@ -6,12 +9,13 @@ import { t } from '../../Modules/i18n.js';
 export const collapsedGroups = new Set<string>();
 
 /**
- * Create a collapsible group title [创建可折叠的分组标题]
+ * Create a collapsible group title [创建可折叠分组标题]
  * @param key Group identity for collapse state [分组折叠状态键]
  * @param label Group label text [分组标题文本]
+ * @param onRebuild Rebuild callback after collapse state changes [折叠状态变化后的重建回调]
  * @returns Group title list element [分组标题 li 元素]
  */
-export function createGroupTitle(key: string, label: string): HTMLElement {
+export function createGroupTitle(key: string, label: string, onRebuild?: () => void): HTMLElement {
   const title = document.createElement('li');
   title.className = 'note-group-title';
   const isCollapsed = collapsedGroups.has(key);
@@ -26,13 +30,7 @@ export function createGroupTitle(key: string, label: string): HTMLElement {
     if (caret) caret.textContent = collapsed ? '▶' : '▼';
     if (collapsed) collapsedGroups.add(key);
     else collapsedGroups.delete(key);
-
-    // Toggle every following sibling until the next group title [切换到下一个分组标题前的所有兄弟元素]
-    let next = title.nextElementSibling;
-    while (next && !next.classList.contains('note-group-title')) {
-      (next as HTMLElement).style.display = collapsed ? 'none' : '';
-      next = next.nextElementSibling;
-    }
+    onRebuild?.();
   });
 
   return title;
@@ -40,22 +38,12 @@ export function createGroupTitle(key: string, label: string): HTMLElement {
 
 /**
  * Create an empty-group placeholder [创建空分组占位项]
+ * @param label Custom hint text (defaults to noteList.empty) [自定义提示文本 (默认 noteList.empty)]
  * @returns Empty hint list element [-无- 提示 li 元素]
  */
-export function createGroupEmpty(): HTMLElement {
+export function createGroupEmpty(label?: string): HTMLElement {
   const empty = document.createElement('li');
   empty.className = 'note-group-empty';
-  empty.textContent = t('noteList.empty');
+  empty.textContent = label || t('noteList.empty');
   return empty;
-}
-
-/**
- * Apply a group key + initial collapse state to a card element [为卡片元素设置分组键与初始折叠状态]
- * @param card Card element [卡片元素]
- * @param key Group key [分组键]
- */
-export function applyGroup(card: HTMLElement, key: string): HTMLElement {
-  card.dataset.group = key;
-  if (collapsedGroups.has(key)) card.style.display = 'none';
-  return card;
 }
