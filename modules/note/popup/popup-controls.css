@@ -11,9 +11,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: filter 0.2s ease, transform 0.1s ease;
-    color: white;
+    transition: filter 0.2s ease, transform 0.1s ease, color 0.15s ease;
+    color: transparent; /* macOS 风格：默认纯色圆点，图标隐藏 */
     flex-shrink: 0;
+}
+
+/* 鼠标悬停单个按钮时显示该按钮的图标 */
+.window-btn:hover {
+    color: rgba(0, 0, 0, 0.6);
 }
 
 /* 最小化按钮背景色 */

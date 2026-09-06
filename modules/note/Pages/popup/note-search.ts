@@ -76,6 +76,8 @@ export function focusSearchInput(): void {
  */
 async function runSearch(query: string): Promise<void> {
   const result = await noteApi.search(query);
+  // Stale guard: if the query changed (or was cleared) while we awaited, drop this result [过期保护：await 期间 query 已变或已清除则丢弃结果]
+  if (searchQuery !== query) return;
   if (!result.success || !result.notes) {
     console.error('搜索笔记失败:', result.error);
     return;

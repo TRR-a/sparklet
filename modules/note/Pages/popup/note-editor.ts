@@ -80,6 +80,21 @@ export async function switchNote(noteId: string): Promise<void> {
 }
 
 /**
+ * Close the currently open note (save first, clear editor, deselect card) [关闭当前打开的笔记 (先保存，清空编辑器，取消卡片选中)]
+ */
+export async function closeNote(): Promise<void> {
+  if (!currentNoteId) return;
+  closeFilePreview();
+  await saveCurrentNote();
+  setCurrentNoteId(null);
+  const titleInput = document.getElementById('noteTitle') as HTMLInputElement | null;
+  const contentInput = document.getElementById('noteArea') as HTMLTextAreaElement | null;
+  if (titleInput) titleInput.value = '';
+  if (contentInput) contentInput.value = '';
+  syncActiveNoteInList(null);
+}
+
+/**
  * Toggle markdown preview mode [切换 Markdown 预览模式]
  */
 export async function togglePreview(): Promise<void> {

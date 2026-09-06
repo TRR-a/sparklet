@@ -66,7 +66,11 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
       toggleSelect(note.id);
       return;
     }
-    void import('./note-editor.js').then(({ switchNote }) => switchNote(note.id));
+    // Toggle: clicking the already-open note closes it [切换：点击已打开的笔记则关闭]
+    void import('./note-editor.js').then(({ switchNote, closeNote, getCurrentNoteId }) => {
+      if (note.id === getCurrentNoteId()) void closeNote();
+      else void switchNote(note.id);
+    });
   });
 
   // Delete button → double-click confirm [删除按钮→双击确认]

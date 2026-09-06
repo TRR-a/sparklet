@@ -47,17 +47,22 @@ export async function listNotes(): Promise<NoteListResult> {
     const jsonFiles = files.filter(f => f.endsWith('.json'));
 
     const notes: NoteMetaPartial[] = [];
-    for (const file of jsonFiles) {
+    // Parallel read: serial await-per-file made list/deletes lag 1-2s with many notes [并行读取：串行逐文件 await 会在笔记多时导致列表/删除卡顿 1-2 秒]
+    const metas = await Promise.all(jsonFiles.map(async (file) => {
       const id = file.replace('.json', '');
       const jsonPath = path.join(notesDir, file);
       try {
         const meta = await fs.readJson(jsonPath) as NoteMetaPartial;
         if (!meta.id) meta.id = id;
-        notes.push(meta);
+        return meta;
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err);
         console.warn(`[NotesFS] Skip invalid json: ${file}`, msg);
+        return null;
       }
+    }));
+    for (const meta of metas) {
+      if (meta) notes.push(meta);
     }
 
     notes.sort((a, b) => {

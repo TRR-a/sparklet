@@ -9,7 +9,7 @@ import {
   getCurrentNoteId,
   setCurrentNoteId
 } from '../popup/note-editor.js';
-import { refreshNoteListView, clearSearch } from './note-search.js';
+import { refreshNoteListView, clearSearch, isSearchActive } from './note-search.js';
 
 /** Save debounce delay [保存防抖延迟] */
 const SAVE_DEBOUNCE_MS = 800;
@@ -137,6 +137,8 @@ export async function handleDeleteNote(noteId: string, listItemElement: HTMLElem
   if (listItemElement.classList.contains('deleting')) {
     const success = await storageManager.deleteNote(noteId);
     if (!success) return;
+    // Deleting from search results: drop search and return to the main list [从搜索结果删除：退出搜索回到主列表]
+    if (isSearchActive()) clearSearch();
     await refreshNoteListView();
     const currentNoteId = getCurrentNoteId();
     if (noteId === currentNoteId) {
