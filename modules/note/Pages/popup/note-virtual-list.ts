@@ -264,6 +264,21 @@ export function getActiveNoteId(): string | null {
 }
 
 /**
+ * Sync multi-select state onto attached and cached cards [将多选选中态同步到已挂载与缓存的卡片]
+ * @param isSelected Predicate returning whether a note id is selected [判断某笔记 id 是否选中的谓词]
+ */
+export function syncSelectionInList(isSelected: (id: string) => boolean): void {
+  const apply = (el: Element) => {
+    if (!el.classList.contains('note-list-item')) return;
+    const id = el.getAttribute('data-note-id');
+    if (!id) return;
+    el.classList.toggle('selected', isSelected(id));
+  };
+  document.querySelectorAll('#noteList .note-list-item').forEach(apply);
+  for (const el of cardCache.values()) apply(el);
+}
+
+/**
  * Note ids of all cards in the current model order (collapsed groups excluded by builders) [当前模型中全部卡片的笔记 id 顺序 (折叠分组已由构建方排除)]
  */
 export function getVirtualCardNoteIds(): string[] {

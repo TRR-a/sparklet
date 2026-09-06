@@ -165,6 +165,44 @@ class StorageManager {
     return false;
   }
 
+  // ==================== Batch operations (single cache refresh at the end) [批量操作 (末尾仅刷新一次缓存)] ====================
+
+  /** Batch soft-delete (move to trash), returns count succeeded [批量软删除 (移回收站)，返回成功数] */
+  async deleteNotes(ids: string[]): Promise<number> {
+    if (!this.initialized) await this.init();
+    let count = 0;
+    for (const id of ids) {
+      const result = await noteApi.delete(id);
+      if (result.success) count++;
+    }
+    await this.loadFromFS();
+    return count;
+  }
+
+  /** Batch restore from trash, returns count succeeded [批量从回收站恢复，返回成功数] */
+  async restoreNotes(ids: string[]): Promise<number> {
+    if (!this.initialized) await this.init();
+    let count = 0;
+    for (const id of ids) {
+      const result = await noteApi.restore(id);
+      if (result.success) count++;
+    }
+    await this.loadFromFS();
+    return count;
+  }
+
+  /** Batch permanent delete, returns count succeeded [批量永久删除，返回成功数] */
+  async permanentlyDeleteNotes(ids: string[]): Promise<number> {
+    if (!this.initialized) await this.init();
+    let count = 0;
+    for (const id of ids) {
+      const result = await noteApi.permanentDelete(id);
+      if (result.success) count++;
+    }
+    await this.loadFromFS();
+    return count;
+  }
+
   /** Refresh cache (exposed for settings page / manual refresh) [刷新缓存 (对外暴露，设置页/手动刷新用)] */
   async refresh(): Promise<NoteMeta[] | null> {
     await this.loadFromFS();

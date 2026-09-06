@@ -8,6 +8,7 @@ import { createGroupTitle, createGroupEmpty, collapsedGroups } from './note-grou
 import { closeAllMenus } from './note-menu.js';
 import { renderVirtualNoteList, type VirtualItem } from './note-virtual-list.js';
 import { clearSearch } from './note-search.js';
+import { isSelectionMode, isSelected, toggleSelect, enterSelectionMode } from './selection-state.js';
 import type { NoteListItem } from './note-list.js';
 import { renderMarkdown } from '../../Modules/markdown.js';
 import { escapeHtml } from '../../Base/dom-utils.js';
@@ -99,21 +100,24 @@ async function loadMainView(): Promise<void> {
 }
 
 /**
- * Create a single trash note card (restore/delete buttons self-bound) [创建单个回收站笔记卡片 (还原/删除按钮自绑定)]
- * @param note Trashed note metadata [回收站笔记元数据]
- * @returns Card list element [卡片 li 元素]
+ * Create a single trash note card [创建单个回收站笔记卡片]
+ * Supports multi-select: checkbox + more menu with "select" entry; in selection
+ * mode clicking the card toggles selection instead of showing preview.
+ * [支持多选：复选框 + 含"多选"项的更多菜单；多选模式下点击卡片切换选中而非显示预览]
  */
 function createTrashCard(note: NoteListItem): HTMLElement {
   const li = document.createElement('li');
-  li.className = 'note-list-item';
+  li.className = 'note-list-item trash-card';
   li.setAttribute('data-note-id', note.id);
   li.style.setProperty('--note-color', note.color);
+  if (isSelected(note.id)) li.classList.add('selected');
 
   const starIcon = note.starred
     ? `<span class="star-icon" title="${t('tooltip.starred')}">⭐</span>`
     : '';
 
   li.innerHTML = `
+      <span class="note-checkbox" aria-hidden="true"></span>
       <span class="note-color-dot" style="background-color: ${note.color};"></span>
       <div class="note-text">
         <div class="note-title">${starIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
@@ -124,15 +128,25 @@ function createTrashCard(note: NoteListItem): HTMLElement {
         <button class="restore-btn" data-note-id="${note.id}">${t('main.btnRestore')}</button>
         <button class="permanent-delete-btn" data-note-id="${note.id}">${t('main.btnPermanentDelete')}</button>
       </div>
+      <button class="note-more-btn" title="${t('tooltip.more')}">⋮</button>
+      <div class="note-more-menu">
+        <button class="menu-item select-mode" data-action="select">${t('noteMenu.select')}</button>
+      </div>
     `;
+
   li.addEventListener('click', (e: MouseEvent) => {
-    if (!(e.target as HTMLElement).closest('.trash-actions')) {
-      document.querySelectorAll('.trash-view .note-list-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      li.classList.add('active');
-      void showTrashPreview(note.id);
+    const target = e.target as HTMLElement;
+    if (target.closest('.trash-actions') || target.closest('.note-more-btn') || target.closest('.note-more-menu')) return;
+    // Multi-select mode: toggle selection [多选模式：切换选中]
+    if (isSelectionMode()) {
+      toggleSelect(note.id);
+      return;
     }
+    document.querySelectorAll('.trash-view .note-list-item').forEach(item => {
+      item.classList.remove('active');
+    });
+    li.classList.add('active');
+    void showTrashPreview(note.id);
   });
 
   const restoreBtn = li.querySelector('.restore-btn');
@@ -149,6 +163,29 @@ function createTrashCard(note: NoteListItem): HTMLElement {
       await permanentlyDeleteNote(note.id);
     });
   }
+
+  // More menu (select entry only) [更多菜单 (仅多选项)]
+  const moreBtn = li.querySelector('.note-more-btn');
+  if (moreBtn) {
+    moreBtn.addEventListener('click', (e: Event) => {
+      e.stopPropagation();
+      const menu = li.querySelector('.note-more-menu');
+      closeAllMenus();
+      menu?.classList.toggle('show');
+    });
+  }
+  const menu = li.querySelector('.note-more-menu');
+  if (menu) {
+    menu.addEventListener('click', (e: Event) => {
+      e.stopPropagation();
+      const btn = (e.target as HTMLElement).closest('[data-action="select"]');
+      if (!btn) return;
+      closeAllMenus();
+      enterSelectionMode();
+      toggleSelect(note.id);
+    });
+  }
+
   return li;
 }
 
@@ -226,3 +263,17 @@ async function permanentlyDeleteNote(noteId: string): Promise<void> {
 export function getCurrentView(): string {
   return currentView;
 }
+
+// Esc in trash view returns to main notes (capture phase; modals keep their own Esc) [回收站中按 Esc 返回主笔记 (capture 阶段；弹窗保留自身 Esc 处理)]
+document.addEventListener('keydown', (e: KeyboardEvent) => {
+  if (e.key !== 'Escape' || currentView !== 'trash') return;
+  const modalOpen = ['customConfirmModal', 'noteInfoModal', 'noteHistoryModal', 'shortcutModal', 'exitConfirmModal']
+    .some(id => {
+      const el = document.getElementById(id);
+      return el !== null && (el as HTMLElement).style.display !== 'none';
+    });
+  if (modalOpen) return;
+  e.preventDefault();
+  e.stopPropagation();
+  void toggleTrashView();
+}, true);

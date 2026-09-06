@@ -10,6 +10,7 @@ import {
 import { closeAllMenus, toggleCardMenu } from './note-menu.js';
 import { showNoteInfo } from './note-info-modal.js';
 import { showNoteHistory } from './note-history-modal.js';
+import { isSelectionMode, isSelected, toggleSelect, enterSelectionMode } from './selection-state.js';
 import type { NoteListItem } from './note-list.js';
 
 /**
@@ -25,6 +26,7 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
   li.style.setProperty('--note-color', note.color);
   if (note.id === activeNoteId) li.classList.add('active');
   if (note.pinned) li.classList.add('pinned');
+  if (isSelected(note.id)) li.classList.add('selected');
 
   const pinIcon = note.pinned
     ? `<span class="pin-icon" title="${t('tooltip.pinned')}">📌</span>`
@@ -34,6 +36,7 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
     : '';
 
   li.innerHTML = `
+    <span class="note-checkbox" aria-hidden="true"></span>
     <span class="note-color-dot" style="background-color: ${note.color};"></span>
     <div class="note-text">
       <div class="note-title">${pinIcon}${starIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
@@ -48,15 +51,21 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
       <button class="menu-item star-toggle" data-action="star">
         ${note.starred ? t('noteMenu.unstar') : t('noteMenu.star')}
       </button>
+      <button class="menu-item select-mode" data-action="select">${t('noteMenu.select')}</button>
       <button class="menu-item note-history" data-action="history">${t('noteMenu.history')}</button>
       <button class="menu-item note-info" data-action="info">${t('noteMenu.info')}</button>
     </div>
   `;
 
-  // Click card body → switch note (dynamic import to avoid circular dep) [点击卡片主体→切换笔记 (动态导入避免循环依赖)]
+  // Click card body [点击卡片主体]
   li.addEventListener('click', (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     if (target.closest('.note-more-btn') || target.closest('.note-more-menu') || target.closest('.note-delete-btn')) return;
+    // Multi-select mode: toggle selection instead of opening the note [多选模式：切换选中而非打开笔记]
+    if (isSelectionMode()) {
+      toggleSelect(note.id);
+      return;
+    }
     void import('./note-editor.js').then(({ switchNote }) => switchNote(note.id));
   });
 
@@ -87,7 +96,10 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
       if (!btn) return;
       const action = btn.getAttribute('data-action');
       closeAllMenus();
-      if (action === 'pin') {
+      if (action === 'select') {
+        enterSelectionMode();
+        toggleSelect(note.id);
+      } else if (action === 'pin') {
         await togglePinNote(note.id);
       } else if (action === 'star') {
         await toggleStarNote(note.id);

@@ -1,0 +1,99 @@
+/* selection.css - Multi-select mode: checkboxes, selected state, action bar [多选模式：复选框、选中态、操作栏] */
+
+/* ---- Checkbox on each card (hidden by default, shown in selection mode) [卡片复选框 (默认隐藏，多选模式显示)] ---- */
+.note-checkbox {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 2px solid var(--color-border, #ccc);
+    margin-right: 10px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    box-sizing: border-box;
+}
+
+body.selection-mode .note-checkbox {
+    display: flex;
+}
+
+.note-list-item.selected .note-checkbox {
+    background-color: var(--color-primary, #4285f4);
+    border-color: var(--color-primary, #4285f4);
+}
+
+.note-list-item.selected .note-checkbox::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) translate(-1px, -1px);
+}
+
+/* ---- Selected card highlight [选中卡片高亮] ---- */
+.note-list-item.selected {
+    background-color: var(--color-primary-light, rgba(66, 133, 244, 0.1));
+}
+
+/* ---- Hide per-card action buttons in selection mode [多选模式下隐藏单卡操作按钮] ---- */
+body.selection-mode .note-delete-btn,
+body.selection-mode .note-more-btn,
+body.selection-mode .trash-actions {
+    display: none !important;
+}
+
+/* ---- Selection action bar [多选操作栏] ---- */
+.selection-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin: 0 12px 8px;
+    border-radius: var(--radius-sm, 8px);
+    background-color: var(--color-hover, rgba(0, 0, 0, 0.04));
+    border: 1px solid var(--color-border, #e0e0e0);
+    flex-shrink: 0;
+}
+
+.selection-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text, #333);
+    white-space: nowrap;
+}
+
+.selection-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.sel-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: var(--color-primary, #4285f4);
+    color: #fff;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+}
+
+.sel-btn:hover {
+    opacity: 0.85;
+}
+
+.sel-btn.cancel {
+    background-color: var(--color-border, #ccc);
+    color: var(--color-text, #333);
+}
+
+.sel-btn.danger {
+    background-color: #ea4335;
+}

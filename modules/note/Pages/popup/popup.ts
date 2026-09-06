@@ -20,6 +20,7 @@ import { initNoteSearch } from './note-search.js';
 import { initShortcutPanel } from './shortcut-panel.js';
 import { initGlobalShortcuts } from './global-shortcuts.js';
 import { initVirtualList } from './note-virtual-list.js';
+import { initSelectionBar } from './selection-bar.js';
 import { bindNoteHistoryModalHandlers, showNoteHistoryStartupToast } from './note-history-modal.js';
 import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
 
@@ -126,6 +127,7 @@ async function initApp(): Promise<void> {
   initExitDialog(); // Double-Esc exit confirm dialog [双击 Esc 退出确认弹窗]
   initNoteQuickJump(); // Ctrl+digit quick jump to first 10 visible notes [Ctrl+数字快速跳转前 10 个可见笔记]
   initVirtualList(); // Virtual list scroll/resize listeners [虚拟列表滚动/缩放监听]
+  initSelectionBar(); // Multi-select action bar [多选操作栏]
   initNoteSearch(); // Sidebar full-text search box [侧栏全文搜索框]
   initShortcutPanel(); // Keyboard shortcut panel (⌨️ / F1) [快捷键面板 (⌨️ / F1)]
   initGlobalShortcuts(); // Ctrl+F / Ctrl+N / Ctrl+P [全局快捷键]
