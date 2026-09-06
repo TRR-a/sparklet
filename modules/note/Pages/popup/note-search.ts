@@ -75,6 +75,12 @@ export function focusSearchInput(): void {
  * Run the search and render results [执行搜索并渲染结果]
  */
 async function runSearch(query: string): Promise<void> {
+  // Empty query = search inactive: restore the normal grouped list instead of showing "0 results" [空关键词 = 搜索未激活：恢复常规分组列表，而非显示"0 个结果"]
+  if (!query.trim()) {
+    const allNotes = await storageManager.getNotes();
+    await renderNoteList(allNotes, getActiveNoteId());
+    return;
+  }
   const result = await noteApi.search(query);
   // Stale guard: if the query changed (or was cleared) while we awaited, drop this result [过期保护：await 期间 query 已变或已清除则丢弃结果]
   if (searchQuery !== query) return;

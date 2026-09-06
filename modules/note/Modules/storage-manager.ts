@@ -103,7 +103,7 @@ class StorageManager {
   async updateNote(id: string, updates: Partial<Note>): Promise<Note | null> {
     if (!this.initialized) await this.init();
 
-    const index = this.notesCache!.findIndex(n => n.id === id);
+    const index = this.notesCache!.findIndex(note => note.id === id);
     if (index === -1) return null;
 
     // Get current complete data (including content) [获取当前完整数据 (含 content)]
@@ -139,8 +139,9 @@ class StorageManager {
     if (!this.initialized) await this.init();
     const result = await noteApi.delete(id);
     if (result.success) {
-      // Refresh cache [刷新缓存]
-      await this.loadFromFS();
+      // Optimistic cache update: avoids a full list IPC round-trip after delete [乐观更新缓存：省去删除后的全量 list IPC 往返]
+      const cached = this.notesCache!.find(note => note.id === id);
+      if (cached) { cached.isDeleted = true; cached.deletedAt = new Date().toISOString(); }
       return true;
     }
     return false;
@@ -151,7 +152,8 @@ class StorageManager {
     if (!this.initialized) await this.init();
     const result = await noteApi.restore(id);
     if (result.success) {
-      await this.loadFromFS();
+      const cached = this.notesCache!.find(note => note.id === id);
+      if (cached) { cached.isDeleted = false; cached.deletedAt = null; }
       return true;
     }
     return false;
@@ -162,13 +164,13 @@ class StorageManager {
     if (!this.initialized) await this.init();
     const result = await noteApi.permanentDelete(id);
     if (result.success) {
-      await this.loadFromFS();
+      this.notesCache = this.notesCache!.filter(note => note.id !== id);
       return true;
     }
     return false;
   }
 
-  // ==================== Batch operations (single cache refresh at the end) [批量操作 (末尾仅刷新一次缓存)] ====================
+  // ==================== Batch operations (optimistic cache, no full reload) [批量操作 (乐观更新缓存，不全量重读)] ====================
 
   /** Batch soft-delete (move to trash), returns count succeeded [批量软删除 (移回收站)，返回成功数] */
   async deleteNotes(ids: string[]): Promise<number> {
@@ -176,9 +178,12 @@ class StorageManager {
     let count = 0;
     for (const id of ids) {
       const result = await noteApi.delete(id);
-      if (result.success) count++;
+      if (result.success) {
+        count++;
+        const cached = this.notesCache!.find(note => note.id === id);
+        if (cached) { cached.isDeleted = true; cached.deletedAt = new Date().toISOString(); }
+      }
     }
-    await this.loadFromFS();
     return count;
   }
 
@@ -188,9 +193,12 @@ class StorageManager {
     let count = 0;
     for (const id of ids) {
       const result = await noteApi.restore(id);
-      if (result.success) count++;
+      if (result.success) {
+        count++;
+        const cached = this.notesCache!.find(note => note.id === id);
+        if (cached) { cached.isDeleted = false; cached.deletedAt = null; }
+      }
     }
-    await this.loadFromFS();
     return count;
   }
 
@@ -200,9 +208,11 @@ class StorageManager {
     let count = 0;
     for (const id of ids) {
       const result = await noteApi.permanentDelete(id);
-      if (result.success) count++;
+      if (result.success) {
+        count++;
+        this.notesCache = this.notesCache!.filter(note => note.id !== id);
+      }
     }
-    await this.loadFromFS();
     return count;
   }
 
@@ -217,8 +227,8 @@ class StorageManager {
     await this.loadFromFS();
     console.log('=== 存储调试 (文件系统) ===');
     console.log('笔记总数:', this.notesCache!.length);
-    console.log('活跃笔记:', this.notesCache!.filter(n => !n.isDeleted).length);
-    console.log('回收站笔记:', this.notesCache!.filter(n => n.isDeleted).length);
+    console.log('活跃笔记:', this.notesCache!.filter(note => !note.isDeleted).length);
+    console.log('回收站笔记:', this.notesCache!.filter(note => note.isDeleted).length);
     return this.notesCache;
   }
 }
