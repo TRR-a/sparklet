@@ -29,8 +29,28 @@ interface OldNote {
   starred?: boolean;
 }
 
-/** Partial note metadata (without content) [部分笔记元数据 (不含正文)] */
+/** Partial note metadata (without content) [部分笔记元数据 (不含 content)] */
 type NoteMetaPartial = Partial<NoteMeta>;
+
+/**
+ * Per-note write serialization: save/delete IPC handlers run concurrently in the
+ * main process; without a lock, a save's readJson can happen before a delete's
+ * write and its writeFile after, reverting isDeleted to false (resurrecting a
+ * trashed note) [同笔记写操作串行锁：IPC 处理器在主进程并发执行，保存的读与写若
+ * 夹住删除的写，会把 isDeleted 覆盖回 false 导致已删除笔记复活]
+ */
+const noteWriteLocks = new Map<string, Promise<unknown>>();
+
+function withNoteLock<T>(id: string, fn: () => Promise<T>): Promise<T> {
+  const prev = noteWriteLocks.get(id) ?? Promise.resolve();
+  const run = prev.then(fn, fn); // fn ignores the previous outcome [fn 不关心前序结果]
+  noteWriteLocks.set(id, run);
+  const release = () => {
+    if (noteWriteLocks.get(id) === run) noteWriteLocks.delete(id);
+  };
+  run.then(release, release);
+  return run;
+}
 
 /**
  * Get notes directory path [获取笔记目录路径]
@@ -117,15 +137,33 @@ export async function getNote(id: string): Promise<NoteGetResult> {
  * Atomic writes: .md first, then .json (content is the valuable artifact) [原子写入：先 .md 后 .json (正文是关键资产)]
  */
 export async function saveNote(noteData: Note): Promise<NoteSaveResult> {
+  if (!noteData || !noteData.id || !isValidNoteId(noteData.id)) {
+    return { success: false, error: 'Invalid note data' };
+  }
+  return withNoteLock(noteData.id, () => saveNoteLocked(noteData));
+}
+
+/** Locked save body [加锁的保存实现] */
+async function saveNoteLocked(noteData: Note): Promise<NoteSaveResult> {
   try {
-    if (!noteData || !noteData.id || !isValidNoteId(noteData.id)) throw new Error('Invalid note data');
     const notesDir = await ensureNotesDir();
+
+    // Guard: never save over a soft-deleted note (a save arriving after a delete
+    // would revert isDeleted to false and resurrect it) [保护：不得覆盖已软删除
+    // 的笔记 (删除之后到达的保存会把 isDeleted 改回 false 导致复活)]
+    const jsonPath = path.join(notesDir, `${noteData.id}.json`);
+    if (await fs.pathExists(jsonPath)) {
+      const existing = await fs.readJson(jsonPath) as Partial<NoteMeta>;
+      if (existing.isDeleted && !noteData.isDeleted) {
+        return { success: false, error: 'Note is deleted' };
+      }
+    }
+
     const { content, ...meta } = noteData;
 
     const mdPath = path.join(notesDir, `${noteData.id}.md`);
     await writeFileAtomic(mdPath, content || '');
 
-    const jsonPath = path.join(notesDir, `${noteData.id}.json`);
     await writeFileAtomic(jsonPath, JSON.stringify(meta, null, 2));
 
     // Throttled history snapshot (failure must never break the save) [限频历史快照 (失败不影响保存)]
@@ -202,8 +240,13 @@ export async function searchNotes(query: string): Promise<NoteSearchResult> {
  * Snapshots the full note first so pre-delete content stays recoverable [先全量快照，删除前内容可恢复]
  */
 export async function deleteNote(id: string): Promise<NoteOperationResult> {
+  if (!id || !isValidNoteId(id)) return { success: false, error: 'Note ID required' };
+  return withNoteLock(id, () => deleteNoteLocked(id));
+}
+
+/** Locked delete body [加锁的删除实现] */
+async function deleteNoteLocked(id: string): Promise<NoteOperationResult> {
   try {
-    if (!id || !isValidNoteId(id)) throw new Error('Note ID required');
     const notesDir = getNotesDir();
     const jsonPath = path.join(notesDir, `${id}.json`);
 
@@ -232,8 +275,13 @@ export async function deleteNote(id: string): Promise<NoteOperationResult> {
  * Restore soft-deleted note [恢复软删除]
  */
 export async function restoreNote(id: string): Promise<NoteOperationResult> {
+  if (!id || !isValidNoteId(id)) return { success: false, error: 'Note ID required' };
+  return withNoteLock(id, () => restoreNoteLocked(id));
+}
+
+/** Locked restore body [加锁的恢复实现] */
+async function restoreNoteLocked(id: string): Promise<NoteOperationResult> {
   try {
-    if (!id || !isValidNoteId(id)) throw new Error('Note ID required');
     const notesDir = getNotesDir();
     const jsonPath = path.join(notesDir, `${id}.json`);
 
@@ -254,8 +302,13 @@ export async function restoreNote(id: string): Promise<NoteOperationResult> {
  * Permanently delete (physically remove .json + .md + history) [永久删除 (物理删除 .json + .md + 历史)]
  */
 export async function permanentDeleteNote(id: string): Promise<NoteOperationResult> {
+  if (!id || !isValidNoteId(id)) return { success: false, error: 'Note ID required' };
+  return withNoteLock(id, () => permanentDeleteNoteLocked(id));
+}
+
+/** Locked permanent-delete body [加锁的永久删除实现] */
+async function permanentDeleteNoteLocked(id: string): Promise<NoteOperationResult> {
   try {
-    if (!id || !isValidNoteId(id)) throw new Error('Note ID required');
     const notesDir = getNotesDir();
     const jsonPath = path.join(notesDir, `${id}.json`);
     const mdPath = path.join(notesDir, `${id}.md`);

@@ -29,7 +29,7 @@ let maxWaitTimeout: ReturnType<typeof setTimeout> | null = null;
 /**
  * Clear pending save timers [清理待触发的保存定时器]
  */
-function clearSaveTimers(): void {
+export function clearSaveTimers(): void {
   if (saveTimeout) {
     clearTimeout(saveTimeout);
     saveTimeout = null;
@@ -135,6 +135,12 @@ export async function toggleStarNote(noteId: string): Promise<void> {
  */
 export async function handleDeleteNote(noteId: string, listItemElement: HTMLElement): Promise<void> {
   if (listItemElement.classList.contains('deleting')) {
+    // If deleting the currently-open note, drop its pending save timers FIRST:
+    // a late debounced save racing the delete IPC can resurrect the note
+    // (fs write interleaving in the main process reverts isDeleted to false)
+    // [删除当前打开的笔记时先清其待保存定时器：迟到的防抖保存与删除 IPC 竞态，
+    //  主进程文件写入交错会把 isDeleted 改回 false 导致笔记复活]
+    if (noteId === getCurrentNoteId()) clearSaveTimers();
     const success = await storageManager.deleteNote(noteId);
     if (!success) return;
     // Deleting from search results: drop search and return to the main list [从搜索结果删除：退出搜索回到主列表]
