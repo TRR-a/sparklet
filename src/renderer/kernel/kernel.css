@@ -52,10 +52,80 @@ body {
     background-color: var(--color-bg);
     color: var(--color-text);
     transition: background-color 0.3s, color 0.3s;
+    overflow: hidden;
+}
+
+/* ==================== Shell: left rail + right content [外壳：左侧导航栏 + 右侧内容] ==================== */
+.kernel-shell {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.kernel-rail {
+    width: 78px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    gap: 6px;
+    padding: 12px 6px;
+    background-color: var(--color-hover);
+    border-right: 1px solid var(--color-border);
+    -webkit-app-region: drag;
+}
+
+.rail-btn {
+    -webkit-app-region: no-drag;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 9px 2px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+}
+
+.rail-btn:hover {
+    background-color: var(--color-card-bg);
+    color: var(--color-text);
+}
+
+.rail-btn.active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.rail-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background-color: currentColor;
+    opacity: 0.85;
+}
+
+.rail-label {
+    font-size: 0.66rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.kernel-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     padding: 16px;
+    overflow: hidden;
+}
+
+.view {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 /* ==================== Title bar [标题栏] ==================== */
@@ -64,10 +134,10 @@ body {
     flex-direction: column;
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
-    padding: 4px 16px 8px 16px;
+    padding: 4px 0 8px 0;
     -webkit-app-region: drag;
     width: 100%;
-    margin: -16px -16px 16px -16px;
+    margin: 0 0 12px 0;
     flex-shrink: 0;
 }
 
@@ -245,6 +315,79 @@ body {
 }
 
 .plugin-open-btn:hover {
+    opacity: 0.88;
+}
+
+/* ==================== Plugin manage list [分页管理列表] ==================== */
+.manage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 0 16px 0;
+}
+
+.manage-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+}
+
+.manage-item .plugin-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.manage-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.manage-name-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.manage-name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.manage-version {
+    font-size: 0.76rem;
+    color: var(--color-muted);
+}
+
+.manage-path {
+    font-size: 0.74rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+}
+
+.manage-open-btn {
+    flex-shrink: 0;
+    border: none;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 7px 18px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.manage-open-btn:hover {
     opacity: 0.88;
 }
 

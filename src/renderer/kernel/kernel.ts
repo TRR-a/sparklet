@@ -17,6 +17,9 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.emptyTitle': 'No plugins installed',
     'kernel.emptyDesc': 'Install a plugin to unlock more features',
     'kernel.open': 'Open',
+    'kernel.navHome': 'Home',
+    'kernel.navPages': 'Plugins',
+    'kernel.pagesTitle': 'Plugin management',
     'kernel.monitor': 'System monitor',
     'kernel.memory': 'Memory',
     'kernel.gpu': 'GPU',
@@ -30,6 +33,9 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.emptyTitle': '未安装任何插件',
     'kernel.emptyDesc': '安装插件以解锁更多功能',
     'kernel.open': '打开',
+    'kernel.navHome': '主页',
+    'kernel.navPages': '分页管理',
+    'kernel.pagesTitle': '分页管理',
     'kernel.monitor': '系统监控',
     'kernel.memory': '内存',
     'kernel.gpu': 'GPU',
@@ -188,6 +194,15 @@ async function refreshMonitor(): Promise<void> {
 }
 
 // ========== Plugin rendering [插件渲染] ==========
+let cachedPlugins: PluginDescriptor[] = [];
+
+/** Localized plugin name [本地化插件名] */
+function localizedPluginName(plugin: PluginDescriptor): string {
+  return currentLang && plugin.nameI18n?.[currentLang]
+    ? plugin.nameI18n[currentLang]
+    : plugin.nameI18n?.['en'] ?? plugin.name;
+}
+
 function pluginCard(plugin: PluginDescriptor): HTMLElement {
   const card = document.createElement('div');
   card.className = 'plugin-card';
@@ -200,10 +215,7 @@ function pluginCard(plugin: PluginDescriptor): HTMLElement {
 
   const name = document.createElement('div');
   name.className = 'plugin-name';
-  const localized = currentLang && plugin.nameI18n?.[currentLang]
-    ? plugin.nameI18n[currentLang]
-    : plugin.nameI18n?.['en'] ?? plugin.name;
-  name.textContent = localized;
+  name.textContent = localizedPluginName(plugin);
 
   const version = document.createElement('div');
   version.className = 'plugin-version';
@@ -239,23 +251,101 @@ function pluginCard(plugin: PluginDescriptor): HTMLElement {
   return card;
 }
 
+/** One row in the plugin-management view [分页管理视图中的一行] */
+function manageItem(plugin: PluginDescriptor): HTMLElement {
+  const row = document.createElement('div');
+  row.className = 'manage-item';
+
+  if (plugin.iconPath) {
+    const img = document.createElement('img');
+    img.className = 'plugin-icon';
+    img.src = plugin.iconPath;
+    img.alt = plugin.name;
+    row.append(img);
+  } else {
+    const fallback = document.createElement('div');
+    fallback.className = 'plugin-icon plugin-icon-fallback';
+    fallback.textContent = plugin.name.charAt(0).toUpperCase();
+    row.append(fallback);
+  }
+
+  const info = document.createElement('div');
+  info.className = 'manage-info';
+  const nameRow = document.createElement('div');
+  nameRow.className = 'manage-name-row';
+  const name = document.createElement('span');
+  name.className = 'manage-name';
+  name.textContent = localizedPluginName(plugin);
+  const version = document.createElement('span');
+  version.className = 'manage-version';
+  version.textContent = `v${plugin.version}${plugin.author ? ` · ${plugin.author}` : ''}`;
+  nameRow.append(name, version);
+  const idLine = document.createElement('div');
+  idLine.className = 'manage-path';
+  idLine.textContent = plugin.id;
+  info.append(nameRow, idLine);
+
+  const openBtn = document.createElement('button');
+  openBtn.className = 'manage-open-btn';
+  openBtn.textContent = t('kernel.open');
+  openBtn.addEventListener('click', () => pluginsApi.open(plugin.id));
+
+  row.append(info, openBtn);
+  return row;
+}
+
 async function renderPlugins(): Promise<void> {
-  const plugins = await pluginsApi.list();
+  cachedPlugins = await pluginsApi.list();
   const grid = document.getElementById('pluginGrid');
   const empty = document.getElementById('emptyState');
   if (!grid || !empty) return;
 
   grid.innerHTML = '';
-  if (plugins.length === 0) {
+  if (cachedPlugins.length === 0) {
     grid.style.display = 'none';
+    empty.style.display = 'flex';
+  } else {
+    empty.style.display = 'none';
+    grid.style.display = 'grid';
+    for (const plugin of cachedPlugins) grid.appendChild(pluginCard(plugin));
+  }
+  renderManageList();
+}
+
+/** Render the plugin-management view from cached plugins [用缓存的插件渲染分页管理视图] */
+function renderManageList(): void {
+  const list = document.getElementById('manageList');
+  const empty = document.getElementById('manageEmpty');
+  if (!list || !empty) return;
+  list.innerHTML = '';
+  if (cachedPlugins.length === 0) {
+    list.style.display = 'none';
     empty.style.display = 'flex';
     return;
   }
   empty.style.display = 'none';
-  grid.style.display = 'grid';
-  for (const plugin of plugins) {
-    grid.appendChild(pluginCard(plugin));
-  }
+  list.style.display = 'flex';
+  for (const plugin of cachedPlugins) list.appendChild(manageItem(plugin));
+}
+
+// ========== Navigation (left rail) [左侧导航栏] ==========
+function switchView(view: 'home' | 'pages'): void {
+  const home = document.getElementById('viewHome');
+  const pages = document.getElementById('viewPages');
+  if (home) home.style.display = view === 'home' ? 'flex' : 'none';
+  if (pages) pages.style.display = view === 'pages' ? 'flex' : 'none';
+  document.querySelectorAll<HTMLButtonElement>('.rail-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.view === view);
+  });
+}
+
+function bindNavigation(): void {
+  document.querySelectorAll<HTMLButtonElement>('.rail-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+      if (view === 'home' || view === 'pages') switchView(view);
+    });
+  });
 }
 
 // ========== Init [初始化] ==========
@@ -267,6 +357,8 @@ async function init(): Promise<void> {
   await loadTheme();
   bindThemeBroadcast();
   bindWindowControls();
+  bindNavigation();
+  switchView('home');
   await renderPlugins();
 
   // System monitor: immediate sample then periodic refresh [系统监控：立即采样一次后周期刷新]

@@ -7,56 +7,85 @@
     <link rel="stylesheet" href="kernel.css">
 </head>
 <body>
-    <!-- 标题栏：窗口控制 + 应用名 -->
-    <div class="title-bar">
-        <div class="title-row title-row-top">
-            <div class="window-controls">
-                <button id="windowPinBtn" class="window-btn pin" title="窗口置顶">📌</button>
-                <button class="window-btn minimize" title="最小化">−</button>
-                <button class="window-btn maximize" title="最大化">□</button>
-                <button class="window-btn close" title="关闭">×</button>
+    <div class="kernel-shell">
+        <!-- 左侧垂直导航栏：主页 / 分页管理 -->
+        <nav class="kernel-rail">
+            <button class="rail-btn active" data-view="home" data-i18n-title="kernel.navHome" title="主页">
+                <span class="rail-icon"></span>
+                <span class="rail-label" data-i18n="kernel.navHome">主页</span>
+            </button>
+            <button class="rail-btn" data-view="pages" data-i18n-title="kernel.navPages" title="分页管理">
+                <span class="rail-icon"></span>
+                <span class="rail-label" data-i18n="kernel.navPages">分页管理</span>
+            </button>
+        </nav>
+
+        <!-- 右侧内容列 -->
+        <div class="kernel-content">
+            <!-- 标题栏：窗口控制 + 应用名 -->
+            <div class="title-bar">
+                <div class="title-row title-row-top">
+                    <div class="window-controls">
+                        <button id="windowPinBtn" class="window-btn pin" title="窗口置顶">📌</button>
+                        <button class="window-btn minimize" title="最小化">−</button>
+                        <button class="window-btn maximize" title="最大化">□</button>
+                        <button class="window-btn close" title="关闭">×</button>
+                    </div>
+                    <h1 class="app-title">Sparklet</h1>
+                </div>
             </div>
-            <h1 class="app-title">Sparklet</h1>
+
+            <!-- 主页视图：系统监控 + 插件网格 / 空状态 -->
+            <main class="kernel-main view" id="viewHome">
+                <section class="kernel-hero">
+                    <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>
+                </section>
+
+                <!-- 系统监控卡片：CPU / 内存固定行，磁盘与 GPU 由 JS 动态填充 -->
+                <section id="monitorCard" class="monitor-card">
+                    <div class="monitor-title" data-i18n="kernel.monitor">系统监控</div>
+                    <div class="monitor-grid">
+                        <div class="monitor-row" id="monitorCpu">
+                            <span class="monitor-label">CPU</span>
+                            <div class="monitor-bar"><div class="monitor-fill"></div></div>
+                            <span class="monitor-value">--</span>
+                        </div>
+                        <div class="monitor-row" id="monitorMemory">
+                            <span class="monitor-label" data-i18n="kernel.memory">内存</span>
+                            <div class="monitor-bar"><div class="monitor-fill"></div></div>
+                            <span class="monitor-value">--</span>
+                        </div>
+                        <div id="monitorDisks" class="monitor-dynamic"></div>
+                        <div id="monitorGpus" class="monitor-dynamic"></div>
+                    </div>
+                </section>
+
+                <section id="pluginGrid" class="plugin-grid"></section>
+                <section id="emptyState" class="empty-state" style="display: none;">
+                    <div class="empty-icon">🧩</div>
+                    <div class="empty-title" data-i18n="kernel.emptyTitle">未安装任何插件</div>
+                    <div class="empty-desc" data-i18n="kernel.emptyDesc">安装插件以解锁更多功能</div>
+                </section>
+            </main>
+
+            <!-- 分页管理视图：已安装插件的管理列表 -->
+            <main class="kernel-main view" id="viewPages" style="display: none;">
+                <section class="kernel-hero">
+                    <div class="kernel-subtitle" data-i18n="kernel.pagesTitle">分页管理</div>
+                </section>
+                <section id="manageList" class="manage-list"></section>
+                <section id="manageEmpty" class="empty-state" style="display: none;">
+                    <div class="empty-icon">🧩</div>
+                    <div class="empty-title" data-i18n="kernel.emptyTitle">未安装任何插件</div>
+                </section>
+            </main>
+
+            <!-- 底部版本信息 -->
+            <footer class="kernel-footer">
+                <span id="kernelVersion"></span>
+            </footer>
         </div>
     </div>
-
-    <!-- 内核内容区：系统监控 + 插件网格 / 空状态 -->
-    <main class="kernel-main">
-        <section class="kernel-hero">
-            <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>
-        </section>
-
-        <!-- 系统监控卡片：CPU / 内存固定行，磁盘与 GPU 由 JS 动态填充 -->
-        <section id="monitorCard" class="monitor-card">
-            <div class="monitor-title" data-i18n="kernel.monitor">系统监控</div>
-            <div class="monitor-grid">
-                <div class="monitor-row" id="monitorCpu">
-                    <span class="monitor-label">CPU</span>
-                    <div class="monitor-bar"><div class="monitor-fill"></div></div>
-                    <span class="monitor-value">--</span>
-                </div>
-                <div class="monitor-row" id="monitorMemory">
-                    <span class="monitor-label" data-i18n="kernel.memory">内存</span>
-                    <div class="monitor-bar"><div class="monitor-fill"></div></div>
-                    <span class="monitor-value">--</span>
-                </div>
-                <div id="monitorDisks" class="monitor-dynamic"></div>
-                <div id="monitorGpus" class="monitor-dynamic"></div>
-            </div>
-        </section>
-
-        <section id="pluginGrid" class="plugin-grid"></section>
-        <section id="emptyState" class="empty-state" style="display: none;">
-            <div class="empty-icon">🧩</div>
-            <div class="empty-title" data-i18n="kernel.emptyTitle">未安装任何插件</div>
-            <div class="empty-desc" data-i18n="kernel.emptyDesc">安装插件以解锁更多功能</div>
-        </section>
-    </main>
-
-    <!-- 底部版本信息 -->
-    <footer class="kernel-footer">
-        <span id="kernelVersion"></span>
-    </footer>
 
     <script type="module" src="./kernel.js"></script>
 </body>
