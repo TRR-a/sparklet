@@ -284,3 +284,82 @@ body {
     color: var(--color-muted);
     border-top: 1px solid var(--color-border);
 }
+
+/* ==================== System monitor card [系统监控卡片] ==================== */
+.monitor-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
+}
+
+.monitor-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-text);
+}
+
+.monitor-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.monitor-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 158px;
+    align-items: center;
+    gap: 10px;
+}
+
+.monitor-label {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.monitor-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--color-hover);
+    overflow: hidden;
+}
+
+.monitor-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    background-color: var(--color-primary);
+    transition: width 0.4s ease, background-color 0.3s ease;
+}
+
+/* Load tiers [负载分级] */
+.monitor-fill.warn { background-color: #f5a623; }
+.monitor-fill.danger { background-color: #ea4335; }
+
+.monitor-value {
+    font-size: 0.78rem;
+    color: var(--color-text);
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Long explanatory value (e.g. non-NVIDIA GPU note) wraps instead of clipping [长说明文本 (如非 N 卡提示) 换行而非截断] */
+.monitor-value.long {
+    white-space: normal;
+    font-size: 0.7rem;
+    line-height: 1.3;
+    color: var(--color-muted);
+}
+
+.monitor-dynamic {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

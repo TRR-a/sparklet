@@ -20,11 +20,31 @@
         </div>
     </div>
 
-    <!-- 内核内容区：欢迎标题 + 插件网格 / 空状态 -->
+    <!-- 内核内容区：系统监控 + 插件网格 / 空状态 -->
     <main class="kernel-main">
         <section class="kernel-hero">
             <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>
         </section>
+
+        <!-- 系统监控卡片：CPU / 内存固定行，磁盘与 GPU 由 JS 动态填充 -->
+        <section id="monitorCard" class="monitor-card">
+            <div class="monitor-title" data-i18n="kernel.monitor">系统监控</div>
+            <div class="monitor-grid">
+                <div class="monitor-row" id="monitorCpu">
+                    <span class="monitor-label">CPU</span>
+                    <div class="monitor-bar"><div class="monitor-fill"></div></div>
+                    <span class="monitor-value">--</span>
+                </div>
+                <div class="monitor-row" id="monitorMemory">
+                    <span class="monitor-label" data-i18n="kernel.memory">内存</span>
+                    <div class="monitor-bar"><div class="monitor-fill"></div></div>
+                    <span class="monitor-value">--</span>
+                </div>
+                <div id="monitorDisks" class="monitor-dynamic"></div>
+                <div id="monitorGpus" class="monitor-dynamic"></div>
+            </div>
+        </section>
+
         <section id="pluginGrid" class="plugin-grid"></section>
         <section id="emptyState" class="empty-state" style="display: none;">
             <div class="empty-icon">🧩</div>
