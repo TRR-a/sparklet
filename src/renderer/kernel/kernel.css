@@ -473,12 +473,12 @@ body {
     overflow: hidden;
 }
 
+/* No transition: width/color transitions freeze at initial values in the frameless window [不加过渡：无边框窗口下宽度/颜色过渡会冻结在初始值] */
 .monitor-fill {
     height: 100%;
     width: 0%;
     border-radius: 4px;
     background-color: var(--color-primary);
-    transition: width 0.4s ease, background-color 0.3s ease;
 }
 
 /* Load tiers [负载分级] */
@@ -505,4 +505,169 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+/* ==================== Time section: calendar + clocks in cards [时间区：卡片式日历与时钟] ==================== */
+/* Left: calendar spanning both rows; right: square clock over analog + details [左侧日历纵跨两行；右侧上方方时钟、下方圆时钟+详细信息] */
+.time-section {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+.time-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.time-calendar {
+    grid-row: 1 / 3;
+}
+
+/* ---- Calendar [日历] ---- */
+.calendar-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 10px;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+/* Hairline under the weekday header [星期表头下方一条极细分隔线] */
+.calendar-weekdays {
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 4px;
+}
+
+.calendar-weekday {
+    text-align: center;
+    font-size: 0.68rem;
+    color: var(--color-muted);
+}
+
+/* Rows spread evenly across the tall card [行在纵跨两行的高卡内均匀分布] */
+.calendar-grid {
+    flex: 1;
+    align-content: space-evenly;
+}
+
+.calendar-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    border-radius: 999px;
+    padding: 4px 0;
+    color: var(--color-text);
+}
+
+.calendar-day.muted {
+    opacity: 0.3;
+}
+
+.calendar-day.today {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ---- Square (digital) clock card: time only, date lives in the details block [方时钟卡片：只显示时间，日期移至详细信息区] ---- */
+.time-digital {
+    align-items: center;
+    justify-content: center;
+}
+
+.time-display {
+    font-size: 2.6rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* Seconds tick softly beside the main HH:MM [秒数以弱色伴随主时间轻跳] */
+.time-sec {
+    color: var(--color-muted);
+}
+
+/* ---- Analog clock + details card [圆时钟 + 详细信息卡片] ---- */
+.time-analog {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.analog-face {
+    width: 104px;
+    height: 104px;
+    flex-shrink: 0;
+}
+
+.analog-dot {
+    fill: var(--color-muted);
+}
+
+.analog-dot.major {
+    fill: var(--color-text);
+}
+
+.hand {
+    stroke: var(--color-text);
+    stroke-linecap: round;
+}
+
+.hand-hour {
+    stroke-width: 3.5;
+}
+
+.hand-minute {
+    stroke-width: 2.2;
+}
+
+.hand-second {
+    stroke: var(--color-primary);
+    stroke-width: 1.4;
+}
+
+.analog-center {
+    fill: var(--color-primary);
+}
+
+/* Details: weekday, full date, week number, timezone [详细信息：星期、完整日期、周数、时区] */
+.time-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.detail-weekday {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.detail-date {
+    font-size: 0.85rem;
+    color: var(--color-text);
+}
+
+.detail-sub {
+    font-size: 0.72rem;
+    color: var(--color-muted);
 }

@@ -239,6 +239,7 @@
     "settings.updaterDisabled":  "完全禁用更新",
     "settings.updaterInterval":  "检查频率：",
     "settings.updaterNotify":  "仅提醒，不自动下载",
+    "settings.use12HourClock":  "使用12小时制显示电子时钟",
     "shortcutPanel.action.closeMenu":  "关闭打开的菜单",
     "shortcutPanel.action.exit":  "退出应用",
     "shortcutPanel.action.newNote":  "新建笔记",

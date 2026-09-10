@@ -41,6 +41,35 @@
                     <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>
                 </section>
 
+                <!-- 时间区：左侧日历纵跨两行；右侧上方方时钟、下方圆时钟+详细信息 -->
+                <section class="time-section">
+                    <div class="time-card time-calendar">
+                        <div class="calendar-title" id="calTitle"></div>
+                        <div class="calendar-weekdays" id="calWeekdays"></div>
+                        <div class="calendar-grid" id="calGrid"></div>
+                    </div>
+
+                    <div class="time-card time-digital">
+                        <div class="time-display"><span id="digitalTime">--:--</span><span class="time-sec" id="digitalSec">--</span></div>
+                    </div>
+
+                    <div class="time-card time-analog">
+                        <svg class="analog-face" viewBox="0 0 100 100" aria-hidden="true">
+                            <g id="analogTicks"></g>
+                            <line class="hand hand-hour" id="handHour" x1="50" y1="52" x2="50" y2="30"></line>
+                            <line class="hand hand-minute" id="handMinute" x1="50" y1="54" x2="50" y2="20"></line>
+                            <line class="hand hand-second" id="handSecond" x1="50" y1="56" x2="50" y2="14"></line>
+                            <circle class="analog-center" cx="50" cy="50" r="2.6"></circle>
+                        </svg>
+                        <div class="time-details">
+                            <div class="detail-weekday" id="detailWeekday">--</div>
+                            <div class="detail-date" id="detailDate">--</div>
+                            <div class="detail-sub" id="detailWeek">--</div>
+                            <div class="detail-sub" id="detailTz">--</div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- 系统监控卡片：CPU / 内存固定行，磁盘与 GPU 由 JS 动态填充 -->
                 <section id="monitorCard" class="monitor-card">
                     <div class="monitor-title" data-i18n="kernel.monitor">系统监控</div>

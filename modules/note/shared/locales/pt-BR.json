@@ -239,6 +239,7 @@
     "settings.updaterDisabled":  "Desativar completamente as atualizações",
     "settings.updaterInterval":  "Frequência de verificação:",
     "settings.updaterNotify":  "Apenas notificar, não baixar automaticamente",
+    "settings.use12HourClock":  "Usar formato de 12 horas no relógio digital",
     "shortcutPanel.action.closeMenu":  "Fechar menu aberto",
     "shortcutPanel.action.exit":  "Sair do aplicativo",
     "shortcutPanel.action.newNote":  "Nova nota",

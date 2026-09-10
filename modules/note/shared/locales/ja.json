@@ -239,6 +239,7 @@
     "settings.updaterDisabled":  "更新を完全に無効化",
     "settings.updaterInterval":  "確認頻度：",
     "settings.updaterNotify":  "通知のみ、自動ダウンロードしない",
+    "settings.use12HourClock":  "デジタル時計を12時間制で表示する",
     "shortcutPanel.action.closeMenu":  "開いているメニューを閉じる",
     "shortcutPanel.action.exit":  "アプリを終了",
     "shortcutPanel.action.newNote":  "新規ノート",

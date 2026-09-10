@@ -241,6 +241,7 @@
     "settings.updaterDisabled":  "Disable updates entirely",
     "settings.updaterInterval":  "Check frequency:",
     "settings.updaterNotify":  "Notify only, no auto download",
+    "settings.use12HourClock":  "Use 12-hour format for the digital clock",
     "shortcutPanel.action.closeMenu":  "Close open menu",
     "shortcutPanel.action.exit":  "Exit application",
     "shortcutPanel.action.newNote":  "New note",

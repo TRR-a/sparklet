@@ -22,6 +22,15 @@ export const broadcastApi = {
     return bus.on('language-broadcast', (lang: unknown) => callback(lang));
   },
 
+  // ---------- Clock format [时钟制式] ----------
+  /** Notify main process that the 12-hour toggle changed (it rebroadcasts to all windows) [通知主进程 12 小时制开关已切换 (由其广播到全部窗口)] */
+  notifyClockFormatChanged(use12Hour: boolean): Promise<unknown> {
+    return bus.invoke('clock-format-changed', use12Hour);
+  },
+  onClockFormatBroadcast(callback: (use12Hour: unknown) => void): () => void {
+    return bus.on('clock-format-broadcast', (use12Hour: unknown) => callback(use12Hour));
+  },
+
   // ---------- Updater config changes [更新配置变化] ----------
   onConfigChanged(callback: (config: UpdaterConfig) => void): () => void {
     return bus.on('config:changed', (config) => callback(config as UpdaterConfig));

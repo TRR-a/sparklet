@@ -239,6 +239,7 @@
     "settings.updaterDisabled":  "Полностью отключить обновления",
     "settings.updaterInterval":  "Частота проверки:",
     "settings.updaterNotify":  "Только уведомлять, не загружать автоматически",
+    "settings.use12HourClock":  "Использовать 12-часовой формат для цифровых часов",
     "shortcutPanel.action.closeMenu":  "Закрыть открытое меню",
     "shortcutPanel.action.exit":  "Выйти из приложения",
     "shortcutPanel.action.newNote":  "Новая заметка",

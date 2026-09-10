@@ -24,4 +24,13 @@ export function registerBroadcastIpcHandlers(): void {
       }
     });
   });
+
+  // ========== Clock format broadcast [时钟制式广播] ==========
+  ipcMain.handle('clock-format-changed', (_event, use12Hour: boolean) => {
+    BrowserWindow.getAllWindows().forEach(win => {
+      if (!win.isDestroyed()) {
+        win.webContents.send('clock-format-broadcast', use12Hour);
+      }
+    });
+  });
 }

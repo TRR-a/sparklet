@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="settings-content.css">
     <link rel="stylesheet" href="settings-card.css">
     <link rel="stylesheet" href="settings-form.css">
+    <link rel="stylesheet" href="settings-switch.css">
     <link rel="stylesheet" href="settings-buttons.css">
     <link rel="stylesheet" href="settings-cache-info.css">
     <link rel="stylesheet" href="settings-cache-retention.css">
@@ -68,6 +69,14 @@
                         <option value="dark" data-i18n="theme.dark">暗色</option>
                         <option value="blue" data-i18n="theme.blue">蓝色</option>
                     </select>
+                </div>
+                <!-- 12 小时制开关：控制电子时钟显示制式 -->
+                <div class="setting-item switch-item">
+                    <label for="clock12hToggle" data-i18n="settings.use12HourClock">使用12小时制显示电子时钟</label>
+                    <label class="switch">
+                        <input type="checkbox" id="clock12hToggle" role="switch">
+                        <span class="switch-slider"></span>
+                    </label>
                 </div>
             </div>
 

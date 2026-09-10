@@ -193,6 +193,144 @@ async function refreshMonitor(): Promise<void> {
   }
 }
 
+// ========== Time cards (calendar / analog / digital) [时间卡片 (日历/钟面/电子钟)] ==========
+const SVG_NS = 'http://www.w3.org/2000/svg';
+let lastCalKey = '';
+
+/** 12-hour format toggle for the digital clock (default 24h) [电子时钟 12 小时制开关 (默认 24 小时制)] */
+let use12Hour = false;
+
+function clockLocale(): string {
+  return currentLang === 'zh-CN' ? 'zh-CN' : 'en-US';
+}
+
+function pad2(n: number): string {
+  return String(n).padStart(2, '0');
+}
+
+/** ISO week number of a date [日期的 ISO 周数] */
+function isoWeek(d: Date): number {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const dayNum = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  return Math.ceil(((date.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+}
+
+/** Timezone label like GMT+8 / GMT+5:30 [形如 GMT+8 / GMT+5:30 的时区标签] */
+function tzLabel(): string {
+  const offset = -new Date().getTimezoneOffset();
+  const sign = offset >= 0 ? '+' : '-';
+  const h = Math.floor(Math.abs(offset) / 60);
+  const m = Math.abs(offset) % 60;
+  return `GMT${sign}${h}${m ? `:${pad2(m)}` : ''}`;
+}
+
+/** Draw the 12 hour dots on the minimal face once; 12/3/6/9 are larger [一次性绘制钟面 12 个刻度点；12/3/6/9 略大] */
+function buildAnalogTicks(): void {
+  const g = document.getElementById('analogTicks');
+  if (!g || g.childElementCount > 0) return;
+  for (let i = 0; i < 12; i++) {
+    const angle = ((i * 30 - 90) * Math.PI) / 180; // 0h at 12 o'clock [0 点指向正上方]
+    const r = 44;
+    const dot = document.createElementNS(SVG_NS, 'circle');
+    dot.setAttribute('cx', String(50 + r * Math.cos(angle)));
+    dot.setAttribute('cy', String(50 + r * Math.sin(angle)));
+    dot.setAttribute('r', i % 3 === 0 ? '2.2' : '1.3');
+    dot.setAttribute('class', `analog-dot${i % 3 === 0 ? ' major' : ''}`);
+    g.appendChild(dot);
+  }
+}
+
+/** Render the month grid; leading/trailing cells show adjacent-month days dimmed [渲染月历，首尾空格以暗色显示相邻月份日期] */
+function renderCalendar(now: Date): void {
+  const title = document.getElementById('calTitle');
+  const weekdays = document.getElementById('calWeekdays');
+  const grid = document.getElementById('calGrid');
+  if (!title || !weekdays || !grid) return;
+  const loc = clockLocale();
+  title.textContent = new Intl.DateTimeFormat(loc, { year: 'numeric', month: 'long' }).format(now);
+
+  weekdays.innerHTML = '';
+  for (let d = 0; d < 7; d++) {
+    // 2023-01-01 is a Sunday, giving a stable Sun..Sat header [2023-01-01 为周日，得到稳定的周日..周六表头]
+    const base = new Date(2023, 0, 1 + d);
+    const cell = document.createElement('span');
+    cell.className = 'calendar-weekday';
+    cell.textContent = new Intl.DateTimeFormat(loc, { weekday: 'narrow' }).format(base);
+    weekdays.appendChild(cell);
+  }
+
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const startBlank = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const prevMonthDays = new Date(year, month, 0).getDate();
+
+  grid.innerHTML = '';
+  for (let i = 0; i < startBlank; i++) {
+    const cell = document.createElement('span');
+    cell.className = 'calendar-day muted';
+    cell.textContent = String(prevMonthDays - startBlank + 1 + i);
+    grid.appendChild(cell);
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const cell = document.createElement('span');
+    cell.className = `calendar-day${d === now.getDate() ? ' today' : ''}`;
+    cell.textContent = String(d);
+    grid.appendChild(cell);
+  }
+  const filled = startBlank + daysInMonth;
+  const trailing = (7 - (filled % 7)) % 7;
+  for (let i = 1; i <= trailing; i++) {
+    const cell = document.createElement('span');
+    cell.className = 'calendar-day muted';
+    cell.textContent = String(i);
+    grid.appendChild(cell);
+  }
+}
+
+/** Per-second refresh of hands, digital clock and details; calendar redraws on day change [每秒刷新指针、方时钟与详细信息；跨天时重绘日历] */
+function tickClocks(): void {
+  const now = new Date();
+  const sec = now.getSeconds();
+  const min = now.getMinutes();
+  const hour = now.getHours();
+
+  const handHour = document.getElementById('handHour');
+  const handMinute = document.getElementById('handMinute');
+  const handSecond = document.getElementById('handSecond');
+  handHour?.setAttribute('transform', `rotate(${(hour % 12) * 30 + min * 0.5} 50 50)`);
+  handMinute?.setAttribute('transform', `rotate(${min * 6 + sec * 0.1} 50 50)`);
+  handSecond?.setAttribute('transform', `rotate(${sec * 6} 50 50)`);
+
+  // HH:MM carries the visual weight; seconds tick beside it in muted color [主时间为 HH:MM，秒数以弱色伴随]
+  // 12-hour mode: 1-12 without leading zero + AM/PM beside the seconds [12 小时制：1-12 不补零，秒数旁附 AM/PM]
+  const digital = document.getElementById('digitalTime');
+  if (digital) {
+    digital.textContent = use12Hour ? `${hour % 12 || 12}:${pad2(min)}` : `${pad2(hour)}:${pad2(min)}`;
+  }
+  const secEl = document.getElementById('digitalSec');
+  if (secEl) secEl.textContent = `:${pad2(sec)}${use12Hour ? (hour < 12 ? ' AM' : ' PM') : ''}`;
+
+  // Details block: weekday, full date, week number, timezone [详细信息：星期、完整日期、周数、时区]
+  const loc = clockLocale();
+  const weekdayEl = document.getElementById('detailWeekday');
+  if (weekdayEl) weekdayEl.textContent = new Intl.DateTimeFormat(loc, { weekday: 'long' }).format(now);
+  const dateEl = document.getElementById('detailDate');
+  if (dateEl) dateEl.textContent = new Intl.DateTimeFormat(loc, { year: 'numeric', month: 'long', day: 'numeric' }).format(now);
+  const weekEl = document.getElementById('detailWeek');
+  if (weekEl) weekEl.textContent = currentLang === 'zh-CN' ? `第 ${isoWeek(now)} 周` : `Week ${isoWeek(now)}`;
+  const tzEl = document.getElementById('detailTz');
+  if (tzEl) tzEl.textContent = tzLabel();
+
+  const key = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+  if (key !== lastCalKey) {
+    renderCalendar(now);
+    lastCalKey = key;
+  }
+}
+
 // ========== Plugin rendering [插件渲染] ==========
 let cachedPlugins: PluginDescriptor[] = [];
 
@@ -356,6 +494,14 @@ async function init(): Promise<void> {
 
   await loadTheme();
   bindThemeBroadcast();
+
+  // Clock format: read once, then follow the settings toggle live [时钟制式：先读一次，随后实时跟随设置开关]
+  use12Hour = (await storeApi.get<boolean>('clock12Hour')) === true;
+  broadcastApi.onClockFormatBroadcast((enabled) => {
+    use12Hour = Boolean(enabled);
+    tickClocks();
+  });
+
   bindWindowControls();
   bindNavigation();
   switchView('home');
@@ -364,6 +510,11 @@ async function init(): Promise<void> {
   // System monitor: immediate sample then periodic refresh [系统监控：立即采样一次后周期刷新]
   await refreshMonitor();
   setInterval(() => void refreshMonitor(), MONITOR_REFRESH_MS);
+
+  // Time cards: build the analog face, tick immediately then every second [时间卡片：构建钟面，立即走时后每秒刷新]
+  buildAnalogTicks();
+  tickClocks();
+  setInterval(tickClocks, 1000);
 
   const versionEl = document.getElementById('kernelVersion');
   if (versionEl) versionEl.textContent = `Sparklet v${APP_VERSION} · ${APP_CODENAME}`;
