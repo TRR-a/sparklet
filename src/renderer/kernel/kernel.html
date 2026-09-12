@@ -41,19 +41,19 @@
                     <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>
                 </section>
 
-                <!-- 时间区：左侧日历纵跨两行；右侧上方方时钟、下方圆时钟+详细信息 -->
-                <section class="time-section">
-                    <div class="time-card time-calendar">
+                <!-- 可拖拽卡片板：日历/数字钟/模拟钟/系统监控，可自由拖动重排，顺序持久化 -->
+                <div id="widgetBoard" class="widget-board">
+                    <div class="time-card time-calendar widget" data-widget="calendar">
                         <div class="calendar-title" id="calTitle"></div>
                         <div class="calendar-weekdays" id="calWeekdays"></div>
                         <div class="calendar-grid" id="calGrid"></div>
                     </div>
 
-                    <div class="time-card time-digital">
+                    <div class="time-card time-digital widget" data-widget="digital">
                         <div class="time-display"><span id="digitalTime">--:--</span><span class="time-sec" id="digitalSec">--</span></div>
                     </div>
 
-                    <div class="time-card time-analog">
+                    <div class="time-card time-analog widget" data-widget="analog">
                         <svg class="analog-face" viewBox="0 0 100 100" aria-hidden="true">
                             <g id="analogTicks"></g>
                             <line class="hand hand-hour" id="handHour" x1="50" y1="52" x2="50" y2="30"></line>
@@ -68,26 +68,26 @@
                             <div class="detail-sub" id="detailTz">--</div>
                         </div>
                     </div>
-                </section>
 
-                <!-- 系统监控卡片：CPU / 内存固定行，磁盘与 GPU 由 JS 动态填充 -->
-                <section id="monitorCard" class="monitor-card">
-                    <div class="monitor-title" data-i18n="kernel.monitor">系统监控</div>
-                    <div class="monitor-grid">
-                        <div class="monitor-row" id="monitorCpu">
-                            <span class="monitor-label">CPU</span>
-                            <div class="monitor-bar"><div class="monitor-fill"></div></div>
-                            <span class="monitor-value">--</span>
+                    <!-- 系统监控卡片：CPU / 内存固定行，磁盘与 GPU 由 JS 动态填充 -->
+                    <section id="monitorCard" class="monitor-card widget" data-widget="monitor">
+                        <div class="monitor-title" data-i18n="kernel.monitor">系统监控</div>
+                        <div class="monitor-grid">
+                            <div class="monitor-row" id="monitorCpu">
+                                <span class="monitor-label">CPU</span>
+                                <div class="monitor-bar"><div class="monitor-fill"></div></div>
+                                <span class="monitor-value">--</span>
+                            </div>
+                            <div class="monitor-row" id="monitorMemory">
+                                <span class="monitor-label" data-i18n="kernel.memory">内存</span>
+                                <div class="monitor-bar"><div class="monitor-fill"></div></div>
+                                <span class="monitor-value">--</span>
+                            </div>
+                            <div id="monitorDisks" class="monitor-dynamic"></div>
+                            <div id="monitorGpus" class="monitor-dynamic"></div>
                         </div>
-                        <div class="monitor-row" id="monitorMemory">
-                            <span class="monitor-label" data-i18n="kernel.memory">内存</span>
-                            <div class="monitor-bar"><div class="monitor-fill"></div></div>
-                            <span class="monitor-value">--</span>
-                        </div>
-                        <div id="monitorDisks" class="monitor-dynamic"></div>
-                        <div id="monitorGpus" class="monitor-dynamic"></div>
-                    </div>
-                </section>
+                    </section>
+                </div>
 
                 <section id="pluginGrid" class="plugin-grid"></section>
                 <section id="emptyState" class="empty-state" style="display: none;">

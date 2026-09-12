@@ -6,6 +6,7 @@
 // 控制。它不依赖任何插件——是所有 Sparklet 安装都会获得的壳]
 
 import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, APP_VERSION, APP_CODENAME } from '../core/index.js';
+import { restoreWidgetOrder, enableWidgetDragReorder } from './widget-drag.js';
 import type { PluginDescriptor } from '../../shared/types/plugins.js';
 import type { SystemStats } from '../../shared/types/system.js';
 
@@ -506,6 +507,13 @@ async function init(): Promise<void> {
   bindNavigation();
   switchView('home');
   await renderPlugins();
+
+  // Widget board: restore saved card order then enable drag-to-reorder [卡片板：恢复顺序后启用拖拽重排]
+  const board = document.getElementById('widgetBoard');
+  if (board) {
+    await restoreWidgetOrder(board);
+    enableWidgetDragReorder(board);
+  }
 
   // System monitor: immediate sample then periodic refresh [系统监控：立即采样一次后周期刷新]
   await refreshMonitor();

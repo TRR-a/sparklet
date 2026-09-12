@@ -507,13 +507,24 @@ body {
     gap: 10px;
 }
 
-/* ==================== Time section: calendar + clocks in cards [时间区：卡片式日历与时钟] ==================== */
-/* Left: calendar spanning both rows; right: square clock over analog + details [左侧日历纵跨两行；右侧上方方时钟、下方圆时钟+详细信息] */
-.time-section {
+/* ==================== Widget board: draggable card grid [可拖拽卡片板] ==================== */
+/* Two-column grid; calendar spans two rows on the left, digital/analog stack on the right,
+   monitor spans the full row below. DOM order is user-reorderable.
+   [两列网格；日历左侧跨两行，数字钟/模拟钟右侧堆叠，监控下方跨整行。DOM 顺序可由用户拖拽重排] */
+.widget-board {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    grid-auto-rows: min-content;
     gap: 16px;
-    flex-shrink: 0;
+    align-items: start;
+}
+
+.time-calendar {
+    grid-row: span 2;
+}
+
+#monitorCard {
+    grid-column: 1 / -1;
 }
 
 .time-card {
@@ -526,8 +537,23 @@ body {
     min-width: 0;
 }
 
-.time-calendar {
-    grid-row: 1 / 3;
+/* --- Drag affordance [拖拽视觉] --- */
+.widget {
+    position: relative;
+}
+.widget.dragging {
+    position: fixed;
+    z-index: 100;
+    opacity: 0.85;
+    pointer-events: none;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    transform: rotate(0.5deg);
+}
+.widget-placeholder {
+    border: 1.5px dashed var(--color-primary);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-hover);
+    min-height: 80px;
 }
 
 /* ---- Calendar [日历] ---- */
