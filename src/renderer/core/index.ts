@@ -9,5 +9,6 @@ export { broadcastApi } from './broadcast-api.js';
 export { updaterApi } from './updater-api.js';
 export { pluginsApi } from './plugin-api.js';
 export { systemApi } from './system-api.js';
+export { logApi } from './log-api.js';
 export { APP_VERSION, APP_CODENAME } from './app-info.js';
 export { highlightCode, getLanguageForFile } from './highlight.js';

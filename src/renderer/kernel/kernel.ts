@@ -5,7 +5,7 @@
 // [展示已发现插件 (未安装时显示空状态)，应用主题 (light/dark/blue) 并绑定窗口
 // 控制。它不依赖任何插件——是所有 Sparklet 安装都会获得的壳]
 
-import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, APP_VERSION, APP_CODENAME } from '../core/index.js';
+import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, APP_VERSION, APP_CODENAME } from '../core/index.js';
 import { restoreWidgetOrder, enableWidgetDragReorder } from './widget-drag.js';
 import type { PluginDescriptor } from '../../shared/types/plugins.js';
 import type { SystemStats } from '../../shared/types/system.js';
@@ -507,6 +507,7 @@ async function init(): Promise<void> {
   bindNavigation();
   switchView('home');
   await renderPlugins();
+  logApi.info('kernel', `Renderer ready, ${cachedPlugins.length} plugin(s) discovered`);
 
   // Widget board: restore saved card order then enable drag-to-reorder [卡片板：恢复顺序后启用拖拽重排]
   const board = document.getElementById('widgetBoard');

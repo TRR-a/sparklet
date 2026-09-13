@@ -11,6 +11,7 @@ import { initUpdater, checkUpdateManually } from './updater';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
 import { runStartupIntegrityScan } from './services/note-integrity';
+import { initLogger, logger } from './services/logger';
 
 // Development: redirect userData to project-local app_data/sparklet-dev/ so dev data
 // (notes, config, update cache, logs) stays isolated from the production profile.
@@ -28,13 +29,18 @@ if (!app.isPackaged) {
  * Application lifecycle: ready [应用生命周期：就绪]
  */
 app.whenReady().then(async () => {
+  initLogger();
+  logger.info('main', `Sparklet v${app.getVersion()} starting (packaged=${app.isPackaged})`);
+
   // 1. Run migration first (ensure data is persisted) [先执行迁移 (确保数据落盘)]
   await migrateFromStore();
+  logger.info('main', 'Migration done');
 
   // 1.1 Startup integrity scan: clean tmp leftovers, repair corrupt note files
   // from history snapshots (before any renderer can query notes)
   // [启动完整性扫描：清理临时残留，从历史快照修复损坏笔记 (先于任何渲染进程查询)]
   await runStartupIntegrityScan();
+  logger.info('main', 'Startup integrity scan done');
 
   // 2. Register all IPC handlers [注册所有 IPC 处理器]
   registerAllIpcHandlers();
@@ -46,12 +52,14 @@ app.whenReady().then(async () => {
   //    kernel UI via plugins:list; no plugin is required to boot.
   //    [创建内核 (Hub) 窗口。插件由内核 UI 按需经 plugins:list 发现，无需任何插件即可启动]
   createKernelWindow();
+  logger.info('main', 'Kernel window created');
 
   // 4. Initialize updater module (after window creation) [初始化更新模块 (窗口创建后执行)]
   initUpdater();
 
   // 5. Auto check for updates after 3s (non-blocking startup) [延迟 3 秒后自动检查更新 (不阻塞启动)]
   setTimeout(() => {
+    logger.debug('main', 'Delayed update check fired');
     checkUpdateManually();
   }, 3000);
 });
