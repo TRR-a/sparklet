@@ -5,7 +5,7 @@ import storageManager from '../../Modules/storage-manager.js';
 import { initI18n } from '../../Modules/i18n.js';
 import { bindToastListener } from '../../Base/toast.js';
 import { setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
-import { storeApi, windowApi } from '../../../../src/renderer/core/index.js';
+import { storeApi, windowApi, installGlobalErrorHooks } from '../../../../src/renderer/core/index.js';
 import {
   loadNotes,
   saveCurrentNote,
@@ -23,6 +23,9 @@ import { initVirtualList } from './note-virtual-list.js';
 import { initSelectionBar } from './selection-bar.js';
 import { bindNoteHistoryModalHandlers, showNoteHistoryStartupToast } from './note-history-modal.js';
 import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
+
+// Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
+installGlobalErrorHooks('note');
 
 /**
  * Bind all popup events [绑定所有弹窗事件]

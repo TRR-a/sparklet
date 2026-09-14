@@ -11,7 +11,7 @@ import { initUpdater, checkUpdateManually } from './updater';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
 import { runStartupIntegrityScan } from './services/note-integrity';
-import { initLogger, logger } from './services/logger';
+import { initLogger, installCrashLogging, logger } from './services/logger';
 
 // Development: redirect userData to project-local app_data/sparklet-dev/ so dev data
 // (notes, config, update cache, logs) stays isolated from the production profile.
@@ -30,7 +30,9 @@ if (!app.isPackaged) {
  */
 app.whenReady().then(async () => {
   initLogger();
-  logger.info('main', `Sparklet v${app.getVersion()} starting (packaged=${app.isPackaged})`);
+  // Crash capture: main/renderer/child-process failures + session-end marker
+  // [崩溃捕获：主进程/渲染进程/子进程故障 + 会话结束标记]
+  installCrashLogging();
 
   // 1. Run migration first (ensure data is persisted) [先执行迁移 (确保数据落盘)]
   await migrateFromStore();

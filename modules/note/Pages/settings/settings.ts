@@ -5,7 +5,7 @@ import { initI18n, loadLanguage, getCurrentLang, t } from '../../Modules/i18n.js
 import { showToast, bindToastListener } from '../../Base/toast.js';
 import { loadTheme, setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
 import { bindUpdaterDialogListener } from '../../Modules/updater-dialog.js';
-import { storeApi, windowApi, appApi, broadcastApi } from '../../../../src/renderer/core/index.js';
+import { storeApi, windowApi, appApi, broadcastApi, installGlobalErrorHooks } from '../../../../src/renderer/core/index.js';
 import {
   loadUpdaterConfig,
   bindUpdaterEvents,
@@ -21,6 +21,9 @@ import {
   applyImportExportDevLock,
   bindImportExportEvents
 } from './config-io.js';
+
+// Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
+installGlobalErrorHooks('note');
 
 /**
  * Load theme and initialize i18n [加载主题并初始化 i18n]

@@ -5,7 +5,7 @@
 // [展示已发现插件 (未安装时显示空状态)，应用主题 (light/dark/blue) 并绑定窗口
 // 控制。它不依赖任何插件——是所有 Sparklet 安装都会获得的壳]
 
-import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, APP_VERSION, APP_CODENAME } from '../core/index.js';
+import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, installGlobalErrorHooks, APP_VERSION, APP_CODENAME } from '../core/index.js';
 import { restoreWidgetOrder, enableWidgetDragReorder } from './widget-drag.js';
 import type { PluginDescriptor } from '../../shared/types/plugins.js';
 import type { SystemStats } from '../../shared/types/system.js';
@@ -489,6 +489,9 @@ function bindNavigation(): void {
 
 // ========== Init [初始化] ==========
 async function init(): Promise<void> {
+  // Uncaught errors/rejections go to the log file before anything else
+  // [任何逻辑执行前先装好未捕获错误/拒绝的日志转发]
+  installGlobalErrorHooks('kernel');
   const saved = await storeApi.get<string>('language');
   currentLang = saved === 'zh-CN' ? 'zh-CN' : 'en';
   applyI18n();

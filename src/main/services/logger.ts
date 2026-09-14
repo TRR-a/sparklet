@@ -30,6 +30,9 @@ let modulesDir = '';
 let minWeight = LEVEL_WEIGHT.info;
 let ready = false;
 
+/** Set when the stdout/stderr pipe breaks; console mirroring is then off for good [控制台管道断裂后永久停用镜像] */
+let consoleBroken = false;
+
 const moduleMap: Record<string, string> = (manifest && manifest.map) || {};
 const warnedUnknown = new Set<string>();
 
@@ -96,19 +99,76 @@ export function initLogger(): void {
   }
 
   ready = true;
-  write('info', 'main', 'logger', `Logger ready (level=${app.isPackaged ? 'info' : 'debug'}, root=${logRoot})`);
+
+  // Session banner: separator + rich header, so each launch is easy to spot
+  // when browsing the file [会话横幅：分隔线+富信息头，翻日志时一眼定位每次启动]
+  write('info', 'main', 'logger', '────────────────────────────────────────');
+  write('info', 'main', 'logger',
+    `Session start: Sparklet v${app.getVersion()} · Electron ${process.versions.electron} · ` +
+    `${process.platform}-${process.arch} · packaged=${app.isPackaged} · pid=${process.pid}`);
+  write('info', 'main', 'logger',
+    `Logger ready (level=${app.isPackaged ? 'info' : 'debug'}, root=${logRoot})`);
+}
+
+/** Serialize an Error with its stack, anything else via String [Error 连堆栈序列化，其余走 String] */
+export function errText(err: unknown): string {
+  if (err instanceof Error) return err.stack || `${err.name}: ${err.message}`;
+  return String(err);
+}
+
+/**
+ * Install crash & fatal-error capture: main-process exceptions, renderer process
+ * loss, child (GPU/utility) process loss, and a session-end marker. Everything
+ * goes to the log only — no native dialogs — so the file tells the whole story
+ * of a session after the fact.
+ * [安装崩溃与致命错误捕获：主进程异常、渲染进程退出、子进程 (GPU等) 退出与会话结束标记。
+ *  仅落盘不弹原生对话框，事后日志可还原整个会话的完整故事线]
+ */
+export function installCrashLogging(): void {
+  const uptime = () => `uptime ${Math.round(process.uptime())}s`;
+  process.on('uncaughtException', (err) => {
+    // Broken stdout/stderr pipe (parent terminal closed): the console mirror is
+    // now impossible — disable it or every mirrored write throws EPIPE again
+    // and the handler recurses forever. [控制台管道已断 (父终端关闭)：镜像已不可能，
+    // 必须停用，否则每次镜像写入都会再抛 EPIPE，处理器无限递归]
+    const code = (err as NodeJS.ErrnoException)?.code;
+    if (code === 'EPIPE' || code === 'EIO') {
+      consoleBroken = true;
+      write('warn', 'main', 'logger', `Console pipe broken (${code}); console mirror disabled`);
+      return;
+    }
+    write('error', 'main', 'crash', `Uncaught exception (${uptime()}):\n${errText(err)}`);
+  });
+  process.on('unhandledRejection', (reason) => {
+    write('error', 'main', 'crash', `Unhandled rejection (${uptime()}):\n${errText(reason)}`);
+  });
+  app.on('render-process-gone', (_event, _webContents, details) => {
+    write('error', 'main', 'crash', `Renderer process gone (${uptime()}): reason=${details.reason} exitCode=${details.exitCode}`);
+  });
+  app.on('child-process-gone', (_event, details) => {
+    write('warn', 'main', 'crash', `Child process gone: type=${details.type} reason=${details.reason}`);
+  });
+  app.on('before-quit', () => {
+    write('info', 'main', 'logger', `Session end (uptime ${Math.round(process.uptime())}s)`);
+  });
 }
 
 function write(level: LogLevel, scope: string, tag: string, message: string): void {
   if (!ready || LEVEL_WEIGHT[level] < minWeight) return;
   const { dir, file } = resolve(scope);
-  const line = `[${timestamp(new Date())}] [${level.toUpperCase().padEnd(5)}] [${tag}] ${message}\n`;
+  // Multi-line messages (stack traces): continuation lines are indented to the
+  // message column so one entry stays visually one block [多行消息 (堆栈)：续行缩进到
+  // 正文列，单条日志在视觉上仍是一个整体]
+  const prefix = `[${timestamp(new Date())}] [${level.toUpperCase().padEnd(5)}] [${tag}] `;
+  const body = message.split('\n').join(`\n${' '.repeat(prefix.length)}`);
   try {
     fs.mkdirSync(dir, { recursive: true });
-    fs.appendFileSync(file, line);
+    fs.appendFileSync(file, prefix + body + '\n');
   } catch { /* never let logging crash the app [日志写入失败绝不影响应用] */ }
-  const out = level === 'debug' ? console.log : console[level];
-  out(`[${tag}] ${message}`);
+  if (!consoleBroken) {
+    const out = level === 'debug' ? console.log : console[level];
+    try { out(`[${tag}] ${message}`); } catch { /* ignore console failures [控制台失败忽略] */ }
+  }
 }
 
 /** Leveled logger for main-process code; always writes to the core folder [主进程分级 logger，固定写入核心目录] */

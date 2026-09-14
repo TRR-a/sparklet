@@ -3,7 +3,10 @@
 
 import { loadTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
 import { initI18n, t } from '../../Modules/i18n.js';
-import { windowApi, APP_VERSION, APP_CODENAME } from '../../../../src/renderer/core/index.js';
+import { windowApi, APP_VERSION, APP_CODENAME, installGlobalErrorHooks } from '../../../../src/renderer/core/index.js';
+
+// Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
+installGlobalErrorHooks('note');
 
 /**
  * Fill version info: app version/codename from generated constants (source:
