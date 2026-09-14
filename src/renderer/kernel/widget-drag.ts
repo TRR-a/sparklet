@@ -1,9 +1,12 @@
 // Widget drag-to-reorder for the kernel home board [内核主页卡片拖拽重排]
-// Pure pointer events, no dependency. Cards become fixed while dragging, a dashed
-// placeholder marks the drop slot, and the resulting DOM order is persisted to the
-// store so the layout survives restarts.
-// [纯 pointer 事件实现，零依赖。拖动时卡片 fixed 跟随鼠标，虚线占位符标记落点，
-//  松手后的 DOM 顺序写入 store，重启后保持]
+// Pure pointer events, no dependency. The card itself stays in the grid flow
+// as the live drop preview — its slot resizes in real time, exactly matching
+// what dropping there will produce — while a fixed-position clone follows the
+// pointer as the drag ghost. The resulting DOM order is persisted to the store
+// so the layout survives restarts.
+// [纯 pointer 事件实现，零依赖。卡片本体留在 grid 流中作为实时落点预览——槽位
+//  尺寸即时重排，与松手后的真实结果完全一致；fixed 定位的克隆体作为拖拽幽灵
+//  跟随指针。松手后的 DOM 顺序写入 store，重启后保持]
 
 import { storeApi } from '../core/index.js';
 
@@ -53,7 +56,7 @@ export function enableWidgetDragReorder(board: HTMLElement): void {
     const startY = e.clientY;
     const rect = card.getBoundingClientRect();
     let started = false;
-    let placeholder: HTMLElement | null = null;
+    let ghost: HTMLElement | null = null;
 
     const onMove = (ev: PointerEvent) => {
       if (!started) {
@@ -61,45 +64,60 @@ export function enableWidgetDragReorder(board: HTMLElement): void {
         if (dist < DRAG_THRESHOLD_PX) return;
         started = true;
 
-        card.classList.add('dragging');
-        card.style.width = `${rect.width}px`;
-        card.style.left = `${rect.left}px`;
-        card.style.top = `${rect.top}px`;
-        card.style.margin = '0';
+        // Clone as the pointer-following ghost; the real card stays in the
+        // grid flow and becomes the live preview [克隆体跟随指针；本体留在
+        // grid 流中作为实时预览]
+        ghost = card.cloneNode(true) as HTMLElement;
+        ghost.classList.add('dragging');
+        ghost.style.width = `${rect.width}px`;
+        ghost.style.height = `${rect.height}px`;
+        ghost.style.left = `${rect.left}px`;
+        ghost.style.top = `${rect.top}px`;
+        ghost.style.margin = '0';
+        document.body.appendChild(ghost);
 
-        placeholder = document.createElement('div');
-        placeholder.className = 'widget-placeholder';
-        placeholder.style.height = `${rect.height}px`;
-        board.insertBefore(placeholder, card);
+        card.classList.add('slot-preview');
       }
-      // Follow the pointer [跟随指针]
-      card.style.transform = `translate(${ev.clientX - startX}px, ${ev.clientY - startY}px)`;
+      ghost!.style.transform = `translate(${ev.clientX - startX}px, ${ev.clientY - startY}px)`;
 
-      // Pick the card under the pointer to decide the drop slot [按指针下方卡片决定落点]
-      const el = document.elementFromPoint(ev.clientX, ev.clientY) as HTMLElement | null;
-      const over = el?.closest?.('.widget');
-      if (over && over !== card && placeholder) {
-        const r = over.getBoundingClientRect();
-        const afterY = ev.clientY - r.top > r.height / 2;
-        board.insertBefore(placeholder, afterY ? over.nextSibling : over);
+      // Drop slot from pointer geometry — works over empty board areas too,
+      // not only directly on a card: a card counts as "before the pointer" when
+      // the pointer sits in its upper half, or left of its center within the
+      // lower half; the card moves before the first such card, else last.
+      // [按指针几何推算落点：board 空白区域同样有效，不要求压在卡片上。
+      //  指针位于卡片上半，或下半的左侧，即视为"在该卡之前"；卡片本体移动到
+      //  第一张满足条件的卡之前，否则追加末尾——grid 即时重排，预览尺寸
+      //  始终等于松手后的真实尺寸]
+      const cards = Array.from(board.querySelectorAll<HTMLElement>('.widget'))
+        .filter((w) => w !== card);
+      const before = cards.find((c) => {
+        const r = c.getBoundingClientRect();
+        return ev.clientY < r.top + r.height / 2
+          || (ev.clientY < r.bottom && ev.clientX < r.left + r.width / 2);
+      });
+      // Skip no-op moves to avoid needless reflows per pointer frame
+      // [跳过无效移动，避免每个指针帧触发无谓重排]
+      const inPlace = before ? before.previousElementSibling === card
+        : board.lastElementChild === card;
+      if (!inPlace) {
+        if (before) board.insertBefore(card, before);
+        else board.appendChild(card);
       }
     };
 
-    const onUp = () => {
+    const finish = () => {
       document.removeEventListener('pointermove', onMove);
-      document.removeEventListener('pointerup', onUp);
-      document.removeEventListener('pointercancel', onUp);
-      if (started && placeholder) {
-        board.insertBefore(card, placeholder);
-        placeholder.remove();
-        card.classList.remove('dragging');
-        card.style.width = card.style.left = card.style.top = card.style.transform = '';
+      document.removeEventListener('pointerup', finish);
+      document.removeEventListener('pointercancel', finish);
+      if (started && ghost) {
+        ghost.remove();
+        card.classList.remove('slot-preview');
         persistOrder(board);
       }
     };
 
     document.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerup', onUp);
-    document.addEventListener('pointercancel', onUp);
+    document.addEventListener('pointerup', finish);
+    document.addEventListener('pointercancel', finish);
   });
 }

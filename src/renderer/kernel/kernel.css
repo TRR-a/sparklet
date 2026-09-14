@@ -549,11 +549,14 @@ body {
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
     transform: rotate(0.5deg);
 }
-.widget-placeholder {
-    border: 1.5px dashed var(--color-primary);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-hover);
-    min-height: 80px;
+
+/* The card itself dimmed + dashed outline: it stays in the grid flow as the
+   live drop preview with the exact size it will have after dropping
+   [卡片本体弱化+虚线描边：留在 grid 流中作为实时预览，尺寸即松手后的真实尺寸] */
+.widget.slot-preview {
+    opacity: 0.35;
+    outline: 1.5px dashed var(--color-primary);
+    outline-offset: -2px;
 }
 
 /* ---- Calendar [日历] ---- */
