@@ -12,6 +12,7 @@ import { registerProjectIpcHandlers } from './project-ipc';
 import { registerPluginIpcHandlers } from './plugins-ipc';
 import { registerSystemIpcHandlers } from './system-ipc';
 import { registerLoggerIpc } from './logger-ipc';
+import { registerLogsIpcHandlers } from './logs-ipc';
 
 /**
  * Register all IPC handlers (notes, store, window, broadcast, updater, config, cache, plugins, system) [注册所有 IPC 处理器 (笔记、存储、窗口、广播、更新、配置、缓存、插件、系统)]
@@ -28,5 +29,6 @@ export function registerAllIpcHandlers(): void {
   registerPluginIpcHandlers();
   registerSystemIpcHandlers();
   registerLoggerIpc();
+  registerLogsIpcHandlers();
   console.log('[IPC] All IPC handlers registered');
 }

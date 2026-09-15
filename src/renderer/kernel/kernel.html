@@ -87,6 +87,16 @@
                             <div id="monitorGpus" class="monitor-dynamic"></div>
                         </div>
                     </section>
+
+                    <!-- 日志卡片：最近 error/warn 计数 + 打开日志文件夹 -->
+                    <section id="logCard" class="log-card widget" data-widget="logs">
+                        <div class="log-title" data-i18n="kernel.logs">Logs</div>
+                        <div class="log-stats">
+                            <span class="log-stat"><span class="log-stat-num" id="logErrorCount">0</span><span class="log-stat-label" data-i18n="kernel.logsErrors">errors</span></span>
+                            <span class="log-stat"><span class="log-stat-num warn" id="logWarnCount">0</span><span class="log-stat-label" data-i18n="kernel.logsWarns">warnings</span></span>
+                        </div>
+                        <button class="log-open-btn" id="logOpenBtn" data-i18n="kernel.logsOpen">Open logs folder</button>
+                    </section>
                 </div>
 
                 <section id="pluginGrid" class="plugin-grid"></section>

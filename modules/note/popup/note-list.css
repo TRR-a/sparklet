@@ -37,3 +37,43 @@
     background-color: var(--color-primary-light);
     border-left: 3px solid var(--note-color, var(--color-primary));
 }
+
+/* ==================== Tag filter bar [标签筛选条] ==================== */
+.tag-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 4px;
+}
+
+.tag-chip {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    background-color: var(--tag-bg, rgba(127,127,127,0.12));
+    color: var(--tag-text, inherit);
+    cursor: pointer;
+    user-select: none;
+}
+
+.tag-chip.active {
+    background-color: var(--tag-active, #4285f4);
+    color: #fff;
+}
+
+/* Note tags on cards [卡片上的标签] */
+.note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 3px;
+}
+
+.note-tag {
+    padding: 1px 7px;
+    border-radius: 8px;
+    font-size: 0.68rem;
+    background-color: rgba(127,127,127,0.15);
+    color: inherit;
+    opacity: 0.85;
+}

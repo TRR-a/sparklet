@@ -83,7 +83,8 @@ class StorageManager {
       isDeleted: false,
       deletedAt: null,
       pinned: false,
-      starred: false
+      starred: false,
+      tags: []
     };
 
     // Save to file system via IPC [调用 IPC 保存到文件系统]

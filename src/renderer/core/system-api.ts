@@ -8,4 +8,14 @@ export const systemApi = {
   stats(): Promise<SystemStats> {
     return bus.invoke<SystemStats>('system:stats');
   },
+
+  /** Open the logs folder in the system file manager [在系统文件管理器中打开日志文件夹] */
+  openLogsFolder(): Promise<{ success: boolean; root?: string; error?: string }> {
+    return bus.invoke('logs:open-folder');
+  },
+
+  /** Tail recent kernel.log lines [读取 kernel.log 尾部内容] */
+  tailLogs(maxLines = 200): Promise<{ success: boolean; lines?: string[]; file?: string; error?: string }> {
+    return bus.invoke('logs:tail', maxLines);
+  },
 };

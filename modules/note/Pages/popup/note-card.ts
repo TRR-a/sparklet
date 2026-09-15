@@ -5,7 +5,8 @@ import { formatDate } from '../../Base/dom-utils.js';
 import {
   handleDeleteNote,
   togglePinNote,
-  toggleStarNote
+  toggleStarNote,
+  editTagsNote
 } from './note-operations.js';
 import { closeAllMenus, toggleCardMenu } from './note-menu.js';
 import { showNoteInfo } from './note-info-modal.js';
@@ -41,6 +42,7 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
     <div class="note-text">
       <div class="note-title">${pinIcon}${starIcon}${note.title || t('main.noteUntitled')}<span class="note-format-tag">(MD)</span></div>
       <div class="note-time">${formatDate(note.updatedAt)}</div>
+      ${note.tags && note.tags.length ? `<div class="note-tags">${note.tags.map(tag => `<span class="note-tag">${tag}</span>`).join('')}</div>` : ''}
     </div>
     <button class="note-delete-btn" data-i18n-title="tooltip.deleteNote" title="${t('tooltip.deleteNote')}">🗑️</button>
     <button class="note-more-btn" data-i18n-title="tooltip.more" title="${t('tooltip.more')}">⋮</button>
@@ -51,6 +53,7 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
       <button class="menu-item star-toggle" data-action="star">
         ${note.starred ? t('noteMenu.unstar') : t('noteMenu.star')}
       </button>
+      <button class="menu-item tag-edit" data-action="tags">${t('noteMenu.editTags')}</button>
       <button class="menu-item select-mode" data-action="select">${t('noteMenu.select')}</button>
       <button class="menu-item note-history" data-action="history">${t('noteMenu.history')}</button>
       <button class="menu-item note-info" data-action="info">${t('noteMenu.info')}</button>
@@ -107,6 +110,8 @@ export function createNoteCard(note: NoteListItem, activeNoteId: string | null):
         await togglePinNote(note.id);
       } else if (action === 'star') {
         await toggleStarNote(note.id);
+      } else if (action === 'tags') {
+        await editTagsNote(note.id);
       } else if (action === 'history') {
         await showNoteHistory(note.id);
       } else if (action === 'info') {

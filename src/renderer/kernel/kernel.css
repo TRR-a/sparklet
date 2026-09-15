@@ -507,6 +507,71 @@ body {
     gap: 10px;
 }
 
+/* ==================== Logs card [日志卡片] ==================== */
+.log-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.log-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.log-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.log-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.log-stat-num {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e53935;
+}
+
+.log-stat-num.warn {
+    color: #fb8c00;
+}
+
+.log-stat-label {
+    font-size: 0.72rem;
+    color: var(--color-muted);
+}
+
+.log-open-btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-hover);
+    color: var(--color-text);
+    font-size: 0.82rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.log-open-btn:hover {
+    background-color: var(--color-border);
+}
+
+#logCard {
+    grid-column: 1 / -1;
+}
+
 /* ==================== Widget board: draggable card grid [可拖拽卡片板] ==================== */
 /* Two-column grid; calendar spans two rows on the left, digital/analog stack on the right,
    monitor spans the full row below. DOM order is user-reorderable.

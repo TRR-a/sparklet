@@ -10,6 +10,7 @@ import { getKernelWindow } from './windows/window-manager';
 import { initUpdater, checkUpdateManually } from './updater';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
+import { registerGlobalShortcuts } from './global-shortcuts';
 import { runStartupIntegrityScan } from './services/note-integrity';
 import { initLogger, installCrashLogging, logger } from './services/logger';
 
@@ -55,6 +56,10 @@ app.whenReady().then(async () => {
   //    [创建内核 (Hub) 窗口。插件由内核 UI 按需经 plugins:list 发现，无需任何插件即可启动]
   createKernelWindow();
   logger.info('main', 'Kernel window created');
+
+  // 2.2 Register system-wide global shortcuts (Ctrl+Alt+Space toggle kernel, Ctrl+Alt+N new note)
+  // [注册系统级全局快捷键 (Ctrl+Alt+Space 切换内核，Ctrl+Alt+N 新建笔记)]
+  registerGlobalShortcuts();
 
   // 4. Initialize updater module (after window creation) [初始化更新模块 (窗口创建后执行)]
   initUpdater();

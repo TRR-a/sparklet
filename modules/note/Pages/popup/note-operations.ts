@@ -131,6 +131,20 @@ export async function toggleStarNote(noteId: string): Promise<void> {
 }
 
 /**
+ * Edit note tags via a prompt (comma-separated) [通过弹窗编辑笔记标签 (逗号分隔)]
+ */
+export async function editTagsNote(noteId: string): Promise<void> {
+  const note = await storageManager.getNoteById(noteId);
+  if (!note) return;
+  const current = (note.tags || []).join(', ');
+  const input = window.prompt(t('noteMenu.editTagsPrompt'), current);
+  if (input === null) return;
+  const tags = input.split(',').map(s => s.trim()).filter(Boolean);
+  await storageManager.updateNote(noteId, { tags });
+  await refreshNoteListView();
+}
+
+/**
  * Handle note deletion (double-click to confirm) [处理笔记删除 (双击确认)]
  */
 export async function handleDeleteNote(noteId: string, listItemElement: HTMLElement): Promise<void> {

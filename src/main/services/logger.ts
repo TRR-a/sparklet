@@ -183,3 +183,8 @@ export const logger = {
 export function writeScoped(level: LogLevel, scope: string, tag: string, message: string): void {
   write(level, scope || 'main', tag, message);
 }
+
+/** Absolute path of the logs root (<userData>/logs/sparklet.main/) [日志根目录绝对路径 (<userData>/logs/sparklet.main/)] */
+export function getLogRoot(): string {
+  return path.join(logRoot, 'sparklet.main');
+}

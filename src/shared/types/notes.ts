@@ -12,6 +12,8 @@ export interface Note {
   deletedAt: string | null;
   pinned: boolean;
   starred: boolean;
+  /** User-assigned tags for filtering [用户分配的标签，用于筛选] */
+  tags: string[];
 }
 
 /** Note metadata without content [不含正文的笔记元数据] */

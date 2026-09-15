@@ -6,6 +6,7 @@ import { initI18n } from '../../Modules/i18n.js';
 import { bindToastListener } from '../../Base/toast.js';
 import { setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
 import { storeApi, windowApi, installGlobalErrorHooks } from '../../../../src/renderer/core/index.js';
+import { bus } from '../../../../src/renderer/core/ipc-bus.js';
 import {
   loadNotes,
   saveCurrentNote,
@@ -134,6 +135,9 @@ async function initApp(): Promise<void> {
   initNoteSearch(); // Sidebar full-text search box [侧栏全文搜索框]
   initShortcutPanel(); // Keyboard shortcut panel (⌨️ / F1) [快捷键面板 (⌨️ / F1)]
   initGlobalShortcuts(); // Ctrl+F / Ctrl+N / Ctrl+P [全局快捷键]
+  // System-wide shortcut (Ctrl+Alt+N) → new note, even when this window isn't focused
+  // [系统级快捷键 (Ctrl+Alt+N) → 新建笔记，即使本窗口未聚焦]
+  bus.on('global:new-note', () => { void createNewNote(); });
   bindNoteHistoryModalHandlers(); // Note history modal (list / diff / restore) [笔记历史弹窗 (列表/差异/恢复)]
   await showNoteHistoryStartupToast(); // Startup integrity repair notice [启动完整性修复提示]
   await loadNotes();

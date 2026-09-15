@@ -27,6 +27,10 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.na': 'N/A',
     'kernel.gpuNonNvidia': 'non-NVIDIA GPU: this system cannot provide utilization data for non-NVIDIA GPUs',
     'kernel.gpuNonNvidiaTip': 'Real-time GPU utilization is only readable on NVIDIA GPUs via nvidia-smi',
+    'kernel.logs': 'Logs',
+    'kernel.logsErrors': 'errors',
+    'kernel.logsWarns': 'warnings',
+    'kernel.logsOpen': 'Open logs folder',
   },
   'zh-CN': {
     'kernel.title': 'Sparklet 中枢',
@@ -43,6 +47,10 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.na': '暂无',
     'kernel.gpuNonNvidia': '非NVIDIA显卡暂时因系统对应非NVIDIA显卡无法提供GPU占用数据',
     'kernel.gpuNonNvidiaTip': '实时 GPU 占用仅支持经 nvidia-smi 读取的 NVIDIA 显卡',
+    'kernel.logs': '日志',
+    'kernel.logsErrors': '错误',
+    'kernel.logsWarns': '警告',
+    'kernel.logsOpen': '打开日志文件夹',
   },
 };
 
@@ -192,6 +200,34 @@ async function refreshMonitor(): Promise<void> {
   } catch (err) {
     console.warn('[Kernel] system stats failed:', err);
   }
+}
+
+// ========== Logs card [日志卡片] ==========
+/** Count ERROR / WARN lines in the tail and paint the counts [统计尾部日志中 ERROR / WARN 数量并渲染] */
+async function refreshLogStats(): Promise<void> {
+  try {
+    const res = await systemApi.tailLogs(500);
+    if (!res.success || !res.lines) return;
+    let errors = 0;
+    let warns = 0;
+    for (const line of res.lines) {
+      if (line.includes('[ERROR')) errors++;
+      else if (line.includes('[WARN')) warns++;
+    }
+    const errEl = document.getElementById('logErrorCount');
+    const warnEl = document.getElementById('logWarnCount');
+    if (errEl) errEl.textContent = String(errors);
+    if (warnEl) warnEl.textContent = String(warns);
+  } catch (err) {
+    console.warn('[Kernel] log stats failed:', err);
+  }
+}
+
+/** Bind the "open logs folder" button [绑定"打开日志文件夹"按钮] */
+function bindLogCard(): void {
+  document.getElementById('logOpenBtn')?.addEventListener('click', () => {
+    void systemApi.openLogsFolder();
+  });
 }
 
 // ========== Time cards (calendar / analog / digital) [时间卡片 (日历/钟面/电子钟)] ==========
@@ -522,6 +558,10 @@ async function init(): Promise<void> {
   // System monitor: immediate sample then periodic refresh [系统监控：立即采样一次后周期刷新]
   await refreshMonitor();
   setInterval(() => void refreshMonitor(), MONITOR_REFRESH_MS);
+
+  // Logs card: bind open button then read counts once [日志卡片：绑定打开按钮后读取一次计数]
+  bindLogCard();
+  await refreshLogStats();
 
   // Time cards: build the analog face, tick immediately then every second [时间卡片：构建钟面，立即走时后每秒刷新]
   buildAnalogTicks();

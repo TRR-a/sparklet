@@ -22,8 +22,12 @@ export interface NoteListItem {
   updatedAt: string;
   pinned?: boolean;
   starred?: boolean;
+  tags?: string[];
   deletedAt?: string | null;
 }
+
+/** Currently selected tag filter ('' = show all) [当前选中的标签筛选 (空 = 全部)] */
+let activeTag = '';
 
 /**
  * Factories shared by the main view and search results [主视图与搜索结果共用的元素工厂]
@@ -51,6 +55,35 @@ function pushGroup(items: VirtualItem[], key: string, label: string, group: Note
 }
 
 /**
+ * Render the tag filter bar: "All" + every tag that exists, click to filter
+ * [渲染标签筛选条：全部 + 所有出现过的标签，点击筛选]
+ */
+function renderTagFilterBar(notes: NoteListItem[]): void {
+  const bar = document.getElementById('tagFilterBar');
+  if (!bar) return;
+  const tagSet = new Set<string>();
+  notes.forEach(n => (n.tags || []).forEach(tag => tagSet.add(tag)));
+  const allTags = Array.from(tagSet).sort();
+  if (allTags.length === 0) {
+    bar.style.display = 'none';
+    bar.innerHTML = '';
+    return;
+  }
+  bar.style.display = 'flex';
+  const chips: string[] = [`<span class="tag-chip${activeTag === '' ? ' active' : ''}" data-tag="">${t('tagFilter.all')}</span>`];
+  allTags.forEach(tag => {
+    chips.push(`<span class="tag-chip${activeTag === tag ? ' active' : ''}" data-tag="${tag}">${tag}</span>`);
+  });
+  bar.innerHTML = chips.join('');
+  bar.querySelectorAll<HTMLElement>('.tag-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeTag = chip.dataset.tag || '';
+      void renderNoteList(notes, getActiveNoteId());
+    });
+  });
+}
+
+/**
  * Render the note list [渲染笔记列表]
  * @param notes Note list data [笔记数据]
  * @param activeNoteId Currently active note ID for highlight (null = none) [当前选中笔记 ID 用于高亮 (null=无)]
@@ -59,10 +92,18 @@ export async function renderNoteList(notes: NoteListItem[], activeNoteId: string
   if (!document.getElementById('noteList')) return;
   closeAllMenus();
 
+  renderTagFilterBar(notes);
+
+  // Apply tag filter if one is selected [若选中标签则按标签过滤]
+  let visible = notes;
+  if (activeTag) {
+    visible = notes.filter(n => (n.tags || []).includes(activeTag));
+  }
+
   // Split into pinned, starred, and normal groups [分为置顶、星标、普通三组]
-  const pinnedNotes = notes.filter(n => n.pinned);
-  const starredNotes = notes.filter(n => !n.pinned && n.starred);
-  const normalNotes = notes.filter(n => !n.pinned && !n.starred);
+  const pinnedNotes = visible.filter(n => n.pinned);
+  const starredNotes = visible.filter(n => !n.pinned && n.starred);
+  const normalNotes = visible.filter(n => !n.pinned && !n.starred);
 
   const items: VirtualItem[] = [];
   pushGroup(items, 'pinned', t('noteList.groupPinned'), pinnedNotes);
