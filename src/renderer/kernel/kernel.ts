@@ -237,6 +237,9 @@ let lastCalKey = '';
 /** 12-hour format toggle for the digital clock (default 24h) [电子时钟 12 小时制开关 (默认 24 小时制)] */
 let use12Hour = false;
 
+/** Selected day-of-month in the displayed month (null = today highlighted) [日历中选中的日期 (null = 高亮今天)] */
+let selectedDay: number | null = null;
+
 function clockLocale(): string {
   return currentLang === 'zh-CN' ? 'zh-CN' : 'en-US';
 }
@@ -313,8 +316,27 @@ function renderCalendar(now: Date): void {
   }
   for (let d = 1; d <= daysInMonth; d++) {
     const cell = document.createElement('span');
-    cell.className = `calendar-day${d === now.getDate() ? ' today' : ''}`;
+    const isToday = d === now.getDate();
+    const isSelected = selectedDay === d;
+    cell.className = 'calendar-day';
+    // Before any selection: today is filled blue. After selecting another day:
+    // today keeps a blue ring, the picked day gets a grey fill, others are muted.
+    // [未选中时今天蓝色填充；选中其他日后今天保留蓝描边，被选日灰色填充，其余弱色]
+    if (selectedDay === null) {
+      if (isToday) cell.classList.add('today');
+      else cell.classList.add('normal');
+    } else {
+      if (isToday) cell.classList.add('today-ring');
+      else if (isSelected) cell.classList.add('selected');
+      else cell.classList.add('normal');
+    }
     cell.textContent = String(d);
+    cell.style.cursor = 'pointer';
+    cell.addEventListener('click', () => {
+      // Clicking today again clears the selection back to default [再点今天则清除选中回到默认]
+      selectedDay = isToday ? null : d;
+      renderCalendar(now);
+    });
     grid.appendChild(cell);
   }
   const filled = startBlank + daysInMonth;

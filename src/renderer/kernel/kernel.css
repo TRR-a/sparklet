@@ -678,6 +678,25 @@ body {
     font-weight: 600;
 }
 
+/* This-month but not today: muted text [本月非今日：弱色文字] */
+.calendar-day.normal {
+    color: var(--color-muted);
+}
+
+/* Today after picking another day: blue ring, normal background [选中其他日后的今天：蓝描边，正常底色] */
+.calendar-day.today-ring {
+    box-shadow: inset 0 0 0 2px var(--color-primary);
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+/* Picked day: grey fill [被选中日：灰色填充] */
+.calendar-day.selected {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+    font-weight: 600;
+}
+
 /* ---- Square (digital) clock card: time only, date lives in the details block [方时钟卡片：只显示时间，日期移至详细信息区] ---- */
 .time-digital {
     align-items: center;
