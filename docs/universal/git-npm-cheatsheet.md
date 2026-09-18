@@ -39,7 +39,7 @@
 | `git merge` | Merge branch [合并] | `--no-ff`; `--squash`; `--abort` |
 | `git rebase` | Replay commits on top [变基] | `git rebase main`; `-i` interactive; `--continue`/`--abort`/`--skip`; `--onto <new> <old> <topic>` precise retarget [精确变基] |
 | `git cherry-pick` | Pick one commit [挑拣单个提交] | `git cherry-pick <sha>`; `-n` no-commit |
-| `git tag` | Version tags [标签] | `-a v1.0 -m "msg"` annotated; `git push --tags` |
+| `git tag` | Version tags [标签] | `-a v1.0 -m "msg"` annotated; `-l -n` list tags with annotation messages [列出标签并显示注释内容]; `git push --tags` |
 
 ### 1.4 Remote [远程]
 
