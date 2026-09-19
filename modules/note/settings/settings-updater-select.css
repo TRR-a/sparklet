@@ -1,11 +1,13 @@
-/* settings-updater-select.css - 更新区块内的下拉框 */
+/* settings-updater-select.css - 更新区块内的下拉框（玻璃拟态） */
 
 .updater-group .setting-item select {
   width: 100%;
-  padding: 8px 36px 8px 12px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 9px 36px 9px 12px;
+  border-radius: 10px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-border);
   color: var(--color-text-secondary);
   font-size: 0.9rem;
   cursor: pointer;
@@ -15,17 +17,10 @@
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333333"><path d="M7 10l5 5 5-5z"/></svg>') !important;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23888888"><path d="M7 10l5 5 5-5z"/></svg>') !important;
   background-repeat: no-repeat !important;
-  background-position: right 8px center !important;
+  background-position: right 10px center !important;
   background-size: 16px !important;
-}
-
-[data-theme="dark"] .updater-group .setting-item select,
-[data-theme="blue"] .updater-group .setting-item select {
-  background: rgba(30, 30, 30, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e0e0e0"><path d="M7 10l5 5 5-5z"/></svg>') !important;
 }
 
 .updater-group .setting-item select:disabled {
@@ -39,5 +34,5 @@
 
 .updater-group .setting-item select:focus:not(:disabled) {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(66, 133, 245, 0.15);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
 }

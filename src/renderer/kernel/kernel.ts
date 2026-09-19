@@ -584,6 +584,7 @@ async function init(): Promise<void> {
   // Logs card: bind open button then read counts once [日志卡片：绑定打开按钮后读取一次计数]
   bindLogCard();
   await refreshLogStats();
+  setInterval(() => void refreshLogStats(), 10000);
 
   // Time cards: build the analog face, tick immediately then every second [时间卡片：构建钟面，立即走时后每秒刷新]
   buildAnalogTicks();

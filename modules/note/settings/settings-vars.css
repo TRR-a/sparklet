@@ -1,22 +1,46 @@
 /* settings-vars.css - 主题变量（亮色/暗色/蓝色三套） */
 
 :root {
+  --color-bg: #f5f6f8;
+  --color-text: #1a1d21;
   --color-text-primary: #1a1d21;
   --color-text-secondary: #3a3f47;
   --color-text-muted: #6b7280;
   --color-primary: #3b82f6;
+  --color-primary-light: rgba(59, 130, 246, 0.12);
+  --color-hover: rgba(0, 0, 0, 0.04);
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-textarea-bg: rgba(0, 0, 0, 0.03);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.7);
 }
 
 [data-theme="dark"] {
+  --color-bg: #0b0d10;
+  --color-text: #e8eaed;
   --color-text-primary: #e8eaed;
   --color-text-secondary: #c8ccd2;
   --color-text-muted: #8b919b;
   --color-primary: #6ea8fe;
+  --color-primary-light: rgba(110, 168, 254, 0.15);
+  --color-hover: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-textarea-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="blue"] {
+  --color-bg: #06101f;
+  --color-text: #d6e4f5;
   --color-text-primary: #d6e4f5;
   --color-text-secondary: #b0c4dc;
   --color-text-muted: #6d8aa8;
   --color-primary: #5aa9ff;
+  --color-primary-light: rgba(90, 169, 255, 0.15);
+  --color-hover: rgba(120, 180, 255, 0.08);
+  --color-border: rgba(120, 180, 255, 0.12);
+  --color-textarea-bg: rgba(20, 45, 80, 0.3);
+  --glass-bg: rgba(20, 50, 90, 0.35);
+  --glass-border: rgba(120, 180, 255, 0.15);
 }

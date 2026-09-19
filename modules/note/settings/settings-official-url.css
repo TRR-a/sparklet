@@ -1,5 +1,4 @@
 /* settings-official-url.css - 项目官网地址展示与复制按钮 */
-/* 注：部分规则在历史拆分中被意外截断，依据 git 历史 (79b3010^) 恢复 */
 
 .official-url-box {
     display: flex;
@@ -18,11 +17,13 @@
 .official-url-input {
     flex: 1;
     min-width: 0;
-    padding: 6px 10px;
-    border: 1px solid var(--color-border, #e0e0e0);
-    border-radius: 6px;
-    background: var(--color-input-bg, #f5f5f5);
-    color: var(--color-text-primary, #333);
+    padding: 7px 12px;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--color-text-primary);
     font-size: 12px;
     font-family: monospace;
     outline: none;
@@ -30,42 +31,27 @@
 }
 
 .official-url-input:focus {
-    border-color: #3b82f6;
-}
-
-[data-theme="dark"] .official-url-input , [data-theme="blue"] .official-url-input {
-    background: #333;
-    color: #e0e0e0;
-    border-color: #3a3a3a;
+    border-color: var(--color-primary);
 }
 
 .copy-url-btn {
-    padding: 6px 14px;
+    padding: 7px 16px;
     border: none;
-    border-radius: 6px;
-    background: #3b82f6;
+    border-radius: 10px;
+    background: var(--color-primary);
     color: #fff;
     font-size: 12px;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.2s;
+    transition: filter 0.15s, transform 0.1s;
 }
 
-.copy-url-btn:hover {
-    background: #2563eb;
-}
-
-.copy-url-btn:active {
-    background: #1d4ed8;
-}
+.copy-url-btn:hover { filter: brightness(1.1); }
+.copy-url-btn:active { transform: scale(0.97); }
 
 .official-url-hint {
-    color: #888;
+    color: var(--color-text-muted, #888);
     font-size: 12px;
     margin-top: 6px;
     line-height: 1.5;
-}
-
-[data-theme="dark"] .official-url-hint , [data-theme="blue"] .official-url-hint {
-    color: #777;
 }

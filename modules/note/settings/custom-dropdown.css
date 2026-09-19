@@ -1,0 +1,88 @@
+/* custom-dropdown.css - Dropdown replacing native <select> */
+/* Panel is solid (not glass) so text underneath doesn't bleed through [浮层用实色背景，避免下层玻璃的字透上来糊成一团] */
+
+.glass-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 9px 14px;
+    border-radius: 10px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 0.92rem;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+}
+
+.glass-dropdown-btn:hover {
+    border-color: var(--color-primary);
+}
+
+.glass-dropdown-btn:focus-visible {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.gd-arrow {
+    opacity: 0.5;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.glass-dropdown-btn[aria-expanded="true"] .gd-arrow {
+    transform: rotate(180deg);
+}
+
+.glass-dropdown-panel {
+    position: fixed;
+    z-index: 9999;
+    min-width: 180px;
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 5px;
+    border-radius: 12px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+    animation: gdIn 0.15s ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+.glass-dropdown-panel::-webkit-scrollbar { width: 6px; }
+.glass-dropdown-panel::-webkit-scrollbar-track { background: transparent; }
+.glass-dropdown-panel::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+}
+.glass-dropdown-panel::-webkit-scrollbar-button { display: none; }
+
+@keyframes gdIn {
+    from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.glass-dropdown-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background 0.12s;
+    white-space: nowrap;
+}
+
+.glass-dropdown-item:hover {
+    background: var(--color-hover);
+}
+
+.glass-dropdown-item.active {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    font-weight: 600;
+}

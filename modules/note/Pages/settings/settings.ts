@@ -21,6 +21,7 @@ import {
   applyImportExportDevLock,
   bindImportExportEvents
 } from './config-io.js';
+import { initCustomDropdowns } from '../../settings/custom-dropdown.js';
 
 // Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
 installGlobalErrorHooks('note');
@@ -177,3 +178,6 @@ if (clock12hToggle) {
     await broadcastApi.notifyClockFormatChanged(use12Hour);
   });
 }
+
+// Replace native selects with glassmorphism dropdowns [将原生 select 替换为玻璃下拉]
+initCustomDropdowns();
