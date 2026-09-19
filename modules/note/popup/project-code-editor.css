@@ -4,7 +4,9 @@
     display: flex;
     height: 100%;
     min-height: 0;
-    background: transparent;
+    background: var(--color-textarea-bg);
+    border-radius: var(--radius-sm, 10px);
+    overflow: hidden;
 }
 
 /* 行号槽 */
@@ -72,7 +74,10 @@
 
 .code-editor-input {
     overflow: auto;
-    background: transparent;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
     color: transparent;
     caret-color: var(--color-text);
     resize: none;

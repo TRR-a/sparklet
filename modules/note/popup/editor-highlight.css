@@ -54,6 +54,9 @@ body[data-theme="dark"] .hljs-meta { color: #5c6370; }
 body[data-theme="dark"] .hljs-strong { font-weight: bold; }
 body[data-theme="dark"] .hljs-emphasis { font-style: italic; }
 
+/* Strikethrough (markdown ~~text~~) - one rule for all themes [删除线 - 三主题共用] */
+.hljs-deletion { text-decoration: line-through; opacity: 0.75; }
+
 /* Blue theme (Material Ocean) [蓝色主题] */
 body[data-theme="blue"] .hljs { color: #c8d6e5; background: transparent; }
 body[data-theme="blue"] .hljs-comment,

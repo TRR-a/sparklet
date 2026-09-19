@@ -2,8 +2,8 @@
 
 import { escapeHtml, span } from './highlight-utils.js';
 
-/** HTML single-pass pattern: comment, tag open, name, attr, string, tag close [HTML 单遍模式] */
-const HTML_TOKEN = /<!--[\s\S]*?-->|<\/?[A-Za-z][\w:-]*|"[^"]*"|'[^']*'|[A-Za-z-]+(?==)|\/?>/g;
+/** HTML single-pass pattern: comment, doctype, tag open, name, entity, attr, string, tag close [HTML 单遍模式] */
+const HTML_TOKEN = /<!--[\s\S]*?-->|<![A-Za-z][^>]*>|<\/?[A-Za-z][\w:-]*|&[a-zA-Z][a-zA-Z0-9]*;|&#\d+;|&#x[0-9a-fA-F]+;|"[^"]*"|'[^']*'|[A-Za-z-]+(?==)|\/?>/g;
 
 /**
  * Highlight HTML/XML code [高亮 HTML/XML 代码]
@@ -19,9 +19,13 @@ export function highlightHtml(code: string): string {
     const tok = m[0];
     if (tok.startsWith('<!--')) {
       out += span('hljs-comment', tok);
+    } else if (tok.startsWith('<!')) {
+      out += span('hljs-meta', tok);               // DOCTYPE / CDATA
     } else if (tok.startsWith('<') || tok === '>' || tok === '/>') {
       inTag = !tok.startsWith('</') && tok !== '>' && tok !== '/>';
       out += span('hljs-keyword', tok);            // bracket + tag name
+    } else if (tok.startsWith('&')) {
+      out += span('hljs-doctag', tok);             // &amp; &#39; entities
     } else if (tok.startsWith('"') || tok.startsWith("'")) {
       out += span('hljs-string', tok);
     } else {

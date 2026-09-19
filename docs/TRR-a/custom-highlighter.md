@@ -56,12 +56,12 @@ src/renderer/modules/project/code-editor.ts   自研代码编辑器
 
 | 语言 | 扩展名 | 词元 |
 |------|--------|------|
-| TS/JS | ts/tsx/js/jsx/mjs/cjs | 注释（//、/\*\*\/）、模板字符串、字符串、数字、关键字、函数调用、label |
-| CSS | css/scss/less | 块注释、属性名、#id、@规则、数字 |
-| Python | py | # 注释、关键字、字符串、数字 |
-| HTML | html/htm/svg/xml | 注释、标签、属性、字符串 |
+| TS/JS | ts/tsx/js/jsx/mjs/cjs | 注释（//、/\*\*\/）、模板字符串（含 `${...}` 插值独立着色）、字符串、数字、关键字、内置对象（console/Math/JSON/window…）、TS 基本类型（string/number/any…）、class/interface/enum 名、函数调用、label |
+| CSS | css/scss/less | 块注释、属性名、.class、#id、@规则、数字 |
+| Python | py | # 注释、关键字、内置函数（print/len/range…）、class 名、三引号文档串、字符串、数字 |
+| HTML | html/htm/svg/xml | 注释、DOCTYPE/CDATA、标签、属性、字符串、实体（&amp; …） |
 | JSON | json/jsonc | 键/字符串（向后探测 `:` 区分）、数字、字面量 |
-| Markdown | md/markdown | 标题/粗斜体/行内代码/引用/列表/围栏/链接/图片/裸 URL |
+| Markdown | md/markdown | 标题（ATX + Setext `===`）/粗斜体/删除线/行内代码/引用/列表（含任务列表勾选框）/围栏（内容按内层语言递归高亮）/表格分隔行/链接/图片/裸 URL |
 
 ## 关键决策
 
