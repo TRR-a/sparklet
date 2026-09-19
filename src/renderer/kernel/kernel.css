@@ -8,50 +8,65 @@
 }
 
 :root {
-    --color-bg: #ffffff;
-    --color-text: #333333;
-    --color-border: #e0e0e0;
-    --color-primary: #4285f4;
-    --color-primary-light: rgba(66, 133, 244, 0.1);
-    --color-hover: #f1f3f4;
-    --color-card-bg: #ffffff;
-    --color-muted: #888888;
-    --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    --radius-sm: 8px;
-    --radius-lg: 14px;
+    --color-bg: #f5f6f8;
+    --color-text: #1a1d21;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-primary: #3b82f6;
+    --color-primary-light: rgba(59, 130, 246, 0.12);
+    --color-hover: rgba(0, 0, 0, 0.04);
+    --color-card-bg: rgba(255, 255, 255, 0.65);
+    --color-muted: #6b7280;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --radius-sm: 10px;
+    --radius-lg: 18px;
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #e8f0ff 0%, transparent 50%),
+                   radial-gradient(1000px 700px at 110% 20%, #ffe8f0 0%, transparent 45%),
+                   #f5f6f8;
 }
 
 [data-theme="dark"] {
-    --color-bg: #1e1e1e;
-    --color-text: #e0e0e0;
-    --color-border: #444444;
-    --color-primary: #8ab4f8;
-    --color-primary-light: rgba(138, 180, 248, 0.1);
-    --color-hover: #2d2d2d;
-    --color-card-bg: #262626;
-    --color-muted: #9a9a9a;
-    --shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    --color-bg: #0b0d10;
+    --color-text: #e8eaed;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-primary: #6ea8fe;
+    --color-primary-light: rgba(110, 168, 254, 0.15);
+    --color-hover: rgba(255, 255, 255, 0.06);
+    --color-card-bg: rgba(255, 255, 255, 0.05);
+    --color-muted: #8b919b;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #1a2438 0%, transparent 50%),
+                   radial-gradient(1000px 700px at 110% 20%, #2a1a38 0%, transparent 45%),
+                   #0b0d10;
 }
 
 [data-theme="blue"] {
-    --color-bg: #0d1b2a;
-    --color-text: #c8d6e5;
-    --color-border: #1b3a5c;
-    --color-primary: #4a9eff;
-    --color-primary-light: rgba(74, 158, 255, 0.15);
-    --color-hover: #152238;
-    --color-card-bg: #10233a;
-    --color-muted: #7a93ad;
-    --shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    --color-bg: #06101f;
+    --color-text: #d6e4f5;
+    --color-border: rgba(120, 180, 255, 0.12);
+    --color-primary: #5aa9ff;
+    --color-primary-light: rgba(90, 169, 255, 0.15);
+    --color-hover: rgba(120, 180, 255, 0.08);
+    --color-card-bg: rgba(20, 45, 80, 0.45);
+    --color-muted: #6d8aa8;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --glass-bg: rgba(20, 50, 90, 0.4);
+    --glass-border: rgba(120, 180, 255, 0.15);
+    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #0e2a4a 0%, transparent 55%),
+                   radial-gradient(1000px 700px at 110% 20%, #0a1f3a 0%, transparent 45%),
+                   #06101f;
 }
 
 body {
     width: 100vw;
     height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: var(--color-bg);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
     color: var(--color-text);
-    transition: background-color 0.3s, color 0.3s;
     overflow: hidden;
 }
 
@@ -69,7 +84,7 @@ body {
     flex-direction: column;
     gap: 6px;
     padding: 12px 6px;
-    background-color: var(--color-hover);
+    background: transparent;
     border-right: 1px solid var(--color-border);
     -webkit-app-region: drag;
 }
@@ -132,12 +147,11 @@ body {
 .title-bar {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
-    padding: 4px 0 8px 0;
+    background: transparent;
+    padding: 8px 0 12px 0;
     -webkit-app-region: drag;
     width: 100%;
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
     flex-shrink: 0;
 }
 
@@ -150,6 +164,13 @@ body {
 
 .title-row-top {
     justify-content: space-between;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    padding: 4px 18px;
+    box-shadow: var(--shadow);
 }
 
 .window-controls {
@@ -430,10 +451,12 @@ body {
 
 /* ==================== System monitor card [系统监控卡片] ==================== */
 .monitor-card {
-    background-color: var(--color-card-bg);
-    border: 1px solid var(--color-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    padding: 14px 16px;
+    padding: 16px 18px;
     box-shadow: var(--shadow);
     flex-shrink: 0;
 }
@@ -509,10 +532,12 @@ body {
 
 /* ==================== Logs card [日志卡片] ==================== */
 .log-card {
-    background-color: var(--color-card-bg);
-    border: 1px solid var(--color-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    padding: 14px 16px;
+    padding: 14px 18px;
     box-shadow: var(--shadow);
     flex-shrink: 0;
     display: flex;
@@ -593,13 +618,16 @@ body {
 }
 
 .time-card {
-    background-color: var(--color-card-bg);
-    border: 1px solid var(--color-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    padding: 14px 16px;
+    padding: 16px 18px;
     display: flex;
     flex-direction: column;
     min-width: 0;
+    box-shadow: var(--shadow);
 }
 
 /* --- Drag affordance [拖拽视觉] --- */

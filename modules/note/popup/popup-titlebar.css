@@ -4,7 +4,7 @@
 .title-bar {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-bg);
+    background: transparent;
     border-bottom: 1px solid var(--color-border);
     padding: 4px 16px 8px 16px;
     -webkit-app-region: drag;

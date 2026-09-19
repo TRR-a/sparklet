@@ -1,35 +1,52 @@
 /* popup-vars.css - 全局主题变量（亮色/暗色/蓝色三套） */
+/* Glassmorphism: cards use translucent bg + backdrop-filter blur, body gets a gradient [玻璃拟态：卡片半透明+背景模糊，body 用渐变] */
 
 :root {
-    --color-bg: #ffffff;
-    --color-text: #333333;
-    --color-border: #e0e0e0;
-    --color-primary: #4285f4;
-    --color-primary-light: rgba(66, 133, 244, 0.1);
-    --color-hover: #f1f3f4;
-    --color-textarea-bg: #ffffff;
-    --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    --radius-sm: 8px;
+    --color-bg: #f5f6f8;
+    --color-text: #1a1d21;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-primary: #3b82f6;
+    --color-primary-light: rgba(59, 130, 246, 0.12);
+    --color-hover: rgba(0, 0, 0, 0.04);
+    --color-textarea-bg: rgba(255, 255, 255, 0.6);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --radius-sm: 10px;
+    --radius-lg: 16px;
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #e8f0ff 0%, transparent 50%),
+                   radial-gradient(1000px 700px at 110% 20%, #ffe8f0 0%, transparent 45%),
+                   #f5f6f8;
 }
 
 [data-theme="dark"] {
-    --color-bg: #1e1e1e;
-    --color-text: #e0e0e0;
-    --color-border: #444444;
-    --color-primary: #8ab4f8;
-    --color-primary-light: rgba(138, 180, 248, 0.1);
-    --color-hover: #2d2d2d;
-    --color-textarea-bg: #2d2d2d;
-    --shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    --color-bg: #0b0d10;
+    --color-text: #e8eaed;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-primary: #6ea8fe;
+    --color-primary-light: rgba(110, 168, 254, 0.15);
+    --color-hover: rgba(255, 255, 255, 0.06);
+    --color-textarea-bg: rgba(255, 255, 255, 0.05);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #1a2438 0%, transparent 50%),
+                   radial-gradient(1000px 700px at 110% 20%, #2a1a38 0%, transparent 45%),
+                   #0b0d10;
 }
 
 [data-theme="blue"] {
-    --color-bg: #0d1b2a;
-    --color-text: #c8d6e5;
-    --color-border: #1b3a5c;
-    --color-primary: #4a9eff;
-    --color-primary-light: rgba(74, 158, 255, 0.15);
-    --color-hover: #152238;
-    --color-textarea-bg: #0a1623;
-    --shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    --color-bg: #06101f;
+    --color-text: #d6e4f5;
+    --color-border: rgba(120, 180, 255, 0.12);
+    --color-primary: #5aa9ff;
+    --color-primary-light: rgba(90, 169, 255, 0.15);
+    --color-hover: rgba(120, 180, 255, 0.08);
+    --color-textarea-bg: rgba(20, 45, 80, 0.4);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --glass-bg: rgba(20, 50, 90, 0.4);
+    --glass-border: rgba(120, 180, 255, 0.15);
+    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #0e2a4a 0%, transparent 55%),
+                   radial-gradient(1000px 700px at 110% 20%, #0a1f3a 0%, transparent 45%),
+                   #06101f;
 }

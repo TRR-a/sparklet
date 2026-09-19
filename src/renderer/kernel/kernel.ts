@@ -590,8 +590,6 @@ async function init(): Promise<void> {
   tickClocks();
   setInterval(tickClocks, 1000);
 
-  const versionEl = document.getElementById('kernelVersion');
-  if (versionEl) versionEl.textContent = `Sparklet v${APP_VERSION} · ${APP_CODENAME}`;
 }
 
 void init();

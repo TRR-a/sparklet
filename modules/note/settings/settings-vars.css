@@ -1,25 +1,22 @@
 /* settings-vars.css - 主题变量（亮色/暗色/蓝色三套） */
 
 :root {
-  /* 亮色主题文字颜色 */
-  --color-text-primary: #111111;
-  --color-text-secondary: #333333;
-  --color-text-muted: #666666;
-  /* 主色调 */
-  --color-primary: #4285f4;
+  --color-text-primary: #1a1d21;
+  --color-text-secondary: #3a3f47;
+  --color-text-muted: #6b7280;
+  --color-primary: #3b82f6;
 }
 
 [data-theme="dark"] {
-  /* 暗色主题文字颜色 */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #e0e0e0;
-  --color-text-muted: #a0a0a0;
-  --color-primary: #8ab4f8;
+  --color-text-primary: #e8eaed;
+  --color-text-secondary: #c8ccd2;
+  --color-text-muted: #8b919b;
+  --color-primary: #6ea8fe;
 }
 
 [data-theme="blue"] {
-  --color-text-primary: #e8f0fe;
-  --color-text-secondary: #c8d6e5;
-  --color-text-muted: #7a8fa6;
-  --color-primary: #4a9eff;
+  --color-text-primary: #d6e4f5;
+  --color-text-secondary: #b0c4dc;
+  --color-text-muted: #6d8aa8;
+  --color-primary: #5aa9ff;
 }
