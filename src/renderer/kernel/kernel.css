@@ -19,9 +19,12 @@
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
     --radius-sm: 10px;
     --radius-lg: 16px;
+    --radius-xs: 6px;
     --glass-bg: rgba(255, 255, 255, 0.6);
     --glass-border: rgba(0, 0, 0, 0.06);
     --bg-gradient: #f5f5f7;
+    --color-danger: #e53935;
+    --color-warn: #fb8c00;
 }
 
 [data-theme="dark"] {
@@ -37,6 +40,8 @@
     --glass-bg: rgba(44, 44, 46, 0.55);
     --glass-border: rgba(255, 255, 255, 0.08);
     --bg-gradient: #1c1c1e;
+    --color-danger: #ff6b6b;
+    --color-warn: #ffa940;
 }
 
 [data-theme="blue"] {
@@ -52,6 +57,8 @@
     --glass-bg: rgba(20, 40, 70, 0.45);
     --glass-border: rgba(100, 170, 255, 0.12);
     --bg-gradient: #0a1628;
+    --color-danger: #ff6b6b;
+    --color-warn: #ffa940;
 }
 
 body {
@@ -66,6 +73,8 @@ body {
     background-attachment: fixed;
     color: var(--color-text);
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 /* Grain overlay — subtle noise to break digital flatness [噪点覆盖层：打破数字平面感] */
@@ -79,6 +88,22 @@ body::before {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 256px 256px;
 }
+
+/* Keyboard focus ring for all interactive controls [所有交互控件的键盘焦点环] */
+.rail-btn:focus-visible,
+.plugin-open-btn:focus-visible,
+.manage-open-btn:focus-visible,
+.log-open-btn:focus-visible,
+.window-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* z-index scale [层级体系]
+   1   — base content
+   100 — dragging widget ghost
+   9000 — overlays / modals
+   9998 — noise overlay (pointer-events: none) */
 
 /* ==================== Shell: left rail + right content [外壳：左侧导航栏 + 右侧内容] ==================== */
 .kernel-shell {
@@ -220,8 +245,8 @@ body::before {
 .window-btn.minimize { background-color: #febc2e; }
 .window-btn.maximize { background-color: #28c840; }
 .window-btn.close { background-color: #ff5f57; }
-.window-btn.pin { background-color: #007aff; font-size: 0.85rem; }
-.window-btn.pin.active { background-color: #0051d5; box-shadow: 0 0 8px rgba(0, 122, 255, 0.5); }
+.window-btn.pin { background-color: var(--color-primary); font-size: 0.85rem; }
+.window-btn.pin.active { background-color: var(--color-primary); filter: brightness(0.8); box-shadow: 0 0 8px rgba(0, 122, 255, 0.5); }
 
 /* 鼠标悬停单个按钮时显示该按钮的图标 */
 .window-btn.minimize:hover,
@@ -278,15 +303,15 @@ body::before {
     flex-direction: column;
     gap: 10px;
     background-color: var(--color-card-bg);
-    border: 1px solid var(--color-border);
+    border: none;
     border-radius: var(--radius-lg);
     padding: 16px;
-    transition: box-shadow 0.2s, border-color 0.2s, transform 0.1s;
+    transition: box-shadow 0.2s, transform 0.1s;
 }
 
 .plugin-card:hover {
     box-shadow: var(--shadow);
-    border-color: var(--color-primary);
+    transform: translateY(-1px);
 }
 
 .plugin-card-header {
@@ -364,7 +389,7 @@ body::before {
     align-items: center;
     gap: 14px;
     background-color: var(--color-card-bg);
-    border: 1px solid var(--color-border);
+    border: none;
     border-radius: var(--radius-lg);
     padding: 12px 16px;
 }
@@ -451,16 +476,6 @@ body::before {
     font-size: 0.9rem;
 }
 
-/* ==================== Footer [底部] ==================== */
-.kernel-footer {
-    flex-shrink: 0;
-    text-align: center;
-    padding-top: 10px;
-    font-size: 0.78rem;
-    color: var(--color-muted);
-    border-top: 1px solid var(--color-border);
-}
-
 /* ==================== System monitor card [系统监控卡片] ==================== */
 .monitor-card {
     background: var(--glass-bg);
@@ -503,7 +518,7 @@ body::before {
 
 .monitor-bar {
     height: 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     background-color: var(--color-hover);
     overflow: hidden;
 }
@@ -512,13 +527,13 @@ body::before {
 .monitor-fill {
     height: 100%;
     width: 0%;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     background-color: var(--color-primary);
 }
 
 /* Load tiers [负载分级] */
-.monitor-fill.warn { background-color: #f5a623; }
-.monitor-fill.danger { background-color: #ea4335; }
+.monitor-fill.warn { background-color: var(--color-warn); }
+.monitor-fill.danger { background-color: var(--color-danger); }
 
 .monitor-value {
     font-size: 0.78rem;
@@ -578,11 +593,11 @@ body::before {
 .log-stat-num {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #e53935;
+    color: var(--color-danger);
 }
 
 .log-stat-num.warn {
-    color: #fb8c00;
+    color: var(--color-warn);
 }
 
 .log-stat-label {
@@ -749,7 +764,7 @@ body::before {
 
 .time-display {
     font-size: 2.6rem;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 2px;
     font-variant-numeric: tabular-nums;
     color: var(--color-text);
