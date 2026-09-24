@@ -1,52 +1,45 @@
-/* popup-vars.css - 全局主题变量（亮色/暗色/蓝色三套） */
-/* Glassmorphism: cards use translucent bg + backdrop-filter blur, body gets a gradient [玻璃拟态：卡片半透明+背景模糊，body 用渐变] */
+/* popup-vars.css - 全局主题变量（亮色/暗色/蓝色三套）— Modern macOS style */
 
 :root {
-    --color-bg: #f5f6f8;
-    --color-text: #1a1d21;
-    --color-border: rgba(0, 0, 0, 0.08);
-    --color-primary: #3b82f6;
-    --color-primary-light: rgba(59, 130, 246, 0.12);
-    --color-hover: rgba(0, 0, 0, 0.04);
-    --color-textarea-bg: rgba(255, 255, 255, 0.6);
-    --shadow: 0 8px 32px rgba(59, 130, 246, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
+    --color-bg: #f5f5f7;
+    --color-text: #1d1d1f;
+    --color-border: rgba(0, 0, 0, 0.06);
+    --color-primary: #007aff;
+    --color-primary-light: rgba(0, 122, 255, 0.1);
+    --color-hover: rgba(0, 0, 0, 0.03);
+    --color-textarea-bg: rgba(255, 255, 255, 0.7);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
     --radius-sm: 10px;
     --radius-lg: 16px;
-    --glass-bg: rgba(255, 255, 255, 0.55);
-    --glass-border: rgba(255, 255, 255, 0.6);
-    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #e8f0ff 0%, transparent 50%),
-                   radial-gradient(1000px 700px at 110% 20%, #ffe8f0 0%, transparent 45%),
-                   #f5f6f8;
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(0, 0, 0, 0.06);
+    --bg-gradient: #f5f5f7;
 }
 
 [data-theme="dark"] {
-    --color-bg: #0b0d10;
-    --color-text: #e8eaed;
+    --color-bg: #1c1c1e;
+    --color-text: #f5f5f7;
     --color-border: rgba(255, 255, 255, 0.08);
-    --color-primary: #6ea8fe;
-    --color-primary-light: rgba(110, 168, 254, 0.15);
-    --color-hover: rgba(255, 255, 255, 0.06);
-    --color-textarea-bg: rgba(255, 255, 255, 0.05);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(110, 168, 254, 0.08);
-    --glass-bg: rgba(255, 255, 255, 0.06);
+    --color-primary: #0a84ff;
+    --color-primary-light: rgba(10, 132, 255, 0.15);
+    --color-hover: rgba(255, 255, 255, 0.05);
+    --color-textarea-bg: rgba(44, 44, 46, 0.6);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+    --glass-bg: rgba(44, 44, 46, 0.55);
     --glass-border: rgba(255, 255, 255, 0.08);
-    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #1a2438 0%, transparent 50%),
-                   radial-gradient(1000px 700px at 110% 20%, #2a1a38 0%, transparent 45%),
-                   #0b0d10;
+    --bg-gradient: #1c1c1e;
 }
 
 [data-theme="blue"] {
-    --color-bg: #06101f;
-    --color-text: #d6e4f5;
-    --color-border: rgba(120, 180, 255, 0.12);
-    --color-primary: #5aa9ff;
-    --color-primary-light: rgba(90, 169, 255, 0.15);
-    --color-hover: rgba(120, 180, 255, 0.08);
-    --color-textarea-bg: rgba(20, 45, 80, 0.4);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(90, 169, 255, 0.12);
-    --glass-bg: rgba(20, 50, 90, 0.4);
-    --glass-border: rgba(120, 180, 255, 0.15);
-    --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #0e2a4a 0%, transparent 55%),
-                   radial-gradient(1000px 700px at 110% 20%, #0a1f3a 0%, transparent 45%),
-                   #06101f;
+    --color-bg: #0a1628;
+    --color-text: #e8f0fe;
+    --color-border: rgba(100, 170, 255, 0.1);
+    --color-primary: #409cff;
+    --color-primary-light: rgba(64, 156, 255, 0.15);
+    --color-hover: rgba(100, 170, 255, 0.06);
+    --color-textarea-bg: rgba(20, 40, 70, 0.5);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
+    --glass-bg: rgba(20, 40, 70, 0.45);
+    --glass-border: rgba(100, 170, 255, 0.12);
+    --bg-gradient: #0a1628;
 }

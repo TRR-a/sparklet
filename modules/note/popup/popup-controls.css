@@ -23,28 +23,28 @@
 
 /* 最小化按钮背景色 */
 .window-btn.minimize {
-    background-color: #f1c40f;
+    background-color: #febc2e;
 }
 
 /* 最大化按钮背景色 */
 .window-btn.maximize {
-    background-color: #2ecc71;
+    background-color: #28c840;
 }
 
 /* 关闭按钮背景色 */
 .window-btn.close {
-    background-color: #e74c3c;
+    background-color: #ff5f57;
 }
 
 /* 窗口置顶按钮背景色 */
 .window-btn.pin {
-    background-color: #3498db;
+    background-color: #007aff;
     font-size: 0.9rem;
 }
 
 .window-btn.pin.active {
-    background-color: #2980b9;
-    box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+    background-color: #0051d5;
+    box-shadow: 0 0 8px rgba(0, 122, 255, 0.5);
 }
 
 /* 按钮悬停变暗放大样式 */
