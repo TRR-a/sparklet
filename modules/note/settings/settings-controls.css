@@ -1,31 +1,27 @@
 /* settings-controls.css - 窗口控制按钮（红绿灯） */
 
-/* 按钮容器 */
 .window-controls {
     display: flex;
     gap: 8px;
     -webkit-app-region: no-drag;
 }
 
-/* 按钮基础样式 */
 .window-btn {
-    width: 28px;
-    height: 28px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     border: none;
-    font-size: 1.1rem;
+    font-size: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: filter 0.2s ease, transform 0.1s ease;
-    color: white;
+    transition: filter 0.2s ease, transform 0.1s ease, color 0.15s ease;
+    color: transparent;
 }
 
-/* 最小化/关闭配色 */
-.window-btn.minimize { background-color: #fbbf24; }
-.window-btn.close { background-color: #ef4444; }
+.window-btn.minimize { background-color: #febc2e; }
+.window-btn.close { background-color: #ff5f57; }
 
-/* 交互反馈 */
-.window-btn:hover { filter: brightness(0.85); transform: scale(1.08); }
-.window-btn:active { filter: brightness(0.7); transform: scale(0.95); }
+.window-btn:hover { filter: brightness(0.8); transform: scale(1.1); color: rgba(0, 0, 0, 0.6); }
+.window-btn:active { filter: brightness(0.6); transform: scale(0.95); }

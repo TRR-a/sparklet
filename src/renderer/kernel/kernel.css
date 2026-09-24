@@ -215,11 +215,11 @@ body::before {
 }
 
 .window-btn {
-    width: 28px;
-    height: 28px;
+    width: 14px;
+    height: 14px;
     border: none;
     border-radius: 50%;
-    font-size: 14px;
+    font-size: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;

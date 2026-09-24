@@ -2,11 +2,11 @@
 
 /* 窗口控制按钮 */
 .window-btn {
-    width: 32px;
-    height: 32px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     border: none;
-    font-size: 1.2rem;
+    font-size: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;

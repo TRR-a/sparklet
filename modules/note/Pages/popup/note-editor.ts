@@ -63,7 +63,7 @@ export async function loadNoteIntoEditor(note: { id: string } | null): Promise<v
   const titleInput = document.getElementById('noteTitle') as HTMLInputElement | null;
   const contentInput = document.getElementById('noteArea') as HTMLTextAreaElement | null;
   if (titleInput) titleInput.value = fullNote.title || '';
-  if (contentInput) contentInput.value = fullNote.content || '';
+  if (contentInput) { contentInput.value = fullNote.content || ''; contentInput.scrollTop = 0; }
   updateActiveColor(fullNote.color);
   // Sync active card highlight through the virtual list (attached + cached cards) [经虚拟列表同步卡片高亮 (含离屏缓存卡片)]
   syncActiveNoteInList(note.id);
