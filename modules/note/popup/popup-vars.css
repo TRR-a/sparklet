@@ -9,7 +9,7 @@
     --color-primary-light: rgba(59, 130, 246, 0.12);
     --color-hover: rgba(0, 0, 0, 0.04);
     --color-textarea-bg: rgba(255, 255, 255, 0.6);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow: 0 8px 32px rgba(59, 130, 246, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
     --radius-sm: 10px;
     --radius-lg: 16px;
     --glass-bg: rgba(255, 255, 255, 0.55);
@@ -27,7 +27,7 @@
     --color-primary-light: rgba(110, 168, 254, 0.15);
     --color-hover: rgba(255, 255, 255, 0.06);
     --color-textarea-bg: rgba(255, 255, 255, 0.05);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(110, 168, 254, 0.08);
     --glass-bg: rgba(255, 255, 255, 0.06);
     --glass-border: rgba(255, 255, 255, 0.08);
     --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #1a2438 0%, transparent 50%),
@@ -43,7 +43,7 @@
     --color-primary-light: rgba(90, 169, 255, 0.15);
     --color-hover: rgba(120, 180, 255, 0.08);
     --color-textarea-bg: rgba(20, 45, 80, 0.4);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(90, 169, 255, 0.12);
     --glass-bg: rgba(20, 50, 90, 0.4);
     --glass-border: rgba(120, 180, 255, 0.15);
     --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #0e2a4a 0%, transparent 55%),

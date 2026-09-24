@@ -16,7 +16,7 @@
     --color-hover: rgba(0, 0, 0, 0.04);
     --color-card-bg: rgba(255, 255, 255, 0.65);
     --color-muted: #6b7280;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow: 0 8px 32px rgba(59, 130, 246, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
     --radius-sm: 10px;
     --radius-lg: 18px;
     --glass-bg: rgba(255, 255, 255, 0.55);
@@ -35,7 +35,7 @@
     --color-hover: rgba(255, 255, 255, 0.06);
     --color-card-bg: rgba(255, 255, 255, 0.05);
     --color-muted: #8b919b;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(110, 168, 254, 0.08);
     --glass-bg: rgba(255, 255, 255, 0.06);
     --glass-border: rgba(255, 255, 255, 0.08);
     --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #1a2438 0%, transparent 50%),
@@ -52,7 +52,7 @@
     --color-hover: rgba(120, 180, 255, 0.08);
     --color-card-bg: rgba(20, 45, 80, 0.45);
     --color-muted: #6d8aa8;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(90, 169, 255, 0.12);
     --glass-bg: rgba(20, 50, 90, 0.4);
     --glass-border: rgba(120, 180, 255, 0.15);
     --bg-gradient: radial-gradient(1200px 800px at 20% -10%, #0e2a4a 0%, transparent 55%),
@@ -63,12 +63,27 @@
 body {
     width: 100vw;
     height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background: var(--bg-gradient);
     transition: background 0.35s ease, color 0.35s ease;
     background-attachment: fixed;
     color: var(--color-text);
     overflow: hidden;
+}
+
+/* Grain overlay — subtle noise to break digital flatness [噪点覆盖层：打破数字平面感] */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
 }
 
 /* ==================== Shell: left rail + right content [外壳：左侧导航栏 + 右侧内容] ==================== */
@@ -103,7 +118,9 @@ body {
     background: transparent;
     color: var(--color-muted);
     cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.1s ease;
 }
+.rail-btn:active { transform: scale(0.94); }
 
 .rail-btn:hover {
     background-color: var(--color-card-bg);
@@ -136,6 +153,18 @@ body {
     flex-direction: column;
     padding: 16px;
     overflow: hidden;
+}
+
+/* Grain overlay — subtle noise to break digital flatness [噪点覆盖层：打破数字平面感] */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
 }
 
 .view {
@@ -495,6 +524,18 @@ body {
     border-radius: 4px;
     background-color: var(--color-hover);
     overflow: hidden;
+}
+
+/* Grain overlay — subtle noise to break digital flatness [噪点覆盖层：打破数字平面感] */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
 }
 
 /* No transition: width/color transitions freeze at initial values in the frameless window [不加过渡：无边框窗口下宽度/颜色过渡会冻结在初始值] */
