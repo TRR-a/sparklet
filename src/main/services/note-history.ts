@@ -156,3 +156,25 @@ export async function removeHistory(id: string): Promise<void> {
     console.warn(`[NoteHistory] remove failed for ${id}:`, msg);
   }
 }
+
+
+/**
+ * Clear ALL note history (every note's snapshot directory) [清空所有笔记历史]
+ * Used by settings "Clear history" action [设置页"清空历史"功能调用]
+ */
+export async function clearAllHistory(): Promise<{ success: boolean; count: number; error?: string }> {
+  try {
+    const historyRoot = path.join(getNoteHistoryDir('x'), '..'); // notes/.history
+    let count = 0;
+    if (await fs.pathExists(historyRoot)) {
+      const subdirs = await fs.readdir(historyRoot);
+      count = subdirs.length;
+      await fs.remove(historyRoot);
+    }
+    lastSnapshotAt.clear();
+    return { success: true, count };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, count: 0, error: msg };
+  }
+}

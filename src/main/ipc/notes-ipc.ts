@@ -12,7 +12,7 @@ import {
   permanentDeleteNote,
   searchNotes
 } from '../services/notes-service';
-import { listHistory, getSnapshot, snapshotNote } from '../services/note-history';
+import { listHistory, getSnapshot, snapshotNote, clearAllHistory } from '../services/note-history';
 import { getIntegrityReport } from '../services/note-integrity';
 import { isValidNoteId, isValidSnapshotTs } from '../services/note-paths';
 import type { Note } from '../../shared/types/notes';
@@ -91,5 +91,10 @@ export function registerNotesIpcHandlers(): void {
   // 11. Startup integrity scan report (for renderer toast) [启动完整性扫描报告 (供渲染层提示)]
   ipcMain.handle('notes:integrity:report', async () => {
     return getIntegrityReport();
+  });
+
+  // 12. Clear all note history snapshots [清空所有笔记历史快照]
+  ipcMain.handle('notes:history:clearAll', async () => {
+    return clearAllHistory();
   });
 }

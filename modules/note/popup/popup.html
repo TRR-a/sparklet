@@ -106,17 +106,24 @@
                 <button class="color-option" data-color="#fbbc04" style="background-color:#fbbc04;"></button>
                 <button class="color-option" data-color="#34a853" style="background-color:#34a853;"></button>
                 <button class="color-option" data-color="#8b5cf6" style="background-color:#8b5cf6;"></button>
+                <!-- 最近自定义颜色候选（有记录才显示） [Recent custom colors (hidden when empty)] -->
+                <div id="customColorCandidates" class="color-candidates" style="display:none;"></div>
                 <button id="customColorBtn" class="color-option custom-color-btn" title="自定义颜色" aria-label="自定义颜色">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </button>
             </div>
             <!-- 自定义色环弹层 [Custom color wheel popover] -->
             <div id="colorWheelPopover" class="color-wheel-popover" style="display:none;">
-                <canvas id="colorWheelCanvas" width="200" height="200"></canvas>
+                <div class="color-wheel-canvas-wrap">
+                    <canvas id="colorWheelCanvas" width="200" height="200"></canvas>
+                    <div id="colorWheelCursor" class="color-wheel-cursor"></div>
+                </div>
                 <div class="color-wheel-row">
                     <div class="color-wheel-preview" id="colorWheelPreview"></div>
                     <input type="range" id="colorWheelValue" min="0" max="100" value="100" class="color-wheel-slider">
+                    <span id="colorWheelHex" class="color-wheel-hex">#ff0000</span>
                 </div>
+                <div id="colorWheelRecent" class="color-wheel-recent"></div>
             </div>
             <input type="text" id="noteTitle" class="note-title-input" data-i18n-placeholder="main.noteTitlePlaceholder" placeholder="笔记标题...">
             <div class="editor-toolbar">

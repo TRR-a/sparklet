@@ -22,6 +22,7 @@ import {
   bindImportExportEvents
 } from './config-io.js';
 import { initCustomDropdowns } from '../../settings/custom-dropdown.js';
+import { noteApi } from '../../api/note-api.js';
 
 // Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
 installGlobalErrorHooks('note');
@@ -67,6 +68,42 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindCacheEvents();
   bindImportExportEvents();
   await loadCacheInfo();
+
+  // Clear all note history [清空所有笔记历史]
+  const clearHistoryBtn = document.getElementById('clearHistoryBtn') as HTMLButtonElement | null;
+  if (clearHistoryBtn) {
+    clearHistoryBtn.addEventListener('click', async () => {
+      const confirmed = confirm(t('settings.history.confirm') || '确定要清空所有笔记历史吗？此操作不可恢复。');
+      if (!confirmed) return;
+      clearHistoryBtn.disabled = true;
+      try {
+        const result = await noteApi.clearAllHistory();
+        if (result.success) {
+          showToast(t('settings.history.cleared') || `已清空 ${result.count} 个笔记的历史`);
+        } else {
+          showToast(t('settings.history.failed') || '清空失败: ' + (result.error || ''));
+        }
+      } finally {
+        clearHistoryBtn.disabled = false;
+      }
+    });
+  }
+
+  // Clear custom color history [清空自定义颜色记录]
+  const clearCustomColorsBtn = document.getElementById('clearCustomColorsBtn') as HTMLButtonElement | null;
+  if (clearCustomColorsBtn) {
+    clearCustomColorsBtn.addEventListener('click', async () => {
+      const confirmed = confirm(t('settings.customColor.confirm') || '确定要清空自定义颜色记录吗？');
+      if (!confirmed) return;
+      clearCustomColorsBtn.disabled = true;
+      try {
+        await storeApi.set('recentColors', []);
+        showToast(t('settings.customColor.cleared') || '已清空自定义颜色记录');
+      } finally {
+        clearCustomColorsBtn.disabled = false;
+      }
+    });
+  }
 });
 
 // Config change: re-apply dev environment locks (ensure isDev consistency) [配置变化时，重新应用一次开发环境锁定 (确保 isDev 一致)]

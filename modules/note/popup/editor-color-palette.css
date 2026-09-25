@@ -73,6 +73,27 @@ body[data-theme="blue"] .custom-color-btn {
     display: block;
 }
 
+/* 色环容器（相对定位，承载指示点） [Canvas wrap (relative, hosts cursor)] */
+.color-wheel-canvas-wrap {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+/* 色环选中指示点 [Cursor dot on the wheel] */
+.color-wheel-cursor {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    left: 100px;
+    top: 100px;
+}
+
 .color-wheel-row {
     display: flex;
     align-items: center;
@@ -90,4 +111,61 @@ body[data-theme="blue"] .custom-color-btn {
 .color-wheel-slider {
     flex: 1;
     accent-color: var(--color-primary);
+}
+
+/* 当前色值文本 [Current hex label] */
+.color-wheel-hex {
+    font-size: 12px;
+    font-family: monospace;
+    color: var(--color-text);
+    opacity: 0.7;
+    min-width: 58px;
+    text-align: right;
+}
+
+/* 主界面候选色容器（固定色与调色盘按钮之间，空时不占位） [Palette candidates container] */
+.color-candidates {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 主界面候选色块 [Palette candidate swatch] */
+.color-candidate {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.color-candidate:hover {
+    transform: scale(1.1);
+    border-color: var(--color-text);
+}
+
+/* 最近使用颜色网格：2 行 x 5 列 [Recent colors grid: 2 rows x 5 columns] */
+.color-wheel-recent {
+    display: grid;
+    grid-template-columns: repeat(5, 28px);
+    gap: 8px;
+    justify-content: center;
+}
+
+.color-wheel-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.15s, border-color 0.15s;
+}
+
+.color-wheel-swatch:hover {
+    transform: scale(1.12);
+    border-color: var(--color-text);
 }

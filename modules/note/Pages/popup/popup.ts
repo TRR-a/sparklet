@@ -70,7 +70,7 @@ function bindEvents(): void {
   const newNoteBtn = document.getElementById('newNoteBtn');
   if (newNoteBtn) newNoteBtn.addEventListener('click', createNewNote);
 
-  const colorPalette = document.querySelectorAll('.color-option');
+  const colorPalette = document.querySelectorAll('.color-option[data-color]');
   colorPalette.forEach(btn => {
     btn.addEventListener('click', () => changeNoteColor(btn.getAttribute('data-color') || ''));
   });

@@ -48,4 +48,7 @@ export const noteApi = {
   integrityReport(): Promise<NoteIntegrityReportResult> {
     return bus.invoke<NoteIntegrityReportResult>('notes:integrity:report');
   },
+  clearAllHistory(): Promise<{ success: boolean; count: number; error?: string }> {
+    return bus.invoke('notes:history:clearAll');
+  },
 };
