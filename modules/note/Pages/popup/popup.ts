@@ -24,6 +24,7 @@ import { initVirtualList } from './note-virtual-list.js';
 import { initSelectionBar } from './selection-bar.js';
 import { bindNoteHistoryModalHandlers, showNoteHistoryStartupToast } from './note-history-modal.js';
 import { openProjectFolder, restoreWorkspace, closeFilePreview } from '../../../../src/renderer/modules/project/project-view.js';
+import { initColorWheel } from './color-wheel.js';
 
 // Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
 installGlobalErrorHooks('note');
@@ -139,6 +140,7 @@ async function initApp(): Promise<void> {
   // [系统级快捷键 (Ctrl+Alt+N) → 新建笔记，即使本窗口未聚焦]
   bus.on('global:new-note', () => { void createNewNote(); });
   bindNoteHistoryModalHandlers(); // Note history modal (list / diff / restore) [笔记历史弹窗 (列表/差异/恢复)]
+  initColorWheel(); // Custom HSV color wheel picker [自定义 HSV 色环选择器]
   await showNoteHistoryStartupToast(); // Startup integrity repair notice [启动完整性修复提示]
   await loadNotes();
   await restoreWorkspace();
