@@ -36,7 +36,11 @@ class GlassDropdown {
     this.syncFromSelect();
     // Keep the button label in sync when code sets select.value programmatically
     // [代码程序化设置 select.value 时同步按钮文字]
+    // MutationObserver only catches setAttribute; also listen to 'change' events
+    // which can be manually dispatched after programmatic value assignment
+    // [MutationObserver 只能捕获 setAttribute；额外监听原生 change 事件（可在程序化赋值后手动派发）]
     new MutationObserver(() => this.syncFromSelect()).observe(select, { attributes: true, attributeFilter: ['value'] });
+    select.addEventListener('change', () => this.syncFromSelect());
   }
 
   private syncFromSelect(): void {

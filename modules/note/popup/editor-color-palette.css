@@ -36,10 +36,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: conic-gradient(from 0deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+    background: var(--color-primary);
     color: #ffffff;
-    border-color: var(--color-border);
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+/* 蓝色主题下用黑底 + 极浅蓝图标 + 淡蓝描边 [Blue theme: black bg, very-light-blue icon, light-blue border] */
+body[data-theme="blue"] .custom-color-btn {
+    background: #000000;
+    color: #b0d4ff;
+    border-color: rgba(100, 170, 255, 0.5);
 }
 
 .custom-color-btn:hover {

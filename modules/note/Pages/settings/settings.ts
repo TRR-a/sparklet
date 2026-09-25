@@ -39,6 +39,16 @@ async function loadThemeAndI18n(): Promise<void> {
   if (languageSelect) languageSelect.value = currentLang;
   await loadUpdateHint();
   bindThemeBroadcastListener();
+
+  // Also sync the theme dropdown when receiving broadcasts from other windows
+  // [接收其他窗口的主题广播时，同步下拉框显示]
+  broadcastApi.onThemeBroadcast((theme: unknown) => {
+    const themeSelect = document.getElementById('themeSelect') as HTMLSelectElement | null;
+    if (themeSelect && themeSelect.value !== theme) {
+      themeSelect.value = theme as string;
+      themeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', loadThemeAndI18n);
