@@ -218,14 +218,7 @@ body::before {
 }
 
 .title-row-top {
-    justify-content: space-between;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid var(--glass-border);
-    border-radius: 999px;
-    padding: 4px 18px;
-    box-shadow: var(--shadow);
+    justify-content: flex-end;
 }
 
 .window-controls {
