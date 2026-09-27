@@ -15,14 +15,21 @@ body {
     font-feature-settings: 'cv11', 'ss01', 'ss03';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: var(--bg-gradient);
+    background: var(--shell-bg);
     transition: background 0.35s ease, color 0.35s ease;
-    background-attachment: fixed;
     color: var(--color-text);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 16px;
+    position: relative;
+    padding: 100px 10px 5px;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+body.maximized {
+    border-radius: 0;
+    box-shadow: none;
 }
 
 body::before {

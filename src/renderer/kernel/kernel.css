@@ -25,6 +25,7 @@
     --bg-gradient: #f5f5f7;
     --color-danger: #e53935;
     --color-warn: #fb8c00;
+    --shell-bg: #d2d2d7;
 }
 
 [data-theme="dark"] {
@@ -42,6 +43,7 @@
     --bg-gradient: #1c1c1e;
     --color-danger: #ff6b6b;
     --color-warn: #ffa940;
+    --shell-bg: #2c2c2e;
 }
 
 [data-theme="blue"] {
@@ -68,13 +70,21 @@ body {
     font-feature-settings: 'cv11', 'ss01', 'ss03';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: var(--bg-gradient);
+    background: var(--shell-bg);
     transition: background 0.35s ease, color 0.35s ease;
-    background-attachment: fixed;
     color: var(--color-text);
     overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
+    position: relative;
+    padding: 100px 10px 5px;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+body.maximized {
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* Grain overlay — subtle noise to break digital flatness [噪点覆盖层：打破数字平面感] */
@@ -110,6 +120,10 @@ body::before {
     display: flex;
     width: 100%;
     height: 100%;
+    background: var(--bg-gradient);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
 }
 
 .kernel-rail {
@@ -182,14 +196,18 @@ body::before {
 
 /* ==================== Title bar [标题栏] ==================== */
 .title-bar {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    height: 100px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background: transparent;
-    padding: 8px 0 12px 0;
+    padding: 0 8px;
     -webkit-app-region: drag;
-    width: 100%;
-    margin: 0 0 8px 0;
-    flex-shrink: 0;
+    z-index: 100;
 }
 
 .title-row {

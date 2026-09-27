@@ -7,6 +7,9 @@
     flex: 1;
     min-height: 0;
     overflow: hidden;
+    background: var(--bg-gradient);
+    border-radius: 6px;
+    position: relative;
 }
 
 /* 左侧边栏样式 */

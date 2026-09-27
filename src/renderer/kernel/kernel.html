@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="kernel.css">
 </head>
 <body>
+    <!-- 标题栏：位于外壳顶部 padding 区域 -->
+    <div class="title-bar">
+        <div class="title-row title-row-top">
+            <div class="window-controls">
+                <button id="windowPinBtn" class="window-btn pin" title="窗口置顶">📌</button>
+                <button class="window-btn minimize" title="最小化">−</button>
+                <button class="window-btn maximize" title="最大化">□</button>
+                <button class="window-btn close" title="关闭">×</button>
+            </div>
+            <h1 class="app-title">Sparklet</h1>
+        </div>
+    </div>
     <div class="kernel-shell">
         <!-- 左侧垂直导航栏：主页 / 分页管理 -->
         <nav class="kernel-rail">
@@ -22,20 +34,7 @@
 
         <!-- 右侧内容列 -->
         <div class="kernel-content">
-            <!-- 标题栏：窗口控制 + 应用名 -->
-            <div class="title-bar">
-                <div class="title-row title-row-top">
-                    <div class="window-controls">
-                        <button id="windowPinBtn" class="window-btn pin" title="窗口置顶">📌</button>
-                        <button class="window-btn minimize" title="最小化">−</button>
-                        <button class="window-btn maximize" title="最大化">□</button>
-                        <button class="window-btn close" title="关闭">×</button>
-                    </div>
-                    <h1 class="app-title">Sparklet</h1>
-                </div>
-            </div>
-
-            <!-- 主页视图：系统监控 + 插件网格 / 空状态 -->
+                <!-- 主页视图：系统监控 + 插件网格 / 空状态 -->
             <main class="kernel-main view" id="viewHome">
                 <section class="kernel-hero">
                     <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>

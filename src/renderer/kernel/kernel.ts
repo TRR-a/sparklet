@@ -5,7 +5,7 @@
 // [展示已发现插件 (未安装时显示空状态)，应用主题 (light/dark/blue) 并绑定窗口
 // 控制。它不依赖任何插件——是所有 Sparklet 安装都会获得的壳]
 
-import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, installGlobalErrorHooks, APP_VERSION, APP_CODENAME } from '../core/index.js';
+import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, installGlobalErrorHooks, APP_VERSION, APP_CODENAME, bus } from '../core/index.js';
 import { restoreWidgetOrder, enableWidgetDragReorder } from './widget-drag.js';
 import type { PluginDescriptor } from '../../shared/types/plugins.js';
 import type { SystemStats } from '../../shared/types/system.js';
@@ -565,6 +565,10 @@ async function init(): Promise<void> {
   });
 
   bindWindowControls();
+  bus.on('window:maximize-state', (state: unknown) => {
+    const maximized = (state as { maximized: boolean }).maximized;
+    document.body.classList.toggle('maximized', maximized);
+  });
   bindNavigation();
   switchView('home');
   await renderPlugins();

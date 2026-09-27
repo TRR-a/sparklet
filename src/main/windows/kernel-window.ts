@@ -45,4 +45,12 @@ export function createKernelWindow(): void {
     win.show();
   });
   win.on('closed', () => setKernelWindow(null));
+
+  // Sync maximize state to renderer for border-radius handling [同步最大化状态给渲染进程以处理圆角]
+  const sendMaxState = (maximized: boolean) => {
+    if (!win.isDestroyed()) win.webContents.send('window:maximize-state', { maximized });
+  };
+  win.on('maximize', () => sendMaxState(true));
+  win.on('unmaximize', () => sendMaxState(false));
+  win.once('ready-to-show', () => sendMaxState(win.isMaximized()));
 }
