@@ -22,7 +22,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    padding: 100px 10px 5px;
+    padding: 117px 10px 5px;
     border-radius: 8px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
