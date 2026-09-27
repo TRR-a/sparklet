@@ -210,6 +210,17 @@ body::before {
     z-index: 100;
 }
 
+.title-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10px;
+    right: -10px;
+    height: 33.33%;
+    background: #000000;
+    z-index: -1;
+}
+
 .title-row {
     display: flex;
     align-items: center;
