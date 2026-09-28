@@ -10,12 +10,20 @@
     <!-- 标题栏：位于外壳顶部 padding 区域 -->
     <div class="title-bar">
         <div class="title-row title-row-top">
+            <button id="shellDropdownBtn" class="shell-dropdown-btn" title="菜单" aria-label="菜单">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
             <div class="window-controls">
                 <button id="windowPinBtn" class="window-btn pin" title="窗口置顶">📌</button>
                 <button class="window-btn minimize" title="最小化">−</button>
                 <button class="window-btn maximize" title="最大化">□</button>
                 <button class="window-btn close" title="关闭">×</button>
             </div>
+        </div>
+        <div class="title-row title-row-bottom">
+            <button id="shellMoreBtn" class="shell-more-btn" title="更多" aria-label="更多">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/></svg>
+            </button>
         </div>
     </div>
     <div class="kernel-shell">
@@ -118,6 +126,44 @@
             </main>
 
 
+        </div>
+    </div>
+
+
+    <!-- Kernel settings modal [内核设置弹窗] -->
+    <div id="kernelSettingsModal" class="kernel-settings-overlay" style="display: none;">
+        <div class="kernel-settings-modal">
+            <div class="kernel-settings-header">
+                <span class="kernel-settings-title" data-i18n="kernel.settings">Settings</span>
+                <button id="kernelSettingsClose" class="kernel-settings-close">&times;</button>
+            </div>
+            <div class="kernel-settings-body">
+                <!-- Theme [主题] -->
+                <div class="kernel-settings-group">
+                    <label class="kernel-settings-label" data-i18n="kernel.settingsTheme">Theme</label>
+                    <div class="kernel-settings-options">
+                        <button class="kernel-settings-option" data-setting="theme" data-value="light" data-i18n="kernel.themeLight">Light</button>
+                        <button class="kernel-settings-option" data-setting="theme" data-value="dark" data-i18n="kernel.themeDark">Dark</button>
+                        <button class="kernel-settings-option" data-setting="theme" data-value="blue" data-i18n="kernel.themeBlue">Blue</button>
+                    </div>
+                </div>
+                <!-- Language [语言] -->
+                <div class="kernel-settings-group">
+                    <label class="kernel-settings-label" data-i18n="kernel.settingsLanguage">Language</label>
+                    <div class="kernel-settings-options">
+                        <button class="kernel-settings-option" data-setting="language" data-value="en">English</button>
+                        <button class="kernel-settings-option" data-setting="language" data-value="zh-CN">简体中文</button>
+                    </div>
+                </div>
+                <!-- Clock format [时钟制式] -->
+                <div class="kernel-settings-group">
+                    <label class="kernel-settings-label" data-i18n="kernel.settingsClock">Clock format</label>
+                    <div class="kernel-settings-options">
+                        <button class="kernel-settings-option" data-setting="clock" data-value="24" data-i18n="kernel.clock24">24-hour</button>
+                        <button class="kernel-settings-option" data-setting="clock" data-value="12" data-i18n="kernel.clock12">12-hour</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

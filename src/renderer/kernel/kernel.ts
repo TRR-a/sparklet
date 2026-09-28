@@ -31,6 +31,15 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.logsErrors': 'errors',
     'kernel.logsWarns': 'warnings',
     'kernel.logsOpen': 'Open logs folder',
+    'kernel.settings': 'Settings',
+    'kernel.settingsTheme': 'Theme',
+    'kernel.themeLight': 'Light',
+    'kernel.themeDark': 'Dark',
+    'kernel.themeBlue': 'Blue',
+    'kernel.settingsLanguage': 'Language',
+    'kernel.settingsClock': 'Clock format',
+    'kernel.clock24': '24-hour',
+    'kernel.clock12': '12-hour',
   },
   'zh-CN': {
     'kernel.title': 'Sparklet 中枢',
@@ -51,6 +60,15 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.logsErrors': '错误',
     'kernel.logsWarns': '警告',
     'kernel.logsOpen': '打开日志文件夹',
+    'kernel.settings': '设置',
+    'kernel.settingsTheme': '主题',
+    'kernel.themeLight': '浅色',
+    'kernel.themeDark': '深色',
+    'kernel.themeBlue': '蓝色',
+    'kernel.settingsLanguage': '语言',
+    'kernel.settingsClock': '时钟制式',
+    'kernel.clock24': '24小时制',
+    'kernel.clock12': '12小时制',
   },
 };
 
@@ -546,6 +564,69 @@ function bindNavigation(): void {
 }
 
 // ========== Init [初始化] ==========
+
+// ========== Kernel settings modal [内核设置弹窗] ==========
+function openKernelSettings(): void {
+  const modal = document.getElementById('kernelSettingsModal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  // Highlight current values [高亮当前选中项]
+  const currentTheme = document.body.dataset.theme || 'light';
+  const lang = currentLang;
+  document.querySelectorAll('.kernel-settings-option').forEach((btn) => {
+    const el = btn as HTMLElement;
+    const setting = el.dataset.setting;
+    const value = el.dataset.value;
+    let active = false;
+    if (setting === 'theme') active = value === currentTheme;
+    else if (setting === 'language') active = value === lang;
+    else if (setting === 'clock') active = (value === '12') === use12Hour;
+    el.classList.toggle('active', active);
+  });
+}
+
+function closeKernelSettings(): void {
+  const modal = document.getElementById('kernelSettingsModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function bindKernelSettings(): void {
+  document.getElementById('shellMoreBtn')?.addEventListener('click', openKernelSettings);
+  document.getElementById('kernelSettingsClose')?.addEventListener('click', closeKernelSettings);
+  document.getElementById('kernelSettingsModal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeKernelSettings();
+  });
+
+  document.querySelectorAll('.kernel-settings-option').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const el = btn as HTMLElement;
+      const setting = el.dataset.setting;
+      const value = el.dataset.value;
+      if (!setting || !value) return;
+
+      if (setting === 'theme') {
+        document.body.dataset.theme = value;
+        await storeApi.set('theme', value);
+        broadcastApi.notifyThemeChanged(value);
+      } else if (setting === 'language') {
+        currentLang = value;
+        applyI18n();
+        await storeApi.set('language', value);
+        broadcastApi.notifyLanguageChanged(value);
+      } else if (setting === 'clock') {
+        use12Hour = value === '12';
+        await storeApi.set('clock12Hour', use12Hour);
+        broadcastApi.notifyClockFormatChanged(use12Hour);
+        tickClocks();
+      }
+      // Update active state [更新选中状态]
+      document.querySelectorAll(`.kernel-settings-option[data-setting="${setting}"]`).forEach((b) => {
+        b.classList.toggle('active', b === el);
+      });
+    });
+  });
+}
+
 async function init(): Promise<void> {
   // Uncaught errors/rejections go to the log file before anything else
   // [任何逻辑执行前先装好未捕获错误/拒绝的日志转发]
@@ -565,6 +646,7 @@ async function init(): Promise<void> {
   });
 
   bindWindowControls();
+  bindKernelSettings();
   bus.on('window:maximize-state', (state: unknown) => {
     const maximized = (state as { maximized: boolean }).maximized;
     document.body.classList.toggle('maximized', maximized);

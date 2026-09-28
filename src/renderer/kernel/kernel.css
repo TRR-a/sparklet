@@ -26,6 +26,9 @@
     --color-danger: #e53935;
     --color-warn: #fb8c00;
     --shell-bg: #d2d2d7;
+    --shell-top-bar: #b0b0b8;
+    --shell-btn-bg: #808088;
+    --shell-btn-hover: #a0c4ff;
 }
 
 [data-theme="dark"] {
@@ -44,6 +47,9 @@
     --color-danger: #ff6b6b;
     --color-warn: #ffa940;
     --shell-bg: #2c2c2e;
+    --shell-top-bar: #000000;
+    --shell-btn-bg: rgb(31, 31, 31);
+    --shell-btn-hover: rgb(86, 86, 86);
 }
 
 [data-theme="blue"] {
@@ -61,6 +67,10 @@
     --bg-gradient: #0a1628;
     --color-danger: #ff6b6b;
     --color-warn: #ffa940;
+    --shell-bg: #0d2040;
+    --shell-top-bar: #081528;
+    --shell-btn-bg: #0c2444;
+    --shell-btn-hover: #143050;
 }
 
 body {
@@ -198,14 +208,14 @@ body::before {
 .title-bar {
     position: absolute;
     top: 0;
-    left: 10px;
-    right: 10px;
+    left: 3px;
+    right: 3px;
     height: 117px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     background: transparent;
-    padding: 13px 8px 0;
+    padding: 0;
     -webkit-app-region: drag;
     z-index: 100;
 }
@@ -217,7 +227,7 @@ body::before {
     left: -10px;
     right: -10px;
     height: 33.33%;
-    background: #000000;
+    background: var(--shell-top-bar);
     z-index: -1;
 }
 
@@ -228,7 +238,58 @@ body::before {
 }
 
 .title-row-top {
+    justify-content: space-between;
+    align-items: center;
+    height: 39px;
+}
+
+.title-row-bottom {
+    display: flex;
     justify-content: flex-end;
+    align-items: center;
+    height: 39px;
+}
+
+.shell-dropdown-btn {
+    width: 33px;
+    height: 33px;
+    border: none;
+    border-radius: 8px;
+    background: var(--shell-btn-bg);
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-app-region: no-drag;
+    transition: background 0.15s ease;
+}
+.shell-dropdown-btn:hover {
+    background: var(--shell-btn-hover);
+}
+.shell-dropdown-btn:active {
+    background: var(--shell-btn-hover);
+}
+
+.shell-more-btn {
+    width: 33px;
+    height: 33px;
+    border: none;
+    border-radius: 8px;
+    background: var(--shell-top-bar);
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-app-region: no-drag;
+    transition: background 0.15s ease;
+}
+.shell-more-btn:hover {
+    background: var(--shell-btn-hover);
+}
+.shell-more-btn:active {
+    background: var(--shell-btn-hover);
 }
 
 .window-controls {
@@ -236,6 +297,7 @@ body::before {
     display: flex;
     gap: 8px;
     flex-shrink: 0;
+    margin-right: 15px;
 }
 
 .app-title {
@@ -864,3 +926,108 @@ body::before {
     font-size: 0.72rem;
     color: var(--color-muted);
 }
+
+/* ==================== Kernel settings modal [内核设置弹窗] ==================== */
+.kernel-settings-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9000;
+}
+
+.kernel-settings-modal {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+    width: 360px;
+    max-width: 90vw;
+    overflow: hidden;
+}
+
+.kernel-settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.kernel-settings-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.kernel-settings-close {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-muted);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+}
+.kernel-settings-close:hover {
+    background: var(--color-hover);
+    color: var(--color-text);
+}
+
+.kernel-settings-body {
+    padding: 16px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.kernel-settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.kernel-settings-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.kernel-settings-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.kernel-settings-option {
+    padding: 8px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-card-bg);
+    color: var(--color-text);
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.kernel-settings-option:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+.kernel-settings-option.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
