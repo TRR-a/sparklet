@@ -22,9 +22,9 @@ export const windowApi = {
   toggleAlwaysOnTop(): Promise<boolean> {
     return bus.invoke<boolean>('window-toggle-always-on-top');
   },
-  /** Get runtime Electron/Node.js versions (about panel) [获取运行时 Electron/Node.js 版本 (关于面板)] */
-  getRuntimeVersions(): Promise<{ electron: string; node: string }> {
-    return bus.invoke<{ electron: string; node: string }>('get-runtime-versions');
+  /** Get runtime Electron/Node.js/Chromium versions (about panel) [获取运行时 Electron/Node.js/Chromium 版本 (关于面板)] */
+  getRuntimeVersions(): Promise<{ electron: string; node: string; chrome: string }> {
+    return bus.invoke<{ electron: string; node: string; chrome: string }>('get-runtime-versions');
   },
 
   // ---------- Secondary windows [副窗口] ----------
@@ -33,6 +33,10 @@ export const windowApi = {
   },
   isSettingsOpen(): Promise<boolean> {
     return bus.invoke<boolean>('is-settings-window-open');
+  },
+  /** Open the kernel-level settings window [打开内核级设置窗口] */
+  openKernelSettings(): Promise<unknown> {
+    return bus.invoke('open-kernel-settings-window');
   },
   openAbout(): Promise<unknown> {
     return bus.invoke('open-about-window');

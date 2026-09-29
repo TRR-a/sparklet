@@ -4,6 +4,7 @@
 import { app, ipcMain, BrowserWindow } from 'electron';
 import { createSettingsWindow } from '../windows/settings-window';
 import { createAboutWindow } from '../windows/about-window';
+import { createKernelSettingsWindow } from '../windows/kernel-settings-window';
 import { getSettingsWindow } from '../windows/window-manager';
 
 /**
@@ -11,8 +12,8 @@ import { getSettingsWindow } from '../windows/window-manager';
  */
 export function registerWindowIpcHandlers(): void {
   // ========== Window control [窗口控制] ==========
-  ipcMain.handle('window-minimize', () => {
-    BrowserWindow.getFocusedWindow()?.minimize();
+  ipcMain.handle('window-minimize', (event) => {
+    BrowserWindow.fromWebContents(event.sender)?.minimize();
   });
 
   ipcMain.handle('window-maximize', () => {
@@ -26,8 +27,8 @@ export function registerWindowIpcHandlers(): void {
     }
   });
 
-  ipcMain.handle('window-close', () => {
-    BrowserWindow.getFocusedWindow()?.close();
+  ipcMain.handle('window-close', (event) => {
+    BrowserWindow.fromWebContents(event.sender)?.close();
   });
 
   // ========== App quit (from exit-confirm dialog, after saving) [应用退出 (退出确认弹窗用，保存后调用)] ==========
@@ -53,6 +54,11 @@ export function registerWindowIpcHandlers(): void {
     createAboutWindow();
   });
 
+  // ========== Kernel settings window [内核设置窗口] ==========
+  ipcMain.handle('open-kernel-settings-window', () => {
+    createKernelSettingsWindow();
+  });
+
   // ========== Always on top [窗口置顶] ==========
   ipcMain.handle('window-toggle-always-on-top', () => {
     const win = BrowserWindow.getFocusedWindow();
@@ -74,6 +80,7 @@ export function registerWindowIpcHandlers(): void {
   ipcMain.handle('get-runtime-versions', () => ({
     electron: process.versions.electron,
     node: process.versions.node,
+    chrome: process.versions.chrome,
   }));
 }
 

@@ -12,3 +12,4 @@ export { systemApi } from './system-api.js';
 export { logApi, errText, installGlobalErrorHooks } from './log-api.js';
 export { APP_VERSION, APP_CODENAME } from './app-info.js';
 export { highlightCode, getLanguageForFile } from './highlight.js';
+export { initCustomTooltip } from './custom-tooltip.js';

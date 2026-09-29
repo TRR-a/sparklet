@@ -5,7 +5,7 @@
 // [展示已发现插件 (未安装时显示空状态)，应用主题 (light/dark/blue) 并绑定窗口
 // 控制。它不依赖任何插件——是所有 Sparklet 安装都会获得的壳]
 
-import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, installGlobalErrorHooks, APP_VERSION, APP_CODENAME, bus } from '../core/index.js';
+import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, installGlobalErrorHooks, initCustomTooltip, APP_VERSION, APP_CODENAME, bus } from '../core/index.js';
 import { restoreWidgetOrder, enableWidgetDragReorder } from './widget-drag.js';
 import type { PluginDescriptor } from '../../shared/types/plugins.js';
 import type { SystemStats } from '../../shared/types/system.js';
@@ -40,6 +40,10 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.settingsClock': 'Clock format',
     'kernel.clock24': '24-hour',
     'kernel.clock12': '12-hour',
+    'kernel.exitTitle': 'Quit Sparklet?',
+    'kernel.exitMessage': 'Are you sure you want to quit?',
+    'kernel.exitReturn': 'Return',
+    'kernel.exitQuit': 'Quit',
   },
   'zh-CN': {
     'kernel.title': 'Sparklet 中枢',
@@ -69,6 +73,10 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.settingsClock': '时钟制式',
     'kernel.clock24': '24小时制',
     'kernel.clock12': '12小时制',
+    'kernel.exitTitle': '退出 Sparklet？',
+    'kernel.exitMessage': '确定要退出吗？',
+    'kernel.exitReturn': '返回',
+    'kernel.exitQuit': '退出',
   },
 };
 
@@ -187,7 +195,7 @@ function updateMonitor(stats: SystemStats): void {
       const row = ensureDynamicRow(gpuBox, `gpu-${i}`);
       const label = row.querySelector('.monitor-label');
       if (label) label.textContent = gpu.name;
-      row.title = gpu.name;
+      row.dataset.tooltip = gpu.name;
       const fill = row.querySelector('.monitor-fill') as HTMLElement | null;
       const value = row.querySelector('.monitor-value');
       if (gpu.usage === null) {
@@ -196,7 +204,7 @@ function updateMonitor(stats: SystemStats): void {
           value.textContent = t('kernel.gpuNonNvidia');
           value.classList.add('long');
         }
-        row.title = `${gpu.name}\n${t('kernel.gpuNonNvidiaTip')}`;
+        row.dataset.tooltip = t('kernel.gpuNonNvidiaTip');
       } else {
         if (value) value.classList.remove('long');
         paintFill(row, gpu.usage);
@@ -563,66 +571,79 @@ function bindNavigation(): void {
   });
 }
 
+// ========== Kernel exit confirm (double-Esc) ==========
+const DOUBLE_ESC_INTERVAL = 600;
+let exitDialogOpen = false;
+let lastEscTime = 0;
+let exitFocusIndex = 0;
+
+function showKernelExitDialog(): void {
+  exitDialogOpen = true;
+  exitFocusIndex = 0;
+  updateExitFocus();
+  document.getElementById('kernelExitModal')!.style.display = 'flex';
+  document.getElementById('kernelExitReturnBtn')?.focus();
+}
+function closeKernelExitDialog(): void {
+  exitDialogOpen = false;
+  document.getElementById('kernelExitModal')!.style.display = 'none';
+}
+function updateExitFocus(): void {
+  document.getElementById('kernelExitReturnBtn')?.classList.toggle('focused', exitFocusIndex === 0);
+  document.getElementById('kernelExitQuitBtn')?.classList.toggle('focused', exitFocusIndex === 1);
+}
+function bindKernelExitDialog(): void {
+  document.getElementById('kernelExitReturnBtn')?.addEventListener('click', closeKernelExitDialog);
+  document.getElementById('kernelExitQuitBtn')?.addEventListener('click', () => void windowApi.quitApp());
+  document.addEventListener('keydown', (e) => {
+    if (exitDialogOpen) {
+      if (e.key === 'Escape') { e.preventDefault(); closeKernelExitDialog(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        exitFocusIndex = 1 - exitFocusIndex;
+        updateExitFocus();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (exitFocusIndex === 0) closeKernelExitDialog();
+        else void windowApi.quitApp();
+      }
+      return;
+    }
+    if (e.key === 'Escape') {
+      const now = Date.now();
+      if (now - lastEscTime < DOUBLE_ESC_INTERVAL) {
+        lastEscTime = 0;
+        showKernelExitDialog();
+      } else {
+        lastEscTime = now;
+      }
+    }
+  }, true);
+}
+
 // ========== Init [初始化] ==========
 
-// ========== Kernel settings modal [内核设置弹窗] ==========
-function openKernelSettings(): void {
-  const modal = document.getElementById('kernelSettingsModal');
-  if (!modal) return;
-  modal.style.display = 'flex';
-  // Highlight current values [高亮当前选中项]
-  const currentTheme = document.body.dataset.theme || 'light';
-  const lang = currentLang;
-  document.querySelectorAll('.kernel-settings-option').forEach((btn) => {
-    const el = btn as HTMLElement;
-    const setting = el.dataset.setting;
-    const value = el.dataset.value;
-    let active = false;
-    if (setting === 'theme') active = value === currentTheme;
-    else if (setting === 'language') active = value === lang;
-    else if (setting === 'clock') active = (value === '12') === use12Hour;
-    el.classList.toggle('active', active);
-  });
-}
-
-function closeKernelSettings(): void {
-  const modal = document.getElementById('kernelSettingsModal');
-  if (modal) modal.style.display = 'none';
-}
-
 function bindKernelSettings(): void {
-  document.getElementById('shellMoreBtn')?.addEventListener('click', openKernelSettings);
-  document.getElementById('kernelSettingsClose')?.addEventListener('click', closeKernelSettings);
-  document.getElementById('kernelSettingsModal')?.addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) closeKernelSettings();
+  const moreBtn = document.getElementById('shellMoreBtn');
+  const moreMenu = document.getElementById('shellMoreMenu');
+  moreBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (moreMenu) moreMenu.style.display = moreMenu.style.display === 'none' ? 'block' : 'none';
   });
-
-  document.querySelectorAll('.kernel-settings-option').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const el = btn as HTMLElement;
-      const setting = el.dataset.setting;
-      const value = el.dataset.value;
-      if (!setting || !value) return;
-
-      if (setting === 'theme') {
-        document.body.dataset.theme = value;
-        await storeApi.set('theme', value);
-        broadcastApi.notifyThemeChanged(value);
-      } else if (setting === 'language') {
-        currentLang = value;
-        applyI18n();
-        await storeApi.set('language', value);
-        broadcastApi.notifyLanguageChanged(value);
-      } else if (setting === 'clock') {
-        use12Hour = value === '12';
-        await storeApi.set('clock12Hour', use12Hour);
-        broadcastApi.notifyClockFormatChanged(use12Hour);
-        tickClocks();
-      }
-      // Update active state [更新选中状态]
-      document.querySelectorAll(`.kernel-settings-option[data-setting="${setting}"]`).forEach((b) => {
-        b.classList.toggle('active', b === el);
-      });
+  // Close menu immediately on outside mousedown (no click-event delay)
+  // [外部按下鼠标立即关闭菜单，避免 click 事件的延迟]
+  document.addEventListener('mousedown', (e) => {
+    const target = e.target as Node;
+    if (moreMenu && moreMenu.style.display === 'block' && !moreMenu.contains(target) && !moreBtn?.contains(target)) {
+      moreMenu.style.display = 'none';
+    }
+  });
+  // Menu items [菜单项]
+  document.querySelectorAll('.shell-more-item').forEach((item) => {
+    item.addEventListener('click', () => {
+      const action = (item as HTMLElement).dataset.action;
+      if (moreMenu) moreMenu.style.display = 'none';
+      if (action === 'settings') void windowApi.openKernelSettings();
     });
   });
 }
@@ -634,6 +655,7 @@ async function init(): Promise<void> {
   const saved = await storeApi.get<string>('language');
   currentLang = saved === 'zh-CN' ? 'zh-CN' : 'en';
   applyI18n();
+  initCustomTooltip((key) => t(key));
 
   await loadTheme();
   bindThemeBroadcast();
@@ -647,6 +669,10 @@ async function init(): Promise<void> {
 
   bindWindowControls();
   bindKernelSettings();
+  bindKernelExitDialog();
+  bus.on('kernel-settings-overlap', (overlapping: unknown) => {
+    document.body.classList.toggle('blur-background', overlapping === true);
+  });
   bus.on('window:maximize-state', (state: unknown) => {
     const maximized = (state as { maximized: boolean }).maximized;
     document.body.classList.toggle('maximized', maximized);

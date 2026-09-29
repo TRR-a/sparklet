@@ -10,30 +10,35 @@
     <!-- 标题栏：位于外壳顶部 padding 区域 -->
     <div class="title-bar">
         <div class="title-row title-row-top">
-            <button id="shellDropdownBtn" class="shell-dropdown-btn" title="菜单" aria-label="菜单">
+            <button id="shellDropdownBtn" class="shell-dropdown-btn" data-tooltip="菜单" aria-label="菜单">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="window-controls">
-                <button id="windowPinBtn" class="window-btn pin" title="窗口置顶">📌</button>
-                <button class="window-btn minimize" title="最小化">−</button>
-                <button class="window-btn maximize" title="最大化">□</button>
-                <button class="window-btn close" title="关闭">×</button>
+                <button id="windowPinBtn" class="window-btn pin" data-tooltip="窗口置顶">📌</button>
+                <button class="window-btn minimize" data-tooltip="最小化">−</button>
+                <button class="window-btn maximize" data-tooltip="最大化">□</button>
+                <button class="window-btn close" data-tooltip="关闭">×</button>
             </div>
         </div>
         <div class="title-row title-row-bottom">
-            <button id="shellMoreBtn" class="shell-more-btn" title="更多" aria-label="更多">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/></svg>
-            </button>
+            <div class="shell-more-wrap">
+                <button id="shellMoreBtn" class="shell-more-btn" data-tooltip="更多" aria-label="更多">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/></svg>
+                </button>
+                <div id="shellMoreMenu" class="shell-more-menu" style="display: none;">
+                    <button class="shell-more-item" data-action="settings" data-i18n="kernel.settings">Settings</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="kernel-shell">
         <!-- 左侧垂直导航栏：主页 / 分页管理 -->
         <nav class="kernel-rail">
-            <button class="rail-btn active" data-view="home" data-i18n-title="kernel.navHome" title="主页">
+            <button class="rail-btn active" data-view="home" data-i18n-tooltip="kernel.navHome" data-tooltip="主页">
                 <span class="rail-icon"></span>
                 <span class="rail-label" data-i18n="kernel.navHome">主页</span>
             </button>
-            <button class="rail-btn" data-view="pages" data-i18n-title="kernel.navPages" title="分页管理">
+            <button class="rail-btn" data-view="pages" data-i18n-tooltip="kernel.navPages" data-tooltip="分页管理">
                 <span class="rail-icon"></span>
                 <span class="rail-label" data-i18n="kernel.navPages">分页管理</span>
             </button>
@@ -130,39 +135,16 @@
     </div>
 
 
-    <!-- Kernel settings modal [内核设置弹窗] -->
-    <div id="kernelSettingsModal" class="kernel-settings-overlay" style="display: none;">
-        <div class="kernel-settings-modal">
-            <div class="kernel-settings-header">
-                <span class="kernel-settings-title" data-i18n="kernel.settings">Settings</span>
-                <button id="kernelSettingsClose" class="kernel-settings-close">&times;</button>
-            </div>
-            <div class="kernel-settings-body">
-                <!-- Theme [主题] -->
-                <div class="kernel-settings-group">
-                    <label class="kernel-settings-label" data-i18n="kernel.settingsTheme">Theme</label>
-                    <div class="kernel-settings-options">
-                        <button class="kernel-settings-option" data-setting="theme" data-value="light" data-i18n="kernel.themeLight">Light</button>
-                        <button class="kernel-settings-option" data-setting="theme" data-value="dark" data-i18n="kernel.themeDark">Dark</button>
-                        <button class="kernel-settings-option" data-setting="theme" data-value="blue" data-i18n="kernel.themeBlue">Blue</button>
-                    </div>
-                </div>
-                <!-- Language [语言] -->
-                <div class="kernel-settings-group">
-                    <label class="kernel-settings-label" data-i18n="kernel.settingsLanguage">Language</label>
-                    <div class="kernel-settings-options">
-                        <button class="kernel-settings-option" data-setting="language" data-value="en">English</button>
-                        <button class="kernel-settings-option" data-setting="language" data-value="zh-CN">简体中文</button>
-                    </div>
-                </div>
-                <!-- Clock format [时钟制式] -->
-                <div class="kernel-settings-group">
-                    <label class="kernel-settings-label" data-i18n="kernel.settingsClock">Clock format</label>
-                    <div class="kernel-settings-options">
-                        <button class="kernel-settings-option" data-setting="clock" data-value="24" data-i18n="kernel.clock24">24-hour</button>
-                        <button class="kernel-settings-option" data-setting="clock" data-value="12" data-i18n="kernel.clock12">12-hour</button>
-                    </div>
-                </div>
+
+
+    <!-- Exit confirm (double-Esc) [退出确认弹窗，双击 Esc 唤起] -->
+    <div id="kernelExitModal" class="kernel-exit-overlay" style="display: none;">
+        <div class="kernel-exit-box">
+            <div class="kernel-exit-title" data-i18n="kernel.exitTitle">Quit Sparklet?</div>
+            <div class="kernel-exit-message" data-i18n="kernel.exitMessage">Are you sure you want to quit?</div>
+            <div class="kernel-exit-buttons">
+                <button id="kernelExitReturnBtn" class="kernel-exit-btn return focused" data-i18n="kernel.exitReturn">Return</button>
+                <button id="kernelExitQuitBtn" class="kernel-exit-btn quit" data-i18n="kernel.exitQuit">Quit</button>
             </div>
         </div>
     </div>
