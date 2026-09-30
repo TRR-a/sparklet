@@ -81,8 +81,12 @@ body {
     padding: 10px 16px;
     background: rgba(255, 255, 255, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    -webkit-app-region: drag;
     box-sizing: border-box;
+}
+.title-drag-region {
+    flex: 1;
+    -webkit-app-region: drag;
+    height: 100%;
 }
 [data-theme="dark"] .title-bar,
 [data-theme="blue"] .title-bar {
