@@ -1048,7 +1048,7 @@ body.blur-background .kernel-shell {
 .custom-tooltip {
     position: fixed;
     z-index: 100000;
-        padding: 5px 10px;
+    padding: 5px 10px;
     border-radius: 8px;
     background: rgba(40, 40, 42, 0.92);
     backdrop-filter: blur(12px);
