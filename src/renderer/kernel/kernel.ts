@@ -159,7 +159,7 @@ function updateMonitor(stats: SystemStats): void {
   if (cpuRow) {
     const label = cpuRow.querySelector('.monitor-label');
     if (label) label.textContent = 'CPU';
-    cpuRow.title = `${stats.cpu.model} · ${stats.cpu.cores} ${currentLang === 'zh-CN' ? '线程' : 'threads'}`;
+    cpuRow.dataset.tooltip = `${stats.cpu.model} · ${stats.cpu.cores} ${currentLang === 'zh-CN' ? '线程' : 'threads'}`;
     paintFill(cpuRow, stats.cpu.usage);
     const value = cpuRow.querySelector('.monitor-value');
     if (value) value.textContent = `${stats.cpu.usage.toFixed(0)}%`;
@@ -169,6 +169,7 @@ function updateMonitor(stats: SystemStats): void {
   const memRow = document.getElementById('monitorMemory');
   if (memRow) {
     paintFill(memRow, stats.memory.usage);
+    memRow.dataset.tooltip = `${formatBytes(stats.memory.used)} / ${formatBytes(stats.memory.total)}`;
     const value = memRow.querySelector('.monitor-value');
     if (value) {
       value.textContent = `${stats.memory.usage.toFixed(0)}% · ${formatBytes(stats.memory.used)}/${formatBytes(stats.memory.total)}`;
@@ -182,6 +183,7 @@ function updateMonitor(stats: SystemStats): void {
       const row = ensureDynamicRow(diskBox, `disk-${disk.mount}`);
       const label = row.querySelector('.monitor-label');
       if (label) label.textContent = disk.mount;
+      row.dataset.tooltip = `${disk.mount} · ${formatBytes(disk.used)} / ${formatBytes(disk.total)}`;
       paintFill(row, disk.usage);
       const value = row.querySelector('.monitor-value');
       if (value) value.textContent = `${disk.usage.toFixed(0)}% · ${formatBytes(disk.used)}/${formatBytes(disk.total)}`;
@@ -201,18 +203,19 @@ function updateMonitor(stats: SystemStats): void {
       if (gpu.usage === null) {
         if (fill) fill.style.width = '0%';
         if (value) {
-          value.textContent = t('kernel.gpuNonNvidia');
-          value.classList.add('long');
+          value.textContent = 'N/A';
+          value.classList.remove('long');
         }
-        row.dataset.tooltip = t('kernel.gpuNonNvidiaTip');
+        row.dataset.tooltip = `${gpu.name} · ${t('kernel.gpuNonNvidiaTip')}`;
       } else {
         if (value) value.classList.remove('long');
         paintFill(row, gpu.usage);
         if (value) {
           const vram = gpu.memoryTotal
-            ? ` · ${formatBytes(gpu.memoryUsed!)}/${formatBytes(gpu.memoryTotal)}`
+            ? `${formatBytes(gpu.memoryUsed!)}/${formatBytes(gpu.memoryTotal)}`
             : '';
-          value.textContent = `${gpu.usage.toFixed(0)}%${vram}`;
+          value.textContent = `${gpu.usage.toFixed(0)}%`;
+          row.dataset.tooltip = vram ? `${gpu.name} · VRAM ${vram}` : gpu.name;
         }
       }
     });

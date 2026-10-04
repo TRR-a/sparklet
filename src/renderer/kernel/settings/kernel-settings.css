@@ -45,13 +45,13 @@ body {
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 [data-theme="blue"] {
-    --color-bg: #0a1628;
+    --color-bg: #002451;
     --color-text: #e8f0fe;
     --color-text-secondary: #b0c4dc;
     --color-primary: #409cff;
     --color-primary-light: rgba(64, 156, 255, 0.15);
     --color-hover: rgba(100, 170, 255, 0.06);
-    --color-border: rgba(100, 170, 255, 0.1);
+    --color-border: #001126;
     --glass-bg: rgba(20, 40, 70, 0.45);
     --glass-border: rgba(100, 170, 255, 0.12);
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
