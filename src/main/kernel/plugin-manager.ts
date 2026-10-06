@@ -37,7 +37,7 @@ const ID_RE = /^[a-z0-9][a-z0-9-]*$/;
  * Parse a plugin.json into a descriptor, or null when invalid [将 plugin.json 解析为描述，非法时返回 null]
  */
 function resolvePlugin(dir: string): PluginDescriptor | null {
-  const manifestPath = path.join(dir, 'plugin.json');
+  const manifestPath = path.join(dir, 'manifest.json');
   let raw: unknown;
   try {
     raw = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -109,7 +109,7 @@ export function findPlugin(id: string): PluginDescriptor | undefined {
 export function getPluginRoot(id: string): string | null {
   for (const root of pluginRoots()) {
     const dir = path.join(root, id);
-    if (fs.existsSync(path.join(dir, 'plugin.json'))) return dir;
+    if (fs.existsSync(path.join(dir, 'manifest.json'))) return dir;
   }
   return null;
 }
