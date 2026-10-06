@@ -34,7 +34,8 @@ export function createKernelWindow(): void {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: PRELOAD_PATH
+      preload: PRELOAD_PATH,
+      webviewTag: true
     },
     show: false
   });

@@ -21,4 +21,9 @@ export const pluginsApi = {
   isOpen(id: string): Promise<boolean> {
     return bus.invoke<boolean>('plugins:is-open', id);
   },
+
+  /** Get the plugin's main HTML file path for embedded webview [获取插件主 HTML 文件路径（用于内嵌 webview）] */
+  getUrl(id: string): Promise<string | null> {
+    return bus.invoke<string | null>('plugins:get-url', id);
+  },
 };

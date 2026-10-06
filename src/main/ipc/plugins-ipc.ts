@@ -6,7 +6,8 @@
 // 零插件时列表为空，内核展示空状态——应用仍正常启动]
 
 import { ipcMain } from 'electron';
-import { getPlugins, findPlugin } from '../kernel/plugin-manager';
+import * as path from 'path';
+import { getPlugins, findPlugin, getPluginRoot } from '../kernel/plugin-manager';
 import { openPluginWindow, isPluginWindowOpen } from '../kernel/plugin-windows';
 
 /**
@@ -15,6 +16,15 @@ import { openPluginWindow, isPluginWindowOpen } from '../kernel/plugin-windows';
 export function registerPluginIpcHandlers(): void {
   // ========== Plugin discovery [插件发现] ==========
   ipcMain.handle('plugins:list', () => getPlugins());
+
+  // ========== Plugin file URL for embedded webview [插件文件 URL（用于内嵌 webview）] ==========
+  ipcMain.handle('plugins:get-url', (_event, id: unknown) => {
+    if (typeof id !== 'string') return null;
+    const plugin = findPlugin(id);
+    const root = getPluginRoot(id);
+    if (!plugin || !root) return null;
+    return path.join(root, plugin.main);
+  });
 
   // ========== Open plugin main window [打开插件主窗口] ==========
   ipcMain.handle('plugins:open', (_event, id: unknown) => {

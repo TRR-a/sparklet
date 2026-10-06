@@ -471,7 +471,7 @@ function pluginCard(plugin: PluginDescriptor): HTMLElement {
   const openBtn = document.createElement('button');
   openBtn.className = 'plugin-open-btn';
   openBtn.textContent = t('kernel.open');
-  openBtn.addEventListener('click', () => pluginsApi.open(plugin.id));
+  openBtn.addEventListener('click', () => openPluginInTab(plugin.id, localizedPluginName(plugin)));
 
   card.append(header, desc, openBtn);
   return card;
@@ -514,7 +514,7 @@ function manageItem(plugin: PluginDescriptor): HTMLElement {
   const openBtn = document.createElement('button');
   openBtn.className = 'manage-open-btn';
   openBtn.textContent = t('kernel.open');
-  openBtn.addEventListener('click', () => pluginsApi.open(plugin.id));
+  openBtn.addEventListener('click', () => openPluginInTab(plugin.id, localizedPluginName(plugin)));
 
   row.append(info, openBtn);
   return row;
@@ -706,6 +706,133 @@ async function init(): Promise<void> {
   tickClocks();
   setInterval(tickClocks, 1000);
 
+  initTabs();
+}
+
+// ========== Tab system [标签页系统] ==========
+let tabCounter = 1;
+
+interface TabData {
+  title: string;
+  pluginId?: string;
+}
+
+const tabData = new Map<number, TabData>();
+
+function initTabs(): void {
+  const tabsEl = document.getElementById('shellTabs');
+  if (!tabsEl) return;
+
+  // Click tab to activate [点击标签页切换]
+  tabsEl.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const closeBtn = target.closest('.shell-tab-close');
+    if (closeBtn) {
+      const tab = closeBtn.closest('.shell-tab') as HTMLElement;
+      if (tab) closeTab(tab);
+      return;
+    }
+    const tab = target.closest('.shell-tab') as HTMLElement;
+    if (tab) activateTab(tab);
+  });
+
+  // New tab button [新建标签页按钮]
+  const addBtn = document.getElementById('shellTabAdd');
+  if (addBtn) addBtn.addEventListener('click', () => createTab({ title: 'New Tab' }));
+}
+
+let tabWebview: any = null;
+
+function activateTab(tab: HTMLElement): void {
+  document.querySelectorAll('.shell-tab').forEach(t => {
+    t.classList.remove('active');
+    if (t !== tab) t.classList.add('inactive');
+  });
+  tab.classList.remove('inactive');
+  tab.classList.add('active');
+
+  // Switch content: show webview if this tab has a plugin, else show kernel views
+  // [切换内容：若标签页有插件则显示 webview，否则显示内核视图]
+  const id = parseInt(tab.dataset.tabId || '0', 10);
+  const data = tabData.get(id);
+  const tabView = document.getElementById('tabView');
+  const kernelContent = document.querySelector('.kernel-content') as HTMLElement;
+
+  if (data?.pluginId && tabView && kernelContent) {
+    // Plugin tab: hide kernel content, show webview [插件标签页：隐藏内核内容，显示 webview]
+    tabView.style.display = 'flex';
+    kernelContent.style.display = 'none';
+    if (!tabWebview) {
+      tabWebview = document.createElement('webview');
+      tabWebview.style.cssText = 'width:100%; height:100%; border:none;';
+      const preloadUrl = new URL('../../../preload/index.js', location.href).href;
+      tabWebview.setAttribute('preload', preloadUrl);
+      tabView.appendChild(tabWebview);
+    }
+    if (tabWebview && !tabWebview.src) {
+      void pluginsApi.getUrl(data.pluginId).then(filePath => {
+        if (filePath) tabWebview.src = `file://${filePath.replace(/\\/g, '/')}`;
+      });
+    }
+  } else {
+    // Kernel tab: hide webview, restore kernel content [内核标签页：隐藏 webview，恢复内核内容]
+    if (tabView) tabView.style.display = 'none';
+    if (kernelContent) kernelContent.style.display = '';
+  }
+}
+
+function createTab(opts: TabData): HTMLElement {
+  const tabsEl = document.getElementById('shellTabs');
+  if (!tabsEl) return document.createElement('div');
+  const addBtn = document.getElementById('shellTabAdd');
+  const id = tabCounter++;
+
+  const tab = document.createElement('div');
+  tab.className = 'shell-tab';
+  tab.dataset.tabId = String(id);
+  tab.innerHTML = `<span class="shell-tab-title">${opts.title}</span><button class="shell-tab-close" aria-label="Close tab">×</button>`;
+
+  tabData.set(id, opts);
+  tabsEl.insertBefore(tab, addBtn);
+  activateTab(tab);
+  return tab;
+}
+
+/** Open a plugin in a new tab [在新标签页中打开插件] */
+function openPluginInTab(pluginId: string, title: string): void {
+  // Check if this plugin is already open in a tab [检查插件是否已在标签页中打开]
+  for (const [id, data] of tabData) {
+    if (data.pluginId === pluginId) {
+      const existing = document.querySelector<HTMLElement>(`.shell-tab[data-tab-id="${id}"]`);
+      if (existing) {
+        activateTab(existing);
+        return;
+      }
+    }
+  }
+  createTab({ title, pluginId });
+}
+
+function closeTab(tab: HTMLElement): void {
+  const tabs = document.querySelectorAll('.shell-tab');
+  if (tabs.length <= 1) {
+    // Keep at least one tab [至少保留一个标签页]
+    const id = parseInt(tab.dataset.tabId || '0', 10);
+    tabData.delete(id);
+    tab.querySelector('.shell-tab-title')!.textContent = 'New Tab';
+    tabData.set(0, { title: 'New Tab' });
+    activateTab(tab);
+    return;
+  }
+  const wasActive = tab.classList.contains('active');
+  const id = parseInt(tab.dataset.tabId || '0', 10);
+  tabData.delete(id);
+  const next = tab.nextElementSibling as HTMLElement | null;
+  const prev = tab.previousElementSibling as HTMLElement | null;
+  tab.remove();
+  if (wasActive) {
+    activateTab((next?.classList.contains('shell-tab') ? next : prev) as HTMLElement);
+  }
 }
 
 void init();

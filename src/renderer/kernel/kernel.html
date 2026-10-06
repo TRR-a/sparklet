@@ -10,9 +10,18 @@
     <!-- 标题栏：位于外壳顶部 padding 区域 -->
     <div class="title-bar">
         <div class="title-row title-row-top">
-            <button id="shellDropdownBtn" class="shell-dropdown-btn" data-tooltip="菜单" aria-label="菜单">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
+            <div class="shell-left-wrap">
+                <button id="shellDropdownBtn" class="shell-dropdown-btn" data-tooltip="菜单" aria-label="菜单">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="shell-tabs" id="shellTabs">
+                    <div class="shell-tab active" data-tab-id="0">
+                        <span class="shell-tab-title">New Tab</span>
+                        <button class="shell-tab-close" aria-label="Close tab">×</button>
+                    </div>
+                    <button class="shell-tab-add" id="shellTabAdd" aria-label="New tab">+</button>
+                </div>
+            </div>
             <div class="window-controls">
                 <button id="windowPinBtn" class="window-btn pin" data-tooltip="窗口置顶">📌</button>
                 <button class="window-btn minimize" data-tooltip="最小化">−</button>
@@ -131,6 +140,10 @@
             </main>
 
 
+        </div>
+
+        <!-- 标签页内容区：嵌入插件 webview [标签页内容区：嵌入插件 webview] -->
+        <div id="tabView" style="display:none; flex:1; position:relative; overflow:hidden;">
         </div>
     </div>
 
