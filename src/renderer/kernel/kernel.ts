@@ -765,7 +765,7 @@ function activateTab(tab: HTMLElement): void {
     if (!tabWebview) {
       tabWebview = document.createElement('webview');
       tabWebview.style.cssText = 'width:100%; height:100%; border:none;';
-      const preloadUrl = new URL('../../../preload/index.js', location.href).href;
+      const preloadUrl = new URL('../../preload/index.js', location.href).href;
       tabWebview.setAttribute('preload', preloadUrl);
       tabView.appendChild(tabWebview);
     }
