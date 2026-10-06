@@ -26,4 +26,9 @@ export const pluginsApi = {
   getUrl(id: string): Promise<string | null> {
     return bus.invoke<string | null>('plugins:get-url', id);
   },
+
+  /** Get preload file URL for embedded webview [获取 webview 的 preload 文件 URL] */
+  getPreloadUrl(): Promise<string> {
+    return bus.invoke<string>('plugins:get-preload-url');
+  },
 };

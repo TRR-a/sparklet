@@ -7,6 +7,7 @@
 
 import { ipcMain } from 'electron';
 import * as path from 'path';
+import { pathToFileURL } from 'url';
 import { getPlugins, findPlugin, getPluginRoot } from '../kernel/plugin-manager';
 import { openPluginWindow, isPluginWindowOpen } from '../kernel/plugin-windows';
 
@@ -24,6 +25,12 @@ export function registerPluginIpcHandlers(): void {
     const root = getPluginRoot(id);
     if (!plugin || !root) return null;
     return path.join(root, plugin.main);
+  });
+
+  // ========== Preload URL for embedded webview [webview 的 preload URL] ==========
+  ipcMain.handle('plugins:get-preload-url', () => {
+    const preloadPath = path.join(__dirname, '../../preload/index.js');
+    return pathToFileURL(preloadPath).href;
   });
 
   // ========== Open plugin main window [打开插件主窗口] ==========

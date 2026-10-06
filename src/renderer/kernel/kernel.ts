@@ -663,6 +663,15 @@ async function init(): Promise<void> {
   await loadTheme();
   bindThemeBroadcast();
 
+  // Language: live-follow settings changes [语言：实时跟随设置变更]
+  broadcastApi.onLanguageBroadcast((lang: unknown) => {
+    currentLang = lang === 'zh-CN' ? 'zh-CN' : 'en';
+    applyI18n();
+    // Re-render dynamic content [重新渲染动态内容]
+    void renderPlugins();
+    void refreshMonitor();
+  });
+
   // Clock format: read once, then follow the settings toggle live [时钟制式：先读一次，随后实时跟随设置开关]
   use12Hour = (await storeApi.get<boolean>('clock12Hour')) === true;
   broadcastApi.onClockFormatBroadcast((enabled) => {
@@ -765,12 +774,15 @@ function activateTab(tab: HTMLElement): void {
     if (!tabWebview) {
       tabWebview = document.createElement('webview');
       tabWebview.style.cssText = 'width:100%; height:100%; border:none;';
-      const preloadUrl = new URL('../../preload/index.js', location.href).href;
-      tabWebview.setAttribute('preload', preloadUrl);
       tabView.appendChild(tabWebview);
     }
     if (tabWebview && !tabWebview.src) {
-      void pluginsApi.getUrl(data.pluginId).then(filePath => {
+      // Ensure preload is set before loading src (dev + packaged safe)
+      // [确保 preload 在加载 src 之前设置好（开发和打包均安全）]
+      void pluginsApi.getPreloadUrl().then(preloadUrl => {
+        tabWebview.setAttribute('preload', preloadUrl);
+        return pluginsApi.getUrl(data.pluginId!);
+      }).then(filePath => {
         if (filePath) tabWebview.src = `file://${filePath.replace(/\\/g, '/')}`;
       });
     }
