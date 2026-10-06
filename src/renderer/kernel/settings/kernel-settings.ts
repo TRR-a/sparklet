@@ -163,6 +163,7 @@ async function init(): Promise<void> {
     setupCustomSelect('languageSelect', async (value) => {
       currentLang = value === 'zh-CN' ? 'zh-CN' : 'en';
       applyI18n();
+      setCustomSelectValue('languageSelect', currentLang, currentLang === 'zh-CN' ? '简体中文' : 'English');
       // Refresh theme label after language change [语言变更后刷新主题标签]
       const curTheme = document.body.dataset.theme || 'light';
       setCustomSelectValue('themeSelect', curTheme, t(`kernel.theme${curTheme.charAt(0).toUpperCase() + curTheme.slice(1)}`));
@@ -183,6 +184,9 @@ async function init(): Promise<void> {
     });
     document.getElementById('openDevToolsBtn')?.addEventListener('click', () => {
       void windowApi.openDevTools();
+    });
+    document.getElementById('openAboutBtn')?.addEventListener('click', () => {
+      void windowApi.openAbout();
     });
 
     // Broadcast: stay in sync with other windows

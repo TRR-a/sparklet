@@ -633,15 +633,12 @@ function bindKernelSettings(): void {
     e.stopPropagation();
     if (moreMenu) moreMenu.style.display = moreMenu.style.display === 'none' ? 'block' : 'none';
   });
-  // Close menu immediately on outside mousedown (no click-event delay)
-  // [外部按下鼠标立即关闭菜单，避免 click 事件的延迟]
   document.addEventListener('mousedown', (e) => {
     const target = e.target as Node;
     if (moreMenu && moreMenu.style.display === 'block' && !moreMenu.contains(target) && !moreBtn?.contains(target)) {
       moreMenu.style.display = 'none';
     }
   });
-  // Menu items [菜单项]
   document.querySelectorAll('.shell-more-item').forEach((item) => {
     item.addEventListener('click', () => {
       const action = (item as HTMLElement).dataset.action;
