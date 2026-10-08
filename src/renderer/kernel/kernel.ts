@@ -523,19 +523,10 @@ function manageItem(plugin: PluginDescriptor): HTMLElement {
 async function renderPlugins(): Promise<void> {
   cachedPlugins = await pluginsApi.list();
   const grid = document.getElementById('pluginGrid');
-  const empty = document.getElementById('emptyState');
-  if (!grid || !empty) return;
+  if (!grid) return;
 
   grid.innerHTML = '';
-  if (cachedPlugins.length === 0) {
-    grid.style.display = 'none';
-    empty.style.display = 'flex';
-  } else {
-    empty.style.display = 'none';
-    grid.style.display = 'grid';
-    for (const plugin of cachedPlugins) grid.appendChild(pluginCard(plugin));
-  }
-  renderManageList();
+  for (const plugin of cachedPlugins) grid.appendChild(pluginCard(plugin));
 }
 
 /** Render the plugin-management view from cached plugins [用缓存的插件渲染分页管理视图] */
@@ -691,26 +682,8 @@ async function init(): Promise<void> {
   await renderPlugins();
   logApi.info('kernel', `Renderer ready, ${cachedPlugins.length} plugin(s) discovered`);
 
-  // Widget board: restore saved card order then enable drag-to-reorder [卡片板：恢复顺序后启用拖拽重排]
-  const board = document.getElementById('widgetBoard');
-  if (board) {
-    await restoreWidgetOrder(board);
-    enableWidgetDragReorder(board);
-  }
-
-  // System monitor: immediate sample then periodic refresh [系统监控：立即采样一次后周期刷新]
-  await refreshMonitor();
-  setInterval(() => void refreshMonitor(), MONITOR_REFRESH_MS);
-
-  // Logs card: bind open button then read counts once [日志卡片：绑定打开按钮后读取一次计数]
-  bindLogCard();
-  await refreshLogStats();
-  setInterval(() => void refreshLogStats(), 10000);
-
-  // Time cards: build the analog face, tick immediately then every second [时间卡片：构建钟面，立即走时后每秒刷新]
-  buildAnalogTicks();
-  tickClocks();
-  setInterval(tickClocks, 1000);
+  // TODO: widget board / monitor / logs / clock cards removed pending rewrite
+  // [待重写：卡片板/监控/日志/时钟卡片已移除]
 
   initTabs();
 }
@@ -747,7 +720,7 @@ function initTabs(): void {
   if (addBtn) addBtn.addEventListener('click', () => createTab({ title: 'New Tab' }));
 }
 
-let tabWebview: any = null;
+let tabIframe: HTMLIFrameElement | null = null;
 
 function activateTab(tab: HTMLElement): void {
   document.querySelectorAll('.shell-tab').forEach(t => {
@@ -757,34 +730,17 @@ function activateTab(tab: HTMLElement): void {
   tab.classList.remove('inactive');
   tab.classList.add('active');
 
-  // Switch content: show webview if this tab has a plugin, else show kernel views
-  // [切换内容：若标签页有插件则显示 webview，否则显示内核视图]
   const id = parseInt(tab.dataset.tabId || '0', 10);
   const data = tabData.get(id);
   const tabView = document.getElementById('tabView');
   const kernelContent = document.querySelector('.kernel-content') as HTMLElement;
 
   if (data?.pluginId && tabView && kernelContent) {
-    // Plugin tab: hide kernel content, show webview [插件标签页：隐藏内核内容，显示 webview]
+    // Plugin tab: show empty content area (content loading to be implemented)
+    // [插件标签页：显示空白内容区，内容加载待实现]
     tabView.style.display = 'flex';
     kernelContent.style.display = 'none';
-    if (!tabWebview) {
-      tabWebview = document.createElement('webview');
-      tabWebview.style.cssText = 'width:100%; height:100%; border:none;';
-      tabView.appendChild(tabWebview);
-    }
-    if (tabWebview && !tabWebview.src) {
-      // Ensure preload is set before loading src (dev + packaged safe)
-      // [确保 preload 在加载 src 之前设置好（开发和打包均安全）]
-      void pluginsApi.getPreloadUrl().then(preloadUrl => {
-        tabWebview.setAttribute('preload', preloadUrl);
-        return pluginsApi.getUrl(data.pluginId!);
-      }).then(filePath => {
-        if (filePath) tabWebview.src = `file://${filePath.replace(/\\/g, '/')}`;
-      });
-    }
   } else {
-    // Kernel tab: hide webview, restore kernel content [内核标签页：隐藏 webview，恢复内核内容]
     if (tabView) tabView.style.display = 'none';
     if (kernelContent) kernelContent.style.display = '';
   }

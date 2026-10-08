@@ -41,116 +41,19 @@
         </div>
     </div>
     <div class="kernel-shell">
-        <!-- 左侧垂直导航栏：主页 / 分页管理 -->
-        <nav class="kernel-rail">
-            <button class="rail-btn active" data-view="home" data-i18n-tooltip="kernel.navHome" data-tooltip="主页">
-                <span class="rail-icon"></span>
-                <span class="rail-label" data-i18n="kernel.navHome">主页</span>
-            </button>
-            <button class="rail-btn" data-view="pages" data-i18n-tooltip="kernel.navPages" data-tooltip="分页管理">
-                <span class="rail-icon"></span>
-                <span class="rail-label" data-i18n="kernel.navPages">分页管理</span>
-            </button>
-        </nav>
-
         <!-- 右侧内容列 -->
         <div class="kernel-content">
-                <!-- 主页视图：系统监控 + 插件网格 / 空状态 -->
             <main class="kernel-main view" id="viewHome">
-                <section class="kernel-hero">
-                    <div class="kernel-subtitle" data-i18n="kernel.subtitle">扩展你的工作台</div>
-                </section>
-
-                <!-- 可拖拽卡片板：日历/数字钟/模拟钟/系统监控，可自由拖动重排，顺序持久化 -->
-                <div id="widgetBoard" class="widget-board">
-                    <div class="time-card time-calendar widget" data-widget="calendar">
-                        <div class="calendar-title" id="calTitle"></div>
-                        <div class="calendar-weekdays" id="calWeekdays"></div>
-                        <div class="calendar-grid" id="calGrid"></div>
-                    </div>
-
-                    <div class="time-card time-digital widget" data-widget="digital">
-                        <div class="time-display"><span id="digitalTime">--:--</span><span class="time-sec" id="digitalSec">--</span></div>
-                    </div>
-
-                    <div class="time-card time-analog widget" data-widget="analog">
-                        <svg class="analog-face" viewBox="0 0 100 100" aria-hidden="true">
-                            <g id="analogTicks"></g>
-                            <line class="hand hand-hour" id="handHour" x1="50" y1="52" x2="50" y2="30"></line>
-                            <line class="hand hand-minute" id="handMinute" x1="50" y1="54" x2="50" y2="20"></line>
-                            <line class="hand hand-second" id="handSecond" x1="50" y1="56" x2="50" y2="14"></line>
-                            <circle class="analog-center" cx="50" cy="50" r="2.6"></circle>
-                        </svg>
-                        <div class="time-details">
-                            <div class="detail-weekday" id="detailWeekday">--</div>
-                            <div class="detail-date" id="detailDate">--</div>
-                            <div class="detail-sub" id="detailWeek">--</div>
-                            <div class="detail-sub" id="detailTz">--</div>
-                        </div>
-                    </div>
-
-                    <!-- 系统监控卡片：CPU / 内存固定行，磁盘与 GPU 由 JS 动态填充 -->
-                    <section id="monitorCard" class="monitor-card widget" data-widget="monitor">
-                        <div class="monitor-title" data-i18n="kernel.monitor">系统监控</div>
-                        <div class="monitor-grid">
-                            <div class="monitor-row" id="monitorCpu">
-                                <span class="monitor-label">CPU</span>
-                                <div class="monitor-bar"><div class="monitor-fill"></div></div>
-                                <span class="monitor-value">--</span>
-                            </div>
-                            <div class="monitor-row" id="monitorMemory">
-                                <span class="monitor-label" data-i18n="kernel.memory">内存</span>
-                                <div class="monitor-bar"><div class="monitor-fill"></div></div>
-                                <span class="monitor-value">--</span>
-                            </div>
-                            <div id="monitorDisks" class="monitor-dynamic"></div>
-                            <div id="monitorGpus" class="monitor-dynamic"></div>
-                        </div>
-                    </section>
-
-                    <!-- 日志卡片：最近 error/warn 计数 + 打开日志文件夹 -->
-                    <section id="logCard" class="log-card widget" data-widget="logs">
-                        <div class="log-title" data-i18n="kernel.logs">Logs</div>
-                        <div class="log-stats">
-                            <span class="log-stat"><span class="log-stat-num" id="logErrorCount">0</span><span class="log-stat-label" data-i18n="kernel.logsErrors">errors</span></span>
-                            <span class="log-stat"><span class="log-stat-num warn" id="logWarnCount">0</span><span class="log-stat-label" data-i18n="kernel.logsWarns">warnings</span></span>
-                        </div>
-                        <button class="log-open-btn" id="logOpenBtn" data-i18n="kernel.logsOpen">Open logs folder</button>
-                    </section>
-                </div>
-
                 <section id="pluginGrid" class="plugin-grid"></section>
-                <section id="emptyState" class="empty-state" style="display: none;">
-                    <div class="empty-icon">🧩</div>
-                    <div class="empty-title" data-i18n="kernel.emptyTitle">未安装任何插件</div>
-                    <div class="empty-desc" data-i18n="kernel.emptyDesc">安装插件以解锁更多功能</div>
-                </section>
             </main>
-
-            <!-- 分页管理视图：已安装插件的管理列表 -->
-            <main class="kernel-main view" id="viewPages" style="display: none;">
-                <section class="kernel-hero">
-                    <div class="kernel-subtitle" data-i18n="kernel.pagesTitle">分页管理</div>
-                </section>
-                <section id="manageList" class="manage-list"></section>
-                <section id="manageEmpty" class="empty-state" style="display: none;">
-                    <div class="empty-icon">🧩</div>
-                    <div class="empty-title" data-i18n="kernel.emptyTitle">未安装任何插件</div>
-                </section>
-            </main>
-
-
         </div>
 
-        <!-- 标签页内容区：嵌入插件 webview [标签页内容区：嵌入插件 webview] -->
+        <!-- 标签页内容区：嵌入插件 webview -->
         <div id="tabView" style="display:none; flex:1; position:relative; overflow:hidden;">
         </div>
     </div>
 
-
-
-
-    <!-- Exit confirm (double-Esc) [退出确认弹窗，双击 Esc 唤起] -->
+    <!-- Exit confirm (double-Esc) -->
     <div id="kernelExitModal" class="kernel-exit-overlay" style="display: none;">
         <div class="kernel-exit-box">
             <div class="kernel-exit-title" data-i18n="kernel.exitTitle">Quit Sparklet?</div>
