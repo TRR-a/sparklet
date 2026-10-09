@@ -682,8 +682,14 @@ async function init(): Promise<void> {
   await renderPlugins();
   logApi.info('kernel', `Renderer ready, ${cachedPlugins.length} plugin(s) discovered`);
 
-  // TODO: widget board / monitor / logs / clock cards removed pending rewrite
-  // [待重写：卡片板/监控/日志/时钟卡片已移除]
+  // First launch: show "Welcome Aboard", otherwise "Welcome back"
+  // [首次启动显示欢迎使用，否则显示欢迎回来]
+  const welcomed = await storeApi.get<boolean>('welcomed');
+  const subtitleEls = document.querySelectorAll('.swiss-subtitle');
+  if (!welcomed && subtitleEls.length >= 2) {
+    subtitleEls[1].textContent = 'Aboard';
+    await storeApi.set('welcomed', true);
+  }
 
   initTabs();
 }

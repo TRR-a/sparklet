@@ -1,6 +1,7 @@
 // Main process entry point [主进程入口]
 // Orchestrates app lifecycle: migration, window creation, updater initialization, IPC registration [编排应用生命周期：迁移、窗口创建、更新模块初始化、IPC 注册]
 
+import './dev-user-data.js'; // Must be first — redirects userData before any store/path access [必须第一个，在任何 store/路径访问前重定向 userData]
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -13,18 +14,6 @@ import { registerDevToolsShortcut } from './ipc/window-ipc';
 import { registerGlobalShortcuts } from './global-shortcuts';
 import { runStartupIntegrityScan } from './services/note-integrity';
 import { initLogger, installCrashLogging, logger } from './services/logger';
-
-// Development: redirect userData to project-local app_data/sparklet-dev/ so dev data
-// (notes, config, update cache, logs) stays isolated from the production profile.
-// Must run before app.whenReady() so all getPath('userData') callers pick it up.
-// [开发环境：将 userData 重定向到项目内 app_data/sparklet-dev/，使开发数据 (笔记/配置/更新缓存/日志)
-// 与生产环境配置隔离。必须在 app.whenReady() 前执行，所有 getPath('userData') 调用方才能生效]
-if (!app.isPackaged) {
-  const devDataDir = path.join(app.getAppPath(), 'app_data', 'sparklet-dev');
-  fs.mkdirSync(devDataDir, { recursive: true });
-  app.setPath('userData', devDataDir);
-  console.log('[Dev] userData redirected to:', devDataDir);
-}
 
 /**
  * Application lifecycle: ready [应用生命周期：就绪]
