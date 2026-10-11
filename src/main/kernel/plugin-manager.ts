@@ -1,10 +1,10 @@
-// Plugin manager: discover plugins from disk and resolve their manifests [插件管理器：从磁盘发现插件并解析清单]
+﻿// Plugin manager: discover plugins from disk and resolve their manifests [插件管理器：从磁盘发现插件并解析清单]
 // Microkernel: the kernel scans well-known roots, any folder containing a
 // plugin.json is a plugin. Built-in plugins ship inside the app bundle
-// (app.getAppPath()/src/renderer/note); user-installed plugins live under
+// (app.getAppPath()/src/renderer/main); user-installed plugins live under
 // userData/plugins (downloaded later from the plugin market).
 // [微内核：内核扫描已知根目录，任何含 plugin.json 的文件夹即视为插件。
-// 内置插件随应用分发 (app.getAppPath()/src/renderer/note)；用户安装的插件位于
+// 内置插件随应用分发 (app.getAppPath()/src/renderer/main)；用户安装的插件位于
 // userData/plugins (未来从插件市场下载)]
 
 import { app } from 'electron';
@@ -15,17 +15,17 @@ import type { PluginDescriptor, PluginManifest } from '../../shared/types/plugin
 // Well-known plugin search roots [已知插件搜索根目录]
 //
 // Built-in plugins MUST be read from the compiled build tree (this file runs
-// from build/src/main/kernel, so ../../renderer/note == build/src/renderer/note).
+// from build/src/main/kernel, so ../../renderer/main == build/src/renderer/main).
 // Pointing at the source tree would load .html whose sibling .js entries are
 // emitted only into build/ (source tree keeps .ts only), so the plugin page
 // would fail to bootstrap. User-installed plugins live under userData/plugins.
 // [内置插件必须从编译后的 build 树读取 (本文件运行于 build/src/main/kernel，
-// 故 ../../renderer/note == build/src/renderer/note)。若指向源码树，加载的 .html
+// 故 ../../renderer/main == build/src/renderer/main)。若指向源码树，加载的 .html
 // 其同级 .js 入口仅输出到 build/ (源码树只有 .ts)，插件页面将无法启动。
 // 用户安装的插件位于 userData/plugins]
 function pluginRoots(): string[] {
   return [
-    path.join(__dirname, '../../renderer/note'),
+    path.join(__dirname, '../../renderer/main'),
     path.join(app.getPath('userData'), 'plugins'),
   ];
 }

@@ -8,7 +8,7 @@ import { setAboutWindow, getAboutWindow } from './window-manager';
 const PRELOAD_PATH = path.join(__dirname, '../../preload/index.js');
 
 // About HTML path [About HTML 璺緞]
-const ABOUT_HTML = path.join(__dirname, '../../renderer/note/about/about.html');
+const ABOUT_HTML = path.join(__dirname, '../../renderer/main/about/about.html');
 
 /**
  * Create the about window (single instance) [鍒涘缓鍏充簬绐楀彛 (鍗曞疄渚?]

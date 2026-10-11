@@ -1,4 +1,4 @@
-// build-copy-assets.cjs
+﻿// build-copy-assets.cjs
 // Copy non-compiled runtime assets into build/ while mirroring the source tree layout.
 // 将非编译的运行时资源按源码目录层级拷贝到 build/（tsc/esbuild 只产出 .js，不搬这些文件）。
 //
@@ -22,7 +22,7 @@ const STATIC_EXT = new Set([
 
 // Source roots to mirror into build/ [要镜像到 build/ 的源目录 -> build 内目标前缀]
 const COPY_ROOTS = [
-  { from: 'src/renderer/note', to: 'src/renderer/note' },
+  { from: 'src/renderer/main', to: 'src/renderer/main' },
   { from: 'assets', to: 'assets' },
   // Kernel (microkernel Hub) static assets; its .ts compiles to the same folder [内核 (微内核 Hub) 静态资源；其 .ts 编译到同目录]
   { from: 'src/renderer/kernel', to: 'src/renderer/kernel' },

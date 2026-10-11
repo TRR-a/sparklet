@@ -1,4 +1,4 @@
-// Settings page - main entry point for settings window logic [设置页面 - 设置窗口逻辑入口]
+﻿// Settings page - main entry point for settings window logic [设置页面 - 设置窗口逻辑入口]
 // Handles language switching, window control, theme sync, and orchestrates all settings sections [处理语言切换、窗口控制、主题同步，并编排所有设置区域]
 
 import { initI18n, loadLanguage, getCurrentLang, t } from '../../Modules/i18n.js';
@@ -25,7 +25,7 @@ import { initCustomDropdowns } from './ui/custom-dropdown.js';
 import { noteApi } from '../../api/note-api.js';
 
 // Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
-installGlobalErrorHooks('note');
+installGlobalErrorHooks('main');
 
 /**
  * Load theme and initialize i18n [加载主题并初始化 i18n]
