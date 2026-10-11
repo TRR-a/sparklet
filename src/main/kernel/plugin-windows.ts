@@ -10,9 +10,9 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
 import { setMainWindow, getSettingsWindow, syncGlowPosition } from '../windows/window-manager';
-import { getCurrentVersion } from '../updater/check';
-import * as cacheManager from '../updater/cache-manager';
-import { CACHE_SUCCESS_MARK_DELAY_MS } from '../updater/constants';
+import { getCurrentVersion } from '../updater/check/check.js';
+import * as cacheManager from '../updater/cache/cache-manager.js';
+import { CACHE_SUCCESS_MARK_DELAY_MS } from '../updater/core/constants.js';
 import { getPluginRoot } from './plugin-manager';
 import type { PluginDescriptor } from '../../shared/types/plugins';
 

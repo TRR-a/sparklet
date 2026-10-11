@@ -787,12 +787,8 @@ function openPluginInTab(pluginId: string, title: string): void {
 function closeTab(tab: HTMLElement): void {
   const tabs = document.querySelectorAll('.shell-tab');
   if (tabs.length <= 1) {
-    // Keep at least one tab [至少保留一个标签页]
-    const id = parseInt(tab.dataset.tabId || '0', 10);
-    tabData.delete(id);
-    tab.querySelector('.shell-tab-title')!.textContent = 'New Tab';
-    tabData.set(0, { title: 'New Tab' });
-    activateTab(tab);
+    // Last tab closed -> quit the app [最后一个标签页关闭 -> 退出应用]
+    void windowApi.quitApp();
     return;
   }
   const wasActive = tab.classList.contains('active');

@@ -1,10 +1,10 @@
-// Custom code editor — textarea + highlight overlay, no third-party dependency
+﻿// Custom code editor — textarea + highlight overlay, no third-party dependency
 // [自研代码编辑器 — textarea + 高亮层叠加，无第三方依赖]
 // Layout: gutter (line numbers) + scroll area where <pre> (highlight) and
 // <textarea> (input) overlap perfectly with identical metrics
 // [布局：行号槽 + 滚动区，其中 <pre> (高亮) 与 <textarea> (输入) 以相同度量完全重叠]
 
-import { highlightCode } from '../../core/highlight.js';
+import { highlightCode } from '../../core/highlight/highlight.js';
 
 /** Editor creation options [编辑器创建选项] */
 export interface CodeEditorOptions {

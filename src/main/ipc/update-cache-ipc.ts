@@ -2,13 +2,13 @@
 // Handles update cache info query, retention days get/set, and cache clearing [处理更新包缓存信息查询、保留天数读写、缓存清空]
 
 import { ipcMain } from 'electron';
-import * as cacheManager from '../updater/cache-manager';
-import { getConfigItem, setConfigItem } from '../updater/config-manager';
+import * as cacheManager from '../updater/cache/cache-manager.js';
+import { getConfigItem, setConfigItem } from '../updater/core/config-manager.js';
 import {
   CACHE_RETENTION_MIN_DAYS,
   CACHE_RETENTION_MAX_DAYS,
   DEFAULT_CACHE_SUCCESS_RETENTION_DAYS
-} from '../updater/constants';
+} from '../updater/core/constants.js';
 
 /**
  * Normalize retention days to valid range [min, max] as integer [规范化保留天数到合法范围 [min, max] 并取整]

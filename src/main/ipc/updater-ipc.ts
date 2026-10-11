@@ -2,8 +2,8 @@
 // Handles update check, status, dev environment detection, and external link opening [处理更新检查、状态、开发环境检测、外链打开]
 
 import { ipcMain, app, shell } from 'electron';
-import { checkUpdateManually, updaterState } from '../updater';
-import { getCurrentVersion } from '../updater/check';
+import { checkUpdateManually, updaterState } from '../updater/core/index.js';
+import { getCurrentVersion } from '../updater/check/check.js';
 
 // Project official URL (GitHub repository homepage) [项目官网地址 (GitHub 仓库主页)]
 const PROJECT_OFFICIAL_URL = 'https://github.com/TRR-a/sparklet';

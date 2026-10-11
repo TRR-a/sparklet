@@ -17,6 +17,8 @@ body {
     width: 100vw;
     overflow: hidden;
     box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 /* ===== Theme variables ===== */

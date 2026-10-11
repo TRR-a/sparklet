@@ -21,6 +21,8 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.tools': 'Tools',
     'kernel.openOfficialSite': 'Official Site',
     'kernel.devTools': 'DevTools',
+    'kernel.minimize': 'Minimize',
+    'kernel.close': 'Close',
   },
   'zh-CN': {
     'kernel.settingsTitle': '内核设置',
@@ -34,6 +36,8 @@ const STRINGS: Record<string, Record<string, string>> = {
     'kernel.tools': '工具',
     'kernel.openOfficialSite': '官网',
     'kernel.devTools': '开发者工具',
+    'kernel.minimize': '最小化',
+    'kernel.close': '关闭',
   },
 };
 
@@ -47,6 +51,10 @@ function applyI18n(): void {
   document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
     const key = el.dataset.i18n;
     if (key) el.textContent = t(key);
+  });
+  document.querySelectorAll<HTMLElement>('[data-i18n-tooltip]').forEach((el) => {
+    const key = el.dataset.i18nTooltip;
+    if (key) el.dataset.tooltip = t(key);
   });
 }
 
@@ -118,6 +126,10 @@ document.addEventListener('click', () => {
 async function init(): Promise<void> {
   bindWindowControls();
   initCustomTooltip((key) => t(key));
+
+  // Disable text copy / context menu - settings page has no copyable content [禁止复制/右键 - 设置页无可复制内容]
+  document.addEventListener('copy', (e) => e.preventDefault());
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
 
   try {
     // Language

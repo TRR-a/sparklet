@@ -10,16 +10,16 @@ import {
   setConfigItem,
   getCheckInterval,
   getUpdateBehavior
-} from '../updater/config-manager';
-import * as cacheManager from '../updater/cache-manager';
+} from '../updater/core/config-manager.js';
+import * as cacheManager from '../updater/cache/cache-manager.js';
 import {
   CACHE_RETENTION_MIN_DAYS,
   CACHE_RETENTION_MAX_DAYS,
   DEFAULT_CACHE_SUCCESS_RETENTION_DAYS,
   DEFAULT_CONFIG,
   INTERVAL_OPTIONS
-} from '../updater/constants';
-import type { UpdaterConfig } from '../../shared/types/updater';
+} from '../updater/core/constants.js';
+import type { UpdaterConfig } from '../../shared/types/updater.js';
 
 /**
  * Register updater config IPC handlers [注册更新配置 IPC 处理器]

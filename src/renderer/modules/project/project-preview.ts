@@ -1,8 +1,8 @@
-// Project file preview - custom code editor and save support [项目文件预览 - 自研代码编辑器和保存]
+﻿// Project file preview - custom code editor and save support [项目文件预览 - 自研代码编辑器和保存]
 // Uses the built-in textarea + overlay editor, no third-party dependency
 // [使用内置 textarea + 高亮层编辑器，无第三方依赖]
 
-import { getLanguageForFile } from '../../core/highlight.js';
+import { getLanguageForFile } from '../../core/highlight/highlight.js';
 import { createCodeEditor, type CodeEditor } from './code-editor.js';
 import { projectApi } from './api/project-api.js';
 

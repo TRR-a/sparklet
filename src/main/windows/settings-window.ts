@@ -8,7 +8,7 @@ import { setSettingsWindow, getSettingsWindow, getMainWindow, syncGlowPosition }
 const PRELOAD_PATH = path.join(__dirname, '../../preload/index.js');
 
 // Settings HTML path [Settings HTML 璺緞]
-const SETTINGS_HTML = path.join(__dirname, '../../../modules/note/settings/settings.html');
+const SETTINGS_HTML = path.join(__dirname, '../../renderer/note/Pages/settings/settings.html');
 
 /**
  * Create the settings window (single instance) [鍒涘缓璁剧疆绐楀彛 (鍗曞疄渚?]

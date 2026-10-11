@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import { migrateFromStore } from './services/migration-service';
 import { createKernelWindow } from './windows/kernel-window';
 import { getKernelWindow } from './windows/window-manager';
-import { initUpdater, checkUpdateManually } from './updater';
+import { initUpdater, checkUpdateManually } from './updater/core/index.js';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
 import { registerGlobalShortcuts } from './global-shortcuts';
