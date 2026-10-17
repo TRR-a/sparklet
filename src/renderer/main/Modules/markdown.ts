@@ -3,7 +3,7 @@
 
 import { escapeHtml } from '../Base/dom-utils.js';
 import { renderBlocks } from './markdown-block.js';
-import { highlightCode } from '../../core/highlight/highlight.js';
+import { highlightCode } from 'sparklet/renderer/core/highlight/highlight.js';
 
 /**
  * Render markdown text to HTML [将 markdown 文本渲染为 HTML]

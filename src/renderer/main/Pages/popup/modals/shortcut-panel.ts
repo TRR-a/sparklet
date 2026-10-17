@@ -4,7 +4,7 @@
 // toggle; closes via Esc, overlay click or the close button [经标题栏 ⌨️ 按钮、F1 (在
 // global-shortcuts.ts 绑定) 或本模块的切换函数打开；Esc、点遮罩或关闭按钮关闭]
 
-import { t } from '../../../Modules/i18n.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
 
 /** Shortcut entry definition [快捷键条目定义] */
 interface ShortcutEntry {

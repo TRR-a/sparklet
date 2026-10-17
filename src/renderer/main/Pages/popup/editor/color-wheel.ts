@@ -4,7 +4,7 @@
 // [Canvas 绘制 HSV 圆盘（色相=角度，饱和度=半径）；滑块控制明度。选中后以 hex 回调]
 
 import { changeNoteColor } from '../note/note-operations.js';
-import { storeApi } from '../../../../core/index.js';
+import { storeApi } from 'sparklet/renderer/core/index.js';
 
 /** HSV -> hex [HSV 转十六进制] */
 function hsvToHex(h: number, s: number, v: number): string {

@@ -14,7 +14,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { getNoteHistoryDir, isValidNoteId, isValidSnapshotTs } from './note-paths';
-import type { Note, NoteHistoryEntry, NoteHistoryResult, NoteSnapshot, NoteSnapshotResult } from '../../shared/types/notes';
+import type { Note, NoteHistoryEntry, NoteHistoryResult, NoteSnapshot, NoteSnapshotResult } from 'sparklet/shared/types/notes';
 
 /** Minimum interval between snapshots of the same note [同一笔记两次快照的最小间隔] */
 const SNAPSHOT_INTERVAL_MS = 10 * 60 * 1000;

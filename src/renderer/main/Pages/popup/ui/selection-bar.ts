@@ -5,9 +5,9 @@
 // [多选模式激活时显示在笔记列表上方。按钮因视图而异：主视图提供批量删除
 // (到回收站)；回收站提供批量恢复与批量永久删除]
 
-import storageManager from '../../../Modules/storage-manager.js';
-import { t } from '../../../Modules/i18n.js';
-import { showCustomConfirm } from '../../../Modules/custom-dialog.js';
+import storageManager from 'sparklet/renderer/main/Modules/storage-manager.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { showCustomConfirm } from 'sparklet/renderer/main/Modules/custom-dialog.js';
 import { getVirtualCardNoteIds, syncSelectionInList } from '../note/note-virtual-list.js';
 import {
   isSelectionMode,

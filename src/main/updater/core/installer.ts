@@ -5,7 +5,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { app } from 'electron';
 import { getUpdaterScriptPath, getTempPath } from './constants.js';
-import type { InstallResult } from '../../../shared/types/updater';
+import type { InstallResult } from 'sparklet/shared/types/updater';
 
 /** Progress callback type [进度回调类型] */
 type ProgressCallback = (msg: string, percent: number) => void;

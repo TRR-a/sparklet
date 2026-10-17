@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as https from 'https';
 import { URL } from 'url';
 import { getAppRoot } from './constants.js';
-import type { ManifestEntry } from '../../../shared/types/updater';
+import type { ManifestEntry } from 'sparklet/shared/types/updater';
 
 /**
  * Read the bundled manifest.current.json [读取随应用打包的 manifest.current.json]

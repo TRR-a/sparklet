@@ -8,7 +8,7 @@ import {
   DEFAULT_CACHE_SUCCESS_RETENTION_DAYS,
   CACHE_UNUSED_RETENTION_DAYS
 } from '../core/constants.js';
-import type { CacheMeta, CacheInfo } from '../../../shared/types/updater';
+import type { CacheMeta, CacheInfo } from 'sparklet/shared/types/updater';
 
 /**
  * Get file size of a single ZIP in directory (bytes) [计算目录下单个 ZIP 的大小 (字节)]

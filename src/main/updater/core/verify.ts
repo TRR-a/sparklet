@@ -4,7 +4,7 @@
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import { fetchReleasesManifest } from './manifest-helper.js';
-import type { ManifestEntry, VerifyResult } from '../../../shared/types/updater';
+import type { ManifestEntry, VerifyResult } from 'sparklet/shared/types/updater';
 
 /**
  * Normalize version string: strip 'v' prefix before comparison [规范化版本号：统一去掉 v 前缀后再比较]

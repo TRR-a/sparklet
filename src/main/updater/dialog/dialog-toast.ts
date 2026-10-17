@@ -4,7 +4,7 @@ import { BrowserWindow } from 'electron';
 import type {
   ToastData,
   NetworkErrorType,
-} from '../../../shared/types/updater';
+} from 'sparklet/shared/types/updater';
 import { classifyNetworkError } from '../core/constants.js';
 
 /**

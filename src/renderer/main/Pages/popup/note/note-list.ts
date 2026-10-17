@@ -3,7 +3,7 @@
 // in note-card.ts, group helpers in note-group.ts, menus in note-menu.ts [将笔记展平为
 // VirtualItem[] 经虚拟列表渲染；卡片元素在 note-card.ts、分组辅助在 note-group.ts、菜单在 note-menu.ts]
 
-import { t } from '../../../Modules/i18n.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
 import { createGroupTitle, createGroupEmpty, collapsedGroups } from './note-group.js';
 import { closeAllMenus } from './note-menu.js';
 import { createNoteCard } from './note-card.js';

@@ -1,6 +1,6 @@
 // Project workspace - state, persistence, add/remove projects [项目工作区 - 状态、持久化、增删项目]
 
-import type { ProjectFileNode } from '../../../shared/types/project';
+import type { ProjectFileNode } from 'sparklet/shared/types/project';
 import { projectApi } from './api/project-api.js';
 
 /** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */

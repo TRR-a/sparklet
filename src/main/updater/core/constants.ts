@@ -7,7 +7,7 @@ import {
   INTEGRITY_EXTENSION_BLACKLIST,
   isExcludedFromIntegrity
 } from '../integrity/_integrity-rules.js';
-import type { NetworkErrorType } from '../../../shared/types/updater';
+import type { NetworkErrorType } from 'sparklet/shared/types/updater';
 
 // GitHub repository info [GitHub 仓库信息]
 export const GITHUB_OWNER = 'TRR-a';

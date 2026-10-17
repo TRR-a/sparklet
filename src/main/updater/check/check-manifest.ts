@@ -1,7 +1,7 @@
 ﻿// Release asset validation (tag format, zip filename, manifest URL) [Release 资产校验 (tag 格式、zip 文件名、manifest URL)]
 
 import { extractAssetsFromRelease, type ReleaseData } from '../core/manifest-helper.js';
-import type { NetworkErrorType } from '../../../shared/types/updater';
+import type { NetworkErrorType } from 'sparklet/shared/types/updater';
 
 const TAG_PATTERN = /^v\d+\.\d+\.\d+$/;
 const ZIP_FILENAME_PATTERN = /^sparklet-v\d+\.\d+\.\d+-win-x86_64\.zip$/;

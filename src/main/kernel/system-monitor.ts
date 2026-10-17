@@ -9,7 +9,7 @@
 
 import os from 'os';
 import { execFile } from 'child_process';
-import type { SystemStats, DiskStats, GpuStats } from '../../shared/types/system';
+import type { SystemStats, DiskStats, GpuStats } from 'sparklet/shared/types/system';
 
 /** CPU sampling window in ms [CPU 采样窗口 (毫秒)] */
 const CPU_SAMPLE_MS = 200;

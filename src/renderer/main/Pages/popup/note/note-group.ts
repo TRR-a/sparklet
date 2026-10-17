@@ -3,7 +3,7 @@
 // so toggling only flips the flag and calls onRebuild [折叠是数据级状态：虚拟列表模型重建时跳过该组卡片，
 // 切换只翻转标记并回调重建]
 
-import { t } from '../../../Modules/i18n.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
 
 /** Collapsed group keys, kept across re-renders [折叠的分组键，重渲染后保持] */
 export const collapsedGroups = new Set<string>();

@@ -8,7 +8,7 @@ import {
   CONFIG_DIR_NAMES,
   DEFAULT_CONFIG
 } from './constants.js';
-import type { UpdaterConfig } from '../../../shared/types/updater';
+import type { UpdaterConfig } from 'sparklet/shared/types/updater';
 
 // Config directory state [配置目录状态]
 let configDir: string | null = null;

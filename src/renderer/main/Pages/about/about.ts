@@ -1,9 +1,9 @@
 ﻿// About page logic [关于页面逻辑]
 // Loads theme + i18n, fills version info, binds close button [加载主题 + i18n，填充版本信息，绑定关闭按钮]
 
-import { loadTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
-import { initI18n, t } from '../../Modules/i18n.js';
-import { windowApi, APP_VERSION, APP_CODENAME, installGlobalErrorHooks } from '../../../core/index.js';
+import { loadTheme, bindThemeBroadcastListener } from 'sparklet/renderer/main/Base/theme.js';
+import { initI18n, t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { windowApi, APP_VERSION, APP_CODENAME, installGlobalErrorHooks } from 'sparklet/renderer/core/index.js';
 
 // Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
 installGlobalErrorHooks('main');

@@ -1,11 +1,11 @@
 ﻿// Settings page - main entry point for settings window logic [设置页面 - 设置窗口逻辑入口]
 // Handles language switching, window control, theme sync, and orchestrates all settings sections [处理语言切换、窗口控制、主题同步，并编排所有设置区域]
 
-import { initI18n, loadLanguage, getCurrentLang, t } from '../../Modules/i18n.js';
-import { showToast, bindToastListener } from '../../Base/toast.js';
-import { loadTheme, setTheme, bindThemeBroadcastListener } from '../../Base/theme.js';
-import { bindUpdaterDialogListener } from '../../Modules/updater-dialog.js';
-import { storeApi, windowApi, appApi, broadcastApi, installGlobalErrorHooks } from '../../../core/index.js';
+import { initI18n, loadLanguage, getCurrentLang, t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { showToast, bindToastListener } from 'sparklet/renderer/main/Base/toast.js';
+import { loadTheme, setTheme, bindThemeBroadcastListener } from 'sparklet/renderer/main/Base/theme.js';
+import { bindUpdaterDialogListener } from 'sparklet/renderer/main/Modules/updater-dialog.js';
+import { storeApi, windowApi, appApi, broadcastApi, installGlobalErrorHooks } from 'sparklet/renderer/core/index.js';
 import {
   loadUpdaterConfig,
   bindUpdaterEvents,
@@ -22,7 +22,7 @@ import {
   bindImportExportEvents
 } from './cache/config-io.js';
 import { initCustomDropdowns } from './ui/custom-dropdown.js';
-import { noteApi } from '../../api/note-api.js';
+import { noteApi } from 'sparklet/renderer/main/api/note-api.js';
 
 // Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
 installGlobalErrorHooks('main');

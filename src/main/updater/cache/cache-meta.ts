@@ -7,7 +7,7 @@ import {
   getUpdateCacheDir,
   getUpdateCacheMetaPath,
 } from '../core/constants.js';
-import type { CacheMeta } from '../../../shared/types/updater';
+import type { CacheMeta } from 'sparklet/shared/types/updater';
 
 /**
  * Ensure cache directory and meta file exist [确保缓存目录和 meta 文件存在]

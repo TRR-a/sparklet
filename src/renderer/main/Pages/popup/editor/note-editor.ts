@@ -2,10 +2,10 @@
 // Note operations (save/create/delete/color/pin) in note-operations.ts [笔记操作 (保存/创建/删除/颜色/置顶) 在 note-operations.ts]
 // List rendering in note-list.ts, card in note-card.ts, menus in note-menu.ts [列表渲染在 note-list.ts、卡片在 note-card.ts、菜单在 note-menu.ts]
 
-import storageManager from '../../../Modules/storage-manager.js';
-import { t } from '../../../Modules/i18n.js';
-import { renderMarkdown } from '../../../Modules/markdown.js';
-import { closeFilePreview } from '../../../../modules/project/project-view.js';
+import storageManager from 'sparklet/renderer/main/Modules/storage-manager.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { renderMarkdown } from 'sparklet/renderer/main/Modules/markdown.js';
+import { closeFilePreview } from 'sparklet/renderer/modules/project/project-view.js';
 import { saveCurrentNote } from '../note/note-operations.js';
 import { renderNoteList } from '../note/note-list.js';
 import { syncActiveNoteInList } from '../note/note-virtual-list.js';

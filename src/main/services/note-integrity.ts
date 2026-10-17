@@ -14,7 +14,7 @@ import * as path from 'path';
 import { ensureNotesDir } from './note-paths';
 import { getLatestSnapshot } from './note-history';
 import { writeFileAtomic } from './note-io';
-import type { Note, NoteIntegrityReport, NoteIntegrityReportResult } from '../../shared/types/notes';
+import type { Note, NoteIntegrityReport, NoteIntegrityReportResult } from 'sparklet/shared/types/notes';
 
 /** Cached report of the last startup scan [最近一次启动扫描的缓存报告] */
 let lastReport: NoteIntegrityReport | null = null;

@@ -3,7 +3,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { dialog } from 'electron';
-import type { ProjectFileNode, ProjectTreeResult, ProjectOpenResult, ProjectFileReadResult, ProjectFileWriteResult } from '../../shared/types/project';
+import type { ProjectFileNode, ProjectTreeResult, ProjectOpenResult, ProjectFileReadResult, ProjectFileWriteResult } from 'sparklet/shared/types/project';
 
 /** Image extensions [图片扩展名] */
 const IMAGE_EXTS = new Set(['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp', 'ico']);

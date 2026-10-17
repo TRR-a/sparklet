@@ -1,9 +1,9 @@
 // Popup page - Sparklet note plugin (shell only, UI pending rewrite)
 // [笔记模块 - 仅保留外壳，UI 待重写]
 
-import { initI18n } from '../../Modules/i18n.js';
-import { setTheme } from '../../Base/theme.js';
-import { storeApi } from '../../../core/index.js';
+import { initI18n } from 'sparklet/renderer/main/Modules/i18n.js';
+import { setTheme } from 'sparklet/renderer/main/Base/theme.js';
+import { storeApi } from 'sparklet/renderer/core/index.js';
 
 async function initApp(): Promise<void> {
   await initI18n();

@@ -4,7 +4,7 @@ import * as https from 'https';
 import { URL } from 'url';
 import { GITHUB_API_URL, REQUEST_TIMEOUT_MS, classifyNetworkError } from '../core/constants.js';
 import type { ReleaseData } from '../core/manifest-helper.js';
-import type { NetworkErrorType } from '../../../shared/types/updater';
+import type { NetworkErrorType } from 'sparklet/shared/types/updater';
 
 /** Latest release fetch result [最新 Release 获取结果] */
 export interface FetchReleaseResult {

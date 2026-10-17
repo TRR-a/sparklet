@@ -1,6 +1,6 @@
 // Project tree - workspace rendering and file tree nodes [项目树 - 工作区渲染和文件树节点]
 
-import type { ProjectFileNode } from '../../../shared/types/project';
+import type { ProjectFileNode } from 'sparklet/shared/types/project';
 import {
   workspaceProjects,
   expandedDirs,

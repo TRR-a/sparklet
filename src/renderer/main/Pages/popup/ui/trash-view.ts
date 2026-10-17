@@ -1,8 +1,8 @@
 ﻿// Trash view - handles trash list rendering, restore, and permanent delete [回收站视图 - 处理回收站列表渲染、恢复、永久删除]
 
-import storageManager from '../../../Modules/storage-manager.js';
-import { t } from '../../../Modules/i18n.js';
-import { showCustomConfirm } from '../../../Modules/custom-dialog.js';
+import storageManager from 'sparklet/renderer/main/Modules/storage-manager.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { showCustomConfirm } from 'sparklet/renderer/main/Modules/custom-dialog.js';
 import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from '../editor/note-editor.js';
 import { createGroupTitle, createGroupEmpty, collapsedGroups } from '../note/note-group.js';
 import { closeAllMenus } from '../note/note-menu.js';
@@ -10,8 +10,8 @@ import { renderVirtualNoteList, type VirtualItem } from '../note/note-virtual-li
 import { clearSearch } from '../note/note-search.js';
 import { isSelectionMode, isSelected, toggleSelect, enterSelectionMode } from './selection-state.js';
 import type { NoteListItem } from '../note/note-list.js';
-import { renderMarkdown } from '../../../Modules/markdown.js';
-import { escapeHtml } from '../../../Base/dom-utils.js';
+import { renderMarkdown } from 'sparklet/renderer/main/Modules/markdown.js';
+import { escapeHtml } from 'sparklet/renderer/main/Base/dom-utils.js';
 
 /** Current view state: 'main' or 'trash' [当前视图状态：'main' 或 'trash'] */
 let currentView = 'main';

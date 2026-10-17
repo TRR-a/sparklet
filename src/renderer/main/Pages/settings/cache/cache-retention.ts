@@ -1,7 +1,7 @@
 // Cache retention days configuration - slider, presets, UI sync [缓存保留天数配置 - 滑杆、快捷按钮、UI 同步]
 
-import { t } from '../../../Modules/i18n.js';
-import { updaterApi } from '../../../../core/index.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { updaterApi } from 'sparklet/renderer/core/index.js';
 
 // Retention days config [保留天数配置]
 export const RETENTION_MIN = 7;
@@ -90,16 +90,16 @@ export async function saveRetentionDays(
       if (result && result.success) {
         if (onSaved) await onSaved();
         const daysStr = result.days !== undefined ? String(result.days) : String(safeDays);
-        const { showToast } = await import('../../../Base/toast.js');
+        const { showToast } = await import('sparklet/renderer/main/Base/toast.js');
         showToast(t('settings.toast.retentionSaved').replace('{days}', daysStr));
       } else if (result && result.error) {
-        const { showToast } = await import('../../../Base/toast.js');
+        const { showToast } = await import('sparklet/renderer/main/Base/toast.js');
         showToast(t('settings.toast.saveFailedPrefix') + result.error);
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       console.error('保存保留天数失败:', msg);
-      const { showToast } = await import('../../../Base/toast.js');
+      const { showToast } = await import('sparklet/renderer/main/Base/toast.js');
       showToast(t('settings.toast.saveFailed'));
     }
   };

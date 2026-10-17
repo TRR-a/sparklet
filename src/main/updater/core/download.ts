@@ -10,7 +10,7 @@ import {
   RETRY_DELAY_MS,
   classifyNetworkError
 } from './constants.js';
-import type { DownloadResult, NetworkErrorType } from '../../../shared/types/updater';
+import type { DownloadResult, NetworkErrorType } from 'sparklet/shared/types/updater';
 
 /** Progress callback type [进度回调类型] */
 type ProgressCallback = (percent: number) => void;

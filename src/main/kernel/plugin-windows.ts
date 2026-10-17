@@ -14,7 +14,7 @@ import { getCurrentVersion } from '../updater/check/check.js';
 import * as cacheManager from '../updater/cache/cache-manager.js';
 import { CACHE_SUCCESS_MARK_DELAY_MS } from '../updater/core/constants.js';
 import { getPluginRoot } from './plugin-manager';
-import type { PluginDescriptor } from '../../shared/types/plugins';
+import type { PluginDescriptor } from 'sparklet/shared/types/plugins';
 
 // Preload script path (relative to build/src/main/kernel) [Preload 脚本路径]
 const PRELOAD_PATH = path.join(__dirname, '../../preload/index.js');

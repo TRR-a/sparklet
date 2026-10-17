@@ -2,7 +2,7 @@
 
 import { t } from './i18n.js';
 import { escapeHtml } from '../Base/dom-utils.js';
-import { windowApi } from '../../core/index.js';
+import { windowApi } from 'sparklet/renderer/core/index.js';
 
 /** Dialog button definition [弹窗按钮定义] */
 export interface DialogButton {

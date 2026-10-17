@@ -1,7 +1,7 @@
 // Note module renderer-side API [note 模块渲染侧 API]
 // Talks to the main process through the core IPC bus instead of a hard-coded preload bridge [经核心 IPC 总线与主进程通信，而非写死的 preload 桥]
 
-import { bus } from '../../core/ipc-bus.js';
+import { bus } from 'sparklet/renderer/core/ipc-bus.js';
 import type {
   Note,
   NoteListResult,
@@ -12,7 +12,7 @@ import type {
   NoteHistoryResult,
   NoteSnapshotResult,
   NoteIntegrityReportResult,
-} from '../../../shared/types/notes.js';
+} from 'sparklet/shared/types/notes.js';
 
 export const noteApi = {
   list(): Promise<NoteListResult> {

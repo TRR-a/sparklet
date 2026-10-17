@@ -7,7 +7,7 @@ import {
 } from '../core/constants.js';
 import { readMeta, writeMeta, removeVersionCache } from './cache-meta.js';
 import { getLatestCacheInfo as computeLatestCacheInfo } from './cache-info.js';
-import type { CacheInfo } from '../../../shared/types/updater';
+import type { CacheInfo } from 'sparklet/shared/types/updater';
 
 /**
  * Clean expired cache based on retention policy [根据保留策略清理过期缓存]

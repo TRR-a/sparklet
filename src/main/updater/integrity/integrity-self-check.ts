@@ -5,7 +5,7 @@ import * as path from 'path';
 import { app } from 'electron';
 import { getAppRoot } from '../core/constants.js';
 import { computeSha256, getHashField } from '../core/verify.js';
-import type { ManifestEntry } from '../../../shared/types/updater';
+import type { ManifestEntry } from 'sparklet/shared/types/updater';
 
 /** Integrity self-check result [完整性自检结果] */
 interface IntegrityResult {

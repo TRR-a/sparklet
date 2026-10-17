@@ -6,9 +6,9 @@
 //   - Default focused button is "Return" so Enter alone never quits [默认焦点在「返回」，单按 Enter 不会退出]
 //   - Quit saves all unsaved content (note + project file) before quitting [退出前先保存所有未保存内容 (笔记 + 项目文件)]
 
-import { windowApi } from '../../../../core/index.js';
+import { windowApi } from 'sparklet/renderer/core/index.js';
 import { saveCurrentNote } from '../editor/note-editor.js';
-import { saveCurrentFile } from '../../../../modules/project/project-view.js';
+import { saveCurrentFile } from 'sparklet/renderer/modules/project/project-view.js';
 
 /** Double-Esc detection window in ms [双击 Esc 判定时间窗口 (毫秒)] */
 const DOUBLE_ESC_INTERVAL = 600;

@@ -1,12 +1,12 @@
 // Settings: config import/export section - handles config file backup and restore [设置：配置导入导出区域 - 处理配置文件备份和还原]
 // Dev environment locks import/export buttons (only writes user config in production) [开发环境下锁定导入/导出按钮 (真实环境才写入用户实际配置)]
 
-import { t } from '../../../Modules/i18n.js';
-import { showToast } from '../../../Base/toast.js';
-import { showCustomConfirm } from '../../../Modules/custom-dialog.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { showToast } from 'sparklet/renderer/main/Base/toast.js';
+import { showCustomConfirm } from 'sparklet/renderer/main/Modules/custom-dialog.js';
 import { getIsDevEnvironment, loadUpdaterConfig } from '../updater/updater-config.js';
 import { loadCacheRetentionDays, applyCacheDevLock, loadCacheInfo } from './cache-settings.js';
-import { updaterApi } from '../../../../core/index.js';
+import { updaterApi } from 'sparklet/renderer/core/index.js';
 
 /**
  * Apply dev environment lock to import/export buttons [应用开发环境锁定到导入/导出按钮]

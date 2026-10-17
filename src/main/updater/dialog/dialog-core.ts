@@ -5,7 +5,7 @@ import { dialog, BrowserWindow, ipcMain } from 'electron';
 import type {
   DialogPayload,
   DialogResponse,
-} from '../../../shared/types/updater';
+} from 'sparklet/shared/types/updater';
 
 /** Dialog response pending entry [弹窗响应待处理条目] */
 interface PendingDialogEntry {

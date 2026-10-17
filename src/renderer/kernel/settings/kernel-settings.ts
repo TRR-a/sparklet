@@ -5,7 +5,7 @@
 // [内核级偏好设置 (主题、语言、时钟制式) 的独立设置窗口，含关于面板与工具。
 //  变更经 storeApi 持久化并通过 broadcastApi 同步到所有窗口]
 
-import { storeApi, broadcastApi, windowApi, initCustomTooltip, APP_VERSION } from '../../core/index.js';
+import { storeApi, broadcastApi, windowApi, initCustomTooltip, APP_VERSION } from 'sparklet/renderer/core/index.js';
 
 // ========== i18n ==========
 const STRINGS: Record<string, Record<string, string>> = {

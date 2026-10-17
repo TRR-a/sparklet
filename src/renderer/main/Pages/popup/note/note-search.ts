@@ -8,9 +8,9 @@
 //     so an active search stays active while editing [笔记操作统一经 refreshNoteListView 重渲染，
 //     搜索激活时编辑笔记不会丢失搜索结果视图]
 
-import { t } from '../../../Modules/i18n.js';
-import storageManager from '../../../Modules/storage-manager.js';
-import { noteApi } from '../../../api/note-api.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
+import storageManager from 'sparklet/renderer/main/Modules/storage-manager.js';
+import { noteApi } from 'sparklet/renderer/main/api/note-api.js';
 import { renderNoteList } from './note-list.js';
 import { createNoteCard } from './note-card.js';
 import { renderVirtualNoteList, getActiveNoteId, type VirtualItem } from './note-virtual-list.js';

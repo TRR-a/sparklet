@@ -4,7 +4,7 @@
 // [内核 UI 通过这些通道列出已安装插件并打开其主窗口。此处无插件专属代码——纯发现]
 
 import { bus } from '../ipc-bus.js';
-import type { PluginDescriptor } from '../../../shared/types/plugins.js';
+import type { PluginDescriptor } from 'sparklet/shared/types/plugins.js';
 
 export const pluginsApi = {
   /** List detected plugins (empty when none installed) [列出已检测插件 (未安装时为空)] */

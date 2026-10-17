@@ -19,7 +19,7 @@ import {
   DEFAULT_CONFIG,
   INTERVAL_OPTIONS
 } from '../updater/core/constants.js';
-import type { UpdaterConfig } from '../../shared/types/updater.js';
+import type { UpdaterConfig } from 'sparklet/shared/types/updater.js';
 
 /**
  * Register updater config IPC handlers [注册更新配置 IPC 处理器]

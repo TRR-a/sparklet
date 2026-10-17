@@ -1,7 +1,7 @@
 // i18n module - internationalization support [i18n 模块 - 多语言国际化支持]
 // Provides page text, placeholder, tooltip translation and language switching [提供页面文本、占位符、工具提示等翻译功能]
 
-import { storeApi, broadcastApi } from '../../core/index.js';
+import { storeApi, broadcastApi } from 'sparklet/renderer/core/index.js';
 
 // ==================== Global state [全局状态] ====================
 let currentTranslations: Record<string, string> = {};

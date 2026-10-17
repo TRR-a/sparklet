@@ -13,7 +13,7 @@ import * as path from 'path';
 import { getNotesDir, ensureNotesDir, isValidNoteId } from './note-paths';
 import { writeFileAtomic } from './note-io';
 import { maybeSnapshotOnSave, snapshotNote, removeHistory } from './note-history';
-import type { Note, NoteMeta, NoteListResult, NoteGetResult, NoteSaveResult, NoteOperationResult, NoteSearchResult } from '../../shared/types/notes';
+import type { Note, NoteMeta, NoteListResult, NoteGetResult, NoteSaveResult, NoteOperationResult, NoteSearchResult } from 'sparklet/shared/types/notes';
 
 /** Old note format from electron-store (before migration) [旧 electron-store 中的笔记格式 (迁移前)] */
 interface OldNote {

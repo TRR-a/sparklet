@@ -1,8 +1,8 @@
 ﻿// Note info modal - read-only note details popup and close handlers [笔记信息弹窗 - 只读笔记详情与关闭处理]
 
-import storageManager from '../../../Modules/storage-manager.js';
-import { t } from '../../../Modules/i18n.js';
-import { formatDate } from '../../../Base/dom-utils.js';
+import storageManager from 'sparklet/renderer/main/Modules/storage-manager.js';
+import { t } from 'sparklet/renderer/main/Modules/i18n.js';
+import { formatDate } from 'sparklet/renderer/main/Base/dom-utils.js';
 
 /**
  * Show note detail info modal [显示笔记详细信息弹窗]

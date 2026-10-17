@@ -15,7 +15,7 @@ import {
 import { listHistory, getSnapshot, snapshotNote, clearAllHistory } from '../services/note-history';
 import { getIntegrityReport } from '../services/note-integrity';
 import { isValidNoteId, isValidSnapshotTs } from '../services/note-paths';
-import type { Note } from '../../shared/types/notes';
+import type { Note } from 'sparklet/shared/types/notes';
 
 /**
  * Register all notes IPC handlers [注册所有笔记 IPC 处理器]

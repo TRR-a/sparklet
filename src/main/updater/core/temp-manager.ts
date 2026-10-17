@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { app, dialog } from 'electron';
 import { TEMP_DIR_NAMES, getTempPath } from './constants.js';
-import type { TempDirResult } from '../../../shared/types/updater';
+import type { TempDirResult } from 'sparklet/shared/types/updater';
 
 /**
  * Dialog callbacks for temp directory errors (provided by caller to use renderer custom UI) [临时目录错误的弹窗回调 (由调用方提供以使用渲染层自定义 UI)]

@@ -21,7 +21,7 @@ import {
 } from '../dialog/dialog.js';
 import type { ProgressCallback, CompleteCallback } from '../dialog/dialog.js';
 import { updaterStateInternal } from './update-state.js';
-import type { CheckResult, NetworkErrorType } from '../../../shared/types/updater';
+import type { CheckResult, NetworkErrorType } from 'sparklet/shared/types/updater';
 
 /**
  * Execute the complete update flow [执行完整的更新流程]

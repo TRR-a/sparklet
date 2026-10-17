@@ -3,7 +3,7 @@
 
 import { buildDialogContent, openExternal } from './updater-dialog-content.js';
 import type { DialogButton } from './updater-dialog-content.js';
-import { updaterApi } from '../../core/index.js';
+import { updaterApi } from 'sparklet/renderer/core/index.js';
 
 /** Updater dialog params from main process [来自主进程的更新器弹窗参数] */
 export interface UpdaterDialogParams {

@@ -2,7 +2,7 @@
 // Supports both string messages and i18n key objects for language switching [支持字符串消息和 i18n key 对象两种格式，支持语言切换]
 
 import { t } from '../Modules/i18n.js';
-import { updaterApi } from '../../core/index.js';
+import { updaterApi } from 'sparklet/renderer/core/index.js';
 
 /** Toast type [Toast 类型] */
 export type ToastType = 'info' | 'success' | 'warning' | 'error' | 'danger';

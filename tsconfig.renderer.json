@@ -6,7 +6,10 @@
     "moduleResolution": "bundler",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "outDir": "build",
-    "rootDir": "."
+    "rootDir": ".",
+    "paths": {
+      "sparklet/*": ["./src/*"]
+    }
   },
   "include": [
     "src/renderer/**/*.ts",

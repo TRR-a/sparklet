@@ -10,7 +10,7 @@
 import { app } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
-import type { PluginDescriptor, PluginManifest } from '../../shared/types/plugins';
+import type { PluginDescriptor, PluginManifest } from 'sparklet/shared/types/plugins';
 
 // Well-known plugin search roots [已知插件搜索根目录]
 //

@@ -3,7 +3,7 @@
 // [重新导出 getCurrentVersion，使已有导入路径保持不变]
 
 import { classifyNetworkError } from '../core/constants.js';
-import type { CheckResult } from '../../../shared/types/updater';
+import type { CheckResult } from 'sparklet/shared/types/updater';
 import { getCurrentVersion, compareVersions } from './check-version.js';
 import { fetchLatestRelease } from './check-fetch.js';
 import { validateRelease } from './check-manifest.js';

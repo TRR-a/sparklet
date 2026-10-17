@@ -7,8 +7,8 @@
 
 import { storeApi, broadcastApi, windowApi, pluginsApi, systemApi, logApi, installGlobalErrorHooks, initCustomTooltip, APP_VERSION, APP_CODENAME, bus } from '../core/index.js';
 import { restoreWidgetOrder, enableWidgetDragReorder } from './widget-drag.js';
-import type { PluginDescriptor } from '../../shared/types/plugins.js';
-import type { SystemStats } from '../../shared/types/system.js';
+import type { PluginDescriptor } from 'sparklet/shared/types/plugins.js';
+import type { SystemStats } from 'sparklet/shared/types/system.js';
 
 // ========== Lightweight i18n (kernel is plugin-independent) [轻量 i18n (内核与插件无关)] ==========
 const STRINGS: Record<string, Record<string, string>> = {
