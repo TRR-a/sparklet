@@ -12,10 +12,12 @@ import type { UpdaterConfig } from '../../../shared/types/updater';
 
 // Config directory state [配置目录状态]
 let configDir: string | null = null;
+let configDirPromise: Promise<ConfigDirResult> | null = null;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let configWatcher: any = null;
 let configChangeTimer: NodeJS.Timeout | null = null;
 let isSelfWrite = false;
+let cachedConfig: UpdaterConfig | null = null;
 
 /**
  * Broadcast config change to all windows [广播配置变化到所有窗口]
@@ -44,32 +46,40 @@ export async function getConfigDir(): Promise<ConfigDirResult> {
   if (configDir) {
     return { success: true, path: configDir, error: null };
   }
+  // Deduplicate concurrent calls [并发调用去重]
+  if (configDirPromise) return configDirPromise;
 
-  const userData = app.getPath('userData');
+  configDirPromise = (async () => {
+    const userData = app.getPath('userData');
 
-  for (const dirName of CONFIG_DIR_NAMES) {
-    const fullPath = path.join(userData, dirName);
-    try {
-      const exists = await fs.pathExists(fullPath);
-      if (!exists) {
-        await fs.ensureDir(fullPath);
-        console.log('[ConfigManager] Created config directory:', fullPath);
+    for (const dirName of CONFIG_DIR_NAMES) {
+      const fullPath = path.join(userData, dirName);
+      try {
+        const exists = await fs.pathExists(fullPath);
+        if (!exists) {
+          await fs.ensureDir(fullPath);
+          console.log('[ConfigManager] Created config directory:', fullPath);
+          configDir = fullPath;
+          return { success: true, path: fullPath, error: null };
+        }
+        await fs.access(fullPath, fs.constants.R_OK | fs.constants.W_OK);
+        console.log('[ConfigManager] Using existing config directory:', fullPath);
         configDir = fullPath;
         return { success: true, path: fullPath, error: null };
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
+        console.warn('[ConfigManager] Cannot access', fullPath, ':', msg);
       }
-      await fs.access(fullPath, fs.constants.R_OK | fs.constants.W_OK);
-      console.log('[ConfigManager] Using existing config directory:', fullPath);
-      configDir = fullPath;
-      return { success: true, path: fullPath, error: null };
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      console.warn('[ConfigManager] Cannot access', fullPath, ':', msg);
     }
-  }
 
-  const errorMsg = 'Unable to access any config directory. Please check permissions.';
-  console.error('[ConfigManager]', errorMsg);
-  return { success: false, path: null, error: errorMsg };
+    const errorMsg = 'Unable to access any config directory. Please check permissions.';
+    console.error('[ConfigManager]', errorMsg);
+    return { success: false, path: null, error: errorMsg };
+  })();
+
+  const result = await configDirPromise;
+  configDirPromise = null;
+  return result;
 }
 
 /**
@@ -91,24 +101,32 @@ interface ConfigWriteResult {
  * Read config [读取配置]
  */
 export async function readConfig(): Promise<UpdaterConfig> {
+  // Return cached config to avoid repeated file reads and log spam [返回缓存配置，避免重复读文件和刷屏日志]
+  if (cachedConfig) return cachedConfig;
+
   const filePath = await getConfigFilePath();
-  if (!filePath) return { ...DEFAULT_CONFIG };
+  if (!filePath) {
+    cachedConfig = { ...DEFAULT_CONFIG };
+    return cachedConfig;
+  }
 
   try {
     const exists = await fs.pathExists(filePath);
     if (!exists) {
       console.log('[ConfigManager] Config file not found, using defaults');
-      return { ...DEFAULT_CONFIG };
+      cachedConfig = { ...DEFAULT_CONFIG };
+      return cachedConfig;
     }
     const content = await fs.readFile(filePath, 'utf-8');
     const data = JSON.parse(content) as Partial<UpdaterConfig>;
-    const config = { ...DEFAULT_CONFIG, ...data } as UpdaterConfig;
-    console.log('[ConfigManager] Config loaded:', config);
-    return config;
+    cachedConfig = { ...DEFAULT_CONFIG, ...data } as UpdaterConfig;
+    console.log('[ConfigManager] Config loaded:', cachedConfig);
+    return cachedConfig;
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error('[ConfigManager] Read config failed:', msg);
-    return { ...DEFAULT_CONFIG };
+    cachedConfig = { ...DEFAULT_CONFIG };
+    return cachedConfig;
   }
 }
 
@@ -124,6 +142,7 @@ export async function writeConfig(config: UpdaterConfig): Promise<ConfigWriteRes
   try {
     isSelfWrite = true;
     await fs.writeFile(filePath, JSON.stringify(config, null, 2), 'utf8');
+    cachedConfig = config;
     console.log('[ConfigManager] Config saved:', config);
     broadcastConfigChange(config);
     return { success: true, error: null };
@@ -170,6 +189,7 @@ export async function startConfigWatcher(): Promise<void> {
         // Real debounce: clear previous timer to avoid multiple broadcasts in short time [真正的防抖：清除上一个 timer，避免短时间内多次广播]
         if (configChangeTimer) clearTimeout(configChangeTimer);
         configChangeTimer = setTimeout(async () => {
+          cachedConfig = null; // Invalidate cache so readConfig reloads from disk [失效缓存，让 readConfig 从磁盘重新读取]
           const config = await readConfig();
           broadcastConfigChange(config);
           configChangeTimer = null;
