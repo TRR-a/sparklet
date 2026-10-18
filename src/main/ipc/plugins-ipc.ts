@@ -6,9 +6,7 @@
 // 零插件时列表为空，内核展示空状态——应用仍正常启动]
 
 import { ipcMain } from 'electron';
-import * as path from 'path';
-import { pathToFileURL } from 'url';
-import { getPlugins, findPlugin, getPluginRoot } from '../kernel/plugin-manager';
+import { getPlugins, findPlugin } from '../kernel/plugin-manager';
 import { openPluginWindow, isPluginWindowOpen } from '../kernel/plugin-windows';
 
 /**
@@ -17,21 +15,6 @@ import { openPluginWindow, isPluginWindowOpen } from '../kernel/plugin-windows';
 export function registerPluginIpcHandlers(): void {
   // ========== Plugin discovery [插件发现] ==========
   ipcMain.handle('plugins:list', () => getPlugins());
-
-  // ========== Plugin file URL for embedded webview [插件文件 URL（用于内嵌 webview）] ==========
-  ipcMain.handle('plugins:get-url', (_event, id: unknown) => {
-    if (typeof id !== 'string') return null;
-    const plugin = findPlugin(id);
-    const root = getPluginRoot(id);
-    if (!plugin || !root) return null;
-    return path.join(root, plugin.main);
-  });
-
-  // ========== Preload URL for embedded webview [webview 的 preload URL] ==========
-  ipcMain.handle('plugins:get-preload-url', () => {
-    const preloadPath = path.join(__dirname, '../../preload/index.js');
-    return pathToFileURL(preloadPath).href;
-  });
 
   // ========== Open plugin main window [打开插件主窗口] ==========
   ipcMain.handle('plugins:open', (_event, id: unknown) => {

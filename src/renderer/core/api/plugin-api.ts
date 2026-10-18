@@ -1,4 +1,4 @@
-﻿// Core plugin API (kernel renderer side) [核心插件 API (内核渲染侧)]
+// Core plugin API (kernel renderer side) [核心插件 API (内核渲染侧)]
 // The kernel UI lists installed plugins and opens their main windows through
 // these channels. No plugin-specific code lives here — it is pure discovery.
 // [内核 UI 通过这些通道列出已安装插件并打开其主窗口。此处无插件专属代码——纯发现]
@@ -20,15 +20,5 @@ export const pluginsApi = {
   /** Whether a plugin's main window is currently open [插件主窗口当前是否打开] */
   isOpen(id: string): Promise<boolean> {
     return bus.invoke<boolean>('plugins:is-open', id);
-  },
-
-  /** Get the plugin's main HTML file path for embedded webview [获取插件主 HTML 文件路径（用于内嵌 webview）] */
-  getUrl(id: string): Promise<string | null> {
-    return bus.invoke<string | null>('plugins:get-url', id);
-  },
-
-  /** Get preload file URL for embedded webview [获取 webview 的 preload 文件 URL] */
-  getPreloadUrl(): Promise<string> {
-    return bus.invoke<string>('plugins:get-preload-url');
   },
 };

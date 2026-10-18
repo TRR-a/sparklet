@@ -471,7 +471,7 @@ function pluginCard(plugin: PluginDescriptor): HTMLElement {
   const openBtn = document.createElement('button');
   openBtn.className = 'plugin-open-btn';
   openBtn.textContent = t('kernel.open');
-  openBtn.addEventListener('click', () => openPluginInTab(plugin.id, localizedPluginName(plugin)));
+  openBtn.addEventListener('click', () => { void pluginsApi.open(plugin.id); });
 
   card.append(header, desc, openBtn);
   return card;
@@ -514,7 +514,7 @@ function manageItem(plugin: PluginDescriptor): HTMLElement {
   const openBtn = document.createElement('button');
   openBtn.className = 'manage-open-btn';
   openBtn.textContent = t('kernel.open');
-  openBtn.addEventListener('click', () => openPluginInTab(plugin.id, localizedPluginName(plugin)));
+  openBtn.addEventListener('click', () => { void pluginsApi.open(plugin.id); });
 
   row.append(info, openBtn);
   return row;
@@ -699,7 +699,6 @@ let tabCounter = 1;
 
 interface TabData {
   title: string;
-  pluginId?: string;
 }
 
 const tabData = new Map<number, TabData>();
@@ -726,8 +725,6 @@ function initTabs(): void {
   if (addBtn) addBtn.addEventListener('click', () => createTab({ title: 'New Tab' }));
 }
 
-let tabIframe: HTMLIFrameElement | null = null;
-
 function activateTab(tab: HTMLElement): void {
   document.querySelectorAll('.shell-tab').forEach(t => {
     t.classList.remove('active');
@@ -735,21 +732,6 @@ function activateTab(tab: HTMLElement): void {
   });
   tab.classList.remove('inactive');
   tab.classList.add('active');
-
-  const id = parseInt(tab.dataset.tabId || '0', 10);
-  const data = tabData.get(id);
-  const tabView = document.getElementById('tabView');
-  const kernelContent = document.querySelector('.kernel-content') as HTMLElement;
-
-  if (data?.pluginId && tabView && kernelContent) {
-    // Plugin tab: show empty content area (content loading to be implemented)
-    // [插件标签页：显示空白内容区，内容加载待实现]
-    tabView.style.display = 'flex';
-    kernelContent.style.display = 'none';
-  } else {
-    if (tabView) tabView.style.display = 'none';
-    if (kernelContent) kernelContent.style.display = '';
-  }
 }
 
 function createTab(opts: TabData): HTMLElement {
@@ -767,21 +749,6 @@ function createTab(opts: TabData): HTMLElement {
   tabsEl.insertBefore(tab, addBtn);
   activateTab(tab);
   return tab;
-}
-
-/** Open a plugin in a new tab [在新标签页中打开插件] */
-function openPluginInTab(pluginId: string, title: string): void {
-  // Check if this plugin is already open in a tab [检查插件是否已在标签页中打开]
-  for (const [id, data] of tabData) {
-    if (data.pluginId === pluginId) {
-      const existing = document.querySelector<HTMLElement>(`.shell-tab[data-tab-id="${id}"]`);
-      if (existing) {
-        activateTab(existing);
-        return;
-      }
-    }
-  }
-  createTab({ title, pluginId });
 }
 
 function closeTab(tab: HTMLElement): void {
