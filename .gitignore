@@ -55,4 +55,5 @@ debug.log
 
 # Environment variable files [环境变量文件]
 .env
-.env.local
+.env.*
+!.env.example
