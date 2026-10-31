@@ -12,7 +12,14 @@
     }
   },
   "include": [
-    "src/renderer/**/*.ts",
-    "src/renderer/**/*.d.ts"
+    "src/hub/core/renderer/**/*.ts",
+    "src/hub/welcome/**/*.ts",
+    "src/hub/main/**/*.ts",
+    "src/hub/main/**/*.d.ts",
+    "src/hub/core/renderer/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/hub/main/windows",
+    "src/hub/main/monitor"
   ]
 }

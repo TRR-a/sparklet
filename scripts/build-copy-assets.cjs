@@ -22,10 +22,12 @@ const STATIC_EXT = new Set([
 
 // Source roots to mirror into build/ [要镜像到 build/ 的源目录 -> build 内目标前缀]
 const COPY_ROOTS = [
-  { from: 'src/renderer/kernel/main', to: 'src/renderer/kernel/main' },
+  { from: 'src/hub/main', to: 'src/hub/main' },
   { from: 'assets', to: 'assets' },
-  // Kernel (microkernel Hub) static assets; its .ts compiles to the same folder [内核 (微内核 Hub) 静态资源；其 .ts 编译到同目录]
-  { from: 'src/renderer/kernel', to: 'src/renderer/kernel' },
+  // Kernel (microkernel hub) static assets; its .ts compiles to the same folder [内核 (微内核 hub) 静态资源；其 .ts 编译到同目录]
+  { from: 'src/hub/welcome', to: 'src/hub/welcome' },
+  // Inter fonts referenced by welcome.html [welcome.html 引用的 Inter 字体]
+  { from: 'src/hub/core/renderer/fonts', to: 'src/hub/core/renderer/fonts' },
 ];
 
 /**

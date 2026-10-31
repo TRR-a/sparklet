@@ -1,0 +1,113 @@
+// Window IPC handlers [窗口 IPC 处理器]
+// Handles window control (minimize/maximize/close), dev tools, and window creation [处理窗口控制 (最小化/最大化/关闭)、开发者工具、窗口创建]
+
+import { app, ipcMain, BrowserWindow } from 'electron';
+import { createSettingsWindow } from '../../main/windows/settings-window';
+import { createAboutWindow } from '../../main/windows/about-window';
+import { createWelcomeSettingsWindow } from '../../main/windows/welcome-settings-window';
+import { createMainWindow } from '../../main/windows/main-window';
+import { getSettingsWindow } from '../../main/windows/window-manager';
+
+/**
+ * Register window control IPC handlers [注册窗口控制 IPC 处理器]
+ */
+export function registerWindowIpcHandlers(): void {
+  // ========== Window control [窗口控制] ==========
+  ipcMain.handle('window-minimize', (event) => {
+    BrowserWindow.fromWebContents(event.sender)?.minimize();
+  });
+
+  ipcMain.handle('window-maximize', () => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (win) {
+      if (win.isMaximized()) {
+        win.unmaximize();
+      } else {
+        win.maximize();
+      }
+    }
+  });
+
+  ipcMain.handle('window-close', (event) => {
+    BrowserWindow.fromWebContents(event.sender)?.close();
+  });
+
+  // ========== App quit (from exit-confirm dialog, after saving) [应用退出 (退出确认弹窗用，保存后调用)] ==========
+  ipcMain.handle('app-quit', () => {
+    app.quit();
+  });
+
+  // ========== Dev tools [开发者工具] ==========
+  ipcMain.handle('open-dev-tools', () => {
+    BrowserWindow.getFocusedWindow()?.webContents.openDevTools();
+  });
+
+  ipcMain.handle('open-dev-tools-window', () => {
+    BrowserWindow.getFocusedWindow()?.webContents.openDevTools({ mode: 'detach' });
+  });
+
+  // ========== Window creation [窗口创建] ==========
+  ipcMain.handle('open-settings-window', () => {
+    createSettingsWindow();
+  });
+
+  ipcMain.handle('open-about-window', () => {
+    createAboutWindow();
+  });
+
+  // ========== Official Main window [官方 Main 窗口] ==========
+  ipcMain.handle('open-main-window', () => {
+    createMainWindow();
+  });
+
+  // ========== Hub settings window [Hub 设置窗口] ==========
+  ipcMain.handle('open-welcome-settings-window', () => {
+    createWelcomeSettingsWindow();
+  });
+
+  // ========== Always on top [窗口置顶] ==========
+  ipcMain.handle('window-toggle-always-on-top', () => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (win) {
+      const newState = !win.isAlwaysOnTop();
+      win.setAlwaysOnTop(newState);
+      return newState;
+    }
+    return false;
+  });
+
+  // ========== Settings window status query [设置窗口状态查询] ==========
+  ipcMain.handle('is-settings-window-open', () => {
+    const win = getSettingsWindow();
+    return win !== null && !win.isDestroyed();
+  });
+
+  // ========== Runtime versions (about panel) [运行时版本 (关于面板)] ==========
+  ipcMain.handle('get-runtime-versions', () => ({
+    electron: process.versions.electron,
+    node: process.versions.node,
+    chrome: process.versions.chrome,
+  }));
+}
+
+/**
+ * Register global Ctrl+Shift+I shortcut to toggle DevTools in any app window [注册全局 Ctrl+Shift+I 快捷键，在任意应用窗口切换开发者工具]
+ */
+export function registerDevToolsShortcut(): void {
+  app.on('web-contents-created', (_event, contents) => {
+    contents.on('before-input-event', (event, input) => {
+      // Ctrl+Shift+I: toggle DevTools [Ctrl+Shift+I：切换开发者工具]
+      if (input.type === 'keyDown' && input.control && input.shift && input.key.toLowerCase() === 'i') {
+        const win = BrowserWindow.fromWebContents(contents);
+        if (win) {
+          if (win.webContents.isDevToolsOpened()) {
+            win.webContents.closeDevTools();
+          } else {
+            win.webContents.openDevTools({ mode: 'detach' });
+          }
+          event.preventDefault();
+        }
+      }
+    });
+  });
+}

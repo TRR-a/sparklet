@@ -3,7 +3,7 @@
   "version": "0.2.3",
   "description": "Sparklet",
   "internalCodename": "Mist",
-  "main": "./build/src/main/index.js",
+  "main": "./build/src/hub/core/index.js",
   "scripts": {
     "build:main": "tsc -p tsconfig.main.json",
     "build:renderer": "tsc -p tsconfig.renderer.json",

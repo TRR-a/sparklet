@@ -12,7 +12,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const VERSION_JSON = path.join(ROOT, 'version.json');
 const PACKAGE_JSON = path.join(ROOT, 'package.json');
-const APP_INFO_TS = path.join(ROOT, 'src', 'renderer', 'core', 'app-info.ts');
+const APP_INFO_TS = path.join(ROOT, 'src', 'hub', 'core', 'renderer', 'app-info.ts');
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -53,7 +53,7 @@ function main() {
   fs.mkdirSync(path.dirname(APP_INFO_TS), { recursive: true });
   fs.writeFileSync(APP_INFO_TS, tsContent);
 
-  console.log(`[sync-version] ${version} / ${codename} -> package.json${changed.length ? ` (updated: ${changed.join(', ')})` : ' (in sync)'} + src/renderer/core/app-info.ts`);
+  console.log(`[sync-version] ${version} / ${codename} -> package.json${changed.length ? ` (updated: ${changed.join(', ')})` : ' (in sync)'} + src/hub/core/renderer/app-info.ts`);
 }
 
 main();

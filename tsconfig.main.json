@@ -12,8 +12,13 @@
     }
   },
   "include": [
-    "src/main/**/*.ts",
-    "src/preload/**/*.ts",
-    "src/shared/**/*.ts"
+    "src/hub/core/*.ts",
+    "src/hub/core/services/**/*.ts",
+    "src/hub/core/ipc/**/*.ts",
+    "src/hub/core/preload/**/*.ts",
+    "src/hub/core/types/**/*.ts",
+    "src/hub/updater/**/*.ts",
+    "src/hub/main/windows/**/*.ts",
+    "src/hub/main/monitor/**/*.ts"
   ]
 }
