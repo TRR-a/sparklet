@@ -4,7 +4,7 @@
 import { app, ipcMain, BrowserWindow } from 'electron';
 import { createSettingsWindow } from '../windows/settings-window';
 import { createAboutWindow } from '../windows/about-window';
-import { createKernelSettingsWindow } from '../windows/kernel-settings-window';
+import { createHubSettingsWindow } from '../windows/hub-settings-window';
 import { createMainWindow } from '../windows/main-window';
 import { getSettingsWindow } from '../windows/window-manager';
 
@@ -60,9 +60,9 @@ export function registerWindowIpcHandlers(): void {
     createMainWindow();
   });
 
-  // ========== Kernel settings window [内核设置窗口] ==========
-  ipcMain.handle('open-kernel-settings-window', () => {
-    createKernelSettingsWindow();
+  // ========== Hub settings window [Hub 设置窗口] ==========
+  ipcMain.handle('open-hub-settings-window', () => {
+    createHubSettingsWindow();
   });
 
   // ========== Always on top [窗口置顶] ==========

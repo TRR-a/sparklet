@@ -455,7 +455,7 @@ function bindKernelExitDialog(): void {
 
 // ========== Init [初始化] ==========
 
-function bindKernelSettings(): void {
+function bindHubSettings(): void {
   const moreBtn = document.getElementById('shellMoreBtn');
   const moreMenu = document.getElementById('shellMoreMenu');
   moreBtn?.addEventListener('click', (e) => {
@@ -472,7 +472,7 @@ function bindKernelSettings(): void {
     item.addEventListener('click', () => {
       const action = (item as HTMLElement).dataset.action;
       if (moreMenu) moreMenu.style.display = 'none';
-      if (action === 'settings') void windowApi.openKernelSettings();
+      if (action === 'settings') void windowApi.openHubSettings();
     });
   });
 }
@@ -505,9 +505,9 @@ async function init(): Promise<void> {
   });
 
   bindWindowControls();
-  bindKernelSettings();
+  bindHubSettings();
   bindKernelExitDialog();
-  bus.on('kernel-settings-overlap', (overlapping: unknown) => {
+  bus.on('hub-settings-overlap', (overlapping: unknown) => {
     document.body.classList.toggle('blur-background', overlapping === true);
   });
   bus.on('window:maximize-state', (state: unknown) => {

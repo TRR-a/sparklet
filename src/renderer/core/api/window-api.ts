@@ -34,9 +34,9 @@ export const windowApi = {
   isSettingsOpen(): Promise<boolean> {
     return bus.invoke<boolean>('is-settings-window-open');
   },
-  /** Open the kernel-level settings window [打开内核级设置窗口] */
-  openKernelSettings(): Promise<unknown> {
-    return bus.invoke('open-kernel-settings-window');
+  /** Open the hub-level settings window [打开 Hub 级设置窗口] */
+  openHubSettings(): Promise<unknown> {
+    return bus.invoke('open-hub-settings-window');
   },
   openAbout(): Promise<unknown> {
     return bus.invoke('open-about-window');

@@ -218,7 +218,7 @@ async function init(): Promise<void> {
       if (clockToggle) clockToggle.checked = Boolean(value);
     });
   } catch (err) {
-    console.error('[KernelSettings] init error:', err);
+    console.error('[HubSettings] init error:', err);
   }
 }
 

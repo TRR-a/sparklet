@@ -5,15 +5,15 @@
 //  Windows 上 Alt+Space 是系统窗口菜单，故用 Ctrl+Alt+Space]
 
 import { app, globalShortcut, BrowserWindow } from 'electron';
-import { getKernelWindow } from './windows/window-manager';
+import { getHubWindow } from './windows/window-manager';
 import { logger } from './services/logger';
 
 /**
- * Toggle the kernel (Hub) window: show+focus if hidden, minimize if visible
- * [切换内核 (Hub) 窗口：隐藏则显示并聚焦，显示则最小化]
+ * Toggle the Hub window: show+focus if hidden, minimize if visible
+ * [切换 Hub 窗口：隐藏则显示并聚焦，显示则最小化]
  */
-function toggleKernelWindow(): void {
-  const win = getKernelWindow();
+function toggleHubWindow(): void {
+  const win = getHubWindow();
   if (!win || win.isDestroyed()) return;
   if (win.isMinimizable() && (win.isMinimized() || !win.isVisible())) {
     win.show();
@@ -39,11 +39,11 @@ function broadcastNewNote(): void {
  * Register system-wide shortcuts (call after app.whenReady) [注册系统级快捷键 (在 app.whenReady 后调用)]
  */
 export function registerGlobalShortcuts(): void {
-  // Toggle kernel window [切换内核窗口]
-  const toggleKernel = globalShortcut.register('Control+Alt+Space', () => {
-    toggleKernelWindow();
+  // Toggle hub window [切换 Hub 窗口]
+  const toggleHub = globalShortcut.register('Control+Alt+Space', () => {
+    toggleHubWindow();
   });
-  if (!toggleKernel) logger.warn('main', 'Failed to register Ctrl+Alt+Space');
+  if (!toggleHub) logger.warn('main', 'Failed to register Ctrl+Alt+Space');
 
   // New note (broadcast to official Main window) [新建笔记 (广播给官方 Main 窗口)]
   const newNote = globalShortcut.register('Control+Alt+N', () => {

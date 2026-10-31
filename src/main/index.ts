@@ -7,8 +7,8 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import { migrateFromStore } from './services/migration-service';
-import { createKernelWindow } from './windows/kernel-window';
-import { getKernelWindow } from './windows/window-manager';
+import { createHubWindow } from './windows/hub-window';
+import { getHubWindow } from './windows/window-manager';
 import { initUpdater, checkUpdateManually } from './updater/core/index.js';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
@@ -41,11 +41,11 @@ app.whenReady().then(async () => {
   // 2.1 Register Ctrl+Shift+I shortcut for DevTools (covers all windows) [注册 Ctrl+Shift+I 快捷键用于开发者工具 (覆盖所有窗口)]
   registerDevToolsShortcut();
 
-  // 3. Create the kernel (Hub) window. The official Main UI is part of the
+  // 3. Create the Hub window. The official Main UI is part of the
   //    kernel bundle and is opened on demand via open-main-window.
-  //    [创建内核 (Hub) 窗口。官方 Main 界面已并入内核包，按需经 open-main-window 打开]
-  createKernelWindow();
-  logger.info('main', 'Kernel window created');
+  //    [创建 Hub 窗口。官方 Main 界面已并入内核包，按需经 open-main-window 打开]
+  createHubWindow();
+  logger.info('main', 'Hub window created');
 
   // 2.2 Register system-wide global shortcuts (Ctrl+Alt+Space toggle kernel, Ctrl+Alt+N new note)
   // [注册系统级全局快捷键 (Ctrl+Alt+Space 切换内核，Ctrl+Alt+N 新建笔记)]
@@ -74,8 +74,8 @@ app.on('window-all-closed', () => {
  * Application lifecycle: activate (macOS) [应用生命周期：激活 (macOS)]
  */
 app.on('activate', () => {
-  if (getKernelWindow() === null) {
-    createKernelWindow();
+  if (getHubWindow() === null) {
+    createHubWindow();
   }
 });
 
