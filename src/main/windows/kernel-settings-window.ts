@@ -5,7 +5,7 @@ import * as path from 'path';
 import { getKernelWindow } from './window-manager.js';
 
 const PRELOAD_PATH = path.join(__dirname, '../../preload/index.js');
-const KERNEL_SETTINGS_HTML = path.join(__dirname, '../../renderer/kernel/settings/kernel-settings.html');
+const KERNEL_SETTINGS_HTML = path.join(__dirname, '../../renderer/kernel/kernel/settings/kernel-settings.html');
 
 /** Single instance reference [单例引用] */
 let kernelSettingsWindow: BrowserWindow | null = null;

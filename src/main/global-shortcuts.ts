@@ -24,9 +24,9 @@ function toggleKernelWindow(): void {
 }
 
 /**
- * Broadcast a "new note" intent to all open windows (the note plugin listens
- * and creates a note; other windows ignore it)
- * [向所有打开的窗口广播"新建笔记"意图 (note 插件监听并新建，其他窗口忽略)]
+ * Broadcast a "new note" intent to all open windows (the official Main window
+ * listens and creates a note; other windows ignore it)
+ * [向所有打开的窗口广播"新建笔记"意图 (官方 Main 窗口监听并新建，其他窗口忽略)]
  */
 function broadcastNewNote(): void {
   BrowserWindow.getAllWindows().forEach((win) => {
@@ -45,7 +45,7 @@ export function registerGlobalShortcuts(): void {
   });
   if (!toggleKernel) logger.warn('main', 'Failed to register Ctrl+Alt+Space');
 
-  // New note (broadcast to note plugin) [新建笔记 (广播给 note 插件)]
+  // New note (broadcast to official Main window) [新建笔记 (广播给官方 Main 窗口)]
   const newNote = globalShortcut.register('Control+Alt+N', () => {
     broadcastNewNote();
   });

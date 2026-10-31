@@ -7,7 +7,6 @@ export { windowApi } from './api/window-api.js';
 export { appApi } from './api/app-api.js';
 export { broadcastApi } from './api/broadcast-api.js';
 export { updaterApi } from './api/updater-api.js';
-export { pluginsApi } from './api/plugin-api.js';
 export { systemApi } from './api/system-api.js';
 export { logApi, errText, installGlobalErrorHooks } from './api/log-api.js';
 export { APP_VERSION, APP_CODENAME } from './app-info.js';

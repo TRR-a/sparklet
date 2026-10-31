@@ -5,6 +5,7 @@ import { app, ipcMain, BrowserWindow } from 'electron';
 import { createSettingsWindow } from '../windows/settings-window';
 import { createAboutWindow } from '../windows/about-window';
 import { createKernelSettingsWindow } from '../windows/kernel-settings-window';
+import { createMainWindow } from '../windows/main-window';
 import { getSettingsWindow } from '../windows/window-manager';
 
 /**
@@ -52,6 +53,11 @@ export function registerWindowIpcHandlers(): void {
 
   ipcMain.handle('open-about-window', () => {
     createAboutWindow();
+  });
+
+  // ========== Official Main window [官方 Main 窗口] ==========
+  ipcMain.handle('open-main-window', () => {
+    createMainWindow();
   });
 
   // ========== Kernel settings window [内核设置窗口] ==========

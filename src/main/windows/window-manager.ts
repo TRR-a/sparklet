@@ -1,9 +1,8 @@
 // Window manager: holds references to all app windows and provides sync helpers [窗口管理器：持有所有应用窗口的引用并提供同步辅助函数]
 // Microkernel layout: the kernel (Hub) window is created at startup; the
-// "main window" slot tracks the currently active plugin main window (used by
-// the note plugin for settings glow sync).
-// [微内核布局：启动时创建内核 (Hub) 窗口；"主窗口" 槽位跟踪当前激活的插件
-// 主窗口 (note 插件用它做设置窗口光晕同步)]
+// "main window" slot tracks the official Main window (used for settings glow sync).
+// [微内核布局：启动时创建内核 (Hub) 窗口；"主窗口" 槽位跟踪官方 Main 窗口
+// (用于设置窗口光晕同步)]
 
 import { BrowserWindow } from 'electron';
 
@@ -38,7 +37,7 @@ export function setKernelWindow(win: BrowserWindow | null): void {
   kernelWindow = win;
 }
 
-/** Currently active plugin main window (note popup) [当前激活的插件主窗口 (note 弹窗)] */
+/** Official Main window [官方 Main 窗口] */
 export function getMainWindow(): BrowserWindow | null {
   return mainWindow;
 }

@@ -41,9 +41,9 @@ app.whenReady().then(async () => {
   // 2.1 Register Ctrl+Shift+I shortcut for DevTools (covers all windows) [注册 Ctrl+Shift+I 快捷键用于开发者工具 (覆盖所有窗口)]
   registerDevToolsShortcut();
 
-  // 3. Create the kernel (Hub) window. Plugins are discovered on demand by the
-  //    kernel UI via plugins:list; no plugin is required to boot.
-  //    [创建内核 (Hub) 窗口。插件由内核 UI 按需经 plugins:list 发现，无需任何插件即可启动]
+  // 3. Create the kernel (Hub) window. The official Main UI is part of the
+  //    kernel bundle and is opened on demand via open-main-window.
+  //    [创建内核 (Hub) 窗口。官方 Main 界面已并入内核包，按需经 open-main-window 打开]
   createKernelWindow();
   logger.info('main', 'Kernel window created');
 

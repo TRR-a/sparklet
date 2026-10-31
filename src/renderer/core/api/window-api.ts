@@ -41,6 +41,10 @@ export const windowApi = {
   openAbout(): Promise<unknown> {
     return bus.invoke('open-about-window');
   },
+  /** Open the official Main window [打开官方 Main 窗口] */
+  openMainWindow(): Promise<unknown> {
+    return bus.invoke('open-main-window');
+  },
   openDevTools(): Promise<unknown> {
     return bus.invoke('open-dev-tools-window');
   },
