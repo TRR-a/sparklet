@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>关于 Sparklet</title>
+    <link rel="stylesheet" href="./styles/about-base.css">
+    <link rel="stylesheet" href="./styles/about-vars.css">
+    <link rel="stylesheet" href="./styles/about-window.css">
+    <link rel="stylesheet" href="./styles/about-titlebar.css">
+    <link rel="stylesheet" href="./styles/about-window-btn.css">
+    <link rel="stylesheet" href="./styles/about-title-text.css">
+    <link rel="stylesheet" href="./styles/about-content.css">
+    <link rel="stylesheet" href="./styles/about-app-title.css">
+    <link rel="stylesheet" href="./styles/about-version.css">
+    <link rel="stylesheet" href="./styles/about-description.css">
+    <link rel="stylesheet" href="./styles/about-version-info.css">
+    <link rel="stylesheet" href="./styles/about-copyright.css">
+</head>
+<body>
+    <div class="about-window">
+        <div class="title-bar">
+            <div class="window-controls">
+                <button class="window-btn close" data-i18n-title="tooltip.close" title="关闭">×</button>
+            </div>
+            <h2 data-i18n="about.title">关于 Sparklet</h2>
+        </div>
+
+        <div class="content">
+            <h1 data-i18n="about.appName">Sparklet</h1>
+            <p class="version" data-i18n="about.version">版本 0.2.3</p>
+            <p class="internal-version" data-i18n="about.internalVersion">内部版本: Mist </p>
+            <p class="description" data-i18n="about.desc">一个轻量的桌面笔记工具</p>
+
+            <div class="version-info">
+                <p id="electronVersion"></p>
+                <p id="nodeVersion"></p>
+            </div>
+
+            <p class="copyright" data-i18n="about.copyright">2026 TRR-a</p>
+        </div>
+    </div>
+
+    <script type="module" src="./scripts/about.js"></script>
+</body>
+</html>
