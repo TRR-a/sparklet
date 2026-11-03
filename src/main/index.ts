@@ -1,8 +1,8 @@
 // Main process entry point [主进程入口]
 // Orchestrates app lifecycle: migration, window creation, updater initialization, IPC registration [编排应用生命周期：迁移、窗口创建、更新模块初始化、IPC 注册]
 
-import './dev-user-data.js'; // Must be first — redirects userData before any store/path access [必须第一个，在任何 store/路径访问前重定向 userData]
-import './console-timestamp.js'; // Second — prefix all console output with [mm:ss] [第二个，给所有控制台输出加 [mm:ss] 前缀]
+import './bootstrap/dev-user-data.js'; // Must be first — redirects userData before any store/path access [必须第一个，在任何 store/路径访问前重定向 userData]
+import './bootstrap/console-timestamp.js'; // Second — prefix all console output with [mm:ss] [第二个，给所有控制台输出加 [mm:ss] 前缀]
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -12,7 +12,7 @@ import { getWelcomeWindow } from './windows/window-manager';
 import { initUpdater, checkUpdateManually } from './updater/core/index.js';
 import { registerAllIpcHandlers } from './ipc';
 import { registerDevToolsShortcut } from './ipc/window-ipc';
-import { registerGlobalShortcuts } from './global-shortcuts';
+import { registerGlobalShortcuts } from './bootstrap/global-shortcuts';
 import { runStartupIntegrityScan } from './services/note-integrity';
 import { initLogger, installCrashLogging, logger } from './services/logger';
 

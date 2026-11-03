@@ -6,7 +6,7 @@
 
 import { storeApi, broadcastApi, windowApi, systemApi, logApi, installGlobalErrorHooks, initCustomTooltip, APP_VERSION, APP_CODENAME, bus } from '../../shared/index.js';
 import { restoreWidgetOrder, enableWidgetDragReorder } from './widget-drag.js';
-import type { SystemStats } from 'sparklet/shared/system.js';
+import type { SystemStats } from 'sparklet/shared/types/system.js';
 
 // ========== Lightweight i18n (kernel-scope strings) [轻量 i18n (内核域字符串)] ==========
 const STRINGS: Record<string, Record<string, string>> = {

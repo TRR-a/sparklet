@@ -1,7 +1,7 @@
 // Note operations - create, save, delete, color change, pin toggle [笔记操作 - 创建、保存、删除、颜色更改、置顶切换]
 
-import storageManager from 'sparklet/renderer/shared/storage-manager.js';
-import { t } from 'sparklet/renderer/shared/i18n.js';
+import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import {
   renderNoteList,
   loadNoteIntoEditor,

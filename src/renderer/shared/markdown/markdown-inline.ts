@@ -1,6 +1,6 @@
 // Markdown inline renderer - code, images, links, emphasis [Markdown 行内渲染器 - 代码、图片、链接、强调]
 
-import { escapeHtml } from '../dom-utils.js';
+import { escapeHtml } from '../ui/dom-utils.js';
 
 /**
  * Render inline formatting [渲染行内格式]

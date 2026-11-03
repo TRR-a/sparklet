@@ -1,9 +1,9 @@
 // Settings page - main entry point for settings window logic [设置页面 - 设置窗口逻辑入口]
 // Handles language switching, window control, theme sync, and orchestrates all settings sections [处理语言切换、窗口控制、主题同步，并编排所有设置区域]
 
-import { initI18n, loadLanguage, getCurrentLang, t } from 'sparklet/renderer/shared/i18n.js';
-import { showToast, bindToastListener } from 'sparklet/renderer/shared/toast.js';
-import { loadTheme, setTheme, bindThemeBroadcastListener } from 'sparklet/renderer/shared/theme.js';
+import { initI18n, loadLanguage, getCurrentLang, t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { showToast, bindToastListener } from 'sparklet/renderer/shared/ui/toast.js';
+import { loadTheme, setTheme, bindThemeBroadcastListener } from 'sparklet/renderer/shared/ui/theme.js';
 import { bindUpdaterDialogListener } from 'sparklet/renderer/shared/updater/updater-dialog.js';
 import { storeApi, windowApi, appApi, broadcastApi, installGlobalErrorHooks } from 'sparklet/renderer/shared/index.js';
 import {

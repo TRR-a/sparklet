@@ -1,7 +1,7 @@
 // Updater dialog content builders - generates title, body HTML, and buttons for each dialog type [更新器弹窗内容构建器 - 为每种弹窗类型生成标题、内容 HTML 和按钮]
 
-import { t } from '../i18n.js';
-import { escapeHtml } from '../dom-utils.js';
+import { t } from '../i18n/i18n.js';
+import { escapeHtml } from '../ui/dom-utils.js';
 import { windowApi } from 'sparklet/renderer/shared/index.js';
 
 /** Dialog button definition [弹窗按钮定义] */

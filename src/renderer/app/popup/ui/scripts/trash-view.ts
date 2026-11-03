@@ -1,7 +1,7 @@
 // Trash view - handles trash list rendering, restore, and permanent delete [回收站视图 - 处理回收站列表渲染、恢复、永久删除]
 
-import storageManager from 'sparklet/renderer/shared/storage-manager.js';
-import { t } from 'sparklet/renderer/shared/i18n.js';
+import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showCustomConfirm } from 'sparklet/renderer/shared/ui/custom-dialog.js';
 import { renderNoteList, loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId, getPreviewMode, setPreviewMode } from '../../editor/scripts/note-editor.js';
 import { createGroupTitle, createGroupEmpty, collapsedGroups } from '../../note/scripts/note-group.js';
@@ -11,7 +11,7 @@ import { clearSearch } from '../../note/scripts/note-search.js';
 import { isSelectionMode, isSelected, toggleSelect, enterSelectionMode } from './selection-state.js';
 import type { NoteListItem } from '../../note/scripts/note-list.js';
 import { renderMarkdown } from 'sparklet/renderer/shared/markdown/markdown.js';
-import { escapeHtml } from 'sparklet/renderer/shared/dom-utils.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom-utils.js';
 
 /** Current view state: 'main' or 'trash' [当前视图状态：'main' 或 'trash'] */
 let currentView = 'main';

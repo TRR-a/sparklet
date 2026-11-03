@@ -1,8 +1,8 @@
 // Popup page - official Main UI (shell only, UI pending rewrite)
 // [官方 Main 模块 - 仅保留外壳，UI 待重写]
 
-import { initI18n } from 'sparklet/renderer/shared/i18n.js';
-import { setTheme } from 'sparklet/renderer/shared/theme.js';
+import { initI18n } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { setTheme } from 'sparklet/renderer/shared/ui/theme.js';
 import { storeApi } from 'sparklet/renderer/shared/index.js';
 
 async function initApp(): Promise<void> {

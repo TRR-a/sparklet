@@ -8,14 +8,14 @@
 //   - "恢复此版本" → main process snapshots current state first, then restores
 //     [恢复前主进程先快照当前状态，再写入所选版本]
 
-import { t } from 'sparklet/renderer/shared/i18n.js';
-import { formatDateTime, escapeHtml } from 'sparklet/renderer/shared/dom-utils.js';
-import { showToast } from 'sparklet/renderer/shared/toast.js';
-import storageManager from 'sparklet/renderer/shared/storage-manager.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { formatDateTime, escapeHtml } from 'sparklet/renderer/shared/ui/dom-utils.js';
+import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
+import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
 import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
 import { refreshNoteListView } from '../../note/scripts/note-search.js';
 import { getCurrentNoteId, loadNoteIntoEditor } from '../../editor/scripts/note-editor.js';
-import type { Note, NoteHistoryEntry } from 'sparklet/shared/notes.js';
+import type { Note, NoteHistoryEntry } from 'sparklet/shared/types/notes.js';
 
 /** Diff output line [diff 输出行] */
 interface DiffLine {

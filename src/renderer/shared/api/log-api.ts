@@ -7,7 +7,7 @@
 // [第一个参数恒为模块 scope：'kernel' 及任何 'kernel.*' scope (如 'hub.welcome'、'kernel.main')
 //  写入核心目录，其他名 (如 'note') 写入 logs/modules/<scope>/。日志经主进程落盘并镜像到控制台。用法同上]
 
-import { bus } from '../ipc-bus.js';
+import { bus } from '../ipc/ipc-bus.js';
 
 type Level = 'debug' | 'info' | 'warn' | 'error';
 

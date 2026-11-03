@@ -5,8 +5,8 @@
 //  Windows 上 Alt+Space 是系统窗口菜单，故用 Ctrl+Alt+Space]
 
 import { app, globalShortcut, BrowserWindow } from 'electron';
-import { getWelcomeWindow } from './windows/window-manager';
-import { logger } from './services/logger';
+import { getWelcomeWindow } from '../windows/window-manager';
+import { logger } from '../services/logger';
 
 /**
  * Toggle the Welcome window: show+focus if hidden, minimize if visible

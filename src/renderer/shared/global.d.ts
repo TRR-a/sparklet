@@ -1,5 +1,5 @@
 // Global type declarations for renderer [渲染进程全局类型声明]
-import type { IpcBus } from 'sparklet/shared/ipc-bus';
+import type { IpcBus } from 'sparklet/shared/types/ipc-bus';
 
 declare global {
   interface Window {

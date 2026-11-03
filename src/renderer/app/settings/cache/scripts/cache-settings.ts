@@ -1,8 +1,8 @@
 // Settings: cache management section - handles cache info display, clear cache, dev lock [设置：缓存管理区域 - 处理缓存信息展示、清空缓存、开发环境锁定]
 
-import { t } from 'sparklet/renderer/shared/i18n.js';
-import { showToast } from 'sparklet/renderer/shared/toast.js';
-import { formatDateTime, formatDays } from 'sparklet/renderer/shared/dom-utils.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
+import { formatDateTime, formatDays } from 'sparklet/renderer/shared/ui/dom-utils.js';
 import { showCustomConfirm } from 'sparklet/renderer/shared/ui/custom-dialog.js';
 import { getIsDevEnvironment } from '../../updater/scripts/updater-config.js';
 import {
@@ -10,7 +10,7 @@ import {
   saveRetentionDays,
   loadCacheRetentionDays
 } from './cache-retention.js';
-import type { CacheInfo } from 'sparklet/shared/updater';
+import type { CacheInfo } from 'sparklet/shared/types/updater';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
 
 export { loadCacheRetentionDays };

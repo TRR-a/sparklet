@@ -1,8 +1,8 @@
 // Settings: updater config section - handles update behavior, interval, integrity check [设置：更新配置区域 - 处理更新行为、频率、完整性校验]
 
-import { t } from 'sparklet/renderer/shared/i18n.js';
-import { showToast } from 'sparklet/renderer/shared/toast.js';
-import type { UpdaterConfig } from 'sparklet/shared/updater';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
+import type { UpdaterConfig } from 'sparklet/shared/types/updater';
 import { appApi, updaterApi, broadcastApi } from 'sparklet/renderer/shared/index.js';
 
 /** Whether running in dev environment [是否开发环境] */

@@ -3,7 +3,7 @@
 import type {
   ManifestEntry,
   DialogResponse,
-} from 'sparklet/shared/updater';
+} from 'sparklet/shared/types/updater';
 import { promptRendererDialog } from './dialog-core.js';
 
 /**

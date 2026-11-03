@@ -11,7 +11,7 @@ import { ensureCacheReady, readMeta, writeMeta, removeVersionCache } from './cac
 import type {
   CacheEntry,
   VerifyCachedZipResult
-} from 'sparklet/shared/updater';
+} from 'sparklet/shared/types/updater';
 
 /**
  * Sync downloaded ZIP to persistent cache directory and record meta [将下载完成的 ZIP 同步到持久缓存目录，并记录 meta]

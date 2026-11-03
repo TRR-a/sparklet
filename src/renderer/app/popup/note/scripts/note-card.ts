@@ -1,7 +1,7 @@
 // Note card - single note list card element with actions [笔记卡片 - 单个笔记列表卡片及其操作]
 
-import { t } from 'sparklet/renderer/shared/i18n.js';
-import { formatDate } from 'sparklet/renderer/shared/dom-utils.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { formatDate } from 'sparklet/renderer/shared/ui/dom-utils.js';
 import {
   handleDeleteNote,
   togglePinNote,
