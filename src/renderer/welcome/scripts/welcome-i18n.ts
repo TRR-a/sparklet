@@ -4,7 +4,7 @@
 // language state → welcome-i18n-state.ts, DOM apply → welcome-i18n-apply.ts.
 
 import { STRINGS } from './welcome-i18n-strings.js';
-import { getLang, setLang, readLang } from './welcome-i18n-state.js';
+import { readLang } from './welcome-i18n-state.js';
 
 export { getLang, setLang } from './welcome-i18n-state.js';
 export { applyI18n } from './welcome-i18n-apply.js';

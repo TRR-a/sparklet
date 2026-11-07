@@ -4,7 +4,7 @@
 
 import { projectApi } from '../api/scripts/project-api.js';
 import {
-  setEditTarget, getIsDirty, setIsDirty,
+  setEditTarget, setIsDirty,
 } from './project-preview-state.js';
 import { showFilePreviewPanel } from './project-preview-panel.js';
 import { renderPreviewImage } from './project-preview-image.js';

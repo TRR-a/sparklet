@@ -15,7 +15,7 @@ export async function reinstallFromCache(
   versionWithV: string,
   cachedZipPath: string,
   currentVersion: string,
-  errors: string[],
+  _errors: string[],
   ctx: RollbackContext
 ): Promise<void> {
   console.log('[Rollback] User chose rollback from cached zip:', cachedZipPath);

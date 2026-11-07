@@ -11,7 +11,6 @@
 // tabs → welcome-tabs.ts, bootstrap steps → welcome-init-*.ts
 
 import { logApi, installGlobalErrorHooks } from '../../shared/index.js';
-import { enableWidgetDragReorder, restoreWidgetOrder } from './widget-drag.js';
 import { initLanguage } from './welcome-init-language.js';
 import { initClockFormat } from './welcome-init-clock.js';
 import { bindBodyStateEvents } from './welcome-init-body-events.js';

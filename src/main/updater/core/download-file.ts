@@ -7,7 +7,6 @@ import * as https from 'https';
 import * as fs from 'fs-extra';
 import type { DownloadResult } from 'sparklet/shared/types/updater';
 import { buildDownloadOptions } from './download-request.js';
-import { createProgressReporter } from './download-progress.js';
 import type { ProgressCallback } from './download-progress.js';
 import { consumeDownloadResponse } from './download-response-stream.js';
 import { downloadFailure } from './download-failure.js';

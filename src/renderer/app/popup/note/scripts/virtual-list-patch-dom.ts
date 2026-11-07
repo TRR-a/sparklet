@@ -3,7 +3,6 @@
 import type { VirtualItem } from './virtual-list-types.js';
 import { getItems, getOffsets, getTotalHeight } from './virtual-list-state.js';
 import { acquireItemElement } from './virtual-list-acquire.js';
-import { getTopSpacer, getBottomSpacer } from './virtual-list-spacer.js';
 
 /**
  * Rebuild the list from the given index range, updating spacers [按给定索引区间重建列表并更新占位块]
