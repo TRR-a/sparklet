@@ -1,6 +1,14 @@
-// Markdown table renderer - table, alignment, and row parsing [Markdown 表格渲染器 - 表格、对齐与行解析]
+// Markdown table renderer [Markdown 表格渲染器]
+//
+// Split out [已拆分]：row parsing → markdown-table-row.ts,
+// alignment parsing → markdown-table-align.ts.
 
 import { renderInline } from './markdown-inline.js';
+import { parseTableRow } from './markdown-table-row.js';
+import { parseTableAligns } from './markdown-table-align.js';
+
+export { parseTableRow, isTableSeparator } from './markdown-table-row.js';
+export { parseTableAligns } from './markdown-table-align.js';
 
 /**
  * Render table from parsed lines [从解析行渲染表格]
@@ -9,15 +17,7 @@ import { renderInline } from './markdown-inline.js';
  */
 export function renderTable(lines: string[]): string {
   const header = parseTableRow(lines[0]);
-  const separator = lines[1];
-
-  // Parse alignment from separator [从分隔行解析对齐方式]
-  const aligns = parseTableRow(separator).map((cell: string) => {
-    const trimmed = cell.trim();
-    if (trimmed.startsWith(':') && trimmed.endsWith(':')) return 'center';
-    if (trimmed.endsWith(':')) return 'right';
-    return 'left';
-  });
+  const aligns = parseTableAligns(lines[1]);
 
   let html = '<table class="md-table"><thead><tr>';
   header.forEach((cell: string, idx: number) => {
@@ -37,25 +37,4 @@ export function renderTable(lines: string[]): string {
   }
   html += '</tbody></table>';
   return html;
-}
-
-/**
- * Parse table row into cells [将表格行解析为单元格]
- * @param line Table row line [表格行]
- * @returns Array of cell contents [单元格内容数组]
- */
-export function parseTableRow(line: string): string[] {
-  let trimmed = line.trim();
-  if (trimmed.startsWith('|')) trimmed = trimmed.slice(1);
-  if (trimmed.endsWith('|')) trimmed = trimmed.slice(0, -1);
-  return trimmed.split('|').map((cell: string) => cell.trim());
-}
-
-/**
- * Check if line is a table separator [检查行是否为表格分隔行]
- * @param line Line to check [待检查行]
- * @returns True if separator [是分隔行则返回 true]
- */
-export function isTableSeparator(line: string): boolean {
-  return /^[|:\s-]+$/.test(line) && line.includes('-') && line.includes('|');
 }

@@ -1,11 +1,12 @@
-﻿// Startup integrity self-check of the running executable [运行中可执行文件的启动完整性自检]
+// Startup integrity self-check of the running executable [运行中可执行文件的启动完整性自检]
+//
+// Split out [已拆分]：manifest loading → self-check-manifest.ts,
+// exe hash comparison → self-check-hash.ts.
 
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import { app } from 'electron';
-import { getAppRoot } from '../core/constants.js';
-import { computeSha256, getHashField } from '../core/verify.js';
-import type { ManifestEntry } from 'sparklet/shared/types/updater';
+import { getHashField } from '../core/verify.js';
+import { loadCurrentManifestForSelfCheck } from './self-check-manifest.js';
+import { compareExeHash } from './self-check-hash.js';
 
 /** Integrity self-check result [完整性自检结果] */
 interface IntegrityResult {
@@ -26,28 +27,7 @@ export async function selfCheckIntegrity(): Promise<IntegrityResult> {
     return { success: true, error: null };
   }
 
-  const exeDir = path.dirname(process.execPath);
-  const appRoot = getAppRoot();
-  // Prefer reading from exe directory (user install dir), then from appRoot (where installer writes) [优先读 exe 目录 (用户安装目录)，其次读 appRoot (installer 写入的位置)]
-  const candidatePaths = [
-    path.join(exeDir, 'manifest.current.json'),
-    path.join(appRoot, 'manifest.current.json')
-  ];
-
-  let currentManifest: ManifestEntry | null = null;
-  for (const manifestPath of candidatePaths) {
-    try {
-      const exists = await fs.pathExists(manifestPath);
-      if (!exists) continue;
-      const content = await fs.readFile(manifestPath, 'utf-8');
-      currentManifest = JSON.parse(content) as ManifestEntry;
-      console.log('[Verify] Loaded manifest.current.json from:', manifestPath);
-      break;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      console.warn('[Verify] Failed to read manifest.current.json at', manifestPath, ':', msg);
-    }
-  }
+  const currentManifest = await loadCurrentManifestForSelfCheck();
 
   if (!currentManifest) {
     console.warn('[Verify] manifest.current.json not found, skipping self-check');
@@ -60,27 +40,5 @@ export async function selfCheckIntegrity(): Promise<IntegrityResult> {
     return { success: true, error: null };
   }
 
-  try {
-    const currentExePath = process.execPath;
-    const exists = await fs.pathExists(currentExePath);
-    if (!exists) {
-      console.warn('[Verify] Current exe file not found, skipping self-check');
-      return { success: true, error: null };
-    }
-
-    const actualHash = await computeSha256(currentExePath);
-    if (actualHash !== expectedExeHash) {
-      return {
-        success: false,
-        error: `Integrity check failed: executable file hash mismatch`
-      };
-    }
-
-    console.log('[Verify] Integrity self-check passed');
-    return { success: true, error: null };
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error('[Verify] Self-check error:', msg);
-    return { success: true, error: null };
-  }
+  return compareExeHash(expectedExeHash);
 }

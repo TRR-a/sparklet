@@ -6,6 +6,7 @@
 // Usage: logApi.info('hub.welcome', 'ready');  logApi.info('note', 'saved');
 // [第一个参数恒为模块 scope：'kernel' 及任何 'kernel.*' scope (如 'hub.welcome'、'kernel.main')
 //  写入核心目录，其他名 (如 'note') 写入 logs/modules/<scope>/。日志经主进程落盘并镜像到控制台。用法同上]
+// Global error hooks in global-error-hooks.ts [全局错误钩子在 global-error-hooks.ts]
 
 import { bus } from '../ipc/ipc-bus.js';
 
@@ -46,24 +47,3 @@ export const logApi = {
   warn: (scope: string, ...args: unknown[]): void => send('warn', scope, args),
   error: (scope: string, ...args: unknown[]): void => send('error', scope, args),
 };
-
-let hooksInstalled = false;
-
-/**
- * Forward uncaught renderer errors to the log file (idempotent, call per page
- * entry with its module scope). Stack traces from window.onerror and unhandled
- * rejections are the most valuable lines when debugging user reports.
- * [将渲染进程未捕获错误转发到日志文件 (幂等，各页面入口按自己的模块 scope 调用一次)。
- *  window.onerror 与未处理 Promise 拒绝的堆栈是排查用户问题时最值钱的日志]
- */
-export function installGlobalErrorHooks(scope: string = 'kernel'): void {
-  if (hooksInstalled) return;
-  hooksInstalled = true;
-  window.addEventListener('error', (e) => {
-    const detail = e.error ? errText(e.error) : `${e.message} @ ${e.filename}:${e.lineno}:${e.colno}`;
-    send('error', scope, [detail]);
-  });
-  window.addEventListener('unhandledrejection', (e) => {
-    send('error', scope, ['Unhandled rejection:', errText(e.reason)]);
-  });
-}

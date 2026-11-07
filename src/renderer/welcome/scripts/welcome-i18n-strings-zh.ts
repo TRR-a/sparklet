@@ -1,0 +1,28 @@
+// Kernel welcome i18n: Simplified Chinese pack [内核欢迎页 i18n - 简体中文串]
+
+export const STRINGS_ZH_CN: Record<string, string> = {
+  'kernel.title': 'Sparklet 中枢',
+  'kernel.monitor': '系统监控',
+  'kernel.memory': '内存',
+  'kernel.gpu': 'GPU',
+  'kernel.na': '暂无',
+  'kernel.gpuNonNvidia': '非NVIDIA显卡暂时因系统对应非NVIDIA显卡无法提供GPU占用数据',
+  'kernel.gpuNonNvidiaTip': '实时 GPU 占用仅支持经 nvidia-smi 读取的 NVIDIA 显卡',
+  'kernel.logs': '日志',
+  'kernel.logsErrors': '错误',
+  'kernel.logsWarns': '警告',
+  'kernel.logsOpen': '打开日志文件夹',
+  'kernel.settings': '设置',
+  'kernel.settingsTheme': '主题',
+  'kernel.themeLight': '浅色',
+  'kernel.themeDark': '深色',
+  'kernel.themeBlue': '蓝色',
+  'kernel.settingsLanguage': '语言',
+  'kernel.settingsClock': '时钟制式',
+  'kernel.clock24': '24小时制',
+  'kernel.clock12': '12小时制',
+  'kernel.exitTitle': '退出 Sparklet？',
+  'kernel.exitMessage': '确定要退出吗？',
+  'kernel.exitReturn': '返回',
+  'kernel.exitQuit': '退出',
+};

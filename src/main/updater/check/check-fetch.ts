@@ -1,94 +1,24 @@
-﻿// GitHub Release fetching [GitHub Release 获取]
+// GitHub Release fetching [GitHub Release 获取]
+//
+// Split out [已拆分]：result type → check-fetch-result.ts,
+// raw HTTP request → check-fetch-request.ts.
 
-import * as https from 'https';
-import { URL } from 'url';
-import { GITHUB_API_URL, REQUEST_TIMEOUT_MS, classifyNetworkError } from '../core/constants.js';
+import { classifyNetworkError } from '../core/updater-error.js';
 import type { ReleaseData } from '../core/manifest-helper.js';
-import type { NetworkErrorType } from 'sparklet/shared/types/updater';
+import { requestLatestRelease } from './check-fetch-request.js';
+import { failFetchResult, okFetchResult } from './check-fetch-result.js';
+import type { FetchReleaseResult } from './check-fetch-result.js';
 
-/** Latest release fetch result [最新 Release 获取结果] */
-export interface FetchReleaseResult {
-  success: boolean;
-  data: ReleaseData | null;
-  error: string | null;
-  errorType: NetworkErrorType | null;
-}
+export type { FetchReleaseResult } from './check-fetch-result.js';
 
 /**
  * Fetch latest release info from GitHub API [从 GitHub API 获取最新 Release 信息]
  */
 export async function fetchLatestRelease(): Promise<FetchReleaseResult> {
-  return new Promise((resolve) => {
-    const urlObj = new URL(GITHUB_API_URL);
-    const options: https.RequestOptions = {
-      hostname: urlObj.hostname,
-      path: urlObj.pathname,
-      method: 'GET',
-      headers: {
-        'User-Agent': 'Sparklet-Updater',
-        'Accept': 'application/vnd.github.v3+json'
-      },
-      timeout: REQUEST_TIMEOUT_MS
-    };
-    const req = https.get(options, (res) => {
-      if (res.statusCode === 403) {
-        const remaining = res.headers['x-ratelimit-remaining'];
-        if (remaining === '0') {
-          const errMsg = 'GitHub API rate limit exceeded, please try later';
-          resolve({
-            success: false,
-            data: null,
-            error: errMsg,
-            errorType: classifyNetworkError(errMsg)
-          });
-          return;
-        }
-      }
-      if (res.statusCode !== 200) {
-        const errMsg = `GitHub API error: status ${res.statusCode}`;
-        resolve({
-          success: false,
-          data: null,
-          error: errMsg,
-          errorType: classifyNetworkError(errMsg)
-        });
-        return;
-      }
-      let data = '';
-      res.on('data', (chunk: Buffer) => { data += chunk; });
-      res.on('end', () => {
-        try {
-          const parsed = JSON.parse(data) as ReleaseData;
-          resolve({ success: true, data: parsed, error: null, errorType: null });
-        } catch (err) {
-          const errMsg = 'Failed to parse GitHub API response';
-          resolve({
-            success: false,
-            data: null,
-            error: errMsg,
-            errorType: classifyNetworkError(errMsg)
-          });
-        }
-      });
-    });
-    req.on('error', (err: Error) => {
-      const errMsg = `Network error: ${err.message}`;
-      resolve({
-        success: false,
-        data: null,
-        error: errMsg,
-        errorType: classifyNetworkError(errMsg)
-      });
-    });
-    req.on('timeout', () => {
-      req.destroy();
-      const errMsg = 'Request timeout';
-      resolve({
-        success: false,
-        data: null,
-        error: errMsg,
-        errorType: classifyNetworkError(errMsg)
-      });
-    });
-  });
+  const raw = await requestLatestRelease();
+  if (raw.error || raw.body === null) {
+    const errMsg = raw.error || 'Failed to fetch GitHub API response';
+    return { ...failFetchResult(errMsg), errorType: classifyNetworkError(errMsg) };
+  }
+  return okFetchResult(JSON.parse(raw.body) as ReleaseData);
 }

@@ -3,37 +3,12 @@
 // is focused. Alt+Space alone is the OS window menu on Windows, so we use Ctrl+Alt+Space.
 // [经 Electron globalShortcut 注册，即使应用窗口未聚焦也能触发。
 //  Windows 上 Alt+Space 是系统窗口菜单，故用 Ctrl+Alt+Space]
+//
+// Split out [已拆分]：trigger actions → global-shortcuts-actions.ts.
 
-import { app, globalShortcut, BrowserWindow } from 'electron';
-import { getWelcomeWindow } from '../windows/window-manager';
+import { app, globalShortcut } from 'electron';
 import { logger } from '../services/logger';
-
-/**
- * Toggle the Welcome window: show+focus if hidden, minimize if visible
- * [切换 Welcome 窗口：隐藏则显示并聚焦，显示则最小化]
- */
-function toggleHubWindow(): void {
-  const win = getWelcomeWindow();
-  if (!win || win.isDestroyed()) return;
-  if (win.isMinimizable() && (win.isMinimized() || !win.isVisible())) {
-    win.show();
-    win.focus();
-  } else {
-    win.minimize();
-  }
-}
-
-/**
- * Broadcast a "new note" intent to all open windows (the official Main window
- * listens and creates a note; other windows ignore it)
- * [向所有打开的窗口广播"新建笔记"意图 (官方 Main 窗口监听并新建，其他窗口忽略)]
- */
-function broadcastNewNote(): void {
-  BrowserWindow.getAllWindows().forEach((win) => {
-    if (!win.isDestroyed()) win.webContents.send('global:new-note');
-  });
-  logger.info('main', 'Global shortcut: new-note broadcast');
-}
+import { toggleHubWindow, broadcastNewNote, unregisterOnQuit } from './global-shortcuts-actions';
 
 /**
  * Register system-wide shortcuts (call after app.whenReady) [注册系统级快捷键 (在 app.whenReady 后调用)]
@@ -54,6 +29,6 @@ export function registerGlobalShortcuts(): void {
   logger.info('main', 'Global shortcuts registered: Ctrl+Alt+Space, Ctrl+Alt+N');
 
   app.on('will-quit', () => {
-    globalShortcut.unregisterAll();
+    unregisterOnQuit();
   });
 }

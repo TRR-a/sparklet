@@ -1,0 +1,28 @@
+// Kernel welcome i18n: English pack [内核欢迎页 i18n - 英文串]
+
+export const STRINGS_EN: Record<string, string> = {
+  'kernel.title': 'Sparklet Hub',
+  'kernel.monitor': 'System monitor',
+  'kernel.memory': 'Memory',
+  'kernel.gpu': 'GPU',
+  'kernel.na': 'N/A',
+  'kernel.gpuNonNvidia': 'non-NVIDIA GPU: this system cannot provide utilization data for non-NVIDIA GPUs',
+  'kernel.gpuNonNvidiaTip': 'Real-time GPU utilization is only readable on NVIDIA GPUs via nvidia-smi',
+  'kernel.logs': 'Logs',
+  'kernel.logsErrors': 'errors',
+  'kernel.logsWarns': 'warnings',
+  'kernel.logsOpen': 'Open logs folder',
+  'kernel.settings': 'Settings',
+  'kernel.settingsTheme': 'Theme',
+  'kernel.themeLight': 'Light',
+  'kernel.themeDark': 'Dark',
+  'kernel.themeBlue': 'Blue',
+  'kernel.settingsLanguage': 'Language',
+  'kernel.settingsClock': 'Clock format',
+  'kernel.clock24': '24-hour',
+  'kernel.clock12': '12-hour',
+  'kernel.exitTitle': 'Quit Sparklet?',
+  'kernel.exitMessage': 'Are you sure you want to quit?',
+  'kernel.exitReturn': 'Return',
+  'kernel.exitQuit': 'Quit',
+};

@@ -1,10 +1,12 @@
 // Migration service: migrate notes from electron-store to file system [迁移服务：将笔记从 electron-store 迁移到文件系统]
+//
+// Split out [已拆分]：single-note write → migration-note-write.ts,
+// batch write → migration-batch.ts.
 
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import { store } from './store';
 import { ensureNotesDir } from './notes-service';
 import type { OldNote } from './notes-service';
+import { migrateNoteBatch } from './migration-batch.js';
 
 /**
  * Migrate notes from electron-store to file system [将笔记从 electron-store 迁移到文件系统]
@@ -30,47 +32,7 @@ export async function migrateFromStore(): Promise<void> {
     const notesDir = await ensureNotesDir();
     console.log('[NotesFS] Notes directory:', notesDir);
 
-    let migratedCount = 0;
-    let errorCount = 0;
-
-    for (const note of oldNotes) {
-      if (!note || !note.id) {
-        console.warn('[NotesFS] Skipping invalid note (missing id):', note);
-        continue;
-      }
-
-      const jsonPath = path.join(notesDir, `${note.id}.json`);
-      const mdPath = path.join(notesDir, `${note.id}.md`);
-
-      // If files already exist, skip (protect existing files) [如果文件已存在则跳过 (保护已有文件)]
-      if (await fs.pathExists(jsonPath) && await fs.pathExists(mdPath)) {
-        console.log(`[NotesFS] Skipping existing note: ${note.id}`);
-        continue;
-      }
-
-      try {
-        // Separate content and metadata [分离内容和元数据]
-        const { content, ...meta } = note;
-        // Ensure meta has id [确保 meta 中有 id]
-        meta.id = note.id;
-
-        // Write metadata [写入元数据]
-        await fs.writeFile(jsonPath, JSON.stringify(meta, null, 2), 'utf8');
-        // Write content (if content is null/undefined, write empty string) [写入正文 (如果 content 为 null/undefined，写入空字符串)]
-        await fs.writeFile(mdPath, content || '', 'utf8');
-
-        migratedCount++;
-        console.log(`[NotesFS] ✅ Migrated note: ${note.id} (title: "${meta.title || '无标题'}")`);
-      } catch (err) {
-        errorCount++;
-        const msg = err instanceof Error ? err.message : String(err);
-        console.error(`[NotesFS] ❌ Failed to migrate note ${note.id}:`, msg);
-        // Try to delete potentially incomplete files [尝试删除可能已创建的不完整文件]
-        try { await fs.remove(jsonPath); } catch { /* ignore [忽略] */ }
-        try { await fs.remove(mdPath); } catch { /* ignore [忽略] */ }
-      }
-    }
-
+    const { migratedCount, errorCount } = await migrateNoteBatch(notesDir, oldNotes);
     console.log(`[NotesFS] Migration summary: ${migratedCount} succeeded, ${errorCount} failed`);
 
     if (errorCount === 0) {

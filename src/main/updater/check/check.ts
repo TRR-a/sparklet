@@ -1,12 +1,15 @@
-﻿// Update check orchestration entry [更新检查编排入口]
+// Update check orchestration entry [更新检查编排入口]
 // Re-exports getCurrentVersion so existing importers keep their paths unchanged
 // [重新导出 getCurrentVersion，使已有导入路径保持不变]
+//
+// Split out [已拆分]：result builders → check-results.ts.
 
-import { classifyNetworkError } from '../core/constants.js';
+import { classifyNetworkError } from '../core/updater-error.js';
 import type { CheckResult } from 'sparklet/shared/types/updater';
 import { getCurrentVersion, compareVersions } from './check-version.js';
 import { fetchLatestRelease } from './check-fetch.js';
 import { validateRelease } from './check-manifest.js';
+import { buildFetchFailureResult, buildInvalidReleaseResult, buildCheckResult } from './check-results.js';
 
 export { getCurrentVersion } from './check-version.js';
 
@@ -19,40 +22,20 @@ export async function checkForUpdates(): Promise<CheckResult> {
 
   const { success, data, error, errorType: fetchErrorType } = await fetchLatestRelease();
   if (!success) {
-    return {
-      hasUpdate: false,
-      currentVersion,
-      latestVersion: null,
-      zipUrl: null,
-      manifestUrl: null,
-      error,
-      errorType: fetchErrorType || classifyNetworkError(error)
-    };
+    return buildFetchFailureResult(currentVersion, error, fetchErrorType || classifyNetworkError(error));
   }
 
   const result = validateRelease(data);
   if (!result.valid) {
     console.log('[UpdateCheck] Release validation failed:', result.error || 'no update package');
-    return {
-      hasUpdate: false,
-      currentVersion,
-      latestVersion: result.latestVersion,
-      zipUrl: result.zipUrl,
-      manifestUrl: result.manifestUrl,
-      error: result.error,
-      errorType: result.errorType
-    };
+    return buildInvalidReleaseResult(
+      currentVersion, result.latestVersion, result.zipUrl, result.manifestUrl, result.error, result.errorType
+    );
   }
 
   const hasUpdate = compareVersions(result.latestVersion, currentVersion) > 0;
   console.log('[UpdateCheck] Latest version:', result.latestVersion, 'Has update:', hasUpdate);
-  return {
-    hasUpdate,
-    currentVersion,
-    latestVersion: result.latestVersion,
-    zipUrl: result.zipUrl,
-    manifestUrl: result.manifestUrl,
-    error: null,
-    errorType: null
-  };
+  return buildCheckResult(
+    hasUpdate, currentVersion, result.latestVersion, result.zipUrl, result.manifestUrl
+  );
 }
