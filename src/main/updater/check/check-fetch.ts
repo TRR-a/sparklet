@@ -3,8 +3,8 @@
 // Split out [已拆分]：result type → check-fetch-result.ts,
 // raw HTTP request → check-fetch-request.ts.
 
-import { classifyNetworkError } from '../core/updater-error.js';
-import type { ReleaseData } from '../core/manifest-helper.js';
+import { classifyNetworkError } from '../startup/updater-error.js';
+import type { ReleaseData } from '../manifest/manifest-helper.js';
 import { requestLatestRelease } from './check-fetch-request.js';
 import { failFetchResult, okFetchResult } from './check-fetch-result.js';
 import type { FetchReleaseResult } from './check-fetch-result.js';

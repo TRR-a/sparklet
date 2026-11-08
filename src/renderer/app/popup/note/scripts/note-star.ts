@@ -1,7 +1,7 @@
 // Note action: toggle starred [笔记操作 - 切换星标]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
-import { refreshNoteListView } from './note-search.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
+import { refreshNoteListView } from '../list/scripts/note-search.js';
 
 /**
  * Toggle note starred state [切换笔记星标状态]

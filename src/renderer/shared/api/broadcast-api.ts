@@ -2,7 +2,7 @@
 // Theme/language/config changes are relayed by the main process to every window [主题/语言/配置变化由主进程中转广播到所有窗口]
 
 import { bus } from '../ipc/ipc-bus.js';
-import type { UpdaterConfig } from 'sparklet/shared/types/updater.js';
+import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
 
 export const broadcastApi = {
   // ---------- Theme [主题] ----------

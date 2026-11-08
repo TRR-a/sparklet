@@ -1,8 +1,8 @@
 // Cache info: latest version aggregation [缓存信息 - 最新版本聚合]
 
 import * as path from 'path';
-import { getUpdateCacheDir } from '../core/updater-paths.js';
-import type { CacheMeta, CacheInfo } from 'sparklet/shared/types/updater';
+import { getUpdateCacheDir } from '../startup/updater-paths.js';
+import type { CacheMeta, CacheInfo } from 'sparklet/shared/types/updater/updater.js';
 import { getFileSize, formatBytes } from './cache-size-format.js';
 import { computeRetention } from './cache-retention-info.js';
 import { buildEmptyCacheInfo } from './cache-info-empty.js';

@@ -3,9 +3,9 @@
 import {
   applyRetentionUI,
   saveRetentionDays
-} from './cache-retention.js';
-import { loadCacheInfo } from './cache-info-view.js';
-import { handleClearCache } from './cache-actions.js';
+} from '../retention/scripts/cache-retention.js';
+import { loadCacheInfo } from '../info/scripts/cache-info-view.js';
+import { handleClearCache } from '../actions/scripts/cache-actions.js';
 
 /**
  * Bind cache event listeners [绑定缓存事件监听]

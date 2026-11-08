@@ -1,7 +1,7 @@
 // Dialog response handler & pending registry [弹窗响应处理器与待处理登记]
 
 import { ipcMain } from 'electron';
-import type { DialogResponse } from 'sparklet/shared/types/updater';
+import type { DialogResponse } from 'sparklet/shared/types/updater/updater.js';
 
 /** Dialog response pending entry [弹窗响应待处理条目] */
 interface PendingDialogEntry {

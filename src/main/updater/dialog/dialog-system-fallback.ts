@@ -1,7 +1,7 @@
 // Updater dialog: system dialog fallback [更新器弹窗 - 系统弹窗兜底]
 
 import { dialog } from 'electron';
-import type { DialogResponse } from 'sparklet/shared/types/updater';
+import type { DialogResponse } from 'sparklet/shared/types/updater/updater.js';
 import type { DialogParams } from './dialog-types.js';
 
 /**

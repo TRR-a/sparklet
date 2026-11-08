@@ -4,8 +4,8 @@
 
 import { escapeHtml } from './highlight-utils.js';
 import { highlightJson } from './highlight-json.js';
-import { highlightMarkdown } from './highlight-markdown.js';
-import { highlightCStyle, C_STYLE_DIALECTS } from './highlight-cstyle.js';
+import { highlightMarkdown } from './markdown/highlight-markdown.js';
+import { highlightCStyle, C_STYLE_DIALECTS } from './cstyle/highlight-cstyle.js';
 import { highlightHtml } from './highlight-html.js';
 
 /** Language resolver per file extension [按扩展名解析语言] */

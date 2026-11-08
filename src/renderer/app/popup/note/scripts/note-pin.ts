@@ -1,7 +1,7 @@
 // Note action: toggle pinned [笔记操作 - 切换置顶]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
-import { refreshNoteListView } from './note-search.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
+import { refreshNoteListView } from '../list/scripts/note-search.js';
 
 /**
  * Toggle note pinned state [切换笔记置顶状态]

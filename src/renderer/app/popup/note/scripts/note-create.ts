@@ -1,9 +1,9 @@
 // Note action: create a new note [笔记操作 - 新建笔记]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { renderNoteList, loadNoteIntoEditor } from '../../editor/scripts/note-editor.js';
-import { clearSearch } from './note-search.js';
+import { clearSearch } from '../list/scripts/note-search.js';
 
 /**
  * Create a new note [创建新笔记]

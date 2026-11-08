@@ -2,7 +2,7 @@
 
 import { BrowserWindow, globalShortcut } from 'electron';
 import { getWelcomeWindow } from '../windows/window-manager';
-import { logger } from '../services/logger';
+import { logger } from '../services/logger/logger.js';
 
 /**
  * Toggle the Welcome window: show+focus if hidden, minimize if visible

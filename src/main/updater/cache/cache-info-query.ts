@@ -2,7 +2,7 @@
 
 import { readMeta } from './cache-meta.js';
 import { getLatestCacheInfo as computeLatestCacheInfo } from './cache-info.js';
-import type { CacheInfo } from 'sparklet/shared/types/updater';
+import type { CacheInfo } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Get cache info of the "latest version" (settings page only shows the latest one) [取「最新的一个版本」的缓存信息 (设置页只展示最新的那一个)]

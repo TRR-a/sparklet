@@ -1,7 +1,7 @@
 // Integrity self-check: compare exe hash [完整性自检 - 比对 exe 哈希]
 
 import * as fs from 'fs-extra';
-import { computeSha256 } from '../core/verify.js';
+import { computeSha256 } from '../install/verify.js';
 
 /** Exe hash comparison result [exe 哈希比对结果] */
 export interface ExeHashCompareResult {

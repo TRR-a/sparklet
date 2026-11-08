@@ -1,6 +1,6 @@
 // Updater dialog: restart confirmation [更新弹窗 - 重启确认]
 
-import type { ManifestEntry, DialogResponse } from 'sparklet/shared/types/updater';
+import type { ManifestEntry, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
 import { promptRendererDialog } from './dialog-core.js';
 import { formatDate } from './dialog-format-date.js';
 

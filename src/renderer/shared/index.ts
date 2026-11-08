@@ -3,13 +3,13 @@
 
 export { bus } from './ipc/ipc-bus.js';
 export { storeApi } from './api/store-api.js';
-export { windowApi } from './api/window-api.js';
+export { windowApi } from './api/window/window-api.js';
 export { appApi } from './api/app-api.js';
 export { broadcastApi } from './api/broadcast-api.js';
-export { updaterApi } from './api/updater-api.js';
+export { updaterApi } from './api/updater/updater-api.js';
 export { systemApi } from './api/system-api.js';
 export { logApi, errText } from './api/log-api.js';
 export { installGlobalErrorHooks } from './api/global-error-hooks.js';
 export { APP_VERSION, APP_CODENAME } from './app-info.js';
 export { highlightCode, getLanguageForFile } from './highlight/highlight.js';
-export { initCustomTooltip } from './ui/custom-tooltip.js';
+export { initCustomTooltip } from './ui/tooltip/custom-tooltip.js';

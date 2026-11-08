@@ -1,6 +1,6 @@
 // Settings window: data cleanup buttons (note history / custom colors) [设置窗口 - 数据清理按钮 (笔记历史/自定义颜色)]
 
-import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
+import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { storeApi } from 'sparklet/renderer/shared/index.js';
 import { noteApi } from 'sparklet/renderer/app/api/note-api.js';

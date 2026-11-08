@@ -1,6 +1,6 @@
 // Settings: updater config section state [设置 - 更新配置区状态]
 
-import type { UpdaterConfig } from 'sparklet/shared/types/updater';
+import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
 
 /** Whether running in dev environment [是否开发环境] */
 let isDevEnvironment = false;

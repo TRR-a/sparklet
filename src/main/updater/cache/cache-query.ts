@@ -2,7 +2,7 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../core/updater-paths.js';
+import { getUpdateCacheDir } from '../startup/updater-paths.js';
 import { readMeta } from './cache-meta.js';
 
 /**

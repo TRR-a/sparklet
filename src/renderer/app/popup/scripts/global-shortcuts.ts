@@ -6,8 +6,8 @@
 //  Ctrl+数字快速跳转绑定在 note-quick-jump.ts；双击 Esc 退出在 exit-dialog.ts]
 
 import { createNewNote, togglePreview } from '../editor/scripts/note-editor.js';
-import { focusSearchInput } from '../note/scripts/note-search.js';
-import { toggleShortcutPanel } from '../modals/scripts/shortcut-panel.js';
+import { focusSearchInput } from '../note/list/scripts/note-search.js';
+import { toggleShortcutPanel } from '../modals/shortcut/scripts/shortcut-panel.js';
 
 /**
  * Check whether any modal is open (shortcuts disabled while modals own the keyboard) [是否有弹窗打开 (弹窗期间快捷键让位于弹窗键盘处理)]

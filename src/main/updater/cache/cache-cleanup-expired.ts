@@ -3,7 +3,7 @@
 import {
   DEFAULT_CACHE_SUCCESS_RETENTION_DAYS,
   CACHE_MAX_VERSIONS
-} from '../core/constants.js';
+} from '../constants/constants.js';
 import { readMeta, writeMeta, removeVersionCache } from './cache-meta.js';
 import { isEntryExpired, orderVersionsForCountLimit } from './cache-expiry-policy.js';
 

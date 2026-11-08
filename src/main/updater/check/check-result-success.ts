@@ -1,6 +1,6 @@
 // Update check: success result [更新检查 - 成功结果]
 
-import type { CheckResult } from 'sparklet/shared/types/updater';
+import type { CheckResult } from 'sparklet/shared/types/updater/updater.js';
 
 /** Build the final, validated compare result [构造校验通过后的比较结果] */
 export function buildCheckResult(

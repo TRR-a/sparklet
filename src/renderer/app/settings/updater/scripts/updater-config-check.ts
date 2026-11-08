@@ -1,7 +1,7 @@
 // Settings: manual "check now" action [设置 - 手动检查更新]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
+import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
 import { getIsDevEnvironment } from './updater-config-state.js';
 import { updateStatusText } from './updater-config-status.js';

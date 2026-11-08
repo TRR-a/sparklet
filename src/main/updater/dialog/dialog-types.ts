@@ -1,6 +1,6 @@
 // Dialog shared types [弹窗共享类型]
 
-import type { DialogResponse } from 'sparklet/shared/types/updater';
+import type { DialogResponse } from 'sparklet/shared/types/updater/updater.js';
 
 /** Progress callback type [进度回调类型] */
 export type ProgressCallback = (msg: string, percent: number) => void;

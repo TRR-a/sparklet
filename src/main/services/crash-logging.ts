@@ -1,7 +1,7 @@
 // Crash & fatal-error logging [崩溃与致命错误日志]
 
 import { app } from 'electron';
-import { write, errText, markConsoleBroken } from './logger-writer.js';
+import { write, errText, markConsoleBroken } from './logger/logger-writer.js';
 
 /**
  * Install crash & fatal-error capture: main-process exceptions, renderer process

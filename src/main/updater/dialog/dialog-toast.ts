@@ -1,7 +1,7 @@
 ﻿// Toast broadcast [Toast 广播]
 
 import { BrowserWindow } from 'electron';
-import type { ToastData } from 'sparklet/shared/types/updater';
+import type { ToastData } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Broadcast Toast to all windows [向所有窗口发送 Toast (广播)]

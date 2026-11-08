@@ -3,7 +3,7 @@
 // Split out [已拆分]：window lookup → dialog-window-find.ts,
 // system fallback → dialog-system-fallback.ts, send/timeout → dialog-prompt-send.ts.
 
-import type { DialogPayload, DialogResponse } from 'sparklet/shared/types/updater';
+import type { DialogPayload, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
 import type { DialogParams, DialogOptions } from './dialog-types.js';
 import { nextDialogId } from './dialog-response.js';
 import { findAvailableWindow } from './dialog-window-find.js';

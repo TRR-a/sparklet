@@ -1,7 +1,7 @@
 // GitHub release fetch: result type [GitHub Release 获取 - 结果类型]
 
-import type { NetworkErrorType } from 'sparklet/shared/types/updater';
-import type { ReleaseData } from '../core/manifest-helper.js';
+import type { NetworkErrorType } from 'sparklet/shared/types/updater/updater.js';
+import type { ReleaseData } from '../manifest/manifest-helper.js';
 
 /** Latest release fetch result [最新 Release 获取结果] */
 export interface FetchReleaseResult {

@@ -1,7 +1,7 @@
 // Project IPC handlers [项目 IPC 处理器]
 
 import { ipcMain } from 'electron';
-import { openFolderDialog, readDirectoryTree, readFile, writeFile } from '../services/project-service';
+import { openFolderDialog, readDirectoryTree, readFile, writeFile } from '../services/project/project-service.js';
 
 /**
  * Register project IPC handlers [注册项目 IPC 处理器]

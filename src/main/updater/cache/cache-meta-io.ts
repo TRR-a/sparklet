@@ -4,8 +4,8 @@ import * as fs from 'fs-extra';
 import {
   getUpdateCacheDir,
   getUpdateCacheMetaPath,
-} from '../core/updater-paths.js';
-import type { CacheMeta } from 'sparklet/shared/types/updater';
+} from '../startup/updater-paths.js';
+import type { CacheMeta } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Ensure cache directory and meta file exist [确保缓存目录和 meta 文件存在]

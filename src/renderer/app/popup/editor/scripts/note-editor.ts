@@ -6,10 +6,10 @@
 // Re-export note operations for backward compatibility [重新导出笔记操作以保持向后兼容]
 export { saveCurrentNote, debounceSave, createNewNote, changeNoteColor, togglePinNote, toggleStarNote } from '../../note/scripts/note-operations.js';
 // Re-export list rendering for backward compatibility [重新导出列表渲染以保持向后兼容]
-export { renderNoteList } from '../../note/scripts/note-list.js';
+export { renderNoteList } from '../../note/list/scripts/note-list.js';
 export { bindNoteMenuGlobalHandler } from '../../note/scripts/note-menu.js';
-export { showNoteInfo } from '../../modals/scripts/note-info-modal.js';
-export type { NoteListItem } from '../../note/scripts/note-list.js';
+export { showNoteInfo } from '../../modals/history/scripts/note-info-modal.js';
+export type { NoteListItem } from '../../note/list/scripts/note-list.js';
 
 export {
   setCurrentNoteId,

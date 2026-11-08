@@ -1,8 +1,8 @@
 // Note action: edit tags via prompt [笔记操作 - 通过弹窗编辑标签]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { refreshNoteListView } from './note-search.js';
+import { refreshNoteListView } from '../list/scripts/note-search.js';
 
 /**
  * Edit note tags via a prompt (comma-separated) [通过弹窗编辑笔记标签 (逗号分隔)]

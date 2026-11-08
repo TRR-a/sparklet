@@ -1,9 +1,9 @@
 // Note save: persist the open note [笔记保存 - 写入当前打开的笔记]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { getCurrentNoteId } from '../../editor/scripts/note-editor.js';
-import { refreshNoteListView } from './note-search.js';
+import { refreshNoteListView } from '../list/scripts/note-search.js';
 import { clearSaveTimers } from './note-save-debounce.js';
 
 /**

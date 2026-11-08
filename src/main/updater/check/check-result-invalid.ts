@@ -1,6 +1,6 @@
 // Update check: invalid-release result [更新检查 - 无效 Release 结果]
 
-import type { CheckResult } from 'sparklet/shared/types/updater';
+import type { CheckResult } from 'sparklet/shared/types/updater/updater.js';
 
 /** Build the result for a release that carries no usable package [构造无可用安装包的 Release 结果] */
 export function buildInvalidReleaseResult(

@@ -1,10 +1,10 @@
 // Editor: startup note loading [编辑器 - 启动时加载]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { renderNoteList } from '../../note/scripts/note-list.js';
+import { renderNoteList } from '../../note/list/scripts/note-list.js';
 import { bindNoteMenuGlobalHandler } from '../../note/scripts/note-menu.js';
-import { bindNoteInfoModalHandlers } from '../../modals/scripts/note-info-modal.js';
+import { bindNoteInfoModalHandlers } from '../../modals/history/scripts/note-info-modal.js';
 import { getCurrentNoteId, setCurrentNoteId } from './editor-state.js';
 import { loadNoteIntoEditor } from './editor-load.js';
 import { togglePreview } from './editor-preview.js';

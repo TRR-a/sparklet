@@ -9,22 +9,22 @@ export {
   removeProjectFromWorkspace,
   toggleProject,
   getWorkspaceProjects,
-} from './project-workspace.js';
+} from '../workspace/scripts/project-workspace.js';
 
-export type { WorkspaceProject } from './project-workspace.js';
+export type { WorkspaceProject } from '../workspace/scripts/project-workspace.js';
 
 export {
   renderWorkspace,
   getFileIcon,
-} from './project-tree.js';
+} from '../tree/scripts/project-tree.js';
 
 export {
   previewFile,
   saveCurrentFile,
   closeFilePreview,
-} from './project-preview.js';
+} from '../preview/scripts/project-preview.js';
 
 export {
   createCodeEditor,
-} from './code-editor.js';
-export type { CodeEditor, CodeEditorOptions } from './code-editor.js';
+} from '../editor/scripts/code-editor.js';
+export type { CodeEditor, CodeEditorOptions } from '../editor/scripts/code-editor.js';

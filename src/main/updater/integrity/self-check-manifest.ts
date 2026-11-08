@@ -2,8 +2,8 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getAppRoot } from '../core/updater-paths.js';
-import type { ManifestEntry } from 'sparklet/shared/types/updater';
+import { getAppRoot } from '../startup/updater-paths.js';
+import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Load manifest.current.json from exe dir, then appRoot [从 exe 目录读取 manifest.current.json，其次 appRoot]

@@ -1,8 +1,8 @@
 // Settings window: settings sections bootstrap (updater / cache / IO) [设置窗口 - 各设置区引导 (更新/缓存/导入导出)]
 
-import { bindToastListener } from 'sparklet/renderer/shared/ui/toast.js';
+import { bindToastListener } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { bindUpdaterDialogListener } from 'sparklet/renderer/shared/updater/updater-dialog.js';
+import { bindUpdaterDialogListener } from 'sparklet/renderer/shared/updater/dialog/updater-dialog.js';
 import {
   loadUpdaterConfig,
   bindUpdaterEvents,
@@ -16,7 +16,7 @@ import {
 import {
   applyImportExportDevLock,
   bindImportExportEvents
-} from '../cache/scripts/config-io.js';
+} from '../cache/config-io/scripts/config-io.js';
 
 /**
  * Initialize updater, cache and import/export sections [初始化更新、缓存与导入导出区]

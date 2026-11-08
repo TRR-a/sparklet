@@ -1,8 +1,8 @@
 // Cache: prune excess versions [缓存 - 修剪超出上限的版本]
 
-import { CACHE_MAX_VERSIONS } from '../core/constants.js';
+import { CACHE_MAX_VERSIONS } from '../constants/constants.js';
 import { removeVersionCache } from './cache-meta.js';
-import type { CacheMeta } from 'sparklet/shared/types/updater';
+import type { CacheMeta } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Trim the cache down to CACHE_MAX_VERSIONS, never removing the just-registered version

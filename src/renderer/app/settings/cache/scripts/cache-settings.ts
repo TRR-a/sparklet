@@ -6,10 +6,10 @@
 
 import {
   loadCacheRetentionDays
-} from './cache-retention.js';
+} from '../retention/scripts/cache-retention.js';
 
 export { loadCacheRetentionDays };
-export { renderCacheInfo, loadCacheInfo } from './cache-info-view.js';
-export { handleClearCache } from './cache-actions.js';
-export { applyCacheDevLock } from './cache-dev-lock.js';
+export { renderCacheInfo, loadCacheInfo } from '../info/scripts/cache-info-view.js';
+export { handleClearCache } from '../actions/scripts/cache-actions.js';
+export { applyCacheDevLock } from '../actions/scripts/cache-dev-lock.js';
 export { bindCacheEvents } from './cache-events.js';

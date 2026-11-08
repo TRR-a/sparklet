@@ -4,7 +4,7 @@
 // exe hash comparison → self-check-hash.ts.
 
 import { app } from 'electron';
-import { getHashField } from '../core/verify.js';
+import { getHashField } from '../install/verify.js';
 import { loadCurrentManifestForSelfCheck } from './self-check-manifest.js';
 import { compareExeHash } from './self-check-hash.js';
 

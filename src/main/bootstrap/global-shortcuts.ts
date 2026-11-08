@@ -7,7 +7,7 @@
 // Split out [已拆分]：trigger actions → global-shortcuts-actions.ts.
 
 import { app, globalShortcut } from 'electron';
-import { logger } from '../services/logger';
+import { logger } from '../services/logger/logger.js';
 import { toggleHubWindow, broadcastNewNote, unregisterOnQuit } from './global-shortcuts-actions';
 
 /**

@@ -5,7 +5,7 @@
 // expected hash source → integrity-files-hash-source.ts,
 // scan/compare → integrity-files-compare.ts.
 
-import { getInstallRoot } from '../core/updater-paths.js';
+import { getInstallRoot } from '../startup/updater-paths.js';
 import { shouldSkipInstalledFilesCheck } from './integrity-files-gate.js';
 import { resolveExpectedFilesHash } from './integrity-files-hash-source.js';
 import { compareInstalledFiles } from './integrity-files-compare.js';

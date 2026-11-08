@@ -1,8 +1,8 @@
 // Note action: change color [笔记操作 - 更改颜色]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { updateActiveColor, getCurrentNoteId } from '../../editor/scripts/note-editor.js';
-import { refreshNoteListView } from './note-search.js';
+import { refreshNoteListView } from '../list/scripts/note-search.js';
 
 /**
  * Change note color [更改笔记颜色]

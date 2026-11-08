@@ -1,6 +1,6 @@
 // Editor: load note into editor [编辑器 - 加载笔记]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { closeAllMenus } from '../../note/scripts/note-menu.js';
 import { syncActiveNoteInList } from '../../note/scripts/note-virtual-list.js';
 import { getPreviewMode, setPreviewMode, setCurrentNoteId } from './editor-state.js';

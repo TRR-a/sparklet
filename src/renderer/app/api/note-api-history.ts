@@ -5,7 +5,7 @@ import type {
   NoteHistoryResult,
   NoteSnapshotResult,
   NoteSaveResult,
-} from 'sparklet/shared/types/notes.js';
+} from 'sparklet/shared/types/note/notes.js';
 
 export const noteHistoryApi = {
   history(id: string): Promise<NoteHistoryResult> {

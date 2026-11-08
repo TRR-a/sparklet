@@ -1,14 +1,14 @@
 // App lifecycle: ready sequence [应用生命周期 - 就绪序列]
 
 import { app } from 'electron';
-import { migrateFromStore } from '../services/migration-service';
+import { migrateFromStore } from '../services/migration/migration-service.js';
 import { createWelcomeWindow } from '../windows/welcome-window';
-import { initUpdater, checkUpdateManually } from '../updater/core/index.js';
+import { initUpdater, checkUpdateManually } from '../updater/index.js';
 import { registerAllIpcHandlers } from '../ipc';
-import { registerDevToolsShortcut } from '../ipc/window-ipc';
+import { registerDevToolsShortcut } from '../ipc/window/window-ipc.js';
 import { registerGlobalShortcuts } from '../bootstrap/global-shortcuts';
-import { runStartupIntegrityScan } from '../services/note-integrity';
-import { initLogger, installCrashLogging, logger } from '../services/logger';
+import { runStartupIntegrityScan } from '../services/note/io/note-integrity.js';
+import { initLogger, installCrashLogging, logger } from '../services/logger/logger.js';
 
 /**
  * Application lifecycle: ready [应用生命周期：就绪]

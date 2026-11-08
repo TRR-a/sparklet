@@ -1,8 +1,8 @@
 // Settings: save updater config [设置 - 保存更新配置]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
-import type { UpdaterConfig } from 'sparklet/shared/types/updater';
+import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
+import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
 import { getIsDevEnvironment, getUpdaterConfig, setUpdaterConfig } from './updater-config-state.js';
 

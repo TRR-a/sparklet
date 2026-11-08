@@ -1,8 +1,8 @@
 // Settings: react to external config changes [设置 - 响应外部配置变更]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
-import type { UpdaterConfig } from 'sparklet/shared/types/updater';
+import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
+import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
 import { broadcastApi } from 'sparklet/renderer/shared/index.js';
 import { setUpdaterConfig } from './updater-config-state.js';
 import { loadUpdaterConfig } from './updater-config-load.js';

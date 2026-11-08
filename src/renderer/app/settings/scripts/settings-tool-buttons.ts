@@ -1,6 +1,6 @@
 // Settings: tool buttons [设置 - 工具按钮]
 
-import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
+import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { windowApi, appApi } from 'sparklet/renderer/shared/index.js';
 

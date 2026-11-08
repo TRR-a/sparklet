@@ -2,8 +2,8 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../core/updater-paths.js';
-import type { CacheMeta } from 'sparklet/shared/types/updater';
+import { getUpdateCacheDir } from '../startup/updater-paths.js';
+import type { CacheMeta } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Delete single version cache (zip file + meta entry) [删除单个版本缓存 (zip 文件 + meta 条目)]

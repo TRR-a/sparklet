@@ -4,8 +4,8 @@
 //
 // Split out [已拆分]：result builders → check-results.ts.
 
-import { classifyNetworkError } from '../core/updater-error.js';
-import type { CheckResult } from 'sparklet/shared/types/updater';
+import { classifyNetworkError } from '../startup/updater-error.js';
+import type { CheckResult } from 'sparklet/shared/types/updater/updater.js';
 import { getCurrentVersion, compareVersions } from './check-version.js';
 import { fetchLatestRelease } from './check-fetch.js';
 import { validateRelease } from './check-manifest.js';

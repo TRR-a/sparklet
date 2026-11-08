@@ -8,8 +8,8 @@
 
 import { installGlobalErrorHooks, broadcastApi } from 'sparklet/renderer/shared/index.js';
 import { applyCacheDevLock } from '../cache/scripts/cache-settings.js';
-import { applyImportExportDevLock } from '../cache/scripts/config-io.js';
-import { initCustomDropdowns } from '../ui/scripts/custom-dropdown.js';
+import { applyImportExportDevLock } from '../cache/config-io/scripts/config-io.js';
+import { initCustomDropdowns } from '../ui/dropdown/scripts/custom-dropdown.js';
 import { loadThemeAndI18n } from './settings-theme-i18n.js';
 import { initSettingsSections } from './settings-sections-init.js';
 import { bindCleanupButtons } from './settings-cleanup.js';

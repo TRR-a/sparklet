@@ -2,9 +2,9 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../core/updater-paths.js';
+import { getUpdateCacheDir } from '../startup/updater-paths.js';
 import { readMeta } from './cache-meta.js';
-import type { VerifyCachedZipResult } from 'sparklet/shared/types/updater';
+import type { VerifyCachedZipResult } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Quick check if cached ZIP for a version is intact (compare packageHash) [快速检查缓存中指定版本的 ZIP 是否完好 (对比 packageHash)]

@@ -3,7 +3,7 @@
 // Split out [已拆分]：create → storage-note-create.ts, update → storage-note-update.ts,
 // delete → storage-note-delete.ts, restore → storage-note-restore.ts.
 
-export { createNote } from './storage-note-create.js';
-export { updateNote } from './storage-note-update.js';
-export { deleteNote } from './storage-note-delete.js';
-export { restoreNote } from './storage-note-restore.js';
+export { createNote } from './note/storage-note-create.js';
+export { updateNote } from './note/storage-note-update.js';
+export { deleteNote } from './note/storage-note-delete.js';
+export { restoreNote } from './note/storage-note-restore.js';

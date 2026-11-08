@@ -3,11 +3,11 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../core/updater-paths.js';
-import { PACKAGE_NAME_PATTERN } from '../core/constants.js';
+import { getUpdateCacheDir } from '../startup/updater-paths.js';
+import { PACKAGE_NAME_PATTERN } from '../constants/constants.js';
 import { ensureCacheReady, readMeta, writeMeta } from './cache-meta.js';
 import { pruneCacheVersions } from './cache-register-prune.js';
-import type { CacheEntry } from 'sparklet/shared/types/updater';
+import type { CacheEntry } from 'sparklet/shared/types/updater/updater.js';
 
 /**
  * Sync downloaded ZIP to persistent cache directory and record meta [将下载完成的 ZIP 同步到持久缓存目录，并记录 meta]

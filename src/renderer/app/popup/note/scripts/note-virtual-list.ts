@@ -24,10 +24,10 @@ export type {
   VirtualItem,
   VirtualFactories,
   VirtualRenderOptions,
-} from './virtual-list-types.js';
+} from '../virtual/scripts/virtual-list-types.js';
 
-export { getActiveNoteId } from './virtual-list-state.js';
-export { renderVirtualNoteList } from './virtual-list-render.js';
-export { syncActiveNoteInList } from './virtual-list-active-sync.js';
-export { syncSelectionInList, getVirtualCardNoteIds, scrollNoteIntoView } from './virtual-list-selection-api.js';
-export { initVirtualList } from './virtual-list-init.js';
+export { getActiveNoteId } from '../virtual/scripts/virtual-list-state.js';
+export { renderVirtualNoteList } from '../virtual/scripts/virtual-list-render.js';
+export { syncActiveNoteInList } from '../virtual/scripts/virtual-list-active-sync.js';
+export { syncSelectionInList, getVirtualCardNoteIds, scrollNoteIntoView } from '../virtual/scripts/virtual-list-selection-api.js';
+export { initVirtualList } from '../virtual/scripts/virtual-list-init.js';

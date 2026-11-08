@@ -1,6 +1,6 @@
 // Editor: switch note [编辑器 - 切换笔记]
 
-import storageManager from 'sparklet/renderer/shared/storage/storage-manager.js';
+import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { closeFilePreview } from 'sparklet/renderer/app/project/scripts/project-view.js';
 import { saveCurrentNote } from '../../note/scripts/note-operations.js';
 import { loadNoteIntoEditor } from './editor-load.js';

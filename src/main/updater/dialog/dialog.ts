@@ -9,4 +9,4 @@ export type { ProgressCallback, CompleteCallback, DialogParams, DialogOptions } 
 export { formatDate, showUpdateDialog, showNotifyOnlyDialog, showRestartDialog } from './dialog-prompts.js';
 
 export { broadcastToast } from './dialog-toast.js';
-export { formatFriendlyUpdateError } from '../core/updater-error.js';
+export { formatFriendlyUpdateError } from '../startup/updater-error.js';

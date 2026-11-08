@@ -7,7 +7,7 @@ import type {
   NoteGetResult,
   NoteSaveResult,
   NoteOperationResult,
-} from 'sparklet/shared/types/notes.js';
+} from 'sparklet/shared/types/note/notes.js';
 
 export const noteCrudApi = {
   list(): Promise<NoteListResult> {

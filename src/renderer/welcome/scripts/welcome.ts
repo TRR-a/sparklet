@@ -11,12 +11,12 @@
 // tabs → welcome-tabs.ts, bootstrap steps → welcome-init-*.ts
 
 import { logApi, installGlobalErrorHooks } from '../../shared/index.js';
-import { initLanguage } from './welcome-init-language.js';
-import { initClockFormat } from './welcome-init-clock.js';
-import { bindBodyStateEvents } from './welcome-init-body-events.js';
-import { bindWelcomeChrome } from './welcome-init-chrome.js';
-import { applyFirstLaunchGreeting } from './welcome-init-greeting.js';
-import { initTabs } from './welcome-tabs.js';
+import { initLanguage } from '../init/scripts/welcome-init-language.js';
+import { initClockFormat } from '../init/scripts/welcome-init-clock.js';
+import { bindBodyStateEvents } from '../init/scripts/welcome-init-body-events.js';
+import { bindWelcomeChrome } from '../init/scripts/welcome-init-chrome.js';
+import { applyFirstLaunchGreeting } from '../init/scripts/welcome-init-greeting.js';
+import { initTabs } from '../tabs/scripts/welcome-tabs.js';
 
 async function init(): Promise<void> {
   // Uncaught errors/rejections go to the log file before anything else

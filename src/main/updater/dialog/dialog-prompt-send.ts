@@ -1,7 +1,7 @@
 // Renderer dialog: send + timeout wrapper [渲染层弹窗 - 发送与超时包装]
 
 import type { BrowserWindow } from 'electron';
-import type { DialogPayload, DialogResponse } from 'sparklet/shared/types/updater';
+import type { DialogPayload, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
 import { pendingDialogResponses } from './dialog-response.js';
 
 /** Send the dialog payload and resolve with the user's response (or fallback on timeout) [发送弹窗负载并以用户响应 (或超时兜底) 收尾] */

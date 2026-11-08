@@ -1,7 +1,7 @@
 // Settings window: preference switches (language / theme / clock) [设置窗口 - 偏好开关 (语言/主题/时钟)]
 
 import { loadLanguage, t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { showToast } from 'sparklet/renderer/shared/ui/toast.js';
+import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { setTheme } from 'sparklet/renderer/shared/ui/theme.js';
 import { storeApi, broadcastApi } from 'sparklet/renderer/shared/index.js';
 import { loadUpdateHint } from '../updater/scripts/updater-config.js';

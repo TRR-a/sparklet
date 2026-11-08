@@ -1,6 +1,6 @@
 // Storage manager: refresh + debug [存储管理器 - 刷新与调试]
 
-import type { NoteMeta } from 'sparklet/shared/types/notes';
+import type { NoteMeta } from 'sparklet/shared/types/note/notes.js';
 import { loadFromFS, getCache } from './storage-cache.js';
 
 /** Refresh cache (exposed for settings page / manual refresh) [刷新缓存 (对外暴露，设置页/手动刷新用)] */
