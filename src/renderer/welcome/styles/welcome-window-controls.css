@@ -1,0 +1,9 @@
+/* welcome-window-controls.css - window controls container */
+
+.window-controls {
+    -webkit-app-region: no-drag;
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-right: 15px;
+}

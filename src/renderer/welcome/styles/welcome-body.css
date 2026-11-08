@@ -1,0 +1,25 @@
+/* welcome-body.css - body base + maximized state */
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--shell-bg);
+    transition: background 0.35s ease, color 0.35s ease;
+    color: var(--color-text);
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    padding: 117px 10px 5px;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+body.maximized {
+    border-radius: 0;
+    box-shadow: none;
+}

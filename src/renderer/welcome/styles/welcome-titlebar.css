@@ -1,0 +1,53 @@
+/* welcome-titlebar.css - title bar + title rows + left wrap */
+
+/* ==================== Title bar [标题栏] ==================== */
+.title-bar {
+    position: absolute;
+    top: 0;
+    left: 3px;
+    right: 3px;
+    height: 117px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: transparent;
+    padding: 0;
+    -webkit-app-region: drag;
+    z-index: 9000;
+}
+
+.title-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10px;
+    right: -10px;
+    height: 33.33%;
+    background: var(--shell-top-bar);
+    z-index: -1;
+    -webkit-app-region: drag;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.title-row-top {
+    justify-content: space-between;
+    align-items: center;
+    height: 39px;
+}
+
+.title-row-bottom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 39px;
+}
+
+.shell-left-wrap {
+    display: flex;
+    align-items: center;
+}

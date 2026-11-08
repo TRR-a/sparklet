@@ -1,0 +1,31 @@
+/* welcome-exit-buttons.css - exit confirm buttons + button states */
+
+.kernel-exit-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.kernel-exit-btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.1s ease;
+}
+.kernel-exit-btn.return {
+    background: var(--color-hover);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+.kernel-exit-btn.quit {
+    background: var(--color-primary);
+    color: #fff;
+}
+.kernel-exit-btn:hover { filter: brightness(1.08); }
+.kernel-exit-btn:active { transform: scale(0.97); }
+.kernel-exit-btn.focused {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

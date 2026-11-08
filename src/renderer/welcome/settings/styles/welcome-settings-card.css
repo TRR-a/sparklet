@@ -1,0 +1,19 @@
+/* welcome-settings-card.css - section cards */
+
+/* ===== Section cards ===== */
+.settings-section {
+    margin-bottom: 16px;
+    padding: 16px 18px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    box-sizing: border-box;
+    box-shadow: var(--shadow);
+}
+.settings-section:last-child { margin-bottom: 0; }
+.settings-section h3 {
+    margin: 0 0 12px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+}

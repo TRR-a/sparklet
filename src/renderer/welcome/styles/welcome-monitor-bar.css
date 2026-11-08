@@ -1,0 +1,35 @@
+/* welcome-monitor-bar.css - monitor row + bar + fill tiers */
+
+.monitor-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 158px;
+    align-items: center;
+    gap: 10px;
+}
+
+.monitor-label {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.monitor-bar {
+    height: 8px;
+    border-radius: var(--radius-xs);
+    background-color: var(--color-hover);
+    overflow: hidden;
+}
+
+/* No transition: width/color transitions freeze at initial values in the frameless window [不加过渡：无边框窗口下宽度/颜色过渡会冻结在初始值] */
+.monitor-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: var(--radius-xs);
+    background-color: var(--color-primary);
+}
+
+/* Load tiers [负载分级] */
+.monitor-fill.warn { background-color: var(--color-warn); }
+.monitor-fill.danger { background-color: var(--color-danger); }

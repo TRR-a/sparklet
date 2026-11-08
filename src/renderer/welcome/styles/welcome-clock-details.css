@@ -1,0 +1,25 @@
+/* welcome-clock-details.css - clock details */
+
+/* Details: weekday, full date, week number, timezone [详细信息：星期、完整日期、周数、时区] */
+.time-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.detail-weekday {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.detail-date {
+    font-size: 0.85rem;
+    color: var(--color-text);
+}
+
+.detail-sub {
+    font-size: 0.72rem;
+    color: var(--color-muted);
+}

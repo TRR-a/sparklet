@@ -1,0 +1,14 @@
+/* settings-switch-states.css - checked + focus-visible states */
+
+.switch input:checked + .switch-slider {
+    background-color: var(--color-primary);
+}
+
+.switch input:checked + .switch-slider::before {
+    transform: translateX(18px);
+}
+
+.switch input:focus-visible + .switch-slider {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

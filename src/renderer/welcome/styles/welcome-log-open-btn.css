@@ -1,0 +1,24 @@
+/* welcome-log-open-btn.css - open-log button + full-row card */
+
+.log-open-btn {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--color-text);
+    font-size: 0.82rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.log-open-btn:hover {
+    background: var(--color-hover);
+    transform: translateY(-1px);
+}
+
+#logCard {
+    grid-column: 1 / -1;
+}

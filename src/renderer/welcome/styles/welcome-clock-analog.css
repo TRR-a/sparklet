@@ -1,0 +1,44 @@
+/* welcome-clock-analog.css - analog clock face + hands */
+
+/* ---- Analog clock + details card [圆时钟 + 详细信息卡片] ---- */
+.time-analog {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.analog-face {
+    width: 104px;
+    height: 104px;
+    flex-shrink: 0;
+}
+
+.analog-dot {
+    fill: var(--color-muted);
+}
+
+.analog-dot.major {
+    fill: var(--color-text);
+}
+
+.hand {
+    stroke: var(--color-text);
+    stroke-linecap: round;
+}
+
+.hand-hour {
+    stroke-width: 3.5;
+}
+
+.hand-minute {
+    stroke-width: 2.2;
+}
+
+.hand-second {
+    stroke: var(--color-primary);
+    stroke-width: 1.4;
+}
+
+.analog-center {
+    fill: var(--color-primary);
+}

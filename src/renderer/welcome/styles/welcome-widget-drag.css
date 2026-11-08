@@ -1,0 +1,36 @@
+/* welcome-widget-drag.css - time card + drag / drop-preview states */
+
+.time-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    box-shadow: var(--shadow);
+}
+
+/* --- Drag affordance [拖拽视觉] --- */
+.widget {
+    position: relative;
+}
+.widget.dragging {
+    position: fixed;
+    z-index: 100;
+    opacity: 0.85;
+    pointer-events: none;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    transform: rotate(0.5deg);
+}
+
+/* The card itself dimmed + dashed outline: it stays in the grid flow as the
+   live drop preview with the exact size it will have after dropping
+   [卡片本体弱化+虚线描边：留在 grid 流中作为实时预览，尺寸即松手后的真实尺寸] */
+.widget.slot-preview {
+    opacity: 0.35;
+    outline: 1.5px dashed var(--color-primary);
+    outline-offset: -2px;
+}

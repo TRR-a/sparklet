@@ -1,0 +1,22 @@
+/* welcome-shell-more-btn.css - more button */
+
+.shell-more-btn {
+    width: 33px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    background: var(--shell-top-bar);
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-app-region: no-drag;
+    transition: background 0.15s ease;
+}
+.shell-more-btn:hover {
+    background: var(--shell-btn-hover);
+}
+.shell-more-btn:active {
+    background: var(--shell-btn-hover);
+}

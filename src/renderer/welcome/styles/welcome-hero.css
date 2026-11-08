@@ -1,0 +1,18 @@
+/* welcome-hero.css - hero heading */
+
+.kernel-hero {
+    text-align: center;
+    padding: 12px 0 4px 0;
+}
+
+.kernel-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.kernel-subtitle {
+    margin-top: 6px;
+    font-size: 0.95rem;
+    color: var(--color-muted);
+}

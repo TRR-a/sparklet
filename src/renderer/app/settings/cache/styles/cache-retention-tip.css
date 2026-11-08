@@ -1,0 +1,10 @@
+/* cache-retention-tip.css - footnote tip */
+
+/* 底部提示 */
+.cache-retention-tip {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  opacity: 0.72;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}

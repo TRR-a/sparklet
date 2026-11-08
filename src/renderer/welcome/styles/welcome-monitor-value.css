@@ -1,0 +1,23 @@
+/* welcome-monitor-value.css - monitor value + long note */
+
+.monitor-value {
+    font-size: 0.78rem;
+    color: var(--color-text);
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Long explanatory value (e.g. non-NVIDIA GPU note) wraps instead of clipping [长说明文本 (如非 N 卡提示) 换行而非截断] */
+.monitor-value.long {
+    white-space: normal;
+    font-size: 0.7rem;
+    line-height: 1.3;
+    color: var(--color-muted);
+}
+
+.monitor-dynamic {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

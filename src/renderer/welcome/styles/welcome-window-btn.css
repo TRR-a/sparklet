@@ -1,0 +1,37 @@
+/* welcome-window-btn.css - traffic-light window buttons */
+
+.window-btn {
+    width: 14px;
+    height: 14px;
+    border: none;
+    border-radius: 50%;
+    font-size: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease, transform 0.1s ease, color 0.15s ease;
+    color: transparent; /* macOS 风格：默认纯色圆点，图标隐藏 */
+    flex-shrink: 0;
+}
+
+.window-btn.minimize { background-color: #febc2e; }
+.window-btn.maximize { background-color: #28c840; }
+.window-btn.close { background-color: #ff5f57; }
+.window-btn.pin { background-color: var(--color-primary); font-size: 0.85rem; }
+.window-btn.pin.active { background-color: var(--color-primary); filter: brightness(0.8); box-shadow: 0 0 8px rgba(0, 122, 255, 0.5); }
+
+/* 鼠标悬停单个按钮时显示该按钮的图标 */
+.window-btn.minimize:hover,
+.window-btn.maximize:hover,
+.window-btn.close:hover,
+.window-btn.pin:hover {
+    filter: brightness(0.8);
+    transform: scale(1.1);
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.window-btn:active {
+    filter: brightness(0.6);
+    transform: scale(0.95);
+}

@@ -1,0 +1,11 @@
+/* welcome-app-title.css - app title */
+
+.app-title {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: right;
+    flex-shrink: 0;
+    white-space: nowrap;
+}

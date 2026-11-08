@@ -1,0 +1,22 @@
+/* welcome-shell-dropdown.css - shell dropdown button */
+
+.shell-dropdown-btn {
+    width: 33px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    background: var(--shell-btn-bg);
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-app-region: no-drag;
+    transition: background 0.15s ease;
+}
+.shell-dropdown-btn:hover {
+    background: var(--shell-btn-hover);
+}
+.shell-dropdown-btn:active {
+    background: var(--shell-btn-hover);
+}

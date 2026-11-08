@@ -1,0 +1,11 @@
+/* welcome-content.css - kernel main column */
+
+/* ==================== Main content [内容区] ==================== */
+.kernel-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    min-height: 0;
+}

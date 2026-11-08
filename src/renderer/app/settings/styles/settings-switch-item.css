@@ -1,0 +1,15 @@
+/* settings-switch-item.css - switch row layout + label */
+
+.switch-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.switch-item label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+}

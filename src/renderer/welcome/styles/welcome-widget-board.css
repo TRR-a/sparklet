@@ -1,0 +1,21 @@
+/* welcome-widget-board.css - widget board grid */
+
+/* ==================== Widget board: draggable card grid [可拖拽卡片板] ==================== */
+/* Two-column grid; calendar spans two rows on the left, digital/analog stack on the right,
+   monitor spans the full row below. DOM order is user-reorderable.
+   [两列网格；日历左侧跨两行，数字钟/模拟钟右侧堆叠，监控下方跨整行。DOM 顺序可由用户拖拽重排] */
+.widget-board {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    grid-auto-rows: min-content;
+    gap: 16px;
+    align-items: start;
+}
+
+.time-calendar {
+    grid-row: span 2;
+}
+
+#monitorCard {
+    grid-column: 1 / -1;
+}

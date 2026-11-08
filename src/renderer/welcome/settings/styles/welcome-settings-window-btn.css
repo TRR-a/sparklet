@@ -1,0 +1,28 @@
+/* welcome-settings-window-btn.css - traffic-light buttons */
+
+/* Traffic lights [红绿灯] */
+.window-controls {
+    display: flex;
+    gap: 8px;
+    -webkit-app-region: no-drag;
+    z-index: 1;
+}
+.window-btn {
+    -webkit-app-region: no-drag;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+    font-size: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    color: transparent;
+    padding: 0;
+}
+.window-btn.minimize { background-color: #febc2e; }
+.window-btn.close { background-color: #ff5f57; }
+.window-btn:hover { filter: brightness(0.8); transform: scale(1.1); color: rgba(0, 0, 0, 0.6); }
+.window-btn:active { filter: brightness(0.6); transform: scale(0.95); }

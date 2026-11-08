@@ -1,0 +1,35 @@
+/* welcome-calendar-head.css - calendar title + weekday header + grid */
+
+/* ---- Calendar [日历] ---- */
+.calendar-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 10px;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+/* Hairline under the weekday header [星期表头下方一条极细分隔线] */
+.calendar-weekdays {
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 4px;
+}
+
+.calendar-weekday {
+    text-align: center;
+    font-size: 0.68rem;
+    color: var(--color-muted);
+}
+
+/* Rows spread evenly across the tall card [行在纵跨两行的高卡内均匀分布] */
+.calendar-grid {
+    flex: 1;
+    align-content: space-evenly;
+}

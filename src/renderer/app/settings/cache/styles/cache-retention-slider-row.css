@@ -1,0 +1,17 @@
+/* cache-retention-slider-row.css - slider row + min/max labels */
+
+/* 滑杆行 */
+.cache-retention-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.cache-retention-slider-row .slider-min,
+.cache-retention-slider-row .slider-max {
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.6;
+  min-width: 18px;
+  text-align: center;
+}

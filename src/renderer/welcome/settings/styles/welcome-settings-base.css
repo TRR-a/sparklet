@@ -1,0 +1,22 @@
+/* welcome-settings-base.css - html/body reset */
+
+/* ===== Reset ===== */
+html {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}

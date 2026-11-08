@@ -1,0 +1,36 @@
+/* welcome-settings-titlebar.css - title bar + drag region + window title */
+
+/* ===== Title bar ===== */
+.title-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    box-sizing: border-box;
+}
+.title-drag-region {
+    flex: 1;
+    -webkit-app-region: drag;
+    height: 100%;
+}
+[data-theme="dark"] .title-bar,
+[data-theme="blue"] .title-bar {
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+[data-theme="blue"] .title-bar {
+    border-bottom-color: rgba(74, 158, 255, 0.1);
+}
+.window-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-text);
+    pointer-events: none;
+}

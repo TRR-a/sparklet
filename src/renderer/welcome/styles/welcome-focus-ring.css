@@ -1,0 +1,8 @@
+/* welcome-focus-ring.css - keyboard focus ring */
+
+/* Keyboard focus ring for all interactive controls [所有交互控件的键盘焦点环] */
+.log-open-btn:focus-visible,
+.window-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

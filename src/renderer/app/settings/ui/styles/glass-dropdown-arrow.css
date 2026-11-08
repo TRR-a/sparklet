@@ -1,0 +1,11 @@
+/* glass-dropdown-arrow.css - arrow + expanded rotation */
+
+.gd-arrow {
+    opacity: 0.5;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.glass-dropdown-btn[aria-expanded="true"] .gd-arrow {
+    transform: rotate(180deg);
+}

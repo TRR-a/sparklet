@@ -1,0 +1,12 @@
+/* welcome-settings-form.css - form rows */
+
+/* ===== Form ===== */
+.setting-item { margin-bottom: 10px; }
+.setting-item:last-child { margin-bottom: 0; }
+.setting-item > label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    color: var(--color-text-secondary);
+}

@@ -1,0 +1,41 @@
+/* welcome-swiss-layout.css - swiss layout + section titles */
+
+/* Swiss International Style layout [瑞士国际主义布局] */
+.swiss-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.swiss-section {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+}
+
+.swiss-section-1 {
+    flex: 1;
+    justify-content: center;
+}
+
+.swiss-section-2,
+.swiss-section-3 {
+    flex: 0.5;
+}
+
+.swiss-title {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1;
+}
+
+.swiss-subtitle {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 12px 0 0 0;
+    line-height: 1;
+}

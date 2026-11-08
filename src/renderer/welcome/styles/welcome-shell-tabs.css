@@ -1,0 +1,36 @@
+/* welcome-shell-tabs.css - shell tabs + tab title */
+
+.shell-tabs {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 6px;
+    -webkit-app-region: no-drag;
+}
+
+.shell-tab {
+    width: 165px;
+    height: 34px;
+    margin-top: 4px;
+    border-radius: 8px 8px 0 0;
+    background: var(--shell-btn-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-app-region: no-drag;
+}
+
+.shell-tab.inactive {
+    background: var(--shell-top-bar);
+}
+
+.shell-tab-title {
+    flex: 1;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

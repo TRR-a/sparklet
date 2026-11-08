@@ -1,0 +1,28 @@
+/* settings-cache-confirm-buttons.css - button row + cancel/ok */
+
+.custom-confirm-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.custom-confirm-btn {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.custom-confirm-btn:hover  { opacity: 0.9; }
+.custom-confirm-btn:active { transform: scale(0.97); }
+
+.custom-confirm-btn.cancel {
+  background: rgba(128, 128, 128, 0.18);
+  color: var(--color-text-secondary);
+}
+.custom-confirm-btn.ok {
+  background: #ef4444;
+  color: white;
+}

@@ -1,0 +1,44 @@
+/* cache-retention-presets.css - preset day buttons */
+
+/* 预设天数按钮 */
+.cache-retention-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.retention-preset {
+  flex: 1 1 0;
+  min-width: 52px;
+  padding: 7px 0;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(128,128,128,0.25);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+[data-theme="dark"] .retention-preset , [data-theme="blue"] .retention-preset {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+}
+.retention-preset:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+.retention-preset:active:not(:disabled) {
+  transform: translateY(0);
+}
+.retention-preset.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 3px 10px rgba(59,130,246,0.35);
+}
+.retention-preset:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

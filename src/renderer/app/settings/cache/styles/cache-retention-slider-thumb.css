@@ -1,0 +1,39 @@
+/* cache-retention-slider-thumb.css - slider track + thumb (webkit/moz) */
+
+#cacheRetentionSlider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 10px;
+  background: rgba(128,128,128,0.25);
+  outline: none;
+}
+#cacheRetentionSlider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+#cacheRetentionSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.45);
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+#cacheRetentionSlider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+#cacheRetentionSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.45);
+  cursor: pointer;
+}

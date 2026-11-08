@@ -1,0 +1,8 @@
+/* welcome-blur.css - blurred background when settings open */
+
+/* Blur kernel content when settings window is open [设置窗口打开时内核内容虚化] */
+body.blur-background .kernel-shell {
+    filter: blur(6px) saturate(0.9);
+    transition: filter 0.2s ease;
+    pointer-events: none;
+}

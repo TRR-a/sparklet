@@ -1,0 +1,22 @@
+/* welcome-settings-buttons.css - button group + primary button */
+
+/* ===== Buttons ===== */
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.button-group .settings-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 14px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.button-group .settings-btn:hover { opacity: 0.9; }
+.button-group .settings-btn:active { transform: scale(0.98); }

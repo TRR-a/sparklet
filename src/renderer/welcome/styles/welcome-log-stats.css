@@ -1,0 +1,33 @@
+/* welcome-log-stats.css - log title + stats */
+
+.log-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.log-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.log-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.log-stat-num {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-danger);
+}
+
+.log-stat-num.warn {
+    color: var(--color-warn);
+}
+
+.log-stat-label {
+    font-size: 0.72rem;
+    color: var(--color-muted);
+}
