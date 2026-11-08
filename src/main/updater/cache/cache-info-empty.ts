@@ -1,6 +1,6 @@
 // Cache info: empty-cache shape [缓存信息 - 空缓存结构]
 
-import { formatBytes } from './cache-size-format.js';
+import { formatBytes } from 'sparklet/main/updater/cache/cache-size-format.js';
 import type { CacheInfo } from 'sparklet/shared/types/updater/updater.js';
 
 /** Build the "no cache" info object [构造「无缓存」信息对象] */

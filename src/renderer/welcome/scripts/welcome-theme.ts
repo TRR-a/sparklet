@@ -1,6 +1,6 @@
 // Welcome theme application [欢迎页主题应用]
 
-import { storeApi, broadcastApi } from '../../shared/index.js';
+import { storeApi, broadcastApi } from 'sparklet/renderer/shared/index.js';
 
 // ========== Theme [主题] ==========
 export async function loadTheme(): Promise<void> {

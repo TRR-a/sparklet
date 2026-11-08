@@ -14,6 +14,6 @@
 // Split out [已拆分]：store/write → note-history-store.ts,
 // read/list → note-history-read.ts, cleanup → note-history-clear.ts.
 
-export { snapshotNote, maybeSnapshotOnSave } from '../history/note-history-store.js';
-export { listHistory, getSnapshot, getLatestSnapshot } from '../history/note-history-read.js';
-export { removeHistory, clearAllHistory } from '../history/note-history-clear.js';
+export { snapshotNote, maybeSnapshotOnSave } from 'sparklet/main/services/note/history/note-history-store.js';
+export { listHistory, getSnapshot, getLatestSnapshot } from 'sparklet/main/services/note/history/note-history-read.js';
+export { removeHistory, clearAllHistory } from 'sparklet/main/services/note/history/note-history-clear.js';

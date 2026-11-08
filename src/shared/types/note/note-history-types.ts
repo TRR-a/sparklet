@@ -1,6 +1,6 @@
 // Note history / snapshot types [笔记历史与快照类型]
 
-import type { Note } from './note-entity.js';
+import type { Note } from 'sparklet/shared/types/note/note-entity.js';
 
 /** Full snapshot file content stored under .history/{id}/ [存放于 .history/{id}/ 的完整快照文件] */
 export interface NoteSnapshot {

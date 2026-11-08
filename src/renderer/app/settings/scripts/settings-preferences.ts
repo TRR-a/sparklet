@@ -4,7 +4,7 @@ import { loadLanguage, t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { setTheme } from 'sparklet/renderer/shared/ui/theme.js';
 import { storeApi, broadcastApi } from 'sparklet/renderer/shared/index.js';
-import { loadUpdateHint } from '../updater/scripts/updater-config.js';
+import { loadUpdateHint } from 'sparklet/renderer/app/settings/updater/scripts/updater-config.js';
 
 /** Bind language / theme / clock-format switches (includes custom dropdown init) [绑定语言/主题/时钟制式开关 (含自定义下拉初始化)] */
 export async function bindPreferences(): Promise<void> {

@@ -1,8 +1,8 @@
 // Updater dialog: show + render [更新器弹窗 - 显示与渲染]
 
-import { buildDialogContent, openExternal } from './content/updater-dialog-content.js';
-import { makeDialogResponder } from './updater-dialog-response.js';
-import { renderDialogButtons } from './updater-dialog-buttons.js';
+import { buildDialogContent, openExternal } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content.js';
+import { makeDialogResponder } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-response.js';
+import { renderDialogButtons } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-buttons.js';
 
 /**
  * Show updater dialog based on type, user response sent back via IPC [根据类型显示更新器弹窗，用户响应通过 IPC 回传]

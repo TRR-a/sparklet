@@ -1,6 +1,6 @@
 ﻿// System monitor renderer-side API [系统监控渲染侧 API]
 
-import { bus } from '../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 import type { SystemStats } from 'sparklet/shared/types/system.js';
 
 export const systemApi = {

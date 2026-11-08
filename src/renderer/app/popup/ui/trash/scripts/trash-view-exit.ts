@@ -1,8 +1,8 @@
 // Trash view: exit back to main [回收站视图 - 退回主视图]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { setCurrentView } from './trash-view-state.js';
-import { loadMainView } from './trash-view-main.js';
+import { setCurrentView } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-state.js';
+import { loadMainView } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-main.js';
 
 /**
  * Exit trash view: restore main chrome, clear stale overlays, reload list [退出回收站视图：恢复主控件、清残留遮罩、重载列表]

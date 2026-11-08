@@ -2,18 +2,18 @@
 // Split out [已拆分]：entity → note-entity.ts, CRUD results → note-crud-result.ts,
 // history → note-history-types.ts, integrity → note-integrity-types.ts.
 
-export type { Note, NoteMeta } from './note-entity.js';
+export type { Note, NoteMeta } from 'sparklet/shared/types/note/note-entity.js';
 export type {
   NoteListResult,
   NoteGetResult,
   NoteSaveResult,
   NoteOperationResult,
   NoteSearchResult,
-} from './note-crud-result.js';
+} from 'sparklet/shared/types/note/note-crud-result.js';
 export type {
   NoteSnapshot,
   NoteHistoryEntry,
   NoteHistoryResult,
   NoteSnapshotResult,
-} from './note-history-types.js';
-export type { NoteIntegrityReport, NoteIntegrityReportResult } from './note-integrity-types.js';
+} from 'sparklet/shared/types/note/note-history-types.js';
+export type { NoteIntegrityReport, NoteIntegrityReportResult } from 'sparklet/shared/types/note/note-integrity-types.js';

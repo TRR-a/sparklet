@@ -1,9 +1,9 @@
 // Update flow: unexpected failure handling [更新流程 - 异常失败处理]
 
-import { formatFriendlyUpdateError } from '../../dialog/dialog.js';
-import type { CompleteCallback } from '../../dialog/dialog.js';
-import { cleanupUpdateArtifacts } from '../update-flow-cleanup.js';
-import type { FlowArtifacts } from './update-flow-stages-install.js';
+import { formatFriendlyUpdateError } from 'sparklet/main/updater/dialog/dialog.js';
+import type { CompleteCallback } from 'sparklet/main/updater/dialog/dialog.js';
+import { cleanupUpdateArtifacts } from 'sparklet/main/updater/flow/update-flow-cleanup.js';
+import type { FlowArtifacts } from 'sparklet/main/updater/flow/stages/update-flow-stages-install.js';
 
 /** Clean up artifacts, report the raw + friendly error, and clear the updating flag [清理产物、回报原始与友好错误并复位更新标记] */
 export async function handleFlowError(

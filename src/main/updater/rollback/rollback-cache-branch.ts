@@ -1,9 +1,9 @@
 // Rollback: cached-zip branch [回滚 - 缓存分支]
 
-import { promptRendererDialog } from '../dialog/dialog.js';
-import { openReleasePage } from './rollback-release.js';
-import { reinstallFromCache } from './rollback-reinstall.js';
-import type { RollbackContext } from './rollback-types.js';
+import { promptRendererDialog } from 'sparklet/main/updater/dialog/dialog.js';
+import { openReleasePage } from 'sparklet/main/updater/rollback/rollback-release.js';
+import { reinstallFromCache } from 'sparklet/main/updater/rollback/rollback-reinstall.js';
+import type { RollbackContext } from 'sparklet/main/updater/rollback/rollback-types.js';
 
 /**
  * Cache is intact: ask the user whether to reinstall or open the release page

@@ -8,7 +8,7 @@ import {
   replaceSelectedIds,
   setSelectionMode,
   toggleSelectedId,
-} from './selection-store.js';
+} from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-store.js';
 
 /** Enter multi-select mode (keeps current selection, starts empty if none) [进入多选模式 (保留当前选择，无则从空开始)] */
 export function enterSelectionMode(): void {

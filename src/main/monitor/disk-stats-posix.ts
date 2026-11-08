@@ -1,7 +1,7 @@
 // Disk stats: POSIX enumeration [磁盘状态 - POSIX 枚举]
 
-import { run } from './system-command.js';
-import type { DiskStats } from 'sparklet/shared/types/system';
+import { run } from 'sparklet/main/monitor/system-command.js';
+import type { DiskStats } from 'sparklet/shared/types/system.js';
 
 /** Enumerate mounts via `df -Pk` [经 `df -Pk` 枚举挂载点] */
 export async function readPosixDisks(): Promise<DiskStats[]> {

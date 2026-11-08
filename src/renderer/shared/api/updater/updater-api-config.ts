@@ -1,6 +1,6 @@
 // Updater API: config read/write [更新 API - 配置读写]
 
-import { bus } from '../../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
 
 export const updaterApiConfig = {

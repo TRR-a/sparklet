@@ -1,8 +1,8 @@
 // Updater dialog content: manual update failed [更新器弹窗内容 - 手动更新失败]
 
-import { t } from '../../../i18n/i18n.js';
-import { escapeHtml } from '../../../ui/dom/dom-utils.js';
-import type { DialogContent } from '../updater-dialog-types.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 // ========== 7. Manual update failed (single button) [手动更新失败 (单按钮)] ==========
 export function buildManualUpdateFailed(params: Record<string, unknown>): DialogContent {

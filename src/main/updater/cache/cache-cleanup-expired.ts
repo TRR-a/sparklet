@@ -3,9 +3,9 @@
 import {
   DEFAULT_CACHE_SUCCESS_RETENTION_DAYS,
   CACHE_MAX_VERSIONS
-} from '../constants/constants.js';
-import { readMeta, writeMeta, removeVersionCache } from './cache-meta.js';
-import { isEntryExpired, orderVersionsForCountLimit } from './cache-expiry-policy.js';
+} from 'sparklet/main/updater/constants/constants.js';
+import { readMeta, writeMeta, removeVersionCache } from 'sparklet/main/updater/cache/cache-meta.js';
+import { isEntryExpired, orderVersionsForCountLimit } from 'sparklet/main/updater/cache/cache-expiry-policy.js';
 
 /**
  * Clean expired cache based on retention policy [根据保留策略清理过期缓存]

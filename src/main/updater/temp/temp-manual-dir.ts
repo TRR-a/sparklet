@@ -3,8 +3,8 @@
 import * as fs from 'fs-extra';
 import { dialog } from 'electron';
 import type { TempDirResult } from 'sparklet/shared/types/updater/updater.js';
-import { cleanDirectory } from './temp-clean.js';
-import { askDirNotEmpty, type TempDirDialogs } from './temp-dialogs.js';
+import { cleanDirectory } from 'sparklet/main/updater/temp/temp-clean.js';
+import { askDirNotEmpty, type TempDirDialogs } from 'sparklet/main/updater/temp/temp-dialogs.js';
 
 /**
  * Pick a directory manually (reselect loops back to acquire) [手动选择目录 (重选则回到获取流程)]

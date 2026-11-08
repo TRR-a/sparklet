@@ -24,10 +24,10 @@ export type {
   VirtualItem,
   VirtualFactories,
   VirtualRenderOptions,
-} from '../virtual/scripts/virtual-list-types.js';
+} from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-types.js';
 
-export { getActiveNoteId } from '../virtual/scripts/virtual-list-state.js';
-export { renderVirtualNoteList } from '../virtual/scripts/virtual-list-render.js';
-export { syncActiveNoteInList } from '../virtual/scripts/virtual-list-active-sync.js';
-export { syncSelectionInList, getVirtualCardNoteIds, scrollNoteIntoView } from '../virtual/scripts/virtual-list-selection-api.js';
-export { initVirtualList } from '../virtual/scripts/virtual-list-init.js';
+export { getActiveNoteId } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
+export { renderVirtualNoteList } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-render.js';
+export { syncActiveNoteInList } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-active-sync.js';
+export { syncSelectionInList, getVirtualCardNoteIds, scrollNoteIntoView } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-selection-api.js';
+export { initVirtualList } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-init.js';

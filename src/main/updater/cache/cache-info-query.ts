@@ -1,7 +1,7 @@
 // Cache info query (meta-reading wrapper) [缓存信息查询 - 读 meta 的包装]
 
-import { readMeta } from './cache-meta.js';
-import { getLatestCacheInfo as computeLatestCacheInfo } from './cache-info.js';
+import { readMeta } from 'sparklet/main/updater/cache/cache-meta.js';
+import { getLatestCacheInfo as computeLatestCacheInfo } from 'sparklet/main/updater/cache/cache-info.js';
 import type { CacheInfo } from 'sparklet/shared/types/updater/updater.js';
 
 /**

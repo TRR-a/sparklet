@@ -3,8 +3,8 @@
 // Split out [已拆分]：debounce timers → note-save-debounce.ts,
 // persist → note-save-core.ts.
 
-import { clearSaveTimers, debounceSave as runDebounce } from './note-save-debounce.js';
-import { saveCurrentNote } from './note-save-core.js';
+import { clearSaveTimers, debounceSave as runDebounce } from 'sparklet/renderer/app/popup/note/scripts/note-save-debounce.js';
+import { saveCurrentNote } from 'sparklet/renderer/app/popup/note/scripts/note-save-core.js';
 
 export { clearSaveTimers, saveCurrentNote };
 

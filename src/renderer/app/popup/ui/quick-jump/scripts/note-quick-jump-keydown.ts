@@ -1,7 +1,7 @@
 // Note quick jump: keydown handling [笔记快速跳转 - 按键处理]
 
-import { getHintsVisible, hideHints, isMainView, isModalOpen, showHints } from './note-quick-jump-hints.js';
-import { digitIndex, jumpToIndex } from './note-quick-jump-target.js';
+import { getHintsVisible, hideHints, isMainView, isModalOpen, showHints } from 'sparklet/renderer/app/popup/ui/quick-jump/scripts/note-quick-jump-hints.js';
+import { digitIndex, jumpToIndex } from 'sparklet/renderer/app/popup/ui/quick-jump/scripts/note-quick-jump-target.js';
 
 /** Global keydown handler (capture phase) [全局按键处理器 (capture 阶段)] */
 export function onQuickJumpKeyDown(e: KeyboardEvent): void {

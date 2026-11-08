@@ -3,10 +3,10 @@
 // Split out [已拆分]：open/close → welcome-settings-select-open.ts,
 // setup → welcome-settings-select-setup.ts, value setter → welcome-settings-select-value.ts.
 
-import { closeAllSelects } from './welcome-settings-select-open.js';
+import { closeAllSelects } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select-open.js';
 
-export { setupCustomSelect } from './welcome-settings-select-setup.js';
-export { setCustomSelectValue } from './welcome-settings-select-value.js';
+export { setupCustomSelect } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select-setup.js';
+export { setCustomSelectValue } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select-value.js';
 
 // Close dropdowns when clicking outside [点击外部关闭下拉框]
 document.addEventListener('click', () => {

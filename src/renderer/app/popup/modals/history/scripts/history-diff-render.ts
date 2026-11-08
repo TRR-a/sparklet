@@ -1,7 +1,7 @@
 // Line diff for history snapshots: render [历史快照行级差异 - 渲染]
 
 import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
-import { diffLines } from './history-diff-lines.js';
+import { diffLines } from 'sparklet/renderer/app/popup/modals/history/scripts/history-diff-lines.js';
 
 /**
  * Render the diff (or plain preview fallback) into the detail panel

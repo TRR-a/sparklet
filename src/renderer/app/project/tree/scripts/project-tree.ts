@@ -4,11 +4,11 @@
 // [文件节点在 project-tree-node.ts，图标在 project-file-icon.ts，
 //  单个项目节点在 project-tree-project-node.ts，磁盘刷新在 project-tree-refresh.ts]
 
-import { workspaceProjects } from '../../workspace/scripts/project-workspace.js';
-import { buildProjectNode } from './project-tree-project-node.js';
-import { rerenderProjectContaining } from './project-tree-refresh.js';
+import { workspaceProjects } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace.js';
+import { buildProjectNode } from 'sparklet/renderer/app/project/tree/scripts/project-tree-project-node.js';
+import { rerenderProjectContaining } from 'sparklet/renderer/app/project/tree/scripts/project-tree-refresh.js';
 
-export { getFileIcon } from '../../scripts/project-file-icon.js';
+export { getFileIcon } from 'sparklet/renderer/app/project/scripts/project-file-icon.js';
 
 /**
  * Render the entire workspace [渲染整个工作区]

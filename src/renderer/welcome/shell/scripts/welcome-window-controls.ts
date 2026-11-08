@@ -1,6 +1,6 @@
 // Welcome window controls [欢迎页窗口控制]
 
-import { windowApi } from '../../../shared/index.js';
+import { windowApi } from 'sparklet/renderer/shared/index.js';
 
 // ========== Window controls [窗口控制] ==========
 export function bindWindowControls(): void {

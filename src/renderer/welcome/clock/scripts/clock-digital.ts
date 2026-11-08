@@ -1,6 +1,6 @@
 // Welcome clock: digital time readout [欢迎页时钟 - 电子时间显示]
 
-import { pad2 } from './clock-format.js';
+import { pad2 } from 'sparklet/renderer/welcome/clock/scripts/clock-format.js';
 
 /** 12-hour format toggle for the digital clock (default 24h) [电子时钟 12 小时制开关 (默认 24 小时制)] */
 let use12Hour = false;

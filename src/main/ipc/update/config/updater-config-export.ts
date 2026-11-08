@@ -2,7 +2,7 @@
 
 import { ipcMain, app, dialog, BrowserWindow } from 'electron';
 import * as fs from 'fs-extra';
-import { readConfig } from '../../../updater/config/config-manager.js';
+import { readConfig } from 'sparklet/main/updater/config/config-manager.js';
 
 /**
  * Register export-file handler [注册导出文件处理器]

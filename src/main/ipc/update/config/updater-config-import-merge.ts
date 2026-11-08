@@ -4,8 +4,8 @@
 // value normalizers → updater-config-import-normalize.ts.
 
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
-import { IMPORT_WHITE_LIST } from './updater-config-import-set.js';
-import { mergeOneField } from './updater-config-import-field.js';
+import { IMPORT_WHITE_LIST } from 'sparklet/main/ipc/update/config/updater-config-import-set.js';
+import { mergeOneField } from 'sparklet/main/ipc/update/config/updater-config-import-field.js';
 
 /**
  * Merge imported raw config into the current base, applying per-field validation

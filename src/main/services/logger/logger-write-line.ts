@@ -1,10 +1,10 @@
 // Logger: single-line write pipeline [日志 - 单行写入管线]
 
 import * as fs from 'fs';
-import { LEVEL_WEIGHT, timestamp } from './logger-format.js';
-import type { LogLevel } from './logger-format.js';
-import { resolve } from './logger-paths.js';
-import { getMinWeight, isConsoleBroken, isLoggerReady } from './logger-state.js';
+import { LEVEL_WEIGHT, timestamp } from 'sparklet/main/services/logger/logger-format.js';
+import type { LogLevel } from 'sparklet/main/services/logger/logger-format.js';
+import { resolve } from 'sparklet/main/services/logger/logger-paths.js';
+import { getMinWeight, isConsoleBroken, isLoggerReady } from 'sparklet/main/services/logger/logger-state.js';
 
 /** Write a log line [写入一行日志] */
 export function write(level: LogLevel, scope: string, tag: string, message: string): void {

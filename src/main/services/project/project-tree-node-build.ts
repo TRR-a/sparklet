@@ -4,9 +4,9 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import type { ProjectFileNode } from 'sparklet/shared/types/project';
-import { MAX_DEPTH } from './project-tree-skip.js';
-import { listSortedEntries } from './project-tree-entries.js';
+import type { ProjectFileNode } from 'sparklet/shared/types/project.js';
+import { MAX_DEPTH } from 'sparklet/main/services/project/project-tree-skip.js';
+import { listSortedEntries } from 'sparklet/main/services/project/project-tree-entries.js';
 
 /**
  * Build a single file tree node [构建单个文件树节点]

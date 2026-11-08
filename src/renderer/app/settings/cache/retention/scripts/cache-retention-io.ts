@@ -2,5 +2,5 @@
 //
 // Split out [已拆分]：save → cache-retention-save.ts, load → cache-retention-load.ts.
 
-export { saveRetentionDays } from './cache-retention-save.js';
-export { loadCacheRetentionDays } from './cache-retention-load.js';
+export { saveRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-save.js';
+export { loadCacheRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-load.js';

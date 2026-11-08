@@ -1,7 +1,7 @@
 // Updater startup: clean expired cache [更新器启动 - 清理过期缓存]
 
-import { getConfigItem } from '../config/config-manager.js';
-import * as cacheManager from '../cache/cache-manager.js';
+import { getConfigItem } from 'sparklet/main/updater/config/config-manager.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
 
 /** Clean expired cache shortly after startup [启动后稍候清理过期缓存] */
 export function scheduleStartupCacheCleanup(): void {

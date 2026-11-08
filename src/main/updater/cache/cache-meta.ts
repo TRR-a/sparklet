@@ -4,5 +4,5 @@
 // Split out [已拆分]：readiness/read/write → cache-meta-io.ts,
 // single version removal → cache-meta-remove.ts.
 
-export { ensureCacheReady, readMeta, writeMeta } from './cache-meta-io.js';
-export { removeVersionCache } from './cache-meta-remove.js';
+export { ensureCacheReady, readMeta, writeMeta } from 'sparklet/main/updater/cache/cache-meta-io.js';
+export { removeVersionCache } from 'sparklet/main/updater/cache/cache-meta-remove.js';

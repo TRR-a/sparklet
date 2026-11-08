@@ -1,8 +1,8 @@
 // Update cache: get-info handler [更新缓存 - 信息查询处理器]
 
 import { ipcMain } from 'electron';
-import * as cacheManager from '../../../updater/cache/cache-manager.js';
-import { getConfigItem } from '../../../updater/config/config-manager.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
+import { getConfigItem } from 'sparklet/main/updater/config/config-manager.js';
 
 /** Register the cache-info IPC handler [注册缓存信息 IPC 处理器] */
 export function registerUpdateCacheInfoHandler(): void {

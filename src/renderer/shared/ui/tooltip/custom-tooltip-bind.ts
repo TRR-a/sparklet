@@ -1,6 +1,6 @@
 // Custom tooltip: event bindings [自定义提示 - 事件接线]
 
-import { positionTooltip } from './custom-tooltip-position.js';
+import { positionTooltip } from 'sparklet/renderer/shared/ui/tooltip/custom-tooltip-position.js';
 
 /**
  * Bind hover / hide listeners for the tooltip [接线悬停显示与隐藏监听]

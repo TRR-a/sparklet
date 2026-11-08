@@ -8,11 +8,11 @@ export {
   markSuccessFirstLaunch,
   getCachedZipPath,
   verifyCachedZip,
-} from './cache-registry.js';
+} from 'sparklet/main/updater/cache/cache-registry.js';
 
 export {
   cleanupExpired,
   clearAllCache,
   clearCacheByVersion,
   getLatestCacheInfo,
-} from './cache-cleanup.js';
+} from 'sparklet/main/updater/cache/cache-cleanup.js';

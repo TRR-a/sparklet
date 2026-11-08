@@ -1,7 +1,7 @@
 // Installed files verify: expected hash source [已安装文件校验 - 期望哈希来源]
 
-import { fetchReleasesManifest, readCurrentManifest } from '../manifest/manifest-helper.js';
-import { getHashField, normalizeVersion } from '../install/verify.js';
+import { fetchReleasesManifest, readCurrentManifest } from 'sparklet/main/updater/manifest/manifest-helper.js';
+import { getHashField, normalizeVersion } from 'sparklet/main/updater/install/verify.js';
 
 /** Expected files hash and where it came from [期望的文件哈希及其来源] */
 export interface ExpectedFilesHash {

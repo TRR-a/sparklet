@@ -10,10 +10,10 @@ import {
   setConfigItem,
   getCheckInterval,
   getUpdateBehavior
-} from '../../../updater/config/config-manager.js';
+} from 'sparklet/main/updater/config/config-manager.js';
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
-import { registerUpdaterConfigExportHandler } from './updater-config-export.js';
-import { registerUpdaterConfigImportHandler } from './updater-config-import.js';
+import { registerUpdaterConfigExportHandler } from 'sparklet/main/ipc/update/config/updater-config-export.js';
+import { registerUpdaterConfigImportHandler } from 'sparklet/main/ipc/update/config/updater-config-import.js';
 
 /**
  * Register updater config IPC handlers [注册更新配置 IPC 处理器]

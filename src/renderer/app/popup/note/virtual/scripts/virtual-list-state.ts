@@ -1,7 +1,7 @@
 // Virtual list: shared state [虚拟列表 - 共享状态]
 
-import type { VirtualItem, VirtualFactories } from './virtual-list-types.js';
-import { computeOffsets } from './virtual-list-geometry.js';
+import type { VirtualItem, VirtualFactories } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-types.js';
+import { computeOffsets } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-geometry.js';
 
 /** Flat item model [展平的条目模型] */
 let items: VirtualItem[] = [];

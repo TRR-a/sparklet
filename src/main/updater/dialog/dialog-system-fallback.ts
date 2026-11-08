@@ -2,7 +2,7 @@
 
 import { dialog } from 'electron';
 import type { DialogResponse } from 'sparklet/shared/types/updater/updater.js';
-import type { DialogParams } from './dialog-types.js';
+import type { DialogParams } from 'sparklet/main/updater/dialog/dialog-types.js';
 
 /**
  * System dialog fallback (only used when no window found or renderer doesn't respond, hardcodes English to avoid garbled text) Normally doesn't trigger, this is just basic fallback, no i18n guarantee [系统 dialog 兜底 (找不到窗口或渲染层不响应时才用，硬编码英文避免乱码) 一般情况下不触发，这里只做最基本保底，不保证 i18n]

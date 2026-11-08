@@ -1,7 +1,7 @@
 // Project tree node: row click behavior [项目树节点 - 行点击行为]
 
-import type { ProjectFileNode } from 'sparklet/shared/types/project';
-import { expandedDirs } from '../../workspace/scripts/project-workspace.js';
+import type { ProjectFileNode } from 'sparklet/shared/types/project.js';
+import { expandedDirs } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace.js';
 
 /**
  * Bind row click: directory → toggle expand, file → preview [绑定行点击：目录→展开/折叠，文件→预览]
@@ -25,7 +25,7 @@ export function bindNodeClick(
     });
   } else {
     row.addEventListener('click', () => {
-      import('../../preview/scripts/project-preview.js').then(({ previewFile }) => previewFile(node.path, node.name));
+      import('sparklet/renderer/app/project/preview/scripts/project-preview.js').then(({ previewFile }) => previewFile(node.path, node.name));
     });
   }
 }

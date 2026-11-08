@@ -2,7 +2,7 @@
 
 import * as https from 'https';
 import { URL } from 'url';
-import { DOWNLOAD_TIMEOUT_MS } from '../constants/constants.js';
+import { DOWNLOAD_TIMEOUT_MS } from 'sparklet/main/updater/constants/constants.js';
 
 /** Build the GET options for a sparklet update download [构造 sparklet 更新下载的 GET 参数] */
 export function buildDownloadOptions(url: string): https.RequestOptions {

@@ -4,7 +4,7 @@ import {
   CACHE_RETENTION_MIN_DAYS,
   CACHE_RETENTION_MAX_DAYS,
   DEFAULT_CACHE_SUCCESS_RETENTION_DAYS
-} from '../../../updater/constants/constants.js';
+} from 'sparklet/main/updater/constants/constants.js';
 
 /**
  * Normalize retention days to valid range [min, max] as integer [规范化保留天数到合法范围 [min, max] 并取整]

@@ -1,7 +1,7 @@
 // Note history: newest snapshot lookup [笔记历史 - 最新快照查询]
 
-import { listSnapshotTs } from './note-history-store.js';
-import { getSnapshot } from './note-history-snapshot-read.js';
+import { listSnapshotTs } from 'sparklet/main/services/note/history/note-history-store.js';
+import { getSnapshot } from 'sparklet/main/services/note/history/note-history-snapshot-read.js';
 import type { NoteSnapshot } from 'sparklet/shared/types/note/notes.js';
 
 /**

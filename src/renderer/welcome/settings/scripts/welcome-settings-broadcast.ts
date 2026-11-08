@@ -1,8 +1,8 @@
 // Settings window: cross-window broadcast sync [设置窗口 - 跨窗口广播同步]
 
 import { broadcastApi } from 'sparklet/renderer/shared/index.js';
-import { t, getLang, setLang, applyI18n } from './welcome-settings-i18n.js';
-import { setCustomSelectValue } from './welcome-settings-select.js';
+import { t, getLang, setLang, applyI18n } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-i18n.js';
+import { setCustomSelectValue } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select.js';
 
 /** Subscribe to theme/language/clock broadcasts [订阅主题/语言/时钟广播] */
 export function bindBroadcastSync(clockToggle: HTMLInputElement | null): void {

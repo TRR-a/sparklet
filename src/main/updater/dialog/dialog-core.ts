@@ -7,8 +7,8 @@ export type {
   CompleteCallback,
   DialogParams,
   DialogOptions
-} from './dialog-types.js';
+} from 'sparklet/main/updater/dialog/dialog-types.js';
 
-export { findAvailableWindow, promptRendererDialog } from './dialog-prompt.js';
+export { findAvailableWindow, promptRendererDialog } from 'sparklet/main/updater/dialog/dialog-prompt.js';
 
-export { ensureDialogResponseHandler } from './dialog-response.js';
+export { ensureDialogResponseHandler } from 'sparklet/main/updater/dialog/dialog-response.js';

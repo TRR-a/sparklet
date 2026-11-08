@@ -1,7 +1,7 @@
 // Migration: batch write [迁移 - 批量写入]
 
-import type { OldNote } from '../note/io/notes-service.js';
-import { migrateOneNote } from './migration-note-write.js';
+import type { OldNote } from 'sparklet/main/services/note/io/notes-service.js';
+import { migrateOneNote } from 'sparklet/main/services/migration/migration-note-write.js';
 
 /** Migrate every old note, counting successes and failures [迁移全部旧笔记，统计成功与失败数] */
 export async function migrateNoteBatch(

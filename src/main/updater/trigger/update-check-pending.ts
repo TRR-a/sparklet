@@ -1,9 +1,9 @@
 // Update check: pending install on exit [更新检查 - 退出时应用待处理更新]
 
 import { app } from 'electron';
-import { installUpdate } from '../install/installer.js';
-import { releaseTempDir } from '../temp/temp-manager.js';
-import { updaterStateInternal } from '../startup/update-state.js';
+import { installUpdate } from 'sparklet/main/updater/install/installer.js';
+import { releaseTempDir } from 'sparklet/main/updater/temp/temp-manager.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
 
 /**
  * Check and apply pending update on app exit [检查并应用退出前的待处理更新]

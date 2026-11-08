@@ -1,6 +1,6 @@
 // Welcome "more" menu [欢迎页"更多"菜单]
 
-import { windowApi } from '../../../shared/index.js';
+import { windowApi } from 'sparklet/renderer/shared/index.js';
 
 // ========== Init [初始化] ==========
 

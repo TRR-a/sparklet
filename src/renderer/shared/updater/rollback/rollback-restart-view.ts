@@ -1,7 +1,7 @@
 // Rollback dialog: restart confirm (two buttons) [回滚弹窗 - 重启确认 (双按钮)]
 
-import { t } from '../../i18n/i18n.js';
-import type { DialogContent } from '../dialog/updater-dialog-types.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 export function buildRollbackRestart(params: Record<string, unknown>): DialogContent {
   const title = t('dialog.rollbackRestart.title');

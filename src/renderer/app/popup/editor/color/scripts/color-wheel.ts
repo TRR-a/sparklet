@@ -8,11 +8,11 @@
 // Popover in color-wheel-popover.ts, pick/slider events in color-wheel-events.ts
 // [弹层在 color-wheel-popover.ts，选色与滑块事件在 color-wheel-events.ts]
 
-import { hsvToHex } from './color-convert.js';
-import { getHsv, drawWheel, updateDisplay } from './color-wheel-state.js';
-import { pushRecentColor, renderRecentColors, renderCandidates } from './color-recents.js';
-import { bindPopoverToggle } from './color-wheel-popover.js';
-import { bindWheelEvents } from './color-wheel-events.js';
+import { hsvToHex } from 'sparklet/renderer/app/popup/editor/color/scripts/color-convert.js';
+import { getHsv, drawWheel, updateDisplay } from 'sparklet/renderer/app/popup/editor/color/scripts/color-wheel-state.js';
+import { pushRecentColor, renderRecentColors, renderCandidates } from 'sparklet/renderer/app/popup/editor/color/scripts/color-recents.js';
+import { bindPopoverToggle } from 'sparklet/renderer/app/popup/editor/color/scripts/color-wheel-popover.js';
+import { bindWheelEvents } from 'sparklet/renderer/app/popup/editor/color/scripts/color-wheel-events.js';
 
 /**
  * Initialize the custom color wheel [初始化自定义色环]

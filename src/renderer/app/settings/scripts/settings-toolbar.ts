@@ -4,6 +4,6 @@
 // Split out [已拆分]：window controls → settings-window-controls.ts,
 // tool buttons → settings-tool-buttons.ts, copy URL → settings-copy-url.ts.
 
-export { bindWindowControl } from './settings-window-controls.js';
-export { bindToolButtons } from './settings-tool-buttons.js';
-export { bindCopyOfficialUrl } from './settings-copy-url.js';
+export { bindWindowControl } from 'sparklet/renderer/app/settings/scripts/settings-window-controls.js';
+export { bindToolButtons } from 'sparklet/renderer/app/settings/scripts/settings-tool-buttons.js';
+export { bindCopyOfficialUrl } from 'sparklet/renderer/app/settings/scripts/settings-copy-url.js';

@@ -1,6 +1,6 @@
 // Welcome: first-launch greeting subtitle [欢迎页 - 首次启动问候语]
 
-import { storeApi } from '../../../shared/index.js';
+import { storeApi } from 'sparklet/renderer/shared/index.js';
 
 /** First launch: show "Welcome Aboard", otherwise "Welcome back" [首次启动显示欢迎使用，否则显示欢迎回来] */
 export async function applyFirstLaunchGreeting(): Promise<void> {

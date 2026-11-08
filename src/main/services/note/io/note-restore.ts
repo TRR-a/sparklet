@@ -2,9 +2,9 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getNotesDir, isValidNoteId } from './note-paths.js';
-import { writeFileAtomic } from './note-io.js';
-import { withNoteLock } from './note-write-lock.js';
+import { getNotesDir, isValidNoteId } from 'sparklet/main/services/note/io/note-paths.js';
+import { writeFileAtomic } from 'sparklet/main/services/note/io/note-io.js';
+import { withNoteLock } from 'sparklet/main/services/note/io/note-write-lock.js';
 import type { NoteMeta, NoteOperationResult } from 'sparklet/shared/types/note/notes.js';
 
 /**

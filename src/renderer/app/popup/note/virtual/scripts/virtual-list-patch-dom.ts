@@ -1,8 +1,8 @@
 // Virtual list: DOM patching for a window range [虚拟列表 - 按窗口区间修补 DOM]
 
-import type { VirtualItem } from './virtual-list-types.js';
-import { getItems, getOffsets, getTotalHeight } from './virtual-list-state.js';
-import { acquireItemElement } from './virtual-list-acquire.js';
+import type { VirtualItem } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-types.js';
+import { getItems, getOffsets, getTotalHeight } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
+import { acquireItemElement } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-acquire.js';
 
 /**
  * Rebuild the list from the given index range, updating spacers [按给定索引区间重建列表并更新占位块]

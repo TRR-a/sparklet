@@ -1,6 +1,6 @@
 // Virtual list: selection & lookup helpers [虚拟列表 - 选中与查找辅助]
 
-import { applySelection, collectCardNoteIds, scrollCardIntoView } from './virtual-list-sync.js';
+import { applySelection, collectCardNoteIds, scrollCardIntoView } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-sync.js';
 
 /**
  * Sync multi-select state onto attached and cached cards [将多选选中态同步到已挂载与缓存的卡片]

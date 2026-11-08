@@ -1,6 +1,6 @@
 // Project preview: editor/edit state [项目预览 - 编辑器与编辑状态]
 
-import type { CodeEditor } from '../../editor/scripts/code-editor.js';
+import type { CodeEditor } from 'sparklet/renderer/app/project/editor/scripts/code-editor.js';
 
 /** Active custom editor instance [当前自研编辑器实例] */
 let editor: CodeEditor | null = null;

@@ -6,20 +6,20 @@
 // Split out [已拆分]：item type → note-list-types.ts, tag filter state → note-list-state.ts,
 // tag bar → note-list-tag-filter.ts, groups/factories → note-list-groups.ts.
 
-import { closeAllMenus } from '../../scripts/note-menu.js';
-import { renderVirtualNoteList, getActiveNoteId } from '../../scripts/note-virtual-list.js';
-import type { VirtualItem } from '../../scripts/note-virtual-list.js';
-import type { NoteListItem } from './note-list-types.js';
-import { getActiveTag } from './note-list-state.js';
-import { renderTagFilterBar } from './note-list-tag-filter.js';
+import { closeAllMenus } from 'sparklet/renderer/app/popup/note/scripts/note-menu.js';
+import { renderVirtualNoteList, getActiveNoteId } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
+import type { VirtualItem } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-types.js';
+import { getActiveTag } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-state.js';
+import { renderTagFilterBar } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-tag-filter.js';
 import {
   createMainViewFactories,
   pushGroup,
   splitNoteGroups,
   GROUP_LABELS,
-} from './note-list-groups.js';
+} from 'sparklet/renderer/app/popup/note/list/scripts/note-list-groups.js';
 
-export type { NoteListItem } from './note-list-types.js';
+export type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-types.js';
 
 /**
  * Render the note list [渲染笔记列表]

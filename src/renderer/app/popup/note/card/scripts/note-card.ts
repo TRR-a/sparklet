@@ -3,11 +3,11 @@
 // Split out [已拆分]：template → note-card-template.ts, card click → note-card-events.ts,
 // menu/delete bindings → note-card-menu.ts.
 
-import { isSelected } from '../../../ui/selection/scripts/selection-state.js';
-import type { NoteListItem } from '../../list/scripts/note-list.js';
-import { buildCardHtml } from './note-card-template.js';
-import { bindCardClick } from './note-card-events.js';
-import { bindDeleteButton, bindMoreButton, bindCardMenu } from './note-card-menu.js';
+import { isSelected } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
+import { buildCardHtml } from 'sparklet/renderer/app/popup/note/card/scripts/note-card-template.js';
+import { bindCardClick } from 'sparklet/renderer/app/popup/note/card/scripts/note-card-events.js';
+import { bindDeleteButton, bindMoreButton, bindCardMenu } from 'sparklet/renderer/app/popup/note/card/scripts/note-card-menu.js';
 
 /**
  * Create a single note card element [创建单个笔记卡片元素]

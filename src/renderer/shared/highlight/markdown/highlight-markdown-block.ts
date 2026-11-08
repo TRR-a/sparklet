@@ -1,10 +1,10 @@
 // Markdown highlighter: single-line block rendering [Markdown 高亮 - 单行块级渲染]
 
-import { escapeHtml, span } from '../highlight-utils.js';
-import { highlightInline } from './highlight-markdown-inline.js';
+import { escapeHtml, span } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
+import { highlightInline } from 'sparklet/renderer/shared/highlight/markdown/highlight-markdown-inline.js';
 import {
   MD_HEADING, MD_HR, MD_SETEXT, MD_TABLE_SEP, MD_QUOTE, MD_LIST,
-} from './highlight-markdown-patterns.js';
+} from 'sparklet/renderer/shared/highlight/markdown/highlight-markdown-patterns.js';
 
 /**
  * Highlight one non-fence line, or null when it is plain text [高亮一行非围栏文本，普通文本返回 null]

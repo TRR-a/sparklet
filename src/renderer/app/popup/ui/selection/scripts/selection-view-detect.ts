@@ -1,7 +1,7 @@
 // Selection bar: view detection & select-all ids [多选栏 - 视图判断与全选 ID]
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
-import { getVirtualCardNoteIds } from '../../../note/scripts/note-virtual-list.js';
+import { getVirtualCardNoteIds } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
 
 /** Current view via body class (set by trash-view) [通过 body class 判断当前视图 (由 trash-view 设置)] */
 export function isTrashView(): boolean {

@@ -1,8 +1,8 @@
 // Settings window: select bindings [设置窗口 - 下拉绑定]
 
 import { storeApi, broadcastApi } from 'sparklet/renderer/shared/index.js';
-import { t, getLang, setLang, applyI18n } from './welcome-settings-i18n.js';
-import { setupCustomSelect, setCustomSelectValue } from './welcome-settings-select.js';
+import { t, getLang, setLang, applyI18n } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-i18n.js';
+import { setupCustomSelect, setCustomSelectValue } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select.js';
 
 /** Bind theme and language custom selects [绑定主题与语言自定义下拉] */
 export function bindSettingsSelects(): void {

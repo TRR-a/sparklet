@@ -2,8 +2,8 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../startup/updater-paths.js';
-import { readMeta } from './cache-meta.js';
+import { getUpdateCacheDir } from 'sparklet/main/updater/startup/updater-paths.js';
+import { readMeta } from 'sparklet/main/updater/cache/cache-meta.js';
 
 /**
  * Get cached ZIP absolute path for a version (if exists and has meta record) [获取指定版本的缓存 ZIP 绝对路径 (如果存在且 meta 中有记录)]

@@ -1,6 +1,6 @@
 // Window API: settings window push events [窗口 API - 设置窗口推送事件]
 
-import { bus } from '../../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 
 export const windowApiEvents = {
   // ---------- Settings window push events [设置窗口推送事件] ----------

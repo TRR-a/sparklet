@@ -2,12 +2,12 @@
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { renderNoteList } from '../../note/list/scripts/note-list.js';
-import { bindNoteMenuGlobalHandler } from '../../note/scripts/note-menu.js';
-import { bindNoteInfoModalHandlers } from '../../modals/history/scripts/note-info-modal.js';
-import { getCurrentNoteId, setCurrentNoteId } from './editor-state.js';
-import { loadNoteIntoEditor } from './editor-load.js';
-import { togglePreview } from './editor-preview.js';
+import { renderNoteList } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
+import { bindNoteMenuGlobalHandler } from 'sparklet/renderer/app/popup/note/scripts/note-menu.js';
+import { bindNoteInfoModalHandlers } from 'sparklet/renderer/app/popup/modals/history/scripts/note-info-modal.js';
+import { getCurrentNoteId, setCurrentNoteId } from 'sparklet/renderer/app/popup/editor/scripts/editor-state.js';
+import { loadNoteIntoEditor } from 'sparklet/renderer/app/popup/editor/scripts/editor-load.js';
+import { togglePreview } from 'sparklet/renderer/app/popup/editor/scripts/editor-preview.js';
 
 /**
  * Load notes on startup [启动时加载笔记]

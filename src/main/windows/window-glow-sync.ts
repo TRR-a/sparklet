@@ -1,6 +1,6 @@
 // Window glow sync between main and settings windows [主窗口与设置窗口之间的光晕同步]
 
-import { getMainWindow, getSettingsWindow } from './window-registry.js';
+import { getMainWindow, getSettingsWindow } from 'sparklet/main/windows/window-registry.js';
 
 /** Main window bounds for glow sync [主窗口边界 (光晕同步用)] */
 export interface WindowBounds {

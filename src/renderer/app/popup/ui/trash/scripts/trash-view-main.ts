@@ -1,7 +1,7 @@
 // Trash view: main list restore [回收站视图 - 主视图恢复]
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
-import { renderNoteList, loadNoteIntoEditor, setCurrentNoteId } from '../../../editor/scripts/note-editor.js';
+import { renderNoteList, loadNoteIntoEditor, setCurrentNoteId } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
 
 /**
  * Load main view notes [加载主视图笔记]

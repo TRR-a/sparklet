@@ -1,7 +1,7 @@
 // Update check: manual failure feedback [更新检查 - 手动失败反馈]
 
 import { BrowserWindow } from 'electron';
-import { broadcastToast, promptRendererDialog } from '../dialog/dialog.js';
+import { broadcastToast, promptRendererDialog } from 'sparklet/main/updater/dialog/dialog.js';
 
 /** Push the failure status, toast the reason, and fall back to a dialog when no window [推送失败状态与 toast，无窗口时回退弹窗] */
 export function notifyManualFailure(

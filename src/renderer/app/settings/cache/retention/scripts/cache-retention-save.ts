@@ -2,8 +2,8 @@
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
-import { clampRetentionDays } from './cache-retention-constants.js';
-import { getRetentionSaveTimer, setRetentionSaveTimer } from './cache-retention-state.js';
+import { clampRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-constants.js';
+import { getRetentionSaveTimer, setRetentionSaveTimer } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-state.js';
 
 /**
  * Save retention days to main process config (debounced 250ms on slider drag to avoid high-frequency IPC) [保存到主进程配置 (滑杆拖动时防抖 250ms 再提交，避免高频 IPC)]

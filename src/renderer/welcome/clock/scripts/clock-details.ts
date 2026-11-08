@@ -1,7 +1,7 @@
 // Welcome clock: detail block (weekday / date / week / timezone) [欢迎页时钟 - 详细信息块]
 
-import { getLang } from '../../i18n/scripts/welcome-i18n.js';
-import { clockLocale, isoWeek, tzLabel } from './clock-format.js';
+import { getLang } from 'sparklet/renderer/welcome/i18n/scripts/welcome-i18n.js';
+import { clockLocale, isoWeek, tzLabel } from 'sparklet/renderer/welcome/clock/scripts/clock-format.js';
 
 /** Update the detail block beneath the digital clock [更新电子钟下方的详细信息块] */
 export function updateClockDetails(now: Date): void {

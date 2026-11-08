@@ -1,7 +1,7 @@
 // Storage manager: batch soft-delete [存储管理器 - 批量软删除]
 
-import { noteApi } from '../../../app/api/note-api.js';
-import { ensureInit } from '../storage-cache.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
+import { ensureInit } from 'sparklet/renderer/shared/storage/storage-cache.js';
 
 /** Batch soft-delete (move to trash), returns count succeeded [批量软删除 (移回收站)，返回成功数] */
 export async function deleteNotes(ids: string[]): Promise<number> {

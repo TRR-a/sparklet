@@ -3,11 +3,11 @@
 // Split out [已拆分]：formatting/row helpers → monitor-format.ts,
 // CPU+memory rows → monitor-rows.ts, disks → monitor-disks.ts, GPUs → monitor-gpus.ts.
 
-import { systemApi } from '../../../shared/index.js';
+import { systemApi } from 'sparklet/renderer/shared/index.js';
 import type { SystemStats } from 'sparklet/shared/types/system.js';
-import { updateCpuRow, updateMemoryRow } from './monitor-rows.js';
-import { updateDiskRows } from './monitor-disks.js';
-import { updateGpuRows } from './monitor-gpus.js';
+import { updateCpuRow, updateMemoryRow } from 'sparklet/renderer/welcome/monitor/scripts/monitor-rows.js';
+import { updateDiskRows } from 'sparklet/renderer/welcome/monitor/scripts/monitor-disks.js';
+import { updateGpuRows } from 'sparklet/renderer/welcome/monitor/scripts/monitor-gpus.js';
 
 // ========== System monitor [系统监控] ==========
 const MONITOR_REFRESH_MS = 2000;

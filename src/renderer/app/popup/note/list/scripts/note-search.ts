@@ -12,6 +12,6 @@
 // Input helpers in note-search-input.ts, event binding in note-search-bind.ts
 // [输入框辅助在 note-search-input.ts，事件绑定在 note-search-bind.ts]
 
-export { isSearchActive, refreshNoteListView } from './note-search-run.js';
-export { clearSearch, focusSearchInput } from './note-search-input.js';
-export { initNoteSearch } from './note-search-bind.js';
+export { isSearchActive, refreshNoteListView } from 'sparklet/renderer/app/popup/note/list/scripts/note-search-run.js';
+export { clearSearch, focusSearchInput } from 'sparklet/renderer/app/popup/note/list/scripts/note-search-input.js';
+export { initNoteSearch } from 'sparklet/renderer/app/popup/note/list/scripts/note-search-bind.js';

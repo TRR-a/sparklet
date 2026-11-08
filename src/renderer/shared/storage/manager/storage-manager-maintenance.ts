@@ -1,7 +1,7 @@
 // Storage manager: maintenance methods [存储管理器 - 维护方法]
 
 import type { NoteMeta } from 'sparklet/shared/types/note/notes.js';
-import { refresh, debug } from '../storage-maintenance.js';
+import { refresh, debug } from 'sparklet/renderer/shared/storage/storage-maintenance.js';
 
 /** Maintenance methods of the storage facade [存储外观层的维护方法] */
 export const storageManagerMaintenance = {

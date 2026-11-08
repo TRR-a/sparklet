@@ -1,8 +1,8 @@
 // Widget drag: pointer gesture [卡片拖拽 - 指针手势]
 
-import { createGhost, moveGhost, dropGhost } from './widget-drag-ghost.js';
-import { findBeforeCard, applyDropSlot } from './widget-drag-slot.js';
-import { persistOrder } from './widget-order.js';
+import { createGhost, moveGhost, dropGhost } from 'sparklet/renderer/welcome/widgets/scripts/widget-drag-ghost.js';
+import { findBeforeCard, applyDropSlot } from 'sparklet/renderer/welcome/widgets/scripts/widget-drag-slot.js';
+import { persistOrder } from 'sparklet/renderer/welcome/widgets/scripts/widget-order.js';
 
 const DRAG_THRESHOLD_PX = 4;
 

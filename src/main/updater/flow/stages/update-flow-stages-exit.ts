@@ -1,7 +1,7 @@
 // Update flow: stage exit helpers [更新流程 - 阶段退出辅助]
 
-import { setConfigItem } from '../../config/config-manager.js';
-import { updaterStateInternal } from '../../startup/update-state.js';
+import { setConfigItem } from 'sparklet/main/updater/config/config-manager.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
 
 /** Clear the in-flight flag and return [清除进行中标记并返回] */
 export function stopFlow(): void {

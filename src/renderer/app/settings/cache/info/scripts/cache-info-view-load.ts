@@ -3,7 +3,7 @@
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
-import { renderCacheInfo } from './cache-info-view-render.js';
+import { renderCacheInfo } from 'sparklet/renderer/app/settings/cache/info/scripts/cache-info-view-render.js';
 
 /**
  * Load cache info from main process [从主进程加载缓存信息]

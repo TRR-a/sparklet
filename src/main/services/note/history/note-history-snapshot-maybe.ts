@@ -1,7 +1,7 @@
 // Note history: interval-gated snapshot on save [笔记历史 - 保存时节流快照]
 
-import { snapshotNote } from './note-history-snapshot-write.js';
-import { lastSnapshotAt, SNAPSHOT_INTERVAL_MS } from './note-history-ts.js';
+import { snapshotNote } from 'sparklet/main/services/note/history/note-history-snapshot-write.js';
+import { lastSnapshotAt, SNAPSHOT_INTERVAL_MS } from 'sparklet/main/services/note/history/note-history-ts.js';
 import type { Note } from 'sparklet/shared/types/note/notes.js';
 
 /**

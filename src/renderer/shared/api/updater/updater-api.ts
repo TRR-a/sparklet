@@ -4,10 +4,10 @@
 // Split out [已拆分]：flow → updater-api-flow.ts, config → updater-api-config.ts,
 // cache → updater-api-cache.ts, events/dialog/toast → updater-api-events.ts.
 
-import { updaterApiFlow } from './updater-api-flow.js';
-import { updaterApiConfig } from './updater-api-config.js';
-import { updaterApiCache } from './updater-api-cache.js';
-import { updaterApiEvents } from './updater-api-events.js';
+import { updaterApiFlow } from 'sparklet/renderer/shared/api/updater/updater-api-flow.js';
+import { updaterApiConfig } from 'sparklet/renderer/shared/api/updater/updater-api-config.js';
+import { updaterApiCache } from 'sparklet/renderer/shared/api/updater/updater-api-cache.js';
+import { updaterApiEvents } from 'sparklet/renderer/shared/api/updater/updater-api-events.js';
 
 export const updaterApi = {
   ...updaterApiFlow,

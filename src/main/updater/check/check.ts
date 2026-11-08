@@ -4,14 +4,14 @@
 //
 // Split out [已拆分]：result builders → check-results.ts.
 
-import { classifyNetworkError } from '../startup/updater-error.js';
+import { classifyNetworkError } from 'sparklet/main/updater/startup/updater-error.js';
 import type { CheckResult } from 'sparklet/shared/types/updater/updater.js';
-import { getCurrentVersion, compareVersions } from './check-version.js';
-import { fetchLatestRelease } from './check-fetch.js';
-import { validateRelease } from './check-manifest.js';
-import { buildFetchFailureResult, buildInvalidReleaseResult, buildCheckResult } from './check-results.js';
+import { getCurrentVersion, compareVersions } from 'sparklet/main/updater/check/check-version.js';
+import { fetchLatestRelease } from 'sparklet/main/updater/check/check-fetch.js';
+import { validateRelease } from 'sparklet/main/updater/check/check-manifest.js';
+import { buildFetchFailureResult, buildInvalidReleaseResult, buildCheckResult } from 'sparklet/main/updater/check/check-results.js';
 
-export { getCurrentVersion } from './check-version.js';
+export { getCurrentVersion } from 'sparklet/main/updater/check/check-version.js';
 
 /**
  * Check for updates by fetching latest GitHub release and comparing versions [通过获取最新 GitHub Release 并比较版本来检查更新]

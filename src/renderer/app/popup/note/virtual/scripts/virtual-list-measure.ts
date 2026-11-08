@@ -1,8 +1,8 @@
 // Virtual list: real-height measurement [虚拟列表 - 真实高度测量]
 
-import type { VirtualItem } from './virtual-list-types.js';
-import { CARD_MARGIN, HEIGHT_ESTIMATES, heightKey } from './virtual-list-geometry.js';
-import { heights, recomputeOffsets } from './virtual-list-state.js';
+import type { VirtualItem } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-types.js';
+import { CARD_MARGIN, HEIGHT_ESTIMATES, heightKey } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-geometry.js';
+import { heights, recomputeOffsets } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
 
 /**
  * Measure the real height of each rendered kind; if estimates were off, recompute

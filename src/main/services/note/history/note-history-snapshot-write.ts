@@ -2,13 +2,13 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getNoteHistoryDir } from '../io/note-paths.js';
+import { getNoteHistoryDir } from 'sparklet/main/services/note/io/note-paths.js';
 import {
   listSnapshotTs,
   lastSnapshotAt,
   makeTsToken,
   MAX_SNAPSHOTS_PER_NOTE,
-} from './note-history-ts.js';
+} from 'sparklet/main/services/note/history/note-history-ts.js';
 import type { Note, NoteSnapshot } from 'sparklet/shared/types/note/notes.js';
 
 /**

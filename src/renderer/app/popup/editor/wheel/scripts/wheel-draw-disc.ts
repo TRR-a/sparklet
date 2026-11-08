@@ -1,7 +1,7 @@
 // Color wheel: disc drawing [色环 - 圆盘绘制]
 
-import { hsvToHex } from '../../color/scripts/color-convert.js';
-import { readHsv } from './wheel-state-store.js';
+import { hsvToHex } from 'sparklet/renderer/app/popup/editor/color/scripts/color-convert.js';
+import { readHsv } from 'sparklet/renderer/app/popup/editor/wheel/scripts/wheel-state-store.js';
 
 /**
  * Draw the HSV disc onto the canvas [在 canvas 上绘制 HSV 圆盘]

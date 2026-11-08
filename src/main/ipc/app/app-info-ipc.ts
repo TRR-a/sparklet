@@ -1,7 +1,7 @@
 // App IPC: version / official site / external links [应用 IPC - 版本、官网、外链]
 
 import { ipcMain, shell } from 'electron';
-import { getCurrentVersion } from '../../updater/check/check.js';
+import { getCurrentVersion } from 'sparklet/main/updater/check/check.js';
 
 // Project official URL (GitHub repository homepage) [项目官网地址 (GitHub 仓库主页)]
 const PROJECT_OFFICIAL_URL = 'https://github.com/TRR-a/sparklet';

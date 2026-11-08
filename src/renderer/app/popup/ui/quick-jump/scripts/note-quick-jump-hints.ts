@@ -2,9 +2,9 @@
 //
 // Split out [已拆分]：view predicates → note-quick-jump-view.ts.
 
-import { getVirtualCardNoteIds } from '../../../note/scripts/note-virtual-list.js';
+import { getVirtualCardNoteIds } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
 
-export { isMainView, isModalOpen } from './note-quick-jump-view.js';
+export { isMainView, isModalOpen } from 'sparklet/renderer/app/popup/ui/quick-jump/scripts/note-quick-jump-view.js';
 
 const HINT_CLASS = 'note-quick-hint';
 

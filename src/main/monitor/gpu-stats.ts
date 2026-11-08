@@ -2,9 +2,9 @@
 //
 // Split out [已拆分]：names → gpu-name-read.ts, NVIDIA utilization → gpu-nvidia-read.ts.
 
-import { readGpuNames } from './gpu-name-read.js';
-import { readNvidiaStats } from './gpu-nvidia-read.js';
-import type { GpuStats } from 'sparklet/shared/types/system';
+import { readGpuNames } from 'sparklet/main/monitor/gpu-name-read.js';
+import { readNvidiaStats } from 'sparklet/main/monitor/gpu-nvidia-read.js';
+import type { GpuStats } from 'sparklet/shared/types/system.js';
 
 /** Read GPU names with utilization/memory when available [读取 GPU 名称及可用时的利用率/显存] */
 export async function readGpus(): Promise<GpuStats[]> {

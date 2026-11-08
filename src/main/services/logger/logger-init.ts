@@ -2,11 +2,11 @@
 
 import { app } from 'electron';
 import * as path from 'path';
-import { LEVEL_WEIGHT } from './logger-format.js';
-import { initLogPaths, getCoreDir, getModulesDir, getModuleCodes, getRawLogRoot } from './logger-paths.js';
-import { rotateIfNeeded } from './logger-rotate.js';
-import { setLoggerReady, setMinWeight } from './logger-state.js';
-import { write } from './logger-write-line.js';
+import { LEVEL_WEIGHT } from 'sparklet/main/services/logger/logger-format.js';
+import { initLogPaths, getCoreDir, getModulesDir, getModuleCodes, getRawLogRoot } from 'sparklet/main/services/logger/logger-paths.js';
+import { rotateIfNeeded } from 'sparklet/main/services/logger/logger-rotate.js';
+import { setLoggerReady, setMinWeight } from 'sparklet/main/services/logger/logger-state.js';
+import { write } from 'sparklet/main/services/logger/logger-write-line.js';
 
 /** Set up directories, rotate oversized files, pick the level [初始化目录、轮转并确定级别] */
 export function initLogger(): void {

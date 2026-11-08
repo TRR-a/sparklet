@@ -1,8 +1,8 @@
 // Trash card: click handler [回收站卡片 - 点击处理]
 
-import { isSelectionMode, toggleSelect } from '../../selection/scripts/selection-state.js';
-import { showTrashPreview } from './trash-actions.js';
-import type { NoteListItem } from '../../../note/list/scripts/note-list.js';
+import { isSelectionMode, toggleSelect } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import { showTrashPreview } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-actions.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
 
 /** Wire the card click: activate + preview, or toggle in multi-select [接线卡片点击：激活并预览，或多选态切换] */
 export function bindTrashCardClick(li: HTMLElement, note: NoteListItem): void {

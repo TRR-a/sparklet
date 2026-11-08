@@ -4,6 +4,6 @@
 // Split out [已拆分]：cleanup → cache-cleanup-expired.ts, manual clear → cache-clear.ts,
 // meta-reading info query → cache-info-query.ts.
 
-export { cleanupExpired } from './cache-cleanup-expired.js';
-export { clearAllCache, clearCacheByVersion } from './cache-clear.js';
-export { getLatestCacheInfo } from './cache-info-query.js';
+export { cleanupExpired } from 'sparklet/main/updater/cache/cache-cleanup-expired.js';
+export { clearAllCache, clearCacheByVersion } from 'sparklet/main/updater/cache/cache-clear.js';
+export { getLatestCacheInfo } from 'sparklet/main/updater/cache/cache-info-query.js';

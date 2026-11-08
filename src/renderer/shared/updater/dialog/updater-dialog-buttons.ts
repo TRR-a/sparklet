@@ -1,6 +1,6 @@
 // Updater dialog: button row rendering [更新器弹窗 - 按钮行渲染]
 
-import type { DialogButton } from './updater-dialog-types.js';
+import type { DialogButton } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 /**
  * Render the dialog button row [渲染弹窗按钮行]

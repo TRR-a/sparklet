@@ -4,7 +4,7 @@ import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { showCustomConfirm } from 'sparklet/renderer/shared/ui/dialog/custom-dialog.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
-import { loadCacheInfo } from '../../info/scripts/cache-info-view.js';
+import { loadCacheInfo } from 'sparklet/renderer/app/settings/cache/info/scripts/cache-info-view.js';
 
 /** Confirm, then clear the cache while disabling the button [先确认，随后在按钮禁用状态下清空缓存] */
 export async function runClearCache(): Promise<void> {

@@ -1,6 +1,6 @@
 // Renderer global error hooks [渲染进程全局错误钩子]
 
-import { errText, logApi } from './log-api.js';
+import { errText, logApi } from 'sparklet/renderer/shared/api/log-api.js';
 
 let hooksInstalled = false;
 

@@ -4,13 +4,13 @@
 // [类型 → updater-dialog-types.ts，外链 → updater-dialog-external.ts，
 //  倒计时 → updater-dialog-countdown.ts，各分支构建按类别分组]
 
-import type { DialogContent } from '../updater-dialog-types.js';
-import { buildUpdateConfirm, buildNotifyOnly, buildRestartConfirm } from './updater-dialog-content-update.js';
-import { buildRollbackWithCache, buildRollbackRestart, buildRollbackNoCache } from './updater-dialog-content-rollback.js';
-import { buildManualUpdateFailed, buildTempDirError, buildTempDirNotEmpty, buildSimpleError } from './updater-dialog-content-error.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
+import { buildUpdateConfirm, buildNotifyOnly, buildRestartConfirm } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-update.js';
+import { buildRollbackWithCache, buildRollbackRestart, buildRollbackNoCache } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-rollback.js';
+import { buildManualUpdateFailed, buildTempDirError, buildTempDirNotEmpty, buildSimpleError } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-error.js';
 
-export { openExternal } from '../updater-dialog-external.js';
-export type { DialogButton, DialogContent } from '../updater-dialog-types.js';
+export { openExternal } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-external.js';
+export type { DialogButton, DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 /**
  * Build dialog content based on type [根据类型构建弹窗内容]

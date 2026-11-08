@@ -1,6 +1,6 @@
 // Exit dialog: element lookups + focus ring [退出弹窗 - 元素定位与焦点描边]
 
-import { getFocusedIndex } from './exit-dialog-state.js';
+import { getFocusedIndex } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-state.js';
 
 export function getModal(): HTMLElement | null {
   return document.getElementById('exitConfirmModal');

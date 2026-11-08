@@ -4,9 +4,9 @@
 // status/progress → updater-config-events-status.ts,
 // external config change → updater-config-events-changed.ts.
 
-import { bindUpdaterControls } from './updater-config-events-bind.js';
-import { bindUpdaterStatusEvents } from './updater-config-events-status.js';
-import { bindUpdaterConfigChanged } from './updater-config-events-changed.js';
+import { bindUpdaterControls } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-events-bind.js';
+import { bindUpdaterStatusEvents } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-events-status.js';
+import { bindUpdaterConfigChanged } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-events-changed.js';
 
 /**
  * Bind updater event listeners [绑定更新模块事件监听]

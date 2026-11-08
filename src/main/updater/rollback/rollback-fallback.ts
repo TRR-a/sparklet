@@ -1,9 +1,9 @@
 // Rollback: corrupted cache cleanup + no-cache fallback [回滚 - 损坏缓存清理与无缓存兜底]
 
 import * as fs from 'fs-extra';
-import * as cacheManager from '../cache/cache-manager.js';
-import { promptRendererDialog, broadcastToast } from '../dialog/dialog.js';
-import { openReleasePage } from './rollback-release.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
+import { promptRendererDialog, broadcastToast } from 'sparklet/main/updater/dialog/dialog.js';
+import { openReleasePage } from 'sparklet/main/updater/rollback/rollback-release.js';
 import type { VerifyCachedZipResult } from 'sparklet/shared/types/updater/updater.js';
 
 /**

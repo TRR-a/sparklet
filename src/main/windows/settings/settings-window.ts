@@ -4,9 +4,9 @@
 // lifecycle events → settings-window-events.ts.
 
 import { BrowserWindow } from 'electron';
-import { setSettingsWindow, getSettingsWindow } from '../window-manager.js';
-import { buildSettingsWindowOptions, SETTINGS_HTML } from './settings-window-options.js';
-import { bindSettingsWindowEvents } from './settings-window-events.js';
+import { setSettingsWindow, getSettingsWindow } from 'sparklet/main/windows/window-manager.js';
+import { buildSettingsWindowOptions, SETTINGS_HTML } from 'sparklet/main/windows/settings/settings-window-options.js';
+import { bindSettingsWindowEvents } from 'sparklet/main/windows/settings/settings-window-events.js';
 
 /**
  * Create the settings window (single instance) [创建设置窗口 (单实例)]

@@ -5,12 +5,12 @@
 // Split out [已拆分]：control → window-ipc-control.ts, devtools → window-ipc-devtools.ts,
 // creation → window-ipc-create.ts, runtime versions → window-ipc-runtime.ts.
 
-import { registerWindowControlIpc } from './window-ipc-control.js';
-import { registerWindowDevToolsIpc } from './window-ipc-devtools.js';
-import { registerWindowCreateIpc } from './window-ipc-create.js';
-import { registerRuntimeVersionsIpc } from './window-ipc-runtime.js';
+import { registerWindowControlIpc } from 'sparklet/main/ipc/window/window-ipc-control.js';
+import { registerWindowDevToolsIpc } from 'sparklet/main/ipc/window/window-ipc-devtools.js';
+import { registerWindowCreateIpc } from 'sparklet/main/ipc/window/window-ipc-create.js';
+import { registerRuntimeVersionsIpc } from 'sparklet/main/ipc/window/window-ipc-runtime.js';
 
-export { registerDevToolsShortcut } from '../app/devtools-shortcut.js';
+export { registerDevToolsShortcut } from 'sparklet/main/ipc/app/devtools-shortcut.js';
 
 /**
  * Register window control IPC handlers [注册窗口控制 IPC 处理器]

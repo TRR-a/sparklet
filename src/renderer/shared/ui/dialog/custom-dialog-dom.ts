@@ -1,7 +1,7 @@
 // Custom confirm dialog: DOM lookup + fill [自定义确认弹窗 - DOM 查找与填充]
 
-import { t } from '../../i18n/i18n.js';
-import type { ConfirmElements, ConfirmOptions } from './custom-dialog-types.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import type { ConfirmElements, ConfirmOptions } from 'sparklet/renderer/shared/ui/dialog/custom-dialog-types.js';
 
 /** Resolve the confirm modal elements, or null when any is missing [解析确认弹窗元素，缺任一则返回 null] */
 export function resolveConfirmElements(): ConfirmElements | null {

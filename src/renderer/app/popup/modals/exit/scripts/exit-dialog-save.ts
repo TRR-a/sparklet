@@ -1,6 +1,6 @@
 // Exit dialog: save-before-quit [退出弹窗 - 退出前保存]
 
-import { saveCurrentNote } from '../../../editor/scripts/note-editor.js';
+import { saveCurrentNote } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
 import { saveCurrentFile } from 'sparklet/renderer/app/project/scripts/project-view.js';
 
 /**

@@ -10,9 +10,9 @@
 // decision reporting → update-flow-report.ts,
 // stage sequence → update-flow-stages.ts.
 
-import type { ProgressCallback, CompleteCallback } from '../dialog/dialog.js';
-import { updaterStateInternal } from '../startup/update-state.js';
-import { runUpdateFlowStages } from './stages/update-flow-stages.js';
+import type { ProgressCallback, CompleteCallback } from 'sparklet/main/updater/dialog/dialog.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
+import { runUpdateFlowStages } from 'sparklet/main/updater/flow/stages/update-flow-stages.js';
 
 /**
  * Execute the complete update flow [执行完整的更新流程]

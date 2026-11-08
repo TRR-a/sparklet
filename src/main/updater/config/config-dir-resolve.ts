@@ -1,9 +1,9 @@
 // Config directory: resolve across candidates [配置目录 - 跨候选解析]
 
 import { app } from 'electron';
-import { CONFIG_DIR_NAMES } from '../constants/constants.js';
-import type { ConfigDirResult } from './config-dir-types.js';
-import { tryConfigDir } from './config-dir-try.js';
+import { CONFIG_DIR_NAMES } from 'sparklet/main/updater/constants/constants.js';
+import type { ConfigDirResult } from 'sparklet/main/updater/config/config-dir-types.js';
+import { tryConfigDir } from 'sparklet/main/updater/config/config-dir-try.js';
 
 /** Walk the candidate list until one directory works [逐个尝试候选目录直到可用] */
 export async function resolveConfigDir(): Promise<ConfigDirResult> {

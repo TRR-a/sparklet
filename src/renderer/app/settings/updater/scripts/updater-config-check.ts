@@ -3,8 +3,8 @@
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
-import { getIsDevEnvironment } from './updater-config-state.js';
-import { updateStatusText } from './updater-config-status.js';
+import { getIsDevEnvironment } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-state.js';
+import { updateStatusText } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-status.js';
 
 /**
  * Handle manual check for updates [处理手动检查更新]

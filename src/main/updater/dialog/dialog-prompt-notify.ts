@@ -1,8 +1,8 @@
 // Updater dialog: notify-only notification [更新弹窗 - 仅提醒通知]
 
 import type { ManifestEntry, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
-import { promptRendererDialog } from './dialog-core.js';
-import { formatDate } from './dialog-format-date.js';
+import { promptRendererDialog } from 'sparklet/main/updater/dialog/dialog-core.js';
+import { formatDate } from 'sparklet/main/updater/dialog/dialog-format-date.js';
 
 /**
  * Show "notify-only" mode notification (renderer custom UI) [显示「仅提醒」模式的通知 (渲染层自定义 UI)]

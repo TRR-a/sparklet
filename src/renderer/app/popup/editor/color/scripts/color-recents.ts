@@ -4,7 +4,7 @@
 // Split out [已拆分]：storage → recent-colors-store.ts, reuse → recent-colors-reuse.ts,
 // wheel grid → recent-colors-wheel-view.ts, palette candidates → recent-colors-candidates.ts.
 
-export { pushRecentColor } from '../../wheel/scripts/recent-colors-store.js';
-export { reuseRecentColor } from '../../wheel/scripts/recent-colors-reuse.js';
-export { renderRecentColors } from '../../wheel/scripts/recent-colors-wheel-view.js';
-export { renderCandidates } from '../../wheel/scripts/recent-colors-candidates.js';
+export { pushRecentColor } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-store.js';
+export { reuseRecentColor } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-reuse.js';
+export { renderRecentColors } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-wheel-view.js';
+export { renderCandidates } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-candidates.js';

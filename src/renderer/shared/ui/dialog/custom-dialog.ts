@@ -4,10 +4,10 @@
 // Split out [已拆分]：options/element types → custom-dialog-types.ts,
 // DOM lookup + fill → custom-dialog-dom.ts.
 
-import type { ConfirmOptions } from './custom-dialog-types.js';
-import { fillConfirmElements, resolveConfirmElements } from './custom-dialog-dom.js';
+import type { ConfirmOptions } from 'sparklet/renderer/shared/ui/dialog/custom-dialog-types.js';
+import { fillConfirmElements, resolveConfirmElements } from 'sparklet/renderer/shared/ui/dialog/custom-dialog-dom.js';
 
-export type { ConfirmOptions } from './custom-dialog-types.js';
+export type { ConfirmOptions } from 'sparklet/renderer/shared/ui/dialog/custom-dialog-types.js';
 
 /**
  * Show custom confirm dialog, returns Promise<boolean>: true=OK, false=Cancel [弹出自定义确认框，返回 Promise<boolean>：true=确定，false=取消]

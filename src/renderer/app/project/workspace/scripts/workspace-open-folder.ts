@@ -1,17 +1,17 @@
 // Workspace: open a folder and add it [工作区 - 打开文件夹并添加]
 
-import { projectApi } from '../../api/scripts/project-api.js';
+import { projectApi } from 'sparklet/renderer/app/project/api/scripts/project-api.js';
 import {
   workspaceProjects,
   expandedDirs,
   saveWorkspacePaths,
-} from './project-workspace-state.js';
+} from 'sparklet/renderer/app/project/workspace/scripts/project-workspace-state.js';
 
 /**
  * Open a folder and add it to the workspace [打开文件夹并添加到工作区]
  */
 export async function openProjectFolder(): Promise<void> {
-  const { renderWorkspace } = await import('../../tree/scripts/project-tree.js');
+  const { renderWorkspace } = await import('sparklet/renderer/app/project/tree/scripts/project-tree.js');
   const result = await projectApi.openFolder();
   if (!result.success || result.canceled || !result.path) return;
 

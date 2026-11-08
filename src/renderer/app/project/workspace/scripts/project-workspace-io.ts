@@ -4,7 +4,7 @@
 // Split out [已拆分]：restore → workspace-restore.ts, add → workspace-open-folder.ts,
 // remove → workspace-remove.ts, toggle → workspace-toggle.ts.
 
-export { restoreWorkspace } from './workspace-restore.js';
-export { openProjectFolder } from './workspace-open-folder.js';
-export { removeProjectFromWorkspace } from './workspace-remove.js';
-export { toggleProject } from './workspace-toggle.js';
+export { restoreWorkspace } from 'sparklet/renderer/app/project/workspace/scripts/workspace-restore.js';
+export { openProjectFolder } from 'sparklet/renderer/app/project/workspace/scripts/workspace-open-folder.js';
+export { removeProjectFromWorkspace } from 'sparklet/renderer/app/project/workspace/scripts/workspace-remove.js';
+export { toggleProject } from 'sparklet/renderer/app/project/workspace/scripts/workspace-toggle.js';

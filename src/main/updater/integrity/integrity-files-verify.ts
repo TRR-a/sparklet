@@ -5,10 +5,10 @@
 // expected hash source → integrity-files-hash-source.ts,
 // scan/compare → integrity-files-compare.ts.
 
-import { getInstallRoot } from '../startup/updater-paths.js';
-import { shouldSkipInstalledFilesCheck } from './integrity-files-gate.js';
-import { resolveExpectedFilesHash } from './integrity-files-hash-source.js';
-import { compareInstalledFiles } from './integrity-files-compare.js';
+import { getInstallRoot } from 'sparklet/main/updater/startup/updater-paths.js';
+import { shouldSkipInstalledFilesCheck } from 'sparklet/main/updater/integrity/integrity-files-gate.js';
+import { resolveExpectedFilesHash } from 'sparklet/main/updater/integrity/integrity-files-hash-source.js';
+import { compareInstalledFiles } from 'sparklet/main/updater/integrity/integrity-files-compare.js';
 
 /** Installed files verification result [已安装文件校验结果] */
 export interface InstalledFilesResult {

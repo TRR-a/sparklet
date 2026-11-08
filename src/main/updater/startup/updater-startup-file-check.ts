@@ -1,9 +1,9 @@
 // Updater startup: installed-file integrity check [更新器启动 - 已安装文件完整性校验]
 
-import { verifyInstalledFiles } from '../integrity/integrity-files-verify.js';
-import { getCurrentVersion } from '../check/check.js';
-import { handleIntegrityRollback } from '../rollback/rollback.js';
-import { updaterStateInternal } from './update-state.js';
+import { verifyInstalledFiles } from 'sparklet/main/updater/integrity/integrity-files-verify.js';
+import { getCurrentVersion } from 'sparklet/main/updater/check/check.js';
+import { handleIntegrityRollback } from 'sparklet/main/updater/rollback/rollback.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
 
 /** Verify installed files shortly after startup; failure triggers rollback [启动后稍候校验已安装文件；失败走回滚] */
 export function scheduleStartupFileIntegrityCheck(): void {

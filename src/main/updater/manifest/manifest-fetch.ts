@@ -3,5 +3,5 @@
 // Split out [已拆分]：bundled manifest → manifest-read-current.ts,
 // remote releases manifest → manifest-fetch-releases.ts.
 
-export { readCurrentManifest } from './manifest-read-current.js';
-export { fetchReleasesManifest } from './manifest-fetch-releases.js';
+export { readCurrentManifest } from 'sparklet/main/updater/manifest/manifest-read-current.js';
+export { fetchReleasesManifest } from 'sparklet/main/updater/manifest/manifest-fetch-releases.js';

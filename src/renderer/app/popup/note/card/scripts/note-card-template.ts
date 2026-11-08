@@ -2,7 +2,7 @@
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { formatDate } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
-import type { NoteListItem } from '../../list/scripts/note-list.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
 
 /** Build the card inner HTML [构造卡片内部 HTML] */
 export function buildCardHtml(note: NoteListItem): string {

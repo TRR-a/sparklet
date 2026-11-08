@@ -1,7 +1,7 @@
 // Config IO: dev-environment lock [配置导入导出 - 开发环境锁定]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { getIsDevEnvironment } from '../../../updater/scripts/updater-config.js';
+import { getIsDevEnvironment } from 'sparklet/renderer/app/settings/updater/scripts/updater-config.js';
 
 /**
  * Apply dev environment lock to import/export buttons [应用开发环境锁定到导入/导出按钮]

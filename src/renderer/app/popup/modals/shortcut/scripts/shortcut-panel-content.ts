@@ -1,7 +1,7 @@
 // Shortcut panel: content builder [快捷键面板 - 内容构建]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { SHORTCUT_GROUPS } from './shortcut-panel-data.js';
+import { SHORTCUT_GROUPS } from 'sparklet/renderer/app/popup/modals/shortcut/scripts/shortcut-panel-data.js';
 
 /**
  * Build the panel content from i18n (called on every open, so language switches apply) [从 i18n 构建面板内容 (每次打开时构建，语言切换后生效)]

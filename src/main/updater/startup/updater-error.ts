@@ -6,15 +6,15 @@
 // business fallbacks → error-business-messages.ts.
 
 import type { NetworkErrorType } from 'sparklet/shared/types/updater/updater.js';
-import { classifyNetworkError } from '../error/error-classify.js';
-import { contextLabel } from '../error/error-context-label.js';
-import type { ErrorContext } from '../error/error-context-label.js';
-import { networkErrorMessage } from '../error/error-network-messages.js';
-import { businessErrorMessage } from '../error/error-business-messages.js';
+import { classifyNetworkError } from 'sparklet/main/updater/error/error-classify.js';
+import { contextLabel } from 'sparklet/main/updater/error/error-context-label.js';
+import type { ErrorContext } from 'sparklet/main/updater/error/error-context-label.js';
+import { networkErrorMessage } from 'sparklet/main/updater/error/error-network-messages.js';
+import { businessErrorMessage } from 'sparklet/main/updater/error/error-business-messages.js';
 
-export { classifyNetworkError } from '../error/error-classify.js';
-export { contextLabel } from '../error/error-context-label.js';
-export type { ErrorContext } from '../error/error-context-label.js';
+export { classifyNetworkError } from 'sparklet/main/updater/error/error-classify.js';
+export { contextLabel } from 'sparklet/main/updater/error/error-context-label.js';
+export type { ErrorContext } from 'sparklet/main/updater/error/error-context-label.js';
 
 /**
  * Convert raw English error from update flow to user-friendly Chinese prompt [把更新流程里的原始英文错误转换成用户能看懂的中文提示]

@@ -1,6 +1,6 @@
 // Updater config import: retention cleanup [更新配置导入 - 保留期清理]
 
-import * as cacheManager from '../../../updater/cache/cache-manager.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
 
 /** Kick off a non-critical cleanup when the imported retention changed [导入的保留期变化后启动一次非关键清理] */
 export function scheduleRetentionCleanup(retentionDays: number): void {

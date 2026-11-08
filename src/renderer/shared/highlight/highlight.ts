@@ -2,11 +2,11 @@
 // No third-party dependency; language implementations in highlight-*.ts [无第三方依赖；各语言实现在 highlight-*.ts]
 // Emits hljs-* class names so existing theme CSS keeps working [输出 hljs-* 类名，复用已有主题样式]
 
-import { escapeHtml } from './highlight-utils.js';
-import { highlightJson } from './highlight-json.js';
-import { highlightMarkdown } from './markdown/highlight-markdown.js';
-import { highlightCStyle, C_STYLE_DIALECTS } from './cstyle/highlight-cstyle.js';
-import { highlightHtml } from './highlight-html.js';
+import { escapeHtml } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
+import { highlightJson } from 'sparklet/renderer/shared/highlight/highlight-json.js';
+import { highlightMarkdown } from 'sparklet/renderer/shared/highlight/markdown/highlight-markdown.js';
+import { highlightCStyle, C_STYLE_DIALECTS } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle.js';
+import { highlightHtml } from 'sparklet/renderer/shared/highlight/highlight-html.js';
 
 /** Language resolver per file extension [按扩展名解析语言] */
 const EXT_LANG: Record<string, string> = {

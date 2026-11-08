@@ -1,6 +1,6 @@
 // Welcome logs card [欢迎页日志卡片]
 
-import { systemApi } from '../../../shared/index.js';
+import { systemApi } from 'sparklet/renderer/shared/index.js';
 
 // ========== Logs card [日志卡片] ==========
 /** Count ERROR / WARN lines in the tail and paint the counts [统计尾部日志中 ERROR / WARN 数量并渲染] */

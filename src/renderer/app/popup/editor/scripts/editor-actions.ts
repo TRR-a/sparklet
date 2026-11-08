@@ -5,9 +5,9 @@
 // load → editor-load.ts, switch → editor-switch.ts, close → editor-close.ts,
 // preview → editor-preview.ts, startup → editor-startup.ts.
 
-export { updateActiveColor } from './editor-color-indicator.js';
-export { loadNoteIntoEditor } from './editor-load.js';
-export { switchNote } from './editor-switch.js';
-export { closeNote } from './editor-close.js';
-export { togglePreview } from './editor-preview.js';
-export { loadNotes } from './editor-startup.js';
+export { updateActiveColor } from 'sparklet/renderer/app/popup/editor/scripts/editor-color-indicator.js';
+export { loadNoteIntoEditor } from 'sparklet/renderer/app/popup/editor/scripts/editor-load.js';
+export { switchNote } from 'sparklet/renderer/app/popup/editor/scripts/editor-switch.js';
+export { closeNote } from 'sparklet/renderer/app/popup/editor/scripts/editor-close.js';
+export { togglePreview } from 'sparklet/renderer/app/popup/editor/scripts/editor-preview.js';
+export { loadNotes } from 'sparklet/renderer/app/popup/editor/scripts/editor-startup.js';

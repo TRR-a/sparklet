@@ -4,7 +4,7 @@
 // [常量 → cache-retention-constants.ts，状态 → cache-retention-state.ts，
 //  UI 同步 → cache-retention-ui.ts，读写 → cache-retention-io.ts]
 
-export { RETENTION_MIN, RETENTION_MAX, RETENTION_DEFAULT, clampRetentionDays } from './cache-retention-constants.js';
-export { getCurrentRetentionDays } from './cache-retention-state.js';
-export { applyRetentionUI } from './cache-retention-ui.js';
-export { saveRetentionDays, loadCacheRetentionDays } from './cache-retention-io.js';
+export { RETENTION_MIN, RETENTION_MAX, RETENTION_DEFAULT, clampRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-constants.js';
+export { getCurrentRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-state.js';
+export { applyRetentionUI } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-ui.js';
+export { saveRetentionDays, loadCacheRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-io.js';

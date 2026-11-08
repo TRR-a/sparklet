@@ -3,10 +3,10 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../startup/updater-paths.js';
-import { PACKAGE_NAME_PATTERN } from '../constants/constants.js';
-import { ensureCacheReady, readMeta, writeMeta } from './cache-meta.js';
-import { pruneCacheVersions } from './cache-register-prune.js';
+import { getUpdateCacheDir } from 'sparklet/main/updater/startup/updater-paths.js';
+import { PACKAGE_NAME_PATTERN } from 'sparklet/main/updater/constants/constants.js';
+import { ensureCacheReady, readMeta, writeMeta } from 'sparklet/main/updater/cache/cache-meta.js';
+import { pruneCacheVersions } from 'sparklet/main/updater/cache/cache-register-prune.js';
 import type { CacheEntry } from 'sparklet/shared/types/updater/updater.js';
 
 /**

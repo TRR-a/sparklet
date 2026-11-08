@@ -1,6 +1,6 @@
 // Selection bar: DOM creation [多选操作栏 - DOM 创建]
 
-import { onBarClick } from './selection-bar-actions.js';
+import { onBarClick } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-actions.js';
 
 let barEl: HTMLElement | null = null;
 

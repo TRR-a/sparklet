@@ -8,7 +8,7 @@
 // placement → glass-dropdown-position.ts, label sync → glass-dropdown-label.ts,
 // instance class → glass-dropdown-instance.ts.
 
-import { GlassDropdown } from './glass-dropdown-instance.js';
+import { GlassDropdown } from 'sparklet/renderer/app/settings/ui/dropdown/scripts/glass-dropdown-instance.js';
 
 /** Upgrade every <select class="language-select"> (and updater selects) on the page [将页面上所有 <select> 升级为玻璃下拉] */
 export function initCustomDropdowns(): void {

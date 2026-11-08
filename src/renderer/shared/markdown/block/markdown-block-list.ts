@@ -1,7 +1,7 @@
 // Markdown block renderer: task / unordered / ordered lists [Markdown 块级渲染器 - 任务/无序/有序列表]
 
-import { renderInline } from '../markdown-inline.js';
-import type { BlockMatch } from './markdown-block-types.js';
+import { renderInline } from 'sparklet/renderer/shared/markdown/markdown-inline.js';
+import type { BlockMatch } from 'sparklet/renderer/shared/markdown/block/markdown-block-types.js';
 
 /**
  * Render a task list, unordered list or ordered list at line i, or null

@@ -1,8 +1,8 @@
 // Note list: tag filter bar [笔记列表 - 标签筛选条]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import type { NoteListItem } from './note-list-types.js';
-import { getActiveTag, setActiveTag } from './note-list-state.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-types.js';
+import { getActiveTag, setActiveTag } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-state.js';
 
 /**
  * Render the tag filter bar: "All" + every tag that exists, click to filter

@@ -1,6 +1,6 @@
 // Cache info: retention calculation [缓存信息 - 保留期计算]
 
-import { DEFAULT_CACHE_SUCCESS_RETENTION_DAYS, CACHE_UNUSED_RETENTION_DAYS } from '../constants/constants.js';
+import { DEFAULT_CACHE_SUCCESS_RETENTION_DAYS, CACHE_UNUSED_RETENTION_DAYS } from 'sparklet/main/updater/constants/constants.js';
 import type { CacheEntry } from 'sparklet/shared/types/updater/updater.js';
 
 /** Retention display info [保留期展示信息] */

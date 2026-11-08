@@ -1,10 +1,10 @@
 // Config store: read from disk [配置存储 - 从磁盘读取]
 
 import * as fs from 'fs-extra';
-import { DEFAULT_CONFIG } from '../constants/constants.js';
+import { DEFAULT_CONFIG } from 'sparklet/main/updater/constants/constants.js';
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
-import { getConfigFilePath } from './config-paths.js';
-import { getCachedConfig, setCachedConfig } from './config-state.js';
+import { getConfigFilePath } from 'sparklet/main/updater/config/config-paths.js';
+import { getCachedConfig, setCachedConfig } from 'sparklet/main/updater/config/config-state.js';
 
 /**
  * Read config [读取配置]

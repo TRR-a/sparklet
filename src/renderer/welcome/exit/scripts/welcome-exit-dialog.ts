@@ -1,6 +1,6 @@
 // Kernel exit confirm (double-Esc) [内核退出确认 (双击 Esc)]
 
-import { windowApi } from '../../../shared/index.js';
+import { windowApi } from 'sparklet/renderer/shared/index.js';
 
 // ========== Kernel exit confirm (double-Esc) ==========
 const DOUBLE_ESC_INTERVAL = 600;

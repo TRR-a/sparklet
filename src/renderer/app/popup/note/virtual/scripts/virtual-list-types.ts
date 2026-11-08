@@ -1,6 +1,6 @@
 // Virtual list types [虚拟列表类型]
 
-import type { NoteListItem } from '../../list/scripts/note-list.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
 
 /** Group title item [分组标题条目] */
 export interface VirtualTitleItem {

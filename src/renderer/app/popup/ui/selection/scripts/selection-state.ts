@@ -14,11 +14,11 @@ export {
   getSelectedCount,
   getSelectedIds,
   onSelectionChange,
-} from './selection-store.js';
+} from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-store.js';
 export {
   enterSelectionMode,
   exitSelectionMode,
   toggleSelect,
   selectAll,
   clearSelection,
-} from './selection-actions.js';
+} from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-actions.js';

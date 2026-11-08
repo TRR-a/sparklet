@@ -2,5 +2,5 @@
 //
 // Split out [已拆分]：disc drawing → wheel-draw-disc.ts, picking → wheel-draw-pick.ts.
 
-export { drawWheel } from './wheel-draw-disc.js';
-export { pickAt } from './wheel-draw-pick.js';
+export { drawWheel } from 'sparklet/renderer/app/popup/editor/wheel/scripts/wheel-draw-disc.js';
+export { pickAt } from 'sparklet/renderer/app/popup/editor/wheel/scripts/wheel-draw-pick.js';

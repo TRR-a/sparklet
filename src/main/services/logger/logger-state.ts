@@ -1,6 +1,6 @@
 // Logger: module-level runtime state [日志 - 模块级运行状态]
 
-import { LEVEL_WEIGHT } from './logger-format.js';
+import { LEVEL_WEIGHT } from 'sparklet/main/services/logger/logger-format.js';
 
 let minWeight = LEVEL_WEIGHT.info;
 let ready = false;

@@ -2,14 +2,14 @@
 // Image in project-preview-image.ts, binary placeholder in project-preview-binary.ts,
 // text editor in project-preview-text.ts [图片在 project-preview-image.ts，二进制占位在 project-preview-binary.ts，文本编辑器在 project-preview-text.ts]
 
-import { projectApi } from '../../api/scripts/project-api.js';
+import { projectApi } from 'sparklet/renderer/app/project/api/scripts/project-api.js';
 import {
   setEditTarget, setIsDirty,
-} from './project-preview-state.js';
-import { showFilePreviewPanel } from './project-preview-panel.js';
-import { renderPreviewImage } from './project-preview-image.js';
-import { renderPreviewBinary } from './project-preview-binary.js';
-import { renderPreviewText } from './project-preview-text.js';
+} from 'sparklet/renderer/app/project/preview/scripts/project-preview-state.js';
+import { showFilePreviewPanel } from 'sparklet/renderer/app/project/preview/scripts/project-preview-panel.js';
+import { renderPreviewImage } from 'sparklet/renderer/app/project/preview/scripts/project-preview-image.js';
+import { renderPreviewBinary } from 'sparklet/renderer/app/project/preview/scripts/project-preview-binary.js';
+import { renderPreviewText } from 'sparklet/renderer/app/project/preview/scripts/project-preview-text.js';
 
 /**
  * Preview a file in the right panel [在右侧面板打开文件]

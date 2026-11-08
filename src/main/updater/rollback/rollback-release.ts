@@ -1,7 +1,7 @@
 // Rollback: release URL + external open [回滚 - release 链接与外部打开]
 
 import { shell } from 'electron';
-import { GITHUB_OWNER, GITHUB_REPO } from '../constants/constants.js';
+import { GITHUB_OWNER, GITHUB_REPO } from 'sparklet/main/updater/constants/constants.js';
 
 /** Build the GitHub release page URL for a version [构造某版本的 GitHub release 页面链接] */
 export function buildReleaseUrl(versionWithV: string): string {

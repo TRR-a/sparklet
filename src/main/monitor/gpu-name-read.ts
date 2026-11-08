@@ -1,6 +1,6 @@
 // GPU names via platform commands (cached) [经平台命令采集 GPU 名称 (带缓存)]
 
-import { run } from './system-command.js';
+import { run } from 'sparklet/main/monitor/system-command.js';
 
 let gpuNameCache: string[] | null = null;
 let gpuNameCacheAt = 0;

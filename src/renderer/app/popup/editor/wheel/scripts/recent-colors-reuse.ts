@@ -1,10 +1,10 @@
 // Recent colors: reuse a recorded color [最近颜色 - 复用记录的颜色]
 
-import { hexToHsv } from '../../color/scripts/color-convert.js';
-import { setHsv, drawWheel, applyColor } from '../../color/scripts/color-wheel-state.js';
-import { pushRecentColor } from './recent-colors-store.js';
-import { renderRecentColors } from './recent-colors-wheel-view.js';
-import { renderCandidates } from './recent-colors-candidates.js';
+import { hexToHsv } from 'sparklet/renderer/app/popup/editor/color/scripts/color-convert.js';
+import { setHsv, drawWheel, applyColor } from 'sparklet/renderer/app/popup/editor/color/scripts/color-wheel-state.js';
+import { pushRecentColor } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-store.js';
+import { renderRecentColors } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-wheel-view.js';
+import { renderCandidates } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-candidates.js';
 
 /**
  * Reuse a recorded color: apply it, move it to the front, refresh both views

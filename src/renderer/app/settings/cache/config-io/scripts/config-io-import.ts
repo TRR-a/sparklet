@@ -7,8 +7,8 @@ import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import { showCustomConfirm } from 'sparklet/renderer/shared/ui/dialog/custom-dialog.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
-import { applyImportedConfig } from './config-io-import-apply.js';
-import { reportImportFailure, reportImportError } from './config-io-import-error.js';
+import { applyImportedConfig } from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io-import-apply.js';
+import { reportImportFailure, reportImportError } from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io-import-error.js';
 
 /**
  * Handle import updater config button click [处理导入更新配置按钮点击]

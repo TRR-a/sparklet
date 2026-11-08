@@ -9,22 +9,22 @@ export {
   removeProjectFromWorkspace,
   toggleProject,
   getWorkspaceProjects,
-} from '../workspace/scripts/project-workspace.js';
+} from 'sparklet/renderer/app/project/workspace/scripts/project-workspace.js';
 
-export type { WorkspaceProject } from '../workspace/scripts/project-workspace.js';
+export type { WorkspaceProject } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace.js';
 
 export {
   renderWorkspace,
   getFileIcon,
-} from '../tree/scripts/project-tree.js';
+} from 'sparklet/renderer/app/project/tree/scripts/project-tree.js';
 
 export {
   previewFile,
   saveCurrentFile,
   closeFilePreview,
-} from '../preview/scripts/project-preview.js';
+} from 'sparklet/renderer/app/project/preview/scripts/project-preview.js';
 
 export {
   createCodeEditor,
-} from '../editor/scripts/code-editor.js';
-export type { CodeEditor, CodeEditorOptions } from '../editor/scripts/code-editor.js';
+} from 'sparklet/renderer/app/project/editor/scripts/code-editor.js';
+export type { CodeEditor, CodeEditorOptions } from 'sparklet/renderer/app/project/editor/scripts/code-editor.js';

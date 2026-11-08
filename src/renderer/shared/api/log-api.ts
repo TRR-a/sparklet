@@ -8,7 +8,7 @@
 //  写入核心目录，其他名 (如 'note') 写入 logs/modules/<scope>/。日志经主进程落盘并镜像到控制台。用法同上]
 // Global error hooks in global-error-hooks.ts [全局错误钩子在 global-error-hooks.ts]
 
-import { bus } from '../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 
 type Level = 'debug' | 'info' | 'warn' | 'error';
 

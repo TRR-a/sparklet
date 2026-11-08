@@ -1,7 +1,7 @@
 // Installed files verify: gate checks [已安装文件校验 - 前置门禁]
 
 import { app } from 'electron';
-import { getConfigItem } from '../config/config-manager.js';
+import { getConfigItem } from 'sparklet/main/updater/config/config-manager.js';
 
 /**
  * Decide whether the installed-files check should be skipped [判断是否跳过已安装文件校验]

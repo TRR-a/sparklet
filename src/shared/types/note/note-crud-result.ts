@@ -1,6 +1,6 @@
 // Note CRUD result types [笔记增删改查结果类型]
 
-import type { Note, NoteMeta } from './note-entity.js';
+import type { Note, NoteMeta } from 'sparklet/shared/types/note/note-entity.js';
 
 /** Result of listing notes [笔记列表结果] */
 export interface NoteListResult {

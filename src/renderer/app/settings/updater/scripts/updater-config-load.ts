@@ -4,9 +4,9 @@
 // production apply → updater-config-load-prod.ts.
 
 import { appApi, updaterApi } from 'sparklet/renderer/shared/index.js';
-import { getIsDevEnvironment, setIsDevEnvironment, getUpdaterConfig, setUpdaterConfig } from './updater-config-state.js';
-import { applyDevLockUI } from './updater-config-load-dev.js';
-import { applyProdConfigUI } from './updater-config-load-prod.js';
+import { getIsDevEnvironment, setIsDevEnvironment, getUpdaterConfig, setUpdaterConfig } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-state.js';
+import { applyDevLockUI } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-load-dev.js';
+import { applyProdConfigUI } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-load-prod.js';
 
 /**
  * Load updater config from main process and apply to UI [从主进程加载更新配置并应用到 UI]

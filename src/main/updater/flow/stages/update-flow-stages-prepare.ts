@@ -1,10 +1,10 @@
 // Update flow: prepare stage [更新流程 - 准备阶段]
 
-import type { ProgressCallback, CompleteCallback } from '../../dialog/dialog.js';
-import { prepareUpdatePackage } from '../prepare/update-flow-prepare.js';
-import { interpretPrepare } from './update-flow-stage-result.js';
-import { reportDecision } from '../update-flow-report.js';
-import type { FlowArtifacts, InstallPhaseInput } from './update-flow-stages-types.js';
+import type { ProgressCallback, CompleteCallback } from 'sparklet/main/updater/dialog/dialog.js';
+import { prepareUpdatePackage } from 'sparklet/main/updater/flow/prepare/update-flow-prepare.js';
+import { interpretPrepare } from 'sparklet/main/updater/flow/stages/update-flow-stage-result.js';
+import { reportDecision } from 'sparklet/main/updater/flow/update-flow-report.js';
+import type { FlowArtifacts, InstallPhaseInput } from 'sparklet/main/updater/flow/stages/update-flow-stages-types.js';
 
 /** Decision after a successful prepare, carrying the staged entry [准备成功后的判定，含已就绪的入口] */
 export type PrepareOutcome = Extract<ReturnType<typeof interpretPrepare>, { kind: 'continue' }>;

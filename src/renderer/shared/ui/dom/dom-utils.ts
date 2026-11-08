@@ -5,6 +5,6 @@
 // HTML escaping → dom-escape-html.ts,
 // remaining-days formatting → dom-format-days.ts.
 
-export { formatDate, formatDateTime } from './dom-format-date.js';
-export { escapeHtml } from './dom-escape-html.js';
-export { formatDays } from './dom-format-days.js';
+export { formatDate, formatDateTime } from 'sparklet/renderer/shared/ui/dom/dom-format-date.js';
+export { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-escape-html.js';
+export { formatDays } from 'sparklet/renderer/shared/ui/dom/dom-format-days.js';

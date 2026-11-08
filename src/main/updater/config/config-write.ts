@@ -2,9 +2,9 @@
 
 import * as fs from 'fs-extra';
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
-import { getConfigFilePath } from './config-paths.js';
-import { broadcastConfigChange } from './config-broadcast.js';
-import { markSelfWrite, setCachedConfig } from './config-state.js';
+import { getConfigFilePath } from 'sparklet/main/updater/config/config-paths.js';
+import { broadcastConfigChange } from 'sparklet/main/updater/config/config-broadcast.js';
+import { markSelfWrite, setCachedConfig } from 'sparklet/main/updater/config/config-state.js';
 
 /** Config write result [配置写入结果] */
 export interface ConfigWriteResult {

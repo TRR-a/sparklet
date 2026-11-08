@@ -7,14 +7,14 @@
 // preference switches → settings-preferences.ts
 
 import { installGlobalErrorHooks, broadcastApi } from 'sparklet/renderer/shared/index.js';
-import { applyCacheDevLock } from '../cache/scripts/cache-settings.js';
-import { applyImportExportDevLock } from '../cache/config-io/scripts/config-io.js';
-import { initCustomDropdowns } from '../ui/dropdown/scripts/custom-dropdown.js';
-import { loadThemeAndI18n } from './settings-theme-i18n.js';
-import { initSettingsSections } from './settings-sections-init.js';
-import { bindCleanupButtons } from './settings-cleanup.js';
-import { bindWindowControl, bindToolButtons, bindCopyOfficialUrl } from './settings-toolbar.js';
-import { bindPreferences } from './settings-preferences.js';
+import { applyCacheDevLock } from 'sparklet/renderer/app/settings/cache/scripts/cache-settings.js';
+import { applyImportExportDevLock } from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io.js';
+import { initCustomDropdowns } from 'sparklet/renderer/app/settings/ui/dropdown/scripts/custom-dropdown.js';
+import { loadThemeAndI18n } from 'sparklet/renderer/app/settings/scripts/settings-theme-i18n.js';
+import { initSettingsSections } from 'sparklet/renderer/app/settings/scripts/settings-sections-init.js';
+import { bindCleanupButtons } from 'sparklet/renderer/app/settings/scripts/settings-cleanup.js';
+import { bindWindowControl, bindToolButtons, bindCopyOfficialUrl } from 'sparklet/renderer/app/settings/scripts/settings-toolbar.js';
+import { bindPreferences } from 'sparklet/renderer/app/settings/scripts/settings-preferences.js';
 
 // Uncaught errors/rejections go to the note log file [未捕获错误/拒绝写入 note 日志]
 installGlobalErrorHooks('main');

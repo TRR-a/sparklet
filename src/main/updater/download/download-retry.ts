@@ -1,9 +1,9 @@
 // Download with retry [下载重试]
 
-import { MAX_RETRY_COUNT, RETRY_DELAY_MS } from '../constants/constants.js';
-import { classifyNetworkError } from '../startup/updater-error.js';
-import { downloadFile } from './download-file.js';
-import type { ProgressCallback } from './download-file.js';
+import { MAX_RETRY_COUNT, RETRY_DELAY_MS } from 'sparklet/main/updater/constants/constants.js';
+import { classifyNetworkError } from 'sparklet/main/updater/startup/updater-error.js';
+import { downloadFile } from 'sparklet/main/updater/download/download-file.js';
+import type { ProgressCallback } from 'sparklet/main/updater/download/download-file.js';
 import type { DownloadResult, NetworkErrorType } from 'sparklet/shared/types/updater/updater.js';
 
 /**

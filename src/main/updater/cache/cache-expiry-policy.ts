@@ -1,6 +1,6 @@
 // Cache expiry policy [缓存过期策略]
 
-import { CACHE_UNUSED_RETENTION_DAYS } from '../constants/constants.js';
+import { CACHE_UNUSED_RETENTION_DAYS } from 'sparklet/main/updater/constants/constants.js';
 import type { CacheEntry } from 'sparklet/shared/types/updater/updater.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;

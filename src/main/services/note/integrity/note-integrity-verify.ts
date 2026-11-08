@@ -2,7 +2,7 @@
 
 import * as path from 'path';
 import type { NoteIntegrityReport } from 'sparklet/shared/types/note/notes.js';
-import { isNoteJsonValid, repairOrQuarantineNote } from './note-integrity-repair.js';
+import { isNoteJsonValid, repairOrQuarantineNote } from 'sparklet/main/services/note/integrity/note-integrity-repair.js';
 
 /** Verify each note .json and repair/quarantine the corrupt ones [校验每个笔记 .json，修复或隔离损坏项] */
 export async function verifyNoteFiles(

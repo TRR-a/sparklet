@@ -4,9 +4,9 @@
 // external process spawn → installer-spawn.ts.
 
 import type { InstallResult } from 'sparklet/shared/types/updater/updater.js';
-import { runExternalUpdater } from './installer-spawn.js';
+import { runExternalUpdater } from 'sparklet/main/updater/install/installer-spawn.js';
 
-export { runExternalUpdater } from './installer-spawn.js';
+export { runExternalUpdater } from 'sparklet/main/updater/install/installer-spawn.js';
 
 /** Progress callback type [进度回调类型] */
 type ProgressCallback = (msg: string, percent: number) => void;

@@ -1,8 +1,8 @@
 // Storage manager: read queries [存储管理器 - 读查询]
 
 import type { Note, NoteMeta } from 'sparklet/shared/types/note/notes.js';
-import { noteApi } from '../../app/api/note-api.js';
-import { ensureInit } from './storage-cache.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
+import { ensureInit } from 'sparklet/renderer/shared/storage/storage-cache.js';
 
 /** Return non-deleted notes [返回未删除的笔记] */
 export async function getNotes(): Promise<NoteMeta[]> {

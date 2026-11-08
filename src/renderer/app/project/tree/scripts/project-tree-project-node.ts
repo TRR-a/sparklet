@@ -2,9 +2,9 @@
 //
 // Split out [已拆分]：header row → project-tree-project-header.ts.
 
-import { buildTreeNode } from './project-tree-node.js';
-import { buildProjectHeader } from './project-tree-project-header.js';
-import type { WorkspaceProject } from '../../workspace/scripts/project-workspace-state.js';
+import { buildTreeNode } from 'sparklet/renderer/app/project/tree/scripts/project-tree-node.js';
+import { buildProjectHeader } from 'sparklet/renderer/app/project/tree/scripts/project-tree-project-header.js';
+import type { WorkspaceProject } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace-state.js';
 
 /**
  * Build a single project node (header + optional file tree) [构建单个项目节点 (标题 + 可选文件树)]

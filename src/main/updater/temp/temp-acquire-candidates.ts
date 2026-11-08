@@ -2,9 +2,9 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { TEMP_DIR_NAMES } from '../constants/constants.js';
+import { TEMP_DIR_NAMES } from 'sparklet/main/updater/constants/constants.js';
 import type { TempDirResult } from 'sparklet/shared/types/updater/updater.js';
-import { cleanDirectory } from './temp-clean.js';
+import { cleanDirectory } from 'sparklet/main/updater/temp/temp-clean.js';
 
 /** Try each candidate directory in order; null when none is usable [按顺序尝试每个候选目录；全部不可用时返回 null] */
 export async function tryTempCandidates(tempBase: string): Promise<TempDirResult | null> {

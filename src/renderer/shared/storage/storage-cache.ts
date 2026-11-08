@@ -1,7 +1,7 @@
 // Storage manager: note metadata cache + FS load [存储管理器 - 笔记元数据缓存与文件系统加载]
 
 import type { NoteMeta } from 'sparklet/shared/types/note/notes.js';
-import { noteApi } from '../../app/api/note-api.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
 
 let notesCache: NoteMeta[] | null = null;
 let initialized = false;

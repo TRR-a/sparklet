@@ -1,7 +1,7 @@
 // Code editor: highlight + gutter rendering, scroll sync [代码编辑器 - 高亮与行号渲染、滚动同步]
 
 import { highlightCode } from 'sparklet/renderer/shared/highlight/highlight.js';
-import type { CodeEditorNodes } from './code-editor-dom.js';
+import type { CodeEditorNodes } from 'sparklet/renderer/app/project/editor/scripts/code-editor-dom.js';
 
 /** Render highlight + line numbers for current value [按当前值渲染高亮与行号] */
 export function renderEditor(nodes: CodeEditorNodes, language: string): void {

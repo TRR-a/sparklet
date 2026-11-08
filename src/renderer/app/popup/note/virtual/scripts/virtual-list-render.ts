@@ -1,8 +1,8 @@
 // Virtual list: render a flat model [虚拟列表 - 渲染展平模型]
 
-import type { VirtualItem, VirtualFactories, VirtualRenderOptions } from './virtual-list-types.js';
-import { setItems, setFactories, setActiveNoteId, cardCache, setLastRange, recomputeOffsets } from './virtual-list-state.js';
-import { patchWindow } from './virtual-list-patch.js';
+import type { VirtualItem, VirtualFactories, VirtualRenderOptions } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-types.js';
+import { setItems, setFactories, setActiveNoteId, cardCache, setLastRange, recomputeOffsets } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
+import { patchWindow } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-patch.js';
 
 /**
  * Render a flat item model into the virtual list [将展平的条目模型渲染进虚拟列表]

@@ -16,5 +16,5 @@ export {
   setSettingsWindow,
   getAboutWindow,
   setAboutWindow,
-} from './window-registry.js';
-export { syncGlowPosition, type WindowBounds, type GlowSyncData } from './window-glow-sync.js';
+} from 'sparklet/main/windows/window-registry.js';
+export { syncGlowPosition, type WindowBounds, type GlowSyncData } from 'sparklet/main/windows/window-glow-sync.js';

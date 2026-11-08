@@ -1,6 +1,6 @@
 // Rollback dialogs: error details block [回滚弹窗 - 错误详情块]
 
-import { escapeHtml } from '../../ui/dom/dom-utils.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
 
 /** Build the collapsible error details block (empty when no errors) [构建可折叠错误详情块 (无错误时为空)] */
 export function rollbackErrorsBlock(errs: string[], label: string): string {

@@ -4,8 +4,8 @@
 // response reading → check-fetch-read.ts.
 
 import * as https from 'https';
-import { buildLatestReleaseRequestOptions } from './check-fetch-options.js';
-import { readLatestReleaseResponse } from './check-fetch-read.js';
+import { buildLatestReleaseRequestOptions } from 'sparklet/main/updater/check/check-fetch-options.js';
+import { readLatestReleaseResponse } from 'sparklet/main/updater/check/check-fetch-read.js';
 
 /** Raw HTTP outcome [原始 HTTP 结果] */
 export interface RawFetchOutcome {

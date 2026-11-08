@@ -1,6 +1,6 @@
 // Updater dialog: restart countdown ticker [更新器弹窗 - 重启倒计时]
 
-import { t } from '../../i18n/i18n.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 
 /**
  * Start the 30s restart countdown inside the dialog [启动弹窗内 30s 重启倒计时]

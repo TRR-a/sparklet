@@ -1,8 +1,8 @@
 // Exit confirm dialog: event binding [退出确认弹窗 - 事件绑定]
 
-import { getModal, getQuitBtn, getReturnBtn } from './exit-dialog-focus.js';
-import { closeDialog, performQuit } from './exit-dialog-actions.js';
-import { onExitDialogKeyDown } from './exit-dialog-keydown.js';
+import { getModal, getQuitBtn, getReturnBtn } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-focus.js';
+import { closeDialog, performQuit } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-actions.js';
+import { onExitDialogKeyDown } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-keydown.js';
 
 /**
  * Bind exit-confirm dialog events (call once on init) [绑定退出确认弹窗事件 (初始化时调用一次)]

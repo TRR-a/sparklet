@@ -1,8 +1,8 @@
 // Temp directory: user fallback choice [临时目录 - 用户兜底选择]
 
 import type { TempDirResult } from 'sparklet/shared/types/updater/updater.js';
-import { askTempDirError, type TempDirDialogs } from './temp-dialogs.js';
-import { pickManualDir } from './temp-manual-dir.js';
+import { askTempDirError, type TempDirDialogs } from 'sparklet/main/updater/temp/temp-dialogs.js';
+import { pickManualDir } from 'sparklet/main/updater/temp/temp-manual-dir.js';
 
 /** Outcome of the "all candidates failed" prompt [全部候选失败后的提示结果] */
 export type TempFallbackChoice =

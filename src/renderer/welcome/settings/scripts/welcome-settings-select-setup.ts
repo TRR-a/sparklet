@@ -1,6 +1,6 @@
 // Custom select: setup / option wiring [自定义下拉框 - 初始化与选项接线]
 
-import { closeSelect, openSelect } from './welcome-settings-select-open.js';
+import { closeSelect, openSelect } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select-open.js';
 
 /** Wire a custom select container's trigger and options [接线下拉框触发器与选项点击] */
 export function setupCustomSelect(

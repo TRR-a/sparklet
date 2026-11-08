@@ -6,7 +6,7 @@
 //
 // Split out [已拆分]：data → shortcut-panel-data.ts, view → shortcut-panel-view.ts.
 
-import { getModal, hidePanel, isPanelOpen, showPanel } from './shortcut-panel-view.js';
+import { getModal, hidePanel, isPanelOpen, showPanel } from 'sparklet/renderer/app/popup/modals/shortcut/scripts/shortcut-panel-view.js';
 
 /**
  * Toggle the shortcut panel [切换快捷键面板]

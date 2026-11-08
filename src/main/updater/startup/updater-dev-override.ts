@@ -1,7 +1,7 @@
 // Updater: development config override [更新器 - 开发环境配置覆盖]
 
 import { app } from 'electron';
-import { readConfig, writeConfig, broadcastConfigChange } from '../config/config-manager.js';
+import { readConfig, writeConfig, broadcastConfigChange } from 'sparklet/main/updater/config/config-manager.js';
 
 /**
  * Force config override in development environment [开发环境强制覆盖配置]

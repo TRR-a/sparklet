@@ -6,17 +6,17 @@ import { bindUpdaterDialogListener } from 'sparklet/renderer/shared/updater/dial
 import {
   loadUpdaterConfig,
   bindUpdaterEvents,
-} from '../updater/scripts/updater-config.js';
+} from 'sparklet/renderer/app/settings/updater/scripts/updater-config.js';
 import {
   loadCacheRetentionDays,
   applyCacheDevLock,
   bindCacheEvents,
   loadCacheInfo
-} from '../cache/scripts/cache-settings.js';
+} from 'sparklet/renderer/app/settings/cache/scripts/cache-settings.js';
 import {
   applyImportExportDevLock,
   bindImportExportEvents
-} from '../cache/config-io/scripts/config-io.js';
+} from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io.js';
 
 /**
  * Initialize updater, cache and import/export sections [初始化更新、缓存与导入导出区]

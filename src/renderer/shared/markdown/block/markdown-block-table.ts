@@ -1,8 +1,8 @@
 // Markdown block renderer: tables + paragraph + block-start detection [Markdown 块级渲染器 - 表格与段落与块起始判定]
 
-import { renderInline } from '../markdown-inline.js';
-import { renderTable, isTableSeparator } from '../table/markdown-table.js';
-import type { BlockMatch } from './markdown-block-types.js';
+import { renderInline } from 'sparklet/renderer/shared/markdown/markdown-inline.js';
+import { renderTable, isTableSeparator } from 'sparklet/renderer/shared/markdown/table/markdown-table.js';
+import type { BlockMatch } from 'sparklet/renderer/shared/markdown/block/markdown-block-types.js';
 
 /**
  * Check if line starts a block-level element [检查行是否为块级元素开始]

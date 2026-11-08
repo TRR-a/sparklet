@@ -1,7 +1,7 @@
 // Welcome tabs: create [欢迎页标签 - 新建]
 
-import { nextTabId, putTabData, type TabData } from './welcome-tab-store.js';
-import { activateTab } from './welcome-tab-activate.js';
+import { nextTabId, putTabData, type TabData } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tab-store.js';
+import { activateTab } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tab-activate.js';
 
 /**
  * Create a tab element and activate it [创建标签元素并激活]

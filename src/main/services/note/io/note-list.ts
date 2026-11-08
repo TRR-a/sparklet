@@ -2,8 +2,8 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { ensureNotesDir } from './note-paths.js';
-import { compareNotes } from './note-sort.js';
+import { ensureNotesDir } from 'sparklet/main/services/note/io/note-paths.js';
+import { compareNotes } from 'sparklet/main/services/note/io/note-sort.js';
 import type { NoteMeta, NoteListResult } from 'sparklet/shared/types/note/notes.js';
 
 /** Partial note metadata (without content) [部分笔记元数据 (不含 content)] */

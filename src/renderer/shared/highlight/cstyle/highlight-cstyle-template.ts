@@ -1,6 +1,6 @@
 // C-style highlighter: template literal interpolation [C 风格高亮 - 模板字符串插值]
 
-import { span } from '../highlight-utils.js';
+import { span } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
 
 /** Highlight ${...} interpolations inside a template literal [高亮模板字符串内的 ${...} 插值] */
 export function templateSpan(tok: string): string {

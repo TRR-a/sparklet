@@ -2,7 +2,7 @@
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
-import { updateStatusText } from './updater-config-status.js';
+import { updateStatusText } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-status.js';
 
 /** Subscribe to check status changes [订阅检查状态变化] */
 export function bindUpdaterStatusEvents(): void {

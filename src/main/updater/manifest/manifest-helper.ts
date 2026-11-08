@@ -1,10 +1,10 @@
 // Manifest asset extraction & entry exports [清单 Asset 提取与入口导出]
 // Types in manifest-types.ts, file IO in manifest-fetch.ts [类型在 manifest-types.ts，文件读写于 manifest-fetch.ts]
 
-import type { AssetExtractionResult, ReleaseData } from './manifest-types.js';
+import type { AssetExtractionResult, ReleaseData } from 'sparklet/main/updater/manifest/manifest-types.js';
 
-export type { AssetExtractionResult, ReleaseData } from './manifest-types.js';
-export { readCurrentManifest, fetchReleasesManifest } from './manifest-fetch.js';
+export type { AssetExtractionResult, ReleaseData } from 'sparklet/main/updater/manifest/manifest-types.js';
+export { readCurrentManifest, fetchReleasesManifest } from 'sparklet/main/updater/manifest/manifest-fetch.js';
 
 /**
  * Extract asset download URLs from GitHub Release data [从 GitHub Release 数据中提取 asset 下载地址]

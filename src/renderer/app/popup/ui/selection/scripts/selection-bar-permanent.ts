@@ -3,8 +3,8 @@
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showCustomConfirm } from 'sparklet/renderer/shared/ui/dialog/custom-dialog.js';
-import { exitSelectionMode } from './selection-state.js';
-import { refreshCurrentView } from './selection-bar-refresh.js';
+import { exitSelectionMode } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import { refreshCurrentView } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-refresh.js';
 
 /** Confirm and permanently delete the selected notes [确认并永久删除选中笔记] */
 export async function runSelectionPermanentDelete(ids: string[]): Promise<void> {

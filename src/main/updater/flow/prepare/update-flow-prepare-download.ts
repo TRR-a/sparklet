@@ -3,10 +3,10 @@
 import * as path from 'path';
 import * as fs from 'fs-extra';
 import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
-import { MAX_RETRY_COUNT } from '../../constants/constants.js';
-import { releaseTempDir } from '../../temp/temp-manager.js';
-import { downloadWithRetry } from '../../download/download.js';
-import { verifyPackageIntegrity } from '../../install/verify.js';
+import { MAX_RETRY_COUNT } from 'sparklet/main/updater/constants/constants.js';
+import { releaseTempDir } from 'sparklet/main/updater/temp/temp-manager.js';
+import { downloadWithRetry } from 'sparklet/main/updater/download/download.js';
+import { verifyPackageIntegrity } from 'sparklet/main/updater/install/verify.js';
 
 /** Result of the download/integrity step [下载与校验步骤结果] */
 export type DownloadResult =

@@ -1,7 +1,7 @@
 // Installed files verify: scan and compare [已安装文件校验 - 扫描与比对]
 
 import * as fs from 'fs-extra';
-import { collectAllFiles, computeCombinedHash } from './integrity-file-utils.js';
+import { collectAllFiles, computeCombinedHash } from 'sparklet/main/updater/integrity/integrity-file-utils.js';
 
 /** Outcome of the scan-and-compare step [扫描比对结果] */
 export interface FilesCompareOutcome {

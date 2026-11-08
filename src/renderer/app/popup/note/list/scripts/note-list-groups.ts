@@ -1,10 +1,10 @@
 // Note list: group flattening + factories [笔记列表 - 分组展平与工厂]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { createGroupTitle, createGroupEmpty, collapsedGroups } from '../../scripts/note-group.js';
-import { createNoteCard } from '../../card/scripts/note-card.js';
-import type { VirtualItem, VirtualFactories } from '../../scripts/note-virtual-list.js';
-import type { NoteListItem } from './note-list-types.js';
+import { createGroupTitle, createGroupEmpty, collapsedGroups } from 'sparklet/renderer/app/popup/note/scripts/note-group.js';
+import { createNoteCard } from 'sparklet/renderer/app/popup/note/card/scripts/note-card.js';
+import type { VirtualItem, VirtualFactories } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-types.js';
 
 /**
  * Factories shared by the main view and search results [主视图与搜索结果共用的元素工厂]

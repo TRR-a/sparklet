@@ -7,9 +7,9 @@
 // Facade groups [外观分组]：queries → storage-manager-queries.ts,
 // mutations → storage-manager-mutations.ts, maintenance → storage-manager-maintenance.ts
 
-import { storageManagerQueries } from './storage-manager-queries.js';
-import { storageManagerMutations } from './storage-manager-mutations.js';
-import { storageManagerMaintenance } from './storage-manager-maintenance.js';
+import { storageManagerQueries } from 'sparklet/renderer/shared/storage/manager/storage-manager-queries.js';
+import { storageManagerMutations } from 'sparklet/renderer/shared/storage/manager/storage-manager-mutations.js';
+import { storageManagerMaintenance } from 'sparklet/renderer/shared/storage/manager/storage-manager-maintenance.js';
 
 const storageManager = {
   ...storageManagerQueries,

@@ -1,8 +1,8 @@
 // Updater dialog content: generic simple error [更新器弹窗内容 - 通用简单错误]
 
-import { t } from '../../../i18n/i18n.js';
-import { escapeHtml } from '../../../ui/dom/dom-utils.js';
-import type { DialogContent } from '../updater-dialog-types.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 // ========== 10. Simple error (generic) [简单错误 (通用)] ==========
 export function buildSimpleError(params: Record<string, unknown>): DialogContent {

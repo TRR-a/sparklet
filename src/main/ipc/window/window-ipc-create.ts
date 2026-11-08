@@ -1,11 +1,11 @@
 // Window IPC: window creation channels [窗口 IPC - 窗口创建通道]
 
 import { ipcMain } from 'electron';
-import { createSettingsWindow } from '../../windows/settings/settings-window.js';
-import { createAboutWindow } from '../../windows/about-window.js';
-import { createWelcomeSettingsWindow } from '../../windows/settings/welcome-settings-window.js';
-import { createMainWindow } from '../../windows/main-window.js';
-import { getSettingsWindow } from '../../windows/window-manager.js';
+import { createSettingsWindow } from 'sparklet/main/windows/settings/settings-window.js';
+import { createAboutWindow } from 'sparklet/main/windows/about-window.js';
+import { createWelcomeSettingsWindow } from 'sparklet/main/windows/settings/welcome-settings-window.js';
+import { createMainWindow } from 'sparklet/main/windows/main-window.js';
+import { getSettingsWindow } from 'sparklet/main/windows/window-manager.js';
 
 /** Register window creation IPC handlers [注册窗口创建 IPC 处理器] */
 export function registerWindowCreateIpc(): void {

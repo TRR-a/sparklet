@@ -1,9 +1,9 @@
 // Config store: item-level accessors [配置存储 - 项级访问器]
 
-import { DEFAULT_CONFIG } from '../constants/constants.js';
+import { DEFAULT_CONFIG } from 'sparklet/main/updater/constants/constants.js';
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
-import { readConfig } from './config-read.js';
-import { writeConfig, type ConfigWriteResult } from './config-write.js';
+import { readConfig } from 'sparklet/main/updater/config/config-read.js';
+import { writeConfig, type ConfigWriteResult } from 'sparklet/main/updater/config/config-write.js';
 
 /**
  * Get a single config item [获取单个配置项]

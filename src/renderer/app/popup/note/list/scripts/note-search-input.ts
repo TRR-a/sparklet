@@ -1,6 +1,6 @@
 // Note search: input element helpers [笔记搜索 - 输入框辅助]
 
-import { getSearchQuery, clearSearchState } from './note-search-run.js';
+import { getSearchQuery, clearSearchState } from 'sparklet/renderer/app/popup/note/list/scripts/note-search-run.js';
 
 /** Get the search input element [获取搜索输入框元素] */
 export function getSearchInput(): HTMLInputElement | null {

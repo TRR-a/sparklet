@@ -1,7 +1,7 @@
 // i18n: apply translations to the DOM [i18n - 把翻译应用到 DOM]
 
-import { getTranslations } from './i18n-state.js';
-import { t } from './i18n-t.js';
+import { getTranslations } from 'sparklet/renderer/shared/i18n/i18n-state.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n-t.js';
 
 /** Apply the active translation table to all tagged elements [把当前翻译表应用到所有带标记的元素] */
 export function applyTranslations(): void {

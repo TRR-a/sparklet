@@ -3,7 +3,7 @@
 // Split out [已拆分]：register → cache-register.ts, success mark → cache-mark.ts,
 // query → cache-query.ts, verify → cache-verify.ts.
 
-export { registerCachedZip } from './cache-register.js';
-export { markSuccessFirstLaunch } from './cache-mark.js';
-export { getCachedZipPath } from './cache-query.js';
-export { verifyCachedZip } from './cache-verify.js';
+export { registerCachedZip } from 'sparklet/main/updater/cache/cache-register.js';
+export { markSuccessFirstLaunch } from 'sparklet/main/updater/cache/cache-mark.js';
+export { getCachedZipPath } from 'sparklet/main/updater/cache/cache-query.js';
+export { verifyCachedZip } from 'sparklet/main/updater/cache/cache-verify.js';

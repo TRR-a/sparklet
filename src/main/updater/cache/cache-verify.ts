@@ -2,8 +2,8 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../startup/updater-paths.js';
-import { readMeta } from './cache-meta.js';
+import { getUpdateCacheDir } from 'sparklet/main/updater/startup/updater-paths.js';
+import { readMeta } from 'sparklet/main/updater/cache/cache-meta.js';
 import type { VerifyCachedZipResult } from 'sparklet/shared/types/updater/updater.js';
 
 /**

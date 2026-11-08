@@ -2,7 +2,7 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import type { OldNote } from '../note/io/notes-service.js';
+import type { OldNote } from 'sparklet/main/services/note/io/notes-service.js';
 
 /**
  * Write one legacy note as .json (metadata) + .md (content) [将一条旧笔记写为 .json (元数据) + .md (正文)]

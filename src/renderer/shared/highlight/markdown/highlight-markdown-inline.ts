@@ -1,7 +1,7 @@
 // Markdown highlighter: inline tokens [Markdown 高亮 - 行内词元]
 
-import { escapeHtml, span } from '../highlight-utils.js';
-import { MD_INLINE } from './highlight-markdown-patterns.js';
+import { escapeHtml, span } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
+import { MD_INLINE } from 'sparklet/renderer/shared/highlight/markdown/highlight-markdown-patterns.js';
 
 /** Tokenize one inline text segment [标记一段行内文本] */
 export function highlightInline(text: string): string {

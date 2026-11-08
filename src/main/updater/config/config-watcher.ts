@@ -3,9 +3,9 @@
 // Split out [已拆分]：external change handling → config-watcher-change.ts.
 
 import * as fs from 'fs-extra';
-import { DEFAULT_CONFIG } from '../constants/constants.js';
-import { getConfigFilePath } from './config-paths.js';
-import { handleExternalConfigChange } from './config-watcher-change.js';
+import { DEFAULT_CONFIG } from 'sparklet/main/updater/constants/constants.js';
+import { getConfigFilePath } from 'sparklet/main/updater/config/config-paths.js';
+import { handleExternalConfigChange } from 'sparklet/main/updater/config/config-watcher-change.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let configWatcher: any = null;

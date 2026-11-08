@@ -1,8 +1,8 @@
 // Welcome monitor: CPU & memory rows [欢迎页监控 - CPU 与内存行]
 
 import type { SystemStats } from 'sparklet/shared/types/system.js';
-import { getLang } from '../../i18n/scripts/welcome-i18n.js';
-import { formatBytes, paintFill } from './monitor-format.js';
+import { getLang } from 'sparklet/renderer/welcome/i18n/scripts/welcome-i18n.js';
+import { formatBytes, paintFill } from 'sparklet/renderer/welcome/monitor/scripts/monitor-format.js';
 
 /** Update the static CPU row [更新固定 CPU 行] */
 export function updateCpuRow(stats: SystemStats): void {

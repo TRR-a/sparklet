@@ -6,15 +6,15 @@
 // exit helpers → update-flow-stages-exit.ts,
 // branch settling → update-flow-stages-branch.ts.
 
-import type { ProgressCallback, CompleteCallback } from '../../dialog/dialog.js';
-import { updaterStateInternal } from '../../startup/update-state.js';
-import { runUpdatePreflight } from '../update-flow-guards.js';
-import { runCheckPhase } from './update-flow-stages-check.js';
-import { runInstallPhase } from './update-flow-stages-install.js';
-import { handleFlowError } from './update-flow-stages-error.js';
-import { stopFlow } from './update-flow-stages-exit.js';
-import { settleNonContinuePhase } from './update-flow-stages-branch.js';
-import type { FlowArtifacts } from './update-flow-stages-install.js';
+import type { ProgressCallback, CompleteCallback } from 'sparklet/main/updater/dialog/dialog.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
+import { runUpdatePreflight } from 'sparklet/main/updater/flow/update-flow-guards.js';
+import { runCheckPhase } from 'sparklet/main/updater/flow/stages/update-flow-stages-check.js';
+import { runInstallPhase } from 'sparklet/main/updater/flow/stages/update-flow-stages-install.js';
+import { handleFlowError } from 'sparklet/main/updater/flow/stages/update-flow-stages-error.js';
+import { stopFlow } from 'sparklet/main/updater/flow/stages/update-flow-stages-exit.js';
+import { settleNonContinuePhase } from 'sparklet/main/updater/flow/stages/update-flow-stages-branch.js';
+import type { FlowArtifacts } from 'sparklet/main/updater/flow/stages/update-flow-stages-install.js';
 
 /**
  * Run preflight → check → notify/prepare → install, reporting the outcome once

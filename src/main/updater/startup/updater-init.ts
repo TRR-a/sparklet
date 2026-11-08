@@ -5,21 +5,21 @@
 // quit hook → updater-quit-hook.ts.
 
 import { app } from 'electron';
-import { readConfig, broadcastConfigChange } from '../config/config-manager.js';
-import { ensureDialogResponseHandler, broadcastToast } from '../dialog/dialog.js';
-import { updaterStateInternal } from './update-state.js';
-import { startConfigWatcher } from '../config/config-manager.js';
-import { startUpdateTimer } from './update-timer.js';
-import { checkDisableFlags } from './updater-disable-flags.js';
-import { applyDevConfigOverride } from './updater-dev-override.js';
+import { readConfig, broadcastConfigChange } from 'sparklet/main/updater/config/config-manager.js';
+import { ensureDialogResponseHandler, broadcastToast } from 'sparklet/main/updater/dialog/dialog.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
+import { startConfigWatcher } from 'sparklet/main/updater/config/config-manager.js';
+import { startUpdateTimer } from 'sparklet/main/updater/startup/update-timer.js';
+import { checkDisableFlags } from 'sparklet/main/updater/startup/updater-disable-flags.js';
+import { applyDevConfigOverride } from 'sparklet/main/updater/startup/updater-dev-override.js';
 import {
   scheduleStartupCacheCleanup,
   scheduleStartupFileIntegrityCheck,
   runStartupSelfCheck,
-} from './updater-startup-tasks.js';
-import { bindQuitHook } from './updater-quit-hook.js';
+} from 'sparklet/main/updater/startup/updater-startup-tasks.js';
+import { bindQuitHook } from 'sparklet/main/updater/startup/updater-quit-hook.js';
 
-export { applyDevConfigOverride } from './updater-dev-override.js';
+export { applyDevConfigOverride } from 'sparklet/main/updater/startup/updater-dev-override.js';
 
 /**
  * Initialize updater module [初始化更新模块]

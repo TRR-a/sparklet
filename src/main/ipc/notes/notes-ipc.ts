@@ -5,9 +5,9 @@
 // Split out [已拆分]：CRUD → notes-ipc-crud.ts, history → notes-ipc-history.ts,
 // integrity report → notes-ipc-integrity.ts.
 
-import { registerNotesCrudIpc } from './notes-ipc-crud.js';
-import { registerNotesHistoryIpc } from './notes-ipc-history.js';
-import { registerNotesIntegrityIpc } from './notes-ipc-integrity.js';
+import { registerNotesCrudIpc } from 'sparklet/main/ipc/notes/notes-ipc-crud.js';
+import { registerNotesHistoryIpc } from 'sparklet/main/ipc/notes/notes-ipc-history.js';
+import { registerNotesIntegrityIpc } from 'sparklet/main/ipc/notes/notes-ipc-integrity.js';
 
 /**
  * Register all notes IPC handlers [注册所有笔记 IPC 处理器]

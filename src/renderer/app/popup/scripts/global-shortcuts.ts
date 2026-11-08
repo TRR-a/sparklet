@@ -5,9 +5,9 @@
 // [Ctrl+F 聚焦搜索 / Ctrl+N 新建笔记 / Ctrl+P 切换预览 / F1 快捷键面板。
 //  Ctrl+数字快速跳转绑定在 note-quick-jump.ts；双击 Esc 退出在 exit-dialog.ts]
 
-import { createNewNote, togglePreview } from '../editor/scripts/note-editor.js';
-import { focusSearchInput } from '../note/list/scripts/note-search.js';
-import { toggleShortcutPanel } from '../modals/shortcut/scripts/shortcut-panel.js';
+import { createNewNote, togglePreview } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
+import { focusSearchInput } from 'sparklet/renderer/app/popup/note/list/scripts/note-search.js';
+import { toggleShortcutPanel } from 'sparklet/renderer/app/popup/modals/shortcut/scripts/shortcut-panel.js';
 
 /**
  * Check whether any modal is open (shortcuts disabled while modals own the keyboard) [是否有弹窗打开 (弹窗期间快捷键让位于弹窗键盘处理)]

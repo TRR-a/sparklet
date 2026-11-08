@@ -2,7 +2,7 @@
 
 import { URL } from 'url';
 import * as https from 'https';
-import { GITHUB_API_URL, REQUEST_TIMEOUT_MS } from '../constants/constants.js';
+import { GITHUB_API_URL, REQUEST_TIMEOUT_MS } from 'sparklet/main/updater/constants/constants.js';
 
 /** Build the https request options for the latest-release API [构造最新 Release API 的 https 请求参数] */
 export function buildLatestReleaseRequestOptions(): https.RequestOptions {

@@ -15,15 +15,15 @@
 // load/prepare → note-history-modal-load.ts.
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { getHistoryModal, renderHistoryList } from './note-history-modal-view.js';
-import { selectSnapshot } from './note-history-modal-select.js';
-import { prepareHistoryView } from './note-history-modal-load.js';
+import { getHistoryModal, renderHistoryList } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-modal-view.js';
+import { selectSnapshot } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-modal-select.js';
+import { prepareHistoryView } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-modal-load.js';
 
 export {
   hideNoteHistory,
   bindNoteHistoryModalHandlers,
-} from './note-history-modal-view.js';
-export { showNoteHistoryStartupToast } from './note-history-startup-toast.js';
+} from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-modal-view.js';
+export { showNoteHistoryStartupToast } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-startup-toast.js';
 
 /**
  * Show note history modal [显示笔记历史弹窗]

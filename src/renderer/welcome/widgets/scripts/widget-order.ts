@@ -1,6 +1,6 @@
 // Widget board: persisted order [主页卡片 - 顺序持久化]
 
-import { storeApi } from '../../../shared/index.js';
+import { storeApi } from 'sparklet/renderer/shared/index.js';
 
 export const WIDGET_ORDER_KEY = 'kernel.widgetOrder';
 export const DEFAULT_ORDER = ['calendar', 'digital', 'analog', 'monitor'];

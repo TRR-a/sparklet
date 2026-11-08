@@ -2,9 +2,9 @@
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId } from '../../editor/scripts/note-editor.js';
-import { refreshNoteListView, clearSearch, isSearchActive } from '../list/scripts/note-search.js';
-import { clearSaveTimers } from './note-save.js';
+import { loadNoteIntoEditor, getCurrentNoteId, setCurrentNoteId } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
+import { refreshNoteListView, clearSearch, isSearchActive } from 'sparklet/renderer/app/popup/note/list/scripts/note-search.js';
+import { clearSaveTimers } from 'sparklet/renderer/app/popup/note/scripts/note-save.js';
 
 /**
  * Handle note deletion (double-click to confirm) [处理笔记删除 (双击确认)]

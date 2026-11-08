@@ -1,6 +1,6 @@
 // Color wheel: canvas pick + value slider events [色环 - 画布选色与明度滑块事件]
 
-import { setValue, drawWheel, pickAt, applyColor } from './color-wheel-state.js';
+import { setValue, drawWheel, pickAt, applyColor } from 'sparklet/renderer/app/popup/editor/color/scripts/color-wheel-state.js';
 
 /**
  * Bind disc picking and brightness slider [绑定圆盘选色与明度滑块]

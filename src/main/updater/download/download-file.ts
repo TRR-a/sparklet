@@ -6,12 +6,12 @@
 import * as https from 'https';
 import * as fs from 'fs-extra';
 import type { DownloadResult } from 'sparklet/shared/types/updater/updater.js';
-import { buildDownloadOptions } from './download-request.js';
-import type { ProgressCallback } from './download-progress.js';
-import { consumeDownloadResponse } from './download-response-stream.js';
-import { downloadFailure } from './download-failure.js';
+import { buildDownloadOptions } from 'sparklet/main/updater/download/download-request.js';
+import type { ProgressCallback } from 'sparklet/main/updater/download/download-progress.js';
+import { consumeDownloadResponse } from 'sparklet/main/updater/download/download-response-stream.js';
+import { downloadFailure } from 'sparklet/main/updater/download/download-failure.js';
 
-export type { ProgressCallback } from './download-progress.js';
+export type { ProgressCallback } from 'sparklet/main/updater/download/download-progress.js';
 
 /**
  * Download a file with progress reporting [下载文件，带进度报告]

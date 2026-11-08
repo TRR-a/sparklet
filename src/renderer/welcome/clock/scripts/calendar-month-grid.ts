@@ -2,7 +2,7 @@
 //
 // Split out [已拆分]：cell builders → calendar-month-cell.ts.
 
-import { buildMonthCell, buildBlankCell } from './calendar-month-cell.js';
+import { buildMonthCell, buildBlankCell } from 'sparklet/renderer/welcome/clock/scripts/calendar-month-cell.js';
 
 /**
  * Render the month grid; leading/trailing cells show adjacent-month days dimmed

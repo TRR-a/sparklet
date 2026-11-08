@@ -1,9 +1,9 @@
 // Storage: update a note [存储 - 更新笔记]
 
 import type { Note } from 'sparklet/shared/types/note/notes.js';
-import { noteApi } from '../../../app/api/note-api.js';
-import { ensureInit } from '../storage-cache.js';
-import { getNoteById } from '../storage-query.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
+import { ensureInit } from 'sparklet/renderer/shared/storage/storage-cache.js';
+import { getNoteById } from 'sparklet/renderer/shared/storage/storage-query.js';
 
 /** Update a note [更新笔记] */
 export async function updateNote(id: string, updates: Partial<Note>): Promise<Note | null> {

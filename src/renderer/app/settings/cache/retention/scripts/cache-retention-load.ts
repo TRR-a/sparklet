@@ -1,8 +1,8 @@
 // Cache retention: load and apply [缓存保留天数 - 读取并应用]
 
 import { updaterApi } from 'sparklet/renderer/shared/index.js';
-import { RETENTION_DEFAULT } from './cache-retention-constants.js';
-import { applyRetentionUI } from './cache-retention-ui.js';
+import { RETENTION_DEFAULT } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-constants.js';
+import { applyRetentionUI } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-ui.js';
 
 /**
  * Load cache retention days from main process and apply to UI [从主进程读取当前配置并应用到 UI]

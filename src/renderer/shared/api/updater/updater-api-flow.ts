@@ -1,6 +1,6 @@
 // Updater API: update flow calls [更新 API - 更新流程调用]
 
-import { bus } from '../../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 
 export const updaterApiFlow = {
   // ---------- Update flow [更新流程] ----------

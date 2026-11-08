@@ -5,14 +5,14 @@
 // reinstall → rollback-reinstall.ts, fallback → rollback-fallback.ts,
 // cached-zip branch → rollback-cache-branch.ts.
 
-import * as cacheManager from '../cache/cache-manager.js';
-import { computeSha256 } from '../install/verify.js';
-import { buildReleaseUrl } from './rollback-release.js';
-import { removeCorruptedCache, promptOfficialDownload } from './rollback-fallback.js';
-import { handleRollbackWithCache } from './rollback-cache-branch.js';
-import type { RollbackContext } from './rollback-types.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
+import { computeSha256 } from 'sparklet/main/updater/install/verify.js';
+import { buildReleaseUrl } from 'sparklet/main/updater/rollback/rollback-release.js';
+import { removeCorruptedCache, promptOfficialDownload } from 'sparklet/main/updater/rollback/rollback-fallback.js';
+import { handleRollbackWithCache } from 'sparklet/main/updater/rollback/rollback-cache-branch.js';
+import type { RollbackContext } from 'sparklet/main/updater/rollback/rollback-types.js';
 
-export type { PendingUpdateInfo, RollbackContext } from './rollback-types.js';
+export type { PendingUpdateInfo, RollbackContext } from 'sparklet/main/updater/rollback/rollback-types.js';
 
 /**
  * Rollback handling: called after file integrity check failure [回滚处理：文件完整性校验失败后调用]

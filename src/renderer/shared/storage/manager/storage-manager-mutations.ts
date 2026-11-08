@@ -1,8 +1,8 @@
 // Storage manager: mutation methods [存储管理器 - 变更方法]
 
 import type { Note } from 'sparklet/shared/types/note/notes.js';
-import { createNote, updateNote, deleteNote, restoreNote } from '../storage-crud.js';
-import { deleteNotes, restoreNotes, permanentlyDeleteNotes, permanentlyDeleteNote } from '../batch/storage-batch.js';
+import { createNote, updateNote, deleteNote, restoreNote } from 'sparklet/renderer/shared/storage/storage-crud.js';
+import { deleteNotes, restoreNotes, permanentlyDeleteNotes, permanentlyDeleteNote } from 'sparklet/renderer/shared/storage/batch/storage-batch.js';
 
 /** Write-side methods of the storage facade [存储外观层的写入侧方法] */
 export const storageManagerMutations = {

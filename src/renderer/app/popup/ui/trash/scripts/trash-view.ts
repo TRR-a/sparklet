@@ -6,9 +6,9 @@
 // main restore → trash-view-main.ts, list → trash-view-list.ts,
 // Esc handler → trash-view-escape.ts.
 
-export { getCurrentView } from './trash-view-state.js';
-export { toggleTrashView } from './trash-view-toggle.js';
-export { renderTrashList } from './trash-view-list.js';
+export { getCurrentView } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-state.js';
+export { toggleTrashView } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-toggle.js';
+export { renderTrashList } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-list.js';
 
 // Import for side effect: registers the Esc handler [导入以注册 Esc 监听]
-import './trash-view-escape.js';
+import 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-escape.js';

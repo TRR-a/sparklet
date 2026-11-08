@@ -3,12 +3,12 @@
 // Split out [已拆分]：row parsing → markdown-table-row.ts,
 // alignment parsing → markdown-table-align.ts.
 
-import { renderInline } from '../markdown-inline.js';
-import { parseTableRow } from './markdown-table-row.js';
-import { parseTableAligns } from './markdown-table-align.js';
+import { renderInline } from 'sparklet/renderer/shared/markdown/markdown-inline.js';
+import { parseTableRow } from 'sparklet/renderer/shared/markdown/table/markdown-table-row.js';
+import { parseTableAligns } from 'sparklet/renderer/shared/markdown/table/markdown-table-align.js';
 
-export { parseTableRow, isTableSeparator } from './markdown-table-row.js';
-export { parseTableAligns } from './markdown-table-align.js';
+export { parseTableRow, isTableSeparator } from 'sparklet/renderer/shared/markdown/table/markdown-table-row.js';
+export { parseTableAligns } from 'sparklet/renderer/shared/markdown/table/markdown-table-align.js';
 
 /**
  * Render table from parsed lines [从解析行渲染表格]

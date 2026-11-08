@@ -1,7 +1,7 @@
 // Logger: leveled logger object + scoped bridge [日志 - 分级 logger 对象与模块 scope 桥]
 
-import type { LogLevel } from './logger-format.js';
-import { write } from './logger-write-line.js';
+import type { LogLevel } from 'sparklet/main/services/logger/logger-format.js';
+import { write } from 'sparklet/main/services/logger/logger-write-line.js';
 
 /** Leveled logger for main-process code; always writes to the core folder [主进程分级 logger，固定写入核心目录] */
 export const logger = {

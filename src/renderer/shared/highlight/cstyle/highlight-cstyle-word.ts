@@ -1,6 +1,6 @@
 // C-style highlighter: word classification [C 风格高亮 - 单词归类]
 
-import type { CStyleDialect } from './highlight-cstyle-dialects.js';
+import type { CStyleDialect } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-dialects.js';
 
 /**
  * Classify a word token into an hljs class, or null when it should stay plain

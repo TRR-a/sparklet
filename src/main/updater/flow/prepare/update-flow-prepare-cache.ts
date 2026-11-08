@@ -1,7 +1,7 @@
 // Update flow: prepare - sync zip to persistent cache [更新流程 - 准备：同步到持久缓存]
 
 import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
-import * as cacheManager from '../../cache/cache-manager.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
 
 /** Copy the verified zip into the rollback cache (non-critical) [把校验通过的 zip 写入回滚缓存 (非关键)] */
 export async function runCacheSyncStep(

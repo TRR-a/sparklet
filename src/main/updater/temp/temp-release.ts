@@ -1,7 +1,7 @@
 // Temp directory: release [临时目录 - 释放]
 
 import * as fs from 'fs-extra';
-import { cleanDirectory } from './temp-clean.js';
+import { cleanDirectory } from 'sparklet/main/updater/temp/temp-clean.js';
 
 /**
  * Release a temp directory (clean or remove based on acquisition mode) [释放临时目录 (根据获取方式清理或删除)]

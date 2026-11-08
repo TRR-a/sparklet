@@ -6,10 +6,10 @@
 
 import {
   loadCacheRetentionDays
-} from '../retention/scripts/cache-retention.js';
+} from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention.js';
 
 export { loadCacheRetentionDays };
-export { renderCacheInfo, loadCacheInfo } from '../info/scripts/cache-info-view.js';
-export { handleClearCache } from '../actions/scripts/cache-actions.js';
-export { applyCacheDevLock } from '../actions/scripts/cache-dev-lock.js';
-export { bindCacheEvents } from './cache-events.js';
+export { renderCacheInfo, loadCacheInfo } from 'sparklet/renderer/app/settings/cache/info/scripts/cache-info-view.js';
+export { handleClearCache } from 'sparklet/renderer/app/settings/cache/actions/scripts/cache-actions.js';
+export { applyCacheDevLock } from 'sparklet/renderer/app/settings/cache/actions/scripts/cache-dev-lock.js';
+export { bindCacheEvents } from 'sparklet/renderer/app/settings/cache/scripts/cache-events.js';

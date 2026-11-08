@@ -1,7 +1,7 @@
 // Update flow: version check stage [更新流程 - 版本检查阶段]
 
 import type { CheckResult } from 'sparklet/shared/types/updater/updater.js';
-import { checkForUpdates } from '../check/check.js';
+import { checkForUpdates } from 'sparklet/main/updater/check/check.js';
 
 /** Outcome of the version check stage [版本检查阶段结果] */
 export type CheckStageResult =

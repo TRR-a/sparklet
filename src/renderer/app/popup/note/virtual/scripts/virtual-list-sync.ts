@@ -1,7 +1,7 @@
 // Virtual list: selection / scroll sync [虚拟列表 - 选中与滚动同步]
 
-import { getSidebar } from './virtual-list-geometry.js';
-import { getItems, getOffsets, cardCache } from './virtual-list-state.js';
+import { getSidebar } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-geometry.js';
+import { getItems, getOffsets, cardCache } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
 
 /**
  * Sync multi-select state onto attached and cached cards [将多选选中态同步到已挂载与缓存的卡片]

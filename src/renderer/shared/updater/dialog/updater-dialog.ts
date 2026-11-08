@@ -5,6 +5,6 @@
 // response sender → updater-dialog-response.ts, button row → updater-dialog-buttons.ts,
 // show/render → updater-dialog-show.ts, IPC listener → updater-dialog-listener.ts.
 
-export type { UpdaterDialogParams } from './updater-dialog-types.js';
-export { showUpdaterDialog } from './updater-dialog-show.js';
-export { bindUpdaterDialogListener } from './updater-dialog-listener.js';
+export type { UpdaterDialogParams } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
+export { showUpdaterDialog } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-show.js';
+export { bindUpdaterDialogListener } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-listener.js';

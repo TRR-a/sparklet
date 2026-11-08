@@ -4,8 +4,8 @@
 // File watcher in config-watcher.ts [文件监听在 config-watcher.ts]
 // Change broadcast in config-broadcast.ts [变化广播在 config-broadcast.ts]
 
-export { getConfigDir, getConfigFilePath } from './config-paths.js';
-export { broadcastConfigChange } from './config-broadcast.js';
+export { getConfigDir, getConfigFilePath } from 'sparklet/main/updater/config/config-paths.js';
+export { broadcastConfigChange } from 'sparklet/main/updater/config/config-broadcast.js';
 export {
   readConfig,
   writeConfig,
@@ -13,5 +13,5 @@ export {
   setConfigItem,
   getCheckInterval,
   getUpdateBehavior
-} from './config-store.js';
-export { startConfigWatcher } from './config-watcher.js';
+} from 'sparklet/main/updater/config/config-store.js';
+export { startConfigWatcher } from 'sparklet/main/updater/config/config-watcher.js';

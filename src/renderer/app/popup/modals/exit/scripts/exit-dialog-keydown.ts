@@ -7,9 +7,9 @@ import {
   getLastEscTime,
   setFocusedIndex,
   setLastEscTime,
-} from './exit-dialog-state.js';
-import { isOtherModalOpen, updateFocus } from './exit-dialog-focus.js';
-import { closeDialog, performQuit, showExitDialog } from './exit-dialog-actions.js';
+} from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-state.js';
+import { isOtherModalOpen, updateFocus } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-focus.js';
+import { closeDialog, performQuit, showExitDialog } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-actions.js';
 
 /**
  * Global keydown handler (capture phase to win over editor key bindings) [全局按键处理器 (capture 阶段优先于编辑器按键绑定)]

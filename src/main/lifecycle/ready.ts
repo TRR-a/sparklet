@@ -1,14 +1,14 @@
 // App lifecycle: ready sequence [应用生命周期 - 就绪序列]
 
 import { app } from 'electron';
-import { migrateFromStore } from '../services/migration/migration-service.js';
-import { createWelcomeWindow } from '../windows/welcome-window';
-import { initUpdater, checkUpdateManually } from '../updater/index.js';
-import { registerAllIpcHandlers } from '../ipc';
-import { registerDevToolsShortcut } from '../ipc/window/window-ipc.js';
-import { registerGlobalShortcuts } from '../bootstrap/global-shortcuts';
-import { runStartupIntegrityScan } from '../services/note/io/note-integrity.js';
-import { initLogger, installCrashLogging, logger } from '../services/logger/logger.js';
+import { migrateFromStore } from 'sparklet/main/services/migration/migration-service.js';
+import { createWelcomeWindow } from 'sparklet/main/windows/welcome-window.js';
+import { initUpdater, checkUpdateManually } from 'sparklet/main/updater/index.js';
+import { registerAllIpcHandlers } from 'sparklet/main/ipc/index.js';
+import { registerDevToolsShortcut } from 'sparklet/main/ipc/window/window-ipc.js';
+import { registerGlobalShortcuts } from 'sparklet/main/bootstrap/global-shortcuts.js';
+import { runStartupIntegrityScan } from 'sparklet/main/services/note/io/note-integrity.js';
+import { initLogger, installCrashLogging, logger } from 'sparklet/main/services/logger/logger.js';
 
 /**
  * Application lifecycle: ready [应用生命周期：就绪]

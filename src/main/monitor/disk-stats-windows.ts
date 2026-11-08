@@ -1,7 +1,7 @@
 // Disk stats: Windows enumeration [磁盘状态 - Windows 枚举]
 
-import { run } from './system-command.js';
-import type { DiskStats } from 'sparklet/shared/types/system';
+import { run } from 'sparklet/main/monitor/system-command.js';
+import type { DiskStats } from 'sparklet/shared/types/system.js';
 
 /** Enumerate fixed local drives (DriveType=3) via CIM [经 CIM 枚举本地固定磁盘 (DriveType=3)] */
 export async function readWindowsDisks(): Promise<DiskStats[]> {

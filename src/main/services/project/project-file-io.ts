@@ -3,5 +3,5 @@
 // Split out [已拆分]：extension sets → project-file-exts.ts,
 // read → project-file-read.ts, write → project-file-write.ts.
 
-export { readFile } from './project-file-read.js';
-export { writeFile } from './project-file-write.js';
+export { readFile } from 'sparklet/main/services/project/project-file-read.js';
+export { writeFile } from 'sparklet/main/services/project/project-file-write.js';

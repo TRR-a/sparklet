@@ -1,8 +1,8 @@
 // Update flow: notify-only branch [更新流程 - 仅提醒分支]
 
-import { verifyReleaseManifest } from '../install/verify.js';
-import { setConfigItem } from '../config/config-manager.js';
-import { promptRendererDialog, showNotifyOnlyDialog } from '../dialog/dialog.js';
+import { verifyReleaseManifest } from 'sparklet/main/updater/install/verify.js';
+import { setConfigItem } from 'sparklet/main/updater/config/config-manager.js';
+import { promptRendererDialog, showNotifyOnlyDialog } from 'sparklet/main/updater/dialog/dialog.js';
 
 /**
  * Notify-only mode: show release info without downloading [仅提醒模式：只展示发布信息，不下载]

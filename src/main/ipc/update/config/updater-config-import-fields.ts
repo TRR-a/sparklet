@@ -3,5 +3,5 @@
 // Split out [已拆分]：allow-lists → updater-config-import-set.ts,
 // merge → updater-config-import-merge.ts.
 
-export { ALLOWED_BEHAVIORS, LEGAL_INTERVALS, IMPORT_WHITE_LIST } from './updater-config-import-set.js';
-export { mergeImportedConfig } from './updater-config-import-merge.js';
+export { ALLOWED_BEHAVIORS, LEGAL_INTERVALS, IMPORT_WHITE_LIST } from 'sparklet/main/ipc/update/config/updater-config-import-set.js';
+export { mergeImportedConfig } from 'sparklet/main/ipc/update/config/updater-config-import-merge.js';

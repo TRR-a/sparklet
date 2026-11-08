@@ -1,8 +1,8 @@
 // Update flow: stage result interpretation [更新流程 - 阶段结果解释]
 
 import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
-import type { PrepareOutcome } from '../prepare/update-flow-prepare.js';
-import type { InstallStageResult } from '../update-flow-install.js';
+import type { PrepareOutcome } from 'sparklet/main/updater/flow/prepare/update-flow-prepare.js';
+import type { InstallStageResult } from 'sparklet/main/updater/flow/update-flow-install.js';
 
 /** Friendly-error stage names [友好错误提示的阶段名] */
 export type FlowStage = 'check' | 'download-manifest' | 'download-zip' | 'verify' | 'install';

@@ -5,14 +5,14 @@
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
-import { renderNoteList } from './note-list.js';
-import { getActiveNoteId } from '../../scripts/note-virtual-list.js';
-import { getSearchQuery, isSearchActive } from './search-state.js';
-import { renderSearchResults } from './search-results.js';
+import { renderNoteList } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
+import { getActiveNoteId } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
+import { getSearchQuery, isSearchActive } from 'sparklet/renderer/app/popup/note/list/scripts/search-state.js';
+import { renderSearchResults } from 'sparklet/renderer/app/popup/note/list/scripts/search-results.js';
 
 /** Re-export the search state surface [再导出搜索状态接口] */
-export { SEARCH_DEBOUNCE_MS, getSearchQuery, setSearchQuery, isSearchActive, clearSearchState } from './search-state.js';
-export { scheduleSearch } from './search-debounce.js';
+export { SEARCH_DEBOUNCE_MS, getSearchQuery, setSearchQuery, isSearchActive, clearSearchState } from 'sparklet/renderer/app/popup/note/list/scripts/search-state.js';
+export { scheduleSearch } from 'sparklet/renderer/app/popup/note/list/scripts/search-debounce.js';
 
 /**
  * Run the search and render results [执行搜索并渲染结果]

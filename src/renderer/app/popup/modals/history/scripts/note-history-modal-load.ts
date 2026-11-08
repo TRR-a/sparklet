@@ -5,7 +5,7 @@ import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
 import type { NoteHistoryResult } from 'sparklet/shared/types/note/notes.js';
-import type { SnapshotSelectState } from './note-history-modal-select.js';
+import type { SnapshotSelectState } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-modal-select.js';
 
 /** Everything the modal needs before rendering [弹窗渲染前所需的全部上下文] */
 export interface HistoryViewContext {

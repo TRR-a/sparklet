@@ -3,10 +3,10 @@
 // Split out [已拆分]：result type → config-dir-types.ts,
 // single candidate → config-dir-try.ts, candidate walk → config-dir-resolve.ts.
 
-import type { ConfigDirResult } from './config-dir-types.js';
-import { resolveConfigDir } from './config-dir-resolve.js';
+import type { ConfigDirResult } from 'sparklet/main/updater/config/config-dir-types.js';
+import { resolveConfigDir } from 'sparklet/main/updater/config/config-dir-resolve.js';
 
-export type { ConfigDirResult } from './config-dir-types.js';
+export type { ConfigDirResult } from 'sparklet/main/updater/config/config-dir-types.js';
 
 // Config directory state [配置目录状态]
 let configDir: string | null = null;

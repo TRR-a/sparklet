@@ -1,7 +1,7 @@
 // Update cache: clear-all handler [更新缓存 - 清空处理器]
 
 import { ipcMain } from 'electron';
-import * as cacheManager from '../../../updater/cache/cache-manager.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
 
 /** Register the cache-clear IPC handler [注册缓存清空 IPC 处理器] */
 export function registerUpdateCacheClearHandler(): void {

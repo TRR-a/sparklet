@@ -1,7 +1,7 @@
 // Project tree node: leading icon / toggle [项目树节点 - 行首图标与折叠箭头]
 
-import type { ProjectFileNode } from 'sparklet/shared/types/project';
-import { getFileIcon } from '../../scripts/project-file-icon.js';
+import type { ProjectFileNode } from 'sparklet/shared/types/project.js';
+import { getFileIcon } from 'sparklet/renderer/app/project/scripts/project-file-icon.js';
 
 /**
  * Append the toggle arrow and icon to the node row [向节点行追加折叠箭头与图标]

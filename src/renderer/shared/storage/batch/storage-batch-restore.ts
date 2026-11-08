@@ -1,7 +1,7 @@
 // Storage manager: batch restore from trash [存储管理器 - 批量恢复]
 
-import { noteApi } from '../../../app/api/note-api.js';
-import { ensureInit } from '../storage-cache.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
+import { ensureInit } from 'sparklet/renderer/shared/storage/storage-cache.js';
 
 /** Batch restore from trash, returns count succeeded [批量从回收站恢复，返回成功数] */
 export async function restoreNotes(ids: string[]): Promise<number> {

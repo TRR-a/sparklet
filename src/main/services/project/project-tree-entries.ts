@@ -2,7 +2,7 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { SKIP_DIRS } from './project-tree-skip.js';
+import { SKIP_DIRS } from 'sparklet/main/services/project/project-tree-skip.js';
 
 /** One directory listing split into sorted dirs and files [一次目录列举，拆分为已排序的目录与文件] */
 export interface SortedEntries {

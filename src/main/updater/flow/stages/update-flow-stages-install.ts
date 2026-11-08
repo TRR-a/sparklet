@@ -1,13 +1,13 @@
 // Update flow: install stage runner [更新流程 - 安装阶段执行]
 
-import type { ProgressCallback, CompleteCallback } from '../../dialog/dialog.js';
-import { runInstallStage } from '../update-flow-install.js';
-import { interpretInstall } from './update-flow-stage-result.js';
-import { reportDecision } from '../update-flow-report.js';
-import { runPreparePhase } from './update-flow-stages-prepare.js';
-import type { FlowArtifacts, InstallPhaseInput } from './update-flow-stages-types.js';
+import type { ProgressCallback, CompleteCallback } from 'sparklet/main/updater/dialog/dialog.js';
+import { runInstallStage } from 'sparklet/main/updater/flow/update-flow-install.js';
+import { interpretInstall } from 'sparklet/main/updater/flow/stages/update-flow-stage-result.js';
+import { reportDecision } from 'sparklet/main/updater/flow/update-flow-report.js';
+import { runPreparePhase } from 'sparklet/main/updater/flow/stages/update-flow-stages-prepare.js';
+import type { FlowArtifacts, InstallPhaseInput } from 'sparklet/main/updater/flow/stages/update-flow-stages-types.js';
 
-export type { FlowArtifacts, InstallPhaseInput } from './update-flow-stages-types.js';
+export type { FlowArtifacts, InstallPhaseInput } from 'sparklet/main/updater/flow/stages/update-flow-stages-types.js';
 
 /**
  * Prepare the package then install; artifacts are published as soon as prepare succeeds

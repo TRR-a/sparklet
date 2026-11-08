@@ -13,8 +13,8 @@
 // Split out [已拆分]：hints → note-quick-jump-hints.ts, digit/jump → note-quick-jump-target.ts,
 // keydown handling → note-quick-jump-keydown.ts.
 
-import { hideHints } from './note-quick-jump-hints.js';
-import { onQuickJumpKeyDown } from './note-quick-jump-keydown.js';
+import { hideHints } from 'sparklet/renderer/app/popup/ui/quick-jump/scripts/note-quick-jump-hints.js';
+import { onQuickJumpKeyDown } from 'sparklet/renderer/app/popup/ui/quick-jump/scripts/note-quick-jump-keydown.js';
 
 /** Global keyup handler [全局按键释放处理器] */
 function onKeyUp(e: KeyboardEvent): void {

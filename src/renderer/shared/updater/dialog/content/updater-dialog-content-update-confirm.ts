@@ -1,8 +1,8 @@
 // Updater dialog content: new version found [更新器弹窗内容 - 发现新版本]
 
-import { t } from '../../../i18n/i18n.js';
-import { escapeHtml } from '../../../ui/dom/dom-utils.js';
-import type { DialogContent } from '../updater-dialog-types.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 // ========== 1. New version found (two buttons) [发现新版本 (双按钮)] ==========
 export function buildUpdateConfirm(params: Record<string, unknown>): DialogContent {

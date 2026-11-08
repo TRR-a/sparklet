@@ -1,9 +1,9 @@
 // Update check: automatic timer trigger [更新检查 - 定时器自动触发]
 
 import { app } from 'electron';
-import { getUpdateBehavior } from '../config/config-manager.js';
-import { updaterStateInternal } from '../startup/update-state.js';
-import { performUpdate } from '../flow/update-flow.js';
+import { getUpdateBehavior } from 'sparklet/main/updater/config/config-manager.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
+import { performUpdate } from 'sparklet/main/updater/flow/update-flow.js';
 
 /**
  * Auto check for updates (triggered by timer) [自动检查更新 (由定时器触发)]

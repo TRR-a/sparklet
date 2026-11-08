@@ -1,6 +1,6 @@
 // Project workspace state & persistence [项目工作区状态与持久化]
 
-import type { ProjectFileNode } from 'sparklet/shared/types/project';
+import type { ProjectFileNode } from 'sparklet/shared/types/project.js';
 
 /** localStorage key for persisted workspace paths [持久化工作区路径的 localStorage key] */
 const WORKSPACE_STORAGE_KEY = 'sparklet:workspace:paths';

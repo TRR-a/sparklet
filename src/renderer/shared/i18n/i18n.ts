@@ -5,11 +5,11 @@
 // DOM application → i18n-apply.ts.
 
 import { storeApi, broadcastApi } from 'sparklet/renderer/shared/index.js';
-import { setTranslations, setCurrentLang } from './i18n-state.js';
-import { applyTranslations } from './i18n-apply.js';
+import { setTranslations, setCurrentLang } from 'sparklet/renderer/shared/i18n/i18n-state.js';
+import { applyTranslations } from 'sparklet/renderer/shared/i18n/i18n-apply.js';
 
-export { t } from './i18n-t.js';
-export { getCurrentLang } from './i18n-state.js';
+export { t } from 'sparklet/renderer/shared/i18n/i18n-t.js';
+export { getCurrentLang } from 'sparklet/renderer/shared/i18n/i18n-state.js';
 
 /**
  * Load specified language pack and update all translated text on the page [加载指定语言包并更新页面所有翻译文本]

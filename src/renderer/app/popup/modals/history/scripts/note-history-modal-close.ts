@@ -1,6 +1,6 @@
 // Note history modal: show / hide / close binding [笔记历史弹窗 - 显示、隐藏与关闭绑定]
 
-import { getHistoryModal } from './note-history-list-render.js';
+import { getHistoryModal } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-list-render.js';
 
 /**
  * Hide note history modal [隐藏笔记历史弹窗]

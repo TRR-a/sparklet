@@ -1,6 +1,6 @@
 // C-style highlighter: token regex construction [C 风格高亮 - 词元正则构造]
 
-import type { CStyleDialect } from './highlight-cstyle-dialects.js';
+import type { CStyleDialect } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-dialects.js';
 
 /** Build the one-pass token regex for a dialect [为方言构造单遍词元正则] */
 export function buildCStyleTokenRe(dialect: CStyleDialect): RegExp {

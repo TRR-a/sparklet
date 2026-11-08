@@ -1,8 +1,8 @@
 // Update flow: prepare - manifest & user confirmation [更新流程 - 准备：清单与用户确认]
 
 import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
-import { verifyReleaseManifest } from '../../install/verify.js';
-import { showUpdateDialog } from '../../dialog/dialog.js';
+import { verifyReleaseManifest } from 'sparklet/main/updater/install/verify.js';
+import { showUpdateDialog } from 'sparklet/main/updater/dialog/dialog.js';
 
 /** Result of the manifest/confirm step [清单与确认步骤结果] */
 export type ManifestConfirmResult =

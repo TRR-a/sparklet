@@ -3,10 +3,10 @@
 // Split out [已拆分]：single-note write → migration-note-write.ts,
 // batch write → migration-batch.ts.
 
-import { store } from '../store.js';
-import { ensureNotesDir } from '../note/io/notes-service.js';
-import type { OldNote } from '../note/io/notes-service.js';
-import { migrateNoteBatch } from './migration-batch.js';
+import { store } from 'sparklet/main/services/store.js';
+import { ensureNotesDir } from 'sparklet/main/services/note/io/notes-service.js';
+import type { OldNote } from 'sparklet/main/services/note/io/notes-service.js';
+import { migrateNoteBatch } from 'sparklet/main/services/migration/migration-batch.js';
 
 /**
  * Migrate notes from electron-store to file system [将笔记从 electron-store 迁移到文件系统]

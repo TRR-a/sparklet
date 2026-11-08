@@ -1,7 +1,7 @@
 // Recent colors: candidate swatches on the palette [最近颜色 - 色板候选色块]
 
-import { changeNoteColor } from '../../../note/scripts/note-operations.js';
-import { loadRecentColors } from './recent-colors-store.js';
+import { changeNoteColor } from 'sparklet/renderer/app/popup/note/scripts/note-operations.js';
+import { loadRecentColors } from 'sparklet/renderer/app/popup/editor/wheel/scripts/recent-colors-store.js';
 
 /** Candidate swatches shown between fixed colors and the wheel button [固定色与调色盘按钮之间显示的候选数] */
 const CANDIDATE_COUNT = 3;

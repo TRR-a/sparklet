@@ -1,8 +1,8 @@
 // Updater config import: single-field merge [更新配置导入 - 单字段合并]
 
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
-import { ALLOWED_BEHAVIORS, LEGAL_INTERVALS } from './updater-config-import-set.js';
-import { clampRetentionDays, normalizeLastCheckTime } from './updater-config-import-normalize.js';
+import { ALLOWED_BEHAVIORS, LEGAL_INTERVALS } from 'sparklet/main/ipc/update/config/updater-config-import-set.js';
+import { clampRetentionDays, normalizeLastCheckTime } from 'sparklet/main/ipc/update/config/updater-config-import-normalize.js';
 
 /** Apply one whitelisted key onto the merged config (unknown keys are ignored) [把一个白名单键应用到合并结果] */
 export function mergeOneField(merged: UpdaterConfig, key: string, v: unknown): void {

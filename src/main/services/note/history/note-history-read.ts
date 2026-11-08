@@ -4,6 +4,6 @@
 // snapshot read → note-history-snapshot-read.ts,
 // newest lookup → note-history-latest.ts.
 
-export { listHistory } from './note-history-list.js';
-export { getSnapshot } from './note-history-snapshot-read.js';
-export { getLatestSnapshot } from './note-history-latest.js';
+export { listHistory } from 'sparklet/main/services/note/history/note-history-list.js';
+export { getSnapshot } from 'sparklet/main/services/note/history/note-history-snapshot-read.js';
+export { getLatestSnapshot } from 'sparklet/main/services/note/history/note-history-latest.js';

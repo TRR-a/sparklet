@@ -3,9 +3,9 @@
 // Split out [已拆分]：temp staging → rollback-reinstall-stage.ts.
 
 import { app } from 'electron';
-import { promptRendererDialog } from '../dialog/dialog.js';
-import { stageCachedZip } from './rollback-reinstall-stage.js';
-import type { RollbackContext } from './rollback-types.js';
+import { promptRendererDialog } from 'sparklet/main/updater/dialog/dialog.js';
+import { stageCachedZip } from 'sparklet/main/updater/rollback/rollback-reinstall-stage.js';
+import type { RollbackContext } from 'sparklet/main/updater/rollback/rollback-types.js';
 
 /**
  * Reinstall from a verified cached zip (copies into temp dir, then asks restart/later)

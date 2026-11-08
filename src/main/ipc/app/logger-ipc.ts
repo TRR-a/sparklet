@@ -4,7 +4,7 @@
 // [渲染进程不能直接写文件，通过此通道发送 {level, tag, message}，由主进程经统一 logger 落盘]
 
 import { ipcMain } from 'electron';
-import { writeScoped, type LogLevel } from '../../services/logger/logger.js';
+import { writeScoped, type LogLevel } from 'sparklet/main/services/logger/logger.js';
 
 interface RendererLogPayload {
   level?: string;

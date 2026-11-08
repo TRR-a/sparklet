@@ -1,8 +1,8 @@
 // Update flow: preflight guards [更新流程 - 前置守卫]
 
-import { getUpdateBehavior } from '../config/config-manager.js';
-import type { CompleteCallback } from '../dialog/dialog.js';
-import { updaterStateInternal } from '../startup/update-state.js';
+import { getUpdateBehavior } from 'sparklet/main/updater/config/config-manager.js';
+import type { CompleteCallback } from 'sparklet/main/updater/dialog/dialog.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
 
 /** Behavior value returned by the config [配置返回的更新行为值] */
 export type UpdateBehavior = Awaited<ReturnType<typeof getUpdateBehavior>>;

@@ -2,7 +2,7 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import type { ConfigDirResult } from './config-dir-types.js';
+import type { ConfigDirResult } from 'sparklet/main/updater/config/config-dir-types.js';
 
 /** Try creating/accessing one candidate directory; null means "keep trying" [尝试创建或访问单个候选目录；null 表示继续尝试下一个] */
 export async function tryConfigDir(userData: string, dirName: string): Promise<ConfigDirResult | null> {

@@ -4,6 +4,6 @@
 // temp-dir prompts → updater-dialog-content-temp-dir.ts,
 // generic simple error → updater-dialog-content-generic-error.ts.
 
-export { buildManualUpdateFailed } from './updater-dialog-content-manual-failed.js';
-export { buildTempDirError, buildTempDirNotEmpty } from './updater-dialog-content-temp-dir.js';
-export { buildSimpleError } from './updater-dialog-content-generic-error.js';
+export { buildManualUpdateFailed } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-manual-failed.js';
+export { buildTempDirError, buildTempDirNotEmpty } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-temp-dir.js';
+export { buildSimpleError } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-generic-error.js';

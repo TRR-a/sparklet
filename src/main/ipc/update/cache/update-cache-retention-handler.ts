@@ -1,10 +1,10 @@
 // Update cache: retention days get/set handlers [更新缓存 - 保留天数读写处理器]
 
 import { ipcMain } from 'electron';
-import * as cacheManager from '../../../updater/cache/cache-manager.js';
-import { getConfigItem, setConfigItem } from '../../../updater/config/config-manager.js';
-import { DEFAULT_CACHE_SUCCESS_RETENTION_DAYS } from '../../../updater/constants/constants.js';
-import { normalizeRetentionDays } from './update-cache-retention-util.js';
+import * as cacheManager from 'sparklet/main/updater/cache/cache-manager.js';
+import { getConfigItem, setConfigItem } from 'sparklet/main/updater/config/config-manager.js';
+import { DEFAULT_CACHE_SUCCESS_RETENTION_DAYS } from 'sparklet/main/updater/constants/constants.js';
+import { normalizeRetentionDays } from 'sparklet/main/ipc/update/cache/update-cache-retention-util.js';
 
 /** Register the retention-days IPC handlers [注册保留天数 IPC 处理器] */
 export function registerUpdateCacheRetentionHandlers(): void {

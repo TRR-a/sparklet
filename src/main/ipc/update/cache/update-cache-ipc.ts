@@ -6,9 +6,9 @@
 // retention get/set → update-cache-retention-handler.ts,
 // clear-all → update-cache-clear-handler.ts.
 
-import { registerUpdateCacheInfoHandler } from './update-cache-info-handler.js';
-import { registerUpdateCacheRetentionHandlers } from './update-cache-retention-handler.js';
-import { registerUpdateCacheClearHandler } from './update-cache-clear-handler.js';
+import { registerUpdateCacheInfoHandler } from 'sparklet/main/ipc/update/cache/update-cache-info-handler.js';
+import { registerUpdateCacheRetentionHandlers } from 'sparklet/main/ipc/update/cache/update-cache-retention-handler.js';
+import { registerUpdateCacheClearHandler } from 'sparklet/main/ipc/update/cache/update-cache-clear-handler.js';
 
 /**
  * Register update cache IPC handlers [注册更新包缓存 IPC 处理器]

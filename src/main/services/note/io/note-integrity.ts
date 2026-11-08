@@ -14,14 +14,14 @@
 // per-note verification → note-integrity-verify.ts.
 
 import * as fs from 'fs-extra';
-import { ensureNotesDir } from './note-paths.js';
-import { cleanedTmpFileNames } from '../integrity/note-integrity-helpers.js';
+import { ensureNotesDir } from 'sparklet/main/services/note/io/note-paths.js';
+import { cleanedTmpFileNames } from 'sparklet/main/services/note/integrity/note-integrity-helpers.js';
 import type { NoteIntegrityReport } from 'sparklet/shared/types/note/notes.js';
-import { setIntegrityReport, emptyIntegrityReport } from '../integrity/note-integrity-report.js';
-import { cleanTmpFiles } from '../integrity/note-integrity-tmp-clean.js';
-import { verifyNoteFiles } from '../integrity/note-integrity-verify.js';
+import { setIntegrityReport, emptyIntegrityReport } from 'sparklet/main/services/note/integrity/note-integrity-report.js';
+import { cleanTmpFiles } from 'sparklet/main/services/note/integrity/note-integrity-tmp-clean.js';
+import { verifyNoteFiles } from 'sparklet/main/services/note/integrity/note-integrity-verify.js';
 
-export { getIntegrityReport } from '../integrity/note-integrity-report.js';
+export { getIntegrityReport } from 'sparklet/main/services/note/integrity/note-integrity-report.js';
 
 /**
  * Run the startup integrity scan [执行启动完整性扫描]

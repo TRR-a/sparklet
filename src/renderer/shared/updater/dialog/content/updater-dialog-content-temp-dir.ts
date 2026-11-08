@@ -1,7 +1,7 @@
 // Updater dialog content: temp directory prompts [更新器弹窗内容 - 临时目录提示]
 
-import { t } from '../../../i18n/i18n.js';
-import type { DialogContent } from '../updater-dialog-types.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 // ========== 8. Temp directory error (three buttons) [临时目录错误 (三按钮)] ==========
 export function buildTempDirError(): DialogContent {

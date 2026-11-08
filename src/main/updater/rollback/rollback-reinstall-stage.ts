@@ -2,8 +2,8 @@
 
 import * as path from 'path';
 import * as fs from 'fs-extra';
-import { acquireTempDir, releaseTempDir } from '../temp/temp-manager.js';
-import { promptRendererDialog, broadcastToast } from '../dialog/dialog.js';
+import { acquireTempDir, releaseTempDir } from 'sparklet/main/updater/temp/temp-manager.js';
+import { promptRendererDialog, broadcastToast } from 'sparklet/main/updater/dialog/dialog.js';
 
 /** Result of staging a cached zip [缓存包暂存结果] */
 export interface StagedZipResult {

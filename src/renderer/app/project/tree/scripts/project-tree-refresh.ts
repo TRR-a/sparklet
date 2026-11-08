@@ -1,7 +1,7 @@
 // Project tree: refresh a project from disk [项目树 - 从磁盘刷新项目]
 
-import { projectApi } from '../../api/scripts/project-api.js';
-import { workspaceProjects } from '../../workspace/scripts/project-workspace-state.js';
+import { projectApi } from 'sparklet/renderer/app/project/api/scripts/project-api.js';
+import { workspaceProjects } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace-state.js';
 
 /**
  * Re-render the project that contains the given path [重新渲染包含给定路径的项目]
@@ -13,7 +13,7 @@ export async function rerenderProjectContaining(dirPath: string): Promise<void> 
   const result = await projectApi.readTree(project.path);
   if (result.success && result.root) {
     project.root = result.root;
-    const { renderWorkspace } = await import('./project-tree.js');
+    const { renderWorkspace } = await import('sparklet/renderer/app/project/tree/scripts/project-tree.js');
     renderWorkspace();
   }
 }

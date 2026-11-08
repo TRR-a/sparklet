@@ -1,8 +1,8 @@
 // Storage: create a note [存储 - 创建笔记]
 
 import type { Note } from 'sparklet/shared/types/note/notes.js';
-import { noteApi } from '../../../app/api/note-api.js';
-import { ensureInit } from '../storage-cache.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
+import { ensureInit } from 'sparklet/renderer/shared/storage/storage-cache.js';
 
 /** Create a new note (persist to file system) [创建新笔记 (物理文件落盘)] */
 export async function createNote(title: string = '无标题', color: string = '#4285f4'): Promise<Note> {

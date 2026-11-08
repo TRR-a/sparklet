@@ -10,13 +10,13 @@
 // exit dialog → welcome-exit-dialog.ts, more menu → welcome-more-menu.ts,
 // tabs → welcome-tabs.ts, bootstrap steps → welcome-init-*.ts
 
-import { logApi, installGlobalErrorHooks } from '../../shared/index.js';
-import { initLanguage } from '../init/scripts/welcome-init-language.js';
-import { initClockFormat } from '../init/scripts/welcome-init-clock.js';
-import { bindBodyStateEvents } from '../init/scripts/welcome-init-body-events.js';
-import { bindWelcomeChrome } from '../init/scripts/welcome-init-chrome.js';
-import { applyFirstLaunchGreeting } from '../init/scripts/welcome-init-greeting.js';
-import { initTabs } from '../tabs/scripts/welcome-tabs.js';
+import { logApi, installGlobalErrorHooks } from 'sparklet/renderer/shared/index.js';
+import { initLanguage } from 'sparklet/renderer/welcome/init/scripts/welcome-init-language.js';
+import { initClockFormat } from 'sparklet/renderer/welcome/init/scripts/welcome-init-clock.js';
+import { bindBodyStateEvents } from 'sparklet/renderer/welcome/init/scripts/welcome-init-body-events.js';
+import { bindWelcomeChrome } from 'sparklet/renderer/welcome/init/scripts/welcome-init-chrome.js';
+import { applyFirstLaunchGreeting } from 'sparklet/renderer/welcome/init/scripts/welcome-init-greeting.js';
+import { initTabs } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tabs.js';
 
 async function init(): Promise<void> {
   // Uncaught errors/rejections go to the log file before anything else

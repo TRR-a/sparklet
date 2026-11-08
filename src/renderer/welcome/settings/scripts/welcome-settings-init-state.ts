@@ -1,8 +1,8 @@
 // Settings window: load persisted preferences [设置窗口 - 加载已保存偏好]
 
 import { storeApi, windowApi, APP_VERSION } from 'sparklet/renderer/shared/index.js';
-import { t, getLang, setLang, applyI18n } from './welcome-settings-i18n.js';
-import { setCustomSelectValue } from './welcome-settings-select.js';
+import { t, getLang, setLang, applyI18n } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-i18n.js';
+import { setCustomSelectValue } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select.js';
 
 /** Apply language, theme, clock format and about versions from the store [从存储应用语言、主题、时钟制式与关于版本] */
 export async function loadSavedSettings(): Promise<HTMLInputElement | null> {

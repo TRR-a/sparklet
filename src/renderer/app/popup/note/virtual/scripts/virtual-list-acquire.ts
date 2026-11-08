@@ -1,7 +1,7 @@
 // Virtual list: element acquisition + cache [虚拟列表 - 元素获取与缓存]
 
-import type { VirtualItem } from './virtual-list-types.js';
-import { cardCache, getItems, getFactories, getActiveNoteId } from './virtual-list-state.js';
+import type { VirtualItem } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-types.js';
+import { cardCache, getItems, getFactories, getActiveNoteId } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
 
 /**
  * Get (from cache) or create the element for item index i [取缓存或创建第 i 项元素]

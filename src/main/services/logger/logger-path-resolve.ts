@@ -2,13 +2,13 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { timestamp } from './logger-format.js';
+import { timestamp } from 'sparklet/main/services/logger/logger-format.js';
 import {
   getCoreDir,
   getModulesDir,
   moduleMap,
   warnedUnknown,
-} from './logger-path-store.js';
+} from 'sparklet/main/services/logger/logger-path-store.js';
 
 /** Resolve the log file path for a scope [按 scope 解析日志文件路径] */
 export function resolve(scope: string): { dir: string; file: string } {

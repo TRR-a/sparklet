@@ -1,7 +1,7 @@
 // Update flow: prepare - temp directory [更新流程 - 准备：临时目录]
 
-import { acquireTempDir } from '../../temp/temp-manager.js';
-import { promptRendererDialog } from '../../dialog/dialog.js';
+import { acquireTempDir } from 'sparklet/main/updater/temp/temp-manager.js';
+import { promptRendererDialog } from 'sparklet/main/updater/dialog/dialog.js';
 
 /** Result of the temp-directory step [临时目录步骤结果] */
 export type TempDirResult =

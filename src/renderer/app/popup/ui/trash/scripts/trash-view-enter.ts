@@ -1,10 +1,10 @@
 // Trash view: enter [回收站视图 - 进入]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { getPreviewMode, setPreviewMode } from '../../../editor/scripts/note-editor.js';
-import { clearSearch } from '../../../note/list/scripts/note-search.js';
-import { setCurrentView } from './trash-view-state.js';
-import { renderTrashList } from './trash-view-list.js';
+import { getPreviewMode, setPreviewMode } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
+import { clearSearch } from 'sparklet/renderer/app/popup/note/list/scripts/note-search.js';
+import { setCurrentView } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-state.js';
+import { renderTrashList } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-view-list.js';
 
 /**
  * Enter trash view: swap chrome, clear search, hide editor controls, render list [进入回收站视图：换控件、清搜索、隐藏编辑控件、渲染列表]

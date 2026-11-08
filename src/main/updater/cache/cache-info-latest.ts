@@ -1,11 +1,11 @@
 // Cache info: latest version aggregation [缓存信息 - 最新版本聚合]
 
 import * as path from 'path';
-import { getUpdateCacheDir } from '../startup/updater-paths.js';
+import { getUpdateCacheDir } from 'sparklet/main/updater/startup/updater-paths.js';
 import type { CacheMeta, CacheInfo } from 'sparklet/shared/types/updater/updater.js';
-import { getFileSize, formatBytes } from './cache-size-format.js';
-import { computeRetention } from './cache-retention-info.js';
-import { buildEmptyCacheInfo } from './cache-info-empty.js';
+import { getFileSize, formatBytes } from 'sparklet/main/updater/cache/cache-size-format.js';
+import { computeRetention } from 'sparklet/main/updater/cache/cache-retention-info.js';
+import { buildEmptyCacheInfo } from 'sparklet/main/updater/cache/cache-info-empty.js';
 
 /**
  * Take cache info of the "latest version" (settings page only shows the latest one) [取「最新的一个版本」的缓存信息 (设置页只展示最新的那一个)]

@@ -2,8 +2,8 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getLatestSnapshot } from '../io/note-history.js';
-import { writeFileAtomic } from '../io/note-io.js';
+import { getLatestSnapshot } from 'sparklet/main/services/note/io/note-history.js';
+import { writeFileAtomic } from 'sparklet/main/services/note/io/note-io.js';
 import type { Note } from 'sparklet/shared/types/note/notes.js';
 
 /** Outcome of handling a corrupt note json [处理损坏笔记 json 的结果] */

@@ -1,6 +1,6 @@
 // Cache cleanup: manual clear operations [缓存清理 - 手动清空操作]
 
-import { readMeta, writeMeta, removeVersionCache } from './cache-meta.js';
+import { readMeta, writeMeta, removeVersionCache } from 'sparklet/main/updater/cache/cache-meta.js';
 
 /**
  * Clear all cache immediately (settings page button) [立即清空全部缓存 (设置页按钮)]

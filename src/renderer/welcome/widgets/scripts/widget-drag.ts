@@ -11,9 +11,9 @@
 // Split out [已拆分]：order persistence → widget-order.ts, ghost → widget-drag-ghost.ts,
 // slot geometry → widget-drag-slot.ts, gesture → widget-drag-gesture.ts.
 
-import { startWidgetDrag } from './widget-drag-gesture.js';
+import { startWidgetDrag } from 'sparklet/renderer/welcome/widgets/scripts/widget-drag-gesture.js';
 
-export { restoreWidgetOrder, persistOrder } from './widget-order.js';
+export { restoreWidgetOrder, persistOrder } from 'sparklet/renderer/welcome/widgets/scripts/widget-order.js';
 
 /** Wire pointer-based drag reordering on the board [在 board 上绑定 pointer 拖拽重排] */
 export function enableWidgetDragReorder(board: HTMLElement): void {

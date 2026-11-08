@@ -2,7 +2,7 @@
 
 import type { BrowserWindow } from 'electron';
 import type { DialogPayload, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
-import { pendingDialogResponses } from './dialog-response.js';
+import { pendingDialogResponses } from 'sparklet/main/updater/dialog/dialog-response.js';
 
 /** Send the dialog payload and resolve with the user's response (or fallback on timeout) [发送弹窗负载并以用户响应 (或超时兜底) 收尾] */
 export function sendRendererDialog(

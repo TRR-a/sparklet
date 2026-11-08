@@ -3,10 +3,10 @@
 // [目录树读取在 project-tree-reader.ts，文件读写在 project-file-io.ts]
 
 import { dialog } from 'electron';
-import type { ProjectOpenResult } from 'sparklet/shared/types/project';
+import type { ProjectOpenResult } from 'sparklet/shared/types/project.js';
 
-export { readDirectoryTree } from './project-tree-reader.js';
-export { readFile, writeFile } from './project-file-io.js';
+export { readDirectoryTree } from 'sparklet/main/services/project/project-tree-reader.js';
+export { readFile, writeFile } from 'sparklet/main/services/project/project-file-io.js';
 
 /**
  * Open a folder selection dialog [打开文件夹选择对话框]

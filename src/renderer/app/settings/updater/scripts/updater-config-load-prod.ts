@@ -2,7 +2,7 @@
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
-import { updateStatusText } from './updater-config-status.js';
+import { updateStatusText } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-status.js';
 
 /** Apply the production config to the updater controls [生产环境把配置应用到更新控件] */
 export function applyProdConfigUI(updaterConfig: UpdaterConfig): void {

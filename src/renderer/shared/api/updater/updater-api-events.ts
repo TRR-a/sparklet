@@ -1,6 +1,6 @@
 // Updater API: events & dialog channel [更新 API - 事件与弹窗通道]
 
-import { bus } from '../../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 import type { ToastData, DialogPayload } from 'sparklet/shared/types/updater/updater.js';
 
 export const updaterApiEvents = {

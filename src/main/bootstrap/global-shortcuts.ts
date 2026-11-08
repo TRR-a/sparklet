@@ -7,8 +7,8 @@
 // Split out [已拆分]：trigger actions → global-shortcuts-actions.ts.
 
 import { app, globalShortcut } from 'electron';
-import { logger } from '../services/logger/logger.js';
-import { toggleHubWindow, broadcastNewNote, unregisterOnQuit } from './global-shortcuts-actions';
+import { logger } from 'sparklet/main/services/logger/logger.js';
+import { toggleHubWindow, broadcastNewNote, unregisterOnQuit } from 'sparklet/main/bootstrap/global-shortcuts-actions.js';
 
 /**
  * Register system-wide shortcuts (call after app.whenReady) [注册系统级快捷键 (在 app.whenReady 后调用)]

@@ -4,6 +4,6 @@
 //
 // Split out [已拆分]：layer 1 → verify-manifest-release.ts, layer 2 → verify-package.ts.
 
-export { normalizeVersion, computeSha256, getHashField } from './hash-utils.js';
-export { verifyReleaseManifest } from './verify-manifest-release.js';
-export { verifyPackageIntegrity } from './verify-package.js';
+export { normalizeVersion, computeSha256, getHashField } from 'sparklet/main/updater/install/hash-utils.js';
+export { verifyReleaseManifest } from 'sparklet/main/updater/install/verify-manifest-release.js';
+export { verifyPackageIntegrity } from 'sparklet/main/updater/install/verify-package.js';

@@ -1,6 +1,6 @@
 // Window API: current window controls [窗口 API - 当前窗口控制]
 
-import { bus } from '../../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 
 export const windowApiControl = {
   // ---------- Current window controls [当前窗口控制] ----------

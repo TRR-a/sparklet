@@ -1,6 +1,6 @@
 // Updater operation result types [更新操作结果类型]
 
-import type { ManifestEntry } from './updater-manifest-types.js';
+import type { ManifestEntry } from 'sparklet/shared/types/updater/updater-manifest-types.js';
 
 /** Update check result [更新检查结果] */
 export interface CheckResult {

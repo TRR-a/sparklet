@@ -1,10 +1,10 @@
 // Selection bar: visibility / count / per-view buttons [多选操作栏 - 可见性、计数与按视图按钮]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { syncSelectionInList } from '../../../note/scripts/note-virtual-list.js';
-import { isSelectionMode, getSelectedCount, isSelected } from './selection-state.js';
-import { isTrashView } from './selection-bar-actions.js';
-import { ensureBar } from './selection-bar-dom.js';
+import { syncSelectionInList } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
+import { isSelectionMode, getSelectedCount, isSelected } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import { isTrashView } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-actions.js';
+import { ensureBar } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-dom.js';
 
 /** Refresh bar visibility, count and per-view buttons [刷新操作栏可见性、计数与按视图显示的按钮] */
 export function updateSelectionBar(): void {

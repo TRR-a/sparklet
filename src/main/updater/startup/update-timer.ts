@@ -1,15 +1,15 @@
 // Update timer - scheduled auto check [更新定时器 - 定时自动检查]
 // Pending/auto/manual triggers in update-check-triggers.ts [待处理/自动/手动触发在 update-check-triggers.ts]
 
-import { getCheckInterval } from '../config/config-manager.js';
-import { updaterStateInternal } from './update-state.js';
-import { autoCheckUpdate } from '../trigger/update-check-triggers.js';
+import { getCheckInterval } from 'sparklet/main/updater/config/config-manager.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
+import { autoCheckUpdate } from 'sparklet/main/updater/trigger/update-check-triggers.js';
 
 export {
   checkPendingUpdate,
   autoCheckUpdate,
   checkUpdateManually,
-} from '../trigger/update-check-triggers.js';
+} from 'sparklet/main/updater/trigger/update-check-triggers.js';
 
 /**
  * Start the update timer [启动定时器]

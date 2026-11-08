@@ -1,6 +1,6 @@
 // HTML/XML highlighter - single-pass tag, attribute, and string tokens [HTML/XML 高亮 - 单遍标签、属性、字符串词元]
 
-import { escapeHtml, span } from './highlight-utils.js';
+import { escapeHtml, span } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
 
 /** HTML single-pass pattern: comment, doctype, tag open, name, entity, attr, string, tag close [HTML 单遍模式] */
 const HTML_TOKEN = /<!--[\s\S]*?-->|<![A-Za-z][^>]*>|<\/?[A-Za-z][\w:-]*|&[a-zA-Z][a-zA-Z0-9]*;|&#\d+;|&#x[0-9a-fA-F]+;|"[^"]*"|'[^']*'|[A-Za-z-]+(?==)|\/?>/g;

@@ -1,6 +1,6 @@
 // Cache retention state [缓存保留天数状态]
 
-import { RETENTION_DEFAULT } from './cache-retention-constants.js';
+import { RETENTION_DEFAULT } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-constants.js';
 
 let currentRetentionDays = RETENTION_DEFAULT;
 let retentionSaveTimer: ReturnType<typeof setTimeout> | null = null;

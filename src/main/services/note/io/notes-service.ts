@@ -32,15 +32,15 @@ interface OldNote {
 /**
  * Get notes directory path [获取笔记目录路径]
  */
-export { getNotesDir, ensureNotesDir } from './note-paths.js';
+export { getNotesDir, ensureNotesDir } from 'sparklet/main/services/note/io/note-paths.js';
 
-export { listNotes } from './note-list.js';
-export { getNote } from './note-read.js';
-export { saveNote } from './note-save.js';
-export { searchNotes } from './note-search.js';
-export { deleteNote } from './note-delete.js';
-export { restoreNote } from './note-restore.js';
-export { permanentDeleteNote } from './note-permanent-delete.js';
+export { listNotes } from 'sparklet/main/services/note/io/note-list.js';
+export { getNote } from 'sparklet/main/services/note/io/note-read.js';
+export { saveNote } from 'sparklet/main/services/note/io/note-save.js';
+export { searchNotes } from 'sparklet/main/services/note/io/note-search.js';
+export { deleteNote } from 'sparklet/main/services/note/io/note-delete.js';
+export { restoreNote } from 'sparklet/main/services/note/io/note-restore.js';
+export { permanentDeleteNote } from 'sparklet/main/services/note/io/note-permanent-delete.js';
 
 export type { NoteMeta };
 export type { OldNote };

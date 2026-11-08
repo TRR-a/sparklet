@@ -26,7 +26,7 @@ export async function showTrashPreview(noteId: string): Promise<void> {
 export async function restoreFromTrash(noteId: string): Promise<void> {
   const success = await storageManager.restoreNote(noteId);
   if (success) {
-    const { renderTrashList } = await import('./trash-view.js');
+    const { renderTrashList } = await import('sparklet/renderer/app/popup/ui/trash/scripts/trash-view.js');
     await renderTrashList();
   }
 }
@@ -45,7 +45,7 @@ export async function permanentlyDeleteNote(noteId: string): Promise<void> {
   if (!confirmed) return;
   const success = await storageManager.permanentlyDeleteNote(noteId);
   if (success) {
-    const { renderTrashList } = await import('./trash-view.js');
+    const { renderTrashList } = await import('sparklet/renderer/app/popup/ui/trash/scripts/trash-view.js');
     await renderTrashList();
   }
 }

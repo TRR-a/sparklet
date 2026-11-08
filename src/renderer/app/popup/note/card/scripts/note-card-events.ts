@@ -1,7 +1,7 @@
 // Note card: card body click [笔记卡片 - 卡片主体点击]
 
-import { isSelectionMode, toggleSelect } from '../../../ui/selection/scripts/selection-state.js';
-import type { NoteListItem } from '../../list/scripts/note-list.js';
+import { isSelectionMode, toggleSelect } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
 
 /** Bind card body click: select in multi-select mode, else open/close the note [绑定卡片主体点击：多选模式选中，否则打开/关闭笔记] */
 export function bindCardClick(li: HTMLElement, note: NoteListItem): void {
@@ -14,7 +14,7 @@ export function bindCardClick(li: HTMLElement, note: NoteListItem): void {
       return;
     }
     // Toggle: clicking the already-open note closes it [切换：点击已打开的笔记则关闭]
-    void import('../../../editor/scripts/note-editor.js').then(({ switchNote, closeNote, getCurrentNoteId }) => {
+    void import('sparklet/renderer/app/popup/editor/scripts/note-editor.js').then(({ switchNote, closeNote, getCurrentNoteId }) => {
       if (note.id === getCurrentNoteId()) void closeNote();
       else void switchNote(note.id);
     });

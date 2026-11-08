@@ -1,8 +1,8 @@
 // Cache retention UI sync (slider / presets / label) [缓存保留天数 UI 同步 (滑杆/快捷按钮/文本)]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { clampRetentionDays } from './cache-retention-constants.js';
-import { setCurrentRetentionDays } from './cache-retention-state.js';
+import { clampRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-constants.js';
+import { setCurrentRetentionDays } from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention-state.js';
 
 /**
  * Update "current: X days" label text, optionally with bump animation [更新「当前：X 天」文本，可选带弹跳动画]

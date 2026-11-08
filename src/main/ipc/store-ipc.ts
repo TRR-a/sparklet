@@ -2,7 +2,7 @@
 // Handles electron-store get/set for app-level config (language, theme, migration flags) [处理 electron-store 读写，用于应用级配置 (语言、主题、迁移标记)]
 
 import { ipcMain } from 'electron';
-import { store } from '../services/store';
+import { store } from 'sparklet/main/services/store.js';
 
 /**
  * Register store IPC handlers (kept for other config, notes already migrated to file system) [注册存储 IPC 处理器 (保留用于其他配置，笔记已迁移至文件系统)]

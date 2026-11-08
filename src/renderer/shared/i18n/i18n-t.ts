@@ -1,6 +1,6 @@
 // i18n: translate helper [i18n - 翻译取值]
 
-import { getTranslations } from './i18n-state.js';
+import { getTranslations } from 'sparklet/renderer/shared/i18n/i18n-state.js';
 
 /**
  * Get translated text for current language (for JS dynamic content) [获取当前语言的翻译文本 (用于 JS 动态内容)]

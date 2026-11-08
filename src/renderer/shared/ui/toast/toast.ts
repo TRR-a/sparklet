@@ -4,7 +4,7 @@
 // Split out [已拆分]：types → toast-types.ts, message → toast-message.ts,
 // DOM view → toast-view.ts, main-process listener → toast-listener.ts.
 
-export type { ToastType, ToastEventData } from './toast-types.js';
-export { resolveToastMessage } from './toast-message.js';
-export { showToast } from './toast-view.js';
-export { bindToastListener } from './toast-listener.js';
+export type { ToastType, ToastEventData } from 'sparklet/renderer/shared/ui/toast/toast-types.js';
+export { resolveToastMessage } from 'sparklet/renderer/shared/ui/toast/toast-message.js';
+export { showToast } from 'sparklet/renderer/shared/ui/toast/toast-view.js';
+export { bindToastListener } from 'sparklet/renderer/shared/ui/toast/toast-listener.js';

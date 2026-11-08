@@ -2,7 +2,7 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdateCacheDir } from '../startup/updater-paths.js';
+import { getUpdateCacheDir } from 'sparklet/main/updater/startup/updater-paths.js';
 import type { CacheMeta } from 'sparklet/shared/types/updater/updater.js';
 
 /**

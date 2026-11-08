@@ -1,7 +1,7 @@
 // Verify: layer 1 - release manifest entry [校验 - 第一层：release 清单条目]
 
-import { fetchReleasesManifest } from '../manifest/manifest-helper.js';
-import { normalizeVersion } from './hash-utils.js';
+import { fetchReleasesManifest } from 'sparklet/main/updater/manifest/manifest-helper.js';
+import { normalizeVersion } from 'sparklet/main/updater/install/hash-utils.js';
 import type { VerifyResult } from 'sparklet/shared/types/updater/updater.js';
 
 /**

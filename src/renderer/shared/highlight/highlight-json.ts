@@ -1,6 +1,6 @@
 // JSON highlighter - strings (key/value aware), numbers, literals [JSON 高亮 - 字符串 (区分键值)、数字、字面量]
 
-import { escapeHtml, span } from './highlight-utils.js';
+import { escapeHtml, span } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
 
 /** JSON token pattern: strings, numbers, literals [JSON 词元：字符串、数字、字面量] */
 const JSON_TOKEN = /"(?:[^"\\\n]|\\.)*"|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|\btrue\b|\bfalse\b|\bnull\b/g;

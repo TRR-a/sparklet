@@ -1,10 +1,10 @@
 // Rollback dialog: no cache (two buttons + error details) [回滚弹窗 - 无缓存 (双按钮 + 错误详情)]
 
-import { t } from '../../i18n/i18n.js';
-import { escapeHtml } from '../../ui/dom/dom-utils.js';
-import type { DialogContent } from '../dialog/updater-dialog-types.js';
-import { openExternal } from '../dialog/updater-dialog-external.js';
-import { rollbackErrorsBlock } from './rollback-errors-block.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
+import { openExternal } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-external.js';
+import { rollbackErrorsBlock } from 'sparklet/renderer/shared/updater/rollback/rollback-errors-block.js';
 
 export function buildRollbackNoCache(params: Record<string, unknown>): DialogContent {
   const title = t('dialog.rollbackNoCache.title');

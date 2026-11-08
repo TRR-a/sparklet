@@ -1,6 +1,6 @@
 // Update module shared state [更新模块共享状态]
 
-import type { PendingUpdateInfo } from '../rollback/rollback.js';
+import type { PendingUpdateInfo } from 'sparklet/main/updater/rollback/rollback.js';
 
 /** Mutable shared state for updater modules [更新模块可变共享状态] */
 export const updaterStateInternal = {

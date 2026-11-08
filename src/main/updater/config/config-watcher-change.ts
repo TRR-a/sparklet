@@ -1,7 +1,7 @@
 // Config watcher: external change handling [配置监听 - 外部变更处理]
 
-import { readConfig, invalidateConfigCache, consumeSelfWrite } from './config-store.js';
-import { broadcastConfigChange } from './config-broadcast.js';
+import { readConfig, invalidateConfigCache, consumeSelfWrite } from 'sparklet/main/updater/config/config-store.js';
+import { broadcastConfigChange } from 'sparklet/main/updater/config/config-broadcast.js';
 
 let configChangeTimer: NodeJS.Timeout | null = null;
 

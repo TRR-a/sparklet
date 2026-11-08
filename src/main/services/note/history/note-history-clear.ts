@@ -2,8 +2,8 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getNoteHistoryDir } from '../io/note-paths.js';
-import { lastSnapshotAt } from './note-history-store.js';
+import { getNoteHistoryDir } from 'sparklet/main/services/note/io/note-paths.js';
+import { lastSnapshotAt } from 'sparklet/main/services/note/history/note-history-store.js';
 
 /**
  * Remove all history of a note (on permanent delete) [移除某笔记的全部历史 (永久删除时)]

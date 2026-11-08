@@ -1,8 +1,8 @@
 // Welcome tabs: close [欢迎页标签 - 关闭]
 
-import { windowApi } from '../../../shared/index.js';
-import { dropTabData } from './welcome-tab-store.js';
-import { activateTab } from './welcome-tab-activate.js';
+import { windowApi } from 'sparklet/renderer/shared/index.js';
+import { dropTabData } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tab-store.js';
+import { activateTab } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tab-activate.js';
 
 /**
  * Close a tab; closing the last tab quits the app [关闭标签；关闭最后一个时退出应用]

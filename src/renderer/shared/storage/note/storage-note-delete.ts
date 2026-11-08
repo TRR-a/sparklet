@@ -1,7 +1,7 @@
 // Storage: soft delete a note [存储 - 软删除笔记]
 
-import { noteApi } from '../../../app/api/note-api.js';
-import { ensureInit } from '../storage-cache.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
+import { ensureInit } from 'sparklet/renderer/shared/storage/storage-cache.js';
 
 /** Soft delete (move to trash) [软删除 (移回收站)] */
 export async function deleteNote(id: string): Promise<boolean> {

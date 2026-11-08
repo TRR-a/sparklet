@@ -1,7 +1,7 @@
 // Welcome monitor: disk rows [欢迎页监控 - 磁盘行]
 
 import type { SystemStats } from 'sparklet/shared/types/system.js';
-import { formatBytes, ensureDynamicRow, paintFill } from './monitor-format.js';
+import { formatBytes, ensureDynamicRow, paintFill } from 'sparklet/renderer/welcome/monitor/scripts/monitor-format.js';
 
 /** Update dynamic disk rows [更新动态磁盘行] */
 export function updateDiskRows(stats: SystemStats): void {

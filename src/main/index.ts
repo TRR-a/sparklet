@@ -3,11 +3,11 @@
 // Ready sequence in lifecycle/ready.ts, window/app events in lifecycle/app-events.ts
 // [就绪序列在 lifecycle/ready.ts，窗口与应用事件在 lifecycle/app-events.ts]
 
-import './bootstrap/dev-user-data.js'; // Must be first — redirects userData before any store/path access [必须第一个，在任何 store/路径访问前重定向 userData]
-import './bootstrap/console-timestamp.js'; // Second — prefix all console output with [mm:ss] [第二个，给所有控制台输出加 [mm:ss] 前缀]
+import 'sparklet/main/bootstrap/dev-user-data.js'; // Must be first — redirects userData before any store/path access [必须第一个，在任何 store/路径访问前重定向 userData]
+import 'sparklet/main/bootstrap/console-timestamp.js'; // Second — prefix all console output with [mm:ss] [第二个，给所有控制台输出加 [mm:ss] 前缀]
 import { BrowserWindow } from 'electron';
-import { registerReadyLifecycle } from './lifecycle/ready.js';
-import { registerWindowClosedLifecycle, registerActivateLifecycle } from './lifecycle/app-events.js';
+import { registerReadyLifecycle } from 'sparklet/main/lifecycle/ready.js';
+import { registerWindowClosedLifecycle, registerActivateLifecycle } from 'sparklet/main/lifecycle/app-events.js';
 
 registerReadyLifecycle();
 registerWindowClosedLifecycle();

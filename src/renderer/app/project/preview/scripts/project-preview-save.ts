@@ -1,7 +1,7 @@
 // Project preview: save current file [项目预览 - 保存当前文件]
 
-import { projectApi } from '../../api/scripts/project-api.js';
-import { getEditor, getCurrentEditPath, setIsDirty } from './project-preview-state.js';
+import { projectApi } from 'sparklet/renderer/app/project/api/scripts/project-api.js';
+import { getEditor, getCurrentEditPath, setIsDirty } from 'sparklet/renderer/app/project/preview/scripts/project-preview-state.js';
 
 /**
  * Save the currently open file [保存当前打开的文件]

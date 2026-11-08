@@ -5,7 +5,7 @@
 // update-confirm → dialog-prompt-update.ts, notify-only → dialog-prompt-notify.ts,
 // restart-confirm → dialog-prompt-restart.ts.
 
-export { formatDate } from './dialog-format-date.js';
-export { showUpdateDialog } from './dialog-prompt-update.js';
-export { showNotifyOnlyDialog } from './dialog-prompt-notify.js';
-export { showRestartDialog } from './dialog-prompt-restart.js';
+export { formatDate } from 'sparklet/main/updater/dialog/dialog-format-date.js';
+export { showUpdateDialog } from 'sparklet/main/updater/dialog/dialog-prompt-update.js';
+export { showNotifyOnlyDialog } from 'sparklet/main/updater/dialog/dialog-prompt-notify.js';
+export { showRestartDialog } from 'sparklet/main/updater/dialog/dialog-prompt-restart.js';

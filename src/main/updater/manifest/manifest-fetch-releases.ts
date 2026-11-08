@@ -4,7 +4,7 @@
 
 import * as https from 'https';
 import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
-import { buildManifestRequestOptions, parseManifestBody } from './manifest-fetch-options.js';
+import { buildManifestRequestOptions, parseManifestBody } from 'sparklet/main/updater/manifest/manifest-fetch-options.js';
 
 /**
  * Download manifest.releases.json from GitHub [从 GitHub 下载 manifest.releases.json]

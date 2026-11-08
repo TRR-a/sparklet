@@ -9,11 +9,11 @@
 // DOM creation in selection-bar-dom.ts, bar refresh in selection-bar-update.ts
 // [DOM 创建在 selection-bar-dom.ts，操作栏刷新在 selection-bar-update.ts]
 
-import { onSelectionChange } from './selection-state.js';
-import { ensureBar } from './selection-bar-dom.js';
-import { updateSelectionBar } from './selection-bar-update.js';
+import { onSelectionChange } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import { ensureBar } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-dom.js';
+import { updateSelectionBar } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-update.js';
 
-export { updateSelectionBar } from './selection-bar-update.js';
+export { updateSelectionBar } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-update.js';
 
 let initialized = false;
 

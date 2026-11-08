@@ -2,10 +2,10 @@
 // Leading icon in project-tree-node-icon.ts, click behavior in project-tree-node-click.ts
 // [行首图标在 project-tree-node-icon.ts，点击行为在 project-tree-node-click.ts]
 
-import type { ProjectFileNode } from 'sparklet/shared/types/project';
-import { expandedDirs } from '../../workspace/scripts/project-workspace.js';
-import { appendNodeIcon } from './project-tree-node-icon.js';
-import { bindNodeClick } from './project-tree-node-click.js';
+import type { ProjectFileNode } from 'sparklet/shared/types/project.js';
+import { expandedDirs } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace.js';
+import { appendNodeIcon } from 'sparklet/renderer/app/project/tree/scripts/project-tree-node-icon.js';
+import { bindNodeClick } from 'sparklet/renderer/app/project/tree/scripts/project-tree-node-click.js';
 
 /**
  * Build a single file tree node [构建单个文件树节点]

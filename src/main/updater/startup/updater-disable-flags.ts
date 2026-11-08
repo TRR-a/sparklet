@@ -1,7 +1,7 @@
 // Command-line update disable flags [命令行禁用更新标志]
 
-import { DISABLE_UPDATE_FLAGS } from '../constants/constants.js';
-import { updaterStateInternal } from './update-state.js';
+import { DISABLE_UPDATE_FLAGS } from 'sparklet/main/updater/constants/constants.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
 
 /**
  * Check CLI flags that disable updates [检查禁用更新的命令行标志]

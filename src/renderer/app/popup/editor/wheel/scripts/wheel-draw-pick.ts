@@ -1,7 +1,7 @@
 // Color wheel: picking [色环 - 取色]
 
-import { readHsv, setHsv } from './wheel-state-store.js';
-import { applyColor } from './wheel-apply.js';
+import { readHsv, setHsv } from 'sparklet/renderer/app/popup/editor/wheel/scripts/wheel-state-store.js';
+import { applyColor } from 'sparklet/renderer/app/popup/editor/wheel/scripts/wheel-apply.js';
 
 /**
  * Pick color at canvas coords [根据 canvas 坐标取色]

@@ -1,7 +1,7 @@
 // Markdown block renderer: blockquote [Markdown 块级渲染器 - 引用块]
 
-import { renderInline } from '../markdown-inline.js';
-import type { BlockMatch } from './markdown-block-types.js';
+import { renderInline } from 'sparklet/renderer/shared/markdown/markdown-inline.js';
+import type { BlockMatch } from 'sparklet/renderer/shared/markdown/block/markdown-block-types.js';
 
 /**
  * Render a blockquote at line i, or null [渲染第 i 行起的引用块，否则返回 null]

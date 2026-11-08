@@ -1,6 +1,6 @@
 // Toast: style builder [Toast - 样式构建]
 
-import type { ToastType } from './toast-types.js';
+import type { ToastType } from 'sparklet/renderer/shared/ui/toast/toast-types.js';
 
 /** Resolve the background color for a toast type [解析 Toast 类型的背景色] */
 export function toastBackground(type: ToastType): string {

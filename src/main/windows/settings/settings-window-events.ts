@@ -1,7 +1,7 @@
 // Settings window: lifecycle events [设置窗口 - 生命周期事件]
 
 import { BrowserWindow } from 'electron';
-import { setSettingsWindow, getMainWindow, syncGlowPosition } from '../window-manager.js';
+import { setSettingsWindow, getMainWindow, syncGlowPosition } from 'sparklet/main/windows/window-manager.js';
 
 /** Wire show/move/minimize/restore/closed handlers [接线显示/移动/最小化/还原/关闭处理] */
 export function bindSettingsWindowEvents(settingsWindow: BrowserWindow): void {

@@ -4,10 +4,10 @@ import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
-import { refreshNoteListView } from '../../../note/list/scripts/note-search.js';
-import { getCurrentNoteId, loadNoteIntoEditor } from '../../../editor/scripts/note-editor.js';
+import { refreshNoteListView } from 'sparklet/renderer/app/popup/note/list/scripts/note-search.js';
+import { getCurrentNoteId, loadNoteIntoEditor } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
 import type { Note } from 'sparklet/shared/types/note/notes.js';
-import { hideNoteHistory } from './note-history-modal-view.js';
+import { hideNoteHistory } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-modal-view.js';
 
 /**
  * Restore a snapshot and refresh the UI [恢复快照并刷新界面]

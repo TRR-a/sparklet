@@ -3,11 +3,11 @@
 // Split out [已拆分]：DOM scaffolding → glass-dropdown-dom.ts,
 // value sync observers → glass-dropdown-observe.ts.
 
-import { buildDropdownPanel } from './glass-dropdown-panel.js';
-import { positionDropdownPanel } from './glass-dropdown-position.js';
-import { syncDropdownLabel } from './glass-dropdown-label.js';
-import { createDropdownDom } from './glass-dropdown-dom.js';
-import { observeSelectValue } from './glass-dropdown-observe.js';
+import { buildDropdownPanel } from 'sparklet/renderer/app/settings/ui/dropdown/scripts/glass-dropdown-panel.js';
+import { positionDropdownPanel } from 'sparklet/renderer/app/settings/ui/dropdown/scripts/glass-dropdown-position.js';
+import { syncDropdownLabel } from 'sparklet/renderer/app/settings/ui/dropdown/scripts/glass-dropdown-label.js';
+import { createDropdownDom } from 'sparklet/renderer/app/settings/ui/dropdown/scripts/glass-dropdown-dom.js';
+import { observeSelectValue } from 'sparklet/renderer/app/settings/ui/dropdown/scripts/glass-dropdown-observe.js';
 
 export class GlassDropdown {
   private select: HTMLSelectElement;

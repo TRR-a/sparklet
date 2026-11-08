@@ -3,11 +3,11 @@
 // Split out [已拆分]：candidate probing → temp-acquire-candidates.ts,
 // user fallback → temp-acquire-fallback.ts.
 
-import { getTempPath } from '../startup/updater-paths.js';
+import { getTempPath } from 'sparklet/main/updater/startup/updater-paths.js';
 import type { TempDirResult } from 'sparklet/shared/types/updater/updater.js';
-import type { TempDirDialogs } from './temp-dialogs.js';
-import { tryTempCandidates } from './temp-acquire-candidates.js';
-import { askTempFallback } from './temp-acquire-fallback.js';
+import type { TempDirDialogs } from 'sparklet/main/updater/temp/temp-dialogs.js';
+import { tryTempCandidates } from 'sparklet/main/updater/temp/temp-acquire-candidates.js';
+import { askTempFallback } from 'sparklet/main/updater/temp/temp-acquire-fallback.js';
 
 /**
  * Acquire an available temp directory [获取可用的临时目录]

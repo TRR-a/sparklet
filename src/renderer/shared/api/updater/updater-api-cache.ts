@@ -1,6 +1,6 @@
 // Updater API: update cache [更新 API - 更新缓存]
 
-import { bus } from '../../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 import type { CacheInfo } from 'sparklet/shared/types/updater/updater.js';
 
 export const updaterApiCache = {

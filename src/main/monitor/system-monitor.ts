@@ -12,10 +12,10 @@
 // [CPU 采样在 cpu-usage.ts，磁盘在 disk-stats.ts，GPU 在 gpu-stats.ts，平台命令辅助在 system-command.ts]
 
 import os from 'os';
-import type { SystemStats } from 'sparklet/shared/types/system';
-import { sampleCpuUsage } from './cpu-usage.js';
-import { readDisks } from './disk-stats.js';
-import { readGpus } from './gpu-stats.js';
+import type { SystemStats } from 'sparklet/shared/types/system.js';
+import { sampleCpuUsage } from 'sparklet/main/monitor/cpu-usage.js';
+import { readDisks } from 'sparklet/main/monitor/disk-stats.js';
+import { readGpus } from 'sparklet/main/monitor/gpu-stats.js';
 
 /** Collect one full system-stats snapshot for the kernel UI [为内核 UI 采集一份完整系统状态快照] */
 export async function getSystemStats(): Promise<SystemStats> {

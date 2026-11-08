@@ -1,11 +1,11 @@
 // Project preview: text / SVG editor mount [项目预览 - 文本或 SVG 编辑器挂载]
 
 import { getLanguageForFile } from 'sparklet/renderer/shared/highlight/highlight.js';
-import { createCodeEditor } from '../../editor/scripts/code-editor.js';
+import { createCodeEditor } from 'sparklet/renderer/app/project/editor/scripts/code-editor.js';
 import {
   getEditor, setEditor, setEditTarget, getIsDirty, setIsDirty,
-} from './project-preview-state.js';
-import { saveCurrentFile } from './project-preview-save.js';
+} from 'sparklet/renderer/app/project/preview/scripts/project-preview-state.js';
+import { saveCurrentFile } from 'sparklet/renderer/app/project/preview/scripts/project-preview-save.js';
 
 /**
  * Mount the custom code editor for a text / SVG file [为文本或 SVG 文件挂载自研编辑器]

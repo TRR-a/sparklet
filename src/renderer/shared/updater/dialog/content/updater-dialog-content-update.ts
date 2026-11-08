@@ -4,6 +4,6 @@
 // notify only → updater-dialog-content-notify-only.ts,
 // restart confirm → updater-dialog-content-restart-confirm.ts.
 
-export { buildUpdateConfirm } from './updater-dialog-content-update-confirm.js';
-export { buildNotifyOnly } from './updater-dialog-content-notify-only.js';
-export { buildRestartConfirm } from './updater-dialog-content-restart-confirm.js';
+export { buildUpdateConfirm } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-update-confirm.js';
+export { buildNotifyOnly } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-notify-only.js';
+export { buildRestartConfirm } from 'sparklet/renderer/shared/updater/dialog/content/updater-dialog-content-restart-confirm.js';

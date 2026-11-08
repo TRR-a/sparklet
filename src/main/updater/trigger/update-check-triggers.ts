@@ -4,6 +4,6 @@
 // Split out [已拆分]：pending → update-check-pending.ts,
 // auto → update-check-auto.ts, manual → update-check-manual.ts.
 
-export { checkPendingUpdate } from './update-check-pending.js';
-export { autoCheckUpdate } from './update-check-auto.js';
-export { checkUpdateManually } from './update-check-manual.js';
+export { checkPendingUpdate } from 'sparklet/main/updater/trigger/update-check-pending.js';
+export { autoCheckUpdate } from 'sparklet/main/updater/trigger/update-check-auto.js';
+export { checkUpdateManually } from 'sparklet/main/updater/trigger/update-check-manual.js';

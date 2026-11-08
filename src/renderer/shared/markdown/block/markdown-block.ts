@@ -3,12 +3,12 @@
 // Split out [已拆分]：heading/hr → markdown-block-heading.ts, quote → markdown-block-quote.ts,
 // list → markdown-block-list.ts, table/paragraph/detect → markdown-block-table.ts.
 
-import { renderHeadingBlock } from './markdown-block-heading.js';
-import { renderQuoteBlock } from './markdown-block-quote.js';
-import { renderListBlock } from './markdown-block-list.js';
-import { renderTableBlock, renderParagraphBlock } from './markdown-block-table.js';
+import { renderHeadingBlock } from 'sparklet/renderer/shared/markdown/block/markdown-block-heading.js';
+import { renderQuoteBlock } from 'sparklet/renderer/shared/markdown/block/markdown-block-quote.js';
+import { renderListBlock } from 'sparklet/renderer/shared/markdown/block/markdown-block-list.js';
+import { renderTableBlock, renderParagraphBlock } from 'sparklet/renderer/shared/markdown/block/markdown-block-table.js';
 
-export { isBlockStart } from './markdown-block-table.js';
+export { isBlockStart } from 'sparklet/renderer/shared/markdown/block/markdown-block-table.js';
 
 /**
  * Render block-level elements [渲染块级元素]

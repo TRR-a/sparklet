@@ -1,9 +1,9 @@
 // Search results: render the result list [搜索结果 - 渲染结果列表]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { createNoteCard } from '../../card/scripts/note-card.js';
-import { renderVirtualNoteList, getActiveNoteId, type VirtualItem } from '../../scripts/note-virtual-list.js';
-import type { NoteListItem } from './note-list-types.js';
+import { createNoteCard } from 'sparklet/renderer/app/popup/note/card/scripts/note-card.js';
+import { renderVirtualNoteList, getActiveNoteId, type VirtualItem } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list-types.js';
 
 /** Render search results into the virtual note list [把搜索结果渲染进虚拟笔记列表] */
 export function renderSearchResults(notes: NoteListItem[]): void {

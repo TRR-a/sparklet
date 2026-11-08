@@ -6,7 +6,7 @@
 //
 // Split out [已拆分]：positioning → custom-tooltip-position.ts, listeners → custom-tooltip-bind.ts.
 
-import { bindTooltipEvents } from './custom-tooltip-bind.js';
+import { bindTooltipEvents } from 'sparklet/renderer/shared/ui/tooltip/custom-tooltip-bind.js';
 
 let tooltipEl: HTMLDivElement | null = null;
 let initialized = false;

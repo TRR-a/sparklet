@@ -4,9 +4,9 @@
 // exe hash comparison → self-check-hash.ts.
 
 import { app } from 'electron';
-import { getHashField } from '../install/verify.js';
-import { loadCurrentManifestForSelfCheck } from './self-check-manifest.js';
-import { compareExeHash } from './self-check-hash.js';
+import { getHashField } from 'sparklet/main/updater/install/verify.js';
+import { loadCurrentManifestForSelfCheck } from 'sparklet/main/updater/integrity/self-check-manifest.js';
+import { compareExeHash } from 'sparklet/main/updater/integrity/self-check-hash.js';
 
 /** Integrity self-check result [完整性自检结果] */
 interface IntegrityResult {

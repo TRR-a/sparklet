@@ -1,9 +1,9 @@
 // C-style highlighter: token scan loop [C 风格高亮 - 词元扫描循环]
 
-import { escapeHtml, span } from '../highlight-utils.js';
-import type { CStyleDialect } from './highlight-cstyle-dialects.js';
-import { templateSpan } from './highlight-cstyle-template.js';
-import { classifyCStyleWord } from './highlight-cstyle-word.js';
+import { escapeHtml, span } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
+import type { CStyleDialect } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-dialects.js';
+import { templateSpan } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-template.js';
+import { classifyCStyleWord } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-word.js';
 
 /**
  * Scan and highlight tokens in one pass [单遍扫描并高亮]

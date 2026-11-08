@@ -1,6 +1,6 @@
 // Code editor: DOM scaffold [代码编辑器 - DOM 骨架]
 
-import type { CodeEditorOptions } from './code-editor-types.js';
+import type { CodeEditorOptions } from 'sparklet/renderer/app/project/editor/scripts/code-editor-types.js';
 
 /** Created editor DOM nodes [创建的编辑器 DOM 节点] */
 export interface CodeEditorNodes {

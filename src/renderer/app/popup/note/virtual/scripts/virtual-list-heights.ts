@@ -1,6 +1,6 @@
 // Virtual list geometry: height model [虚拟列表几何 - 高度模型]
 
-import type { VirtualItem } from './virtual-list-types.js';
+import type { VirtualItem } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-types.js';
 
 /** Card margin-bottom from note-list.css (must stay in sync) [卡片下边距 (与 note-list.css 保持同步)] */
 export const CARD_MARGIN = 6;

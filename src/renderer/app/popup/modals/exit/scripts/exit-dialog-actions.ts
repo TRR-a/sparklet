@@ -1,9 +1,9 @@
 // Exit dialog: open/close/quit actions [退出弹窗 - 打开/关闭/退出动作]
 
 import { windowApi } from 'sparklet/renderer/shared/index.js';
-import { getIsDialogOpen, setIsDialogOpen, setFocusedIndex } from './exit-dialog-state.js';
-import { getModal, getReturnBtn, updateFocus } from './exit-dialog-focus.js';
-import { saveAllBeforeQuit } from './exit-dialog-save.js';
+import { getIsDialogOpen, setIsDialogOpen, setFocusedIndex } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-state.js';
+import { getModal, getReturnBtn, updateFocus } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-focus.js';
+import { saveAllBeforeQuit } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-save.js';
 
 /**
  * Close the dialog (return action, no quit) [关闭弹窗 (返回动作，不退出)]

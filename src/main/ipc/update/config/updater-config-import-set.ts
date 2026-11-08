@@ -3,7 +3,7 @@
 import {
   DEFAULT_CONFIG,
   INTERVAL_OPTIONS
-} from '../../../updater/constants/constants.js';
+} from 'sparklet/main/updater/constants/constants.js';
 
 /** Legal update behaviors [合法的更新行为取值] */
 export const ALLOWED_BEHAVIORS = new Set(['auto', 'notify-only', 'disabled']);

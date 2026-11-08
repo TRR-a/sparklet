@@ -1,6 +1,6 @@
 // Virtual list: active-note highlight sync [虚拟列表 - 选中高亮同步]
 
-import { setActiveNoteId, cardCache } from './virtual-list-state.js';
+import { setActiveNoteId, cardCache } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
 
 /**
  * Update the active-note highlight without re-rendering [不重渲染地更新选中笔记高亮]

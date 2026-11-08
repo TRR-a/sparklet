@@ -3,14 +3,14 @@
 // Split out [已拆分]：patterns → highlight-markdown-patterns.ts,
 // inline → highlight-markdown-inline.ts, single-line blocks → highlight-markdown-block.ts.
 
-import { span } from '../highlight-utils.js';
+import { span } from 'sparklet/renderer/shared/highlight/highlight-utils.js';
 // Circular with highlight.ts on purpose: fences delegate their inner language
 // back to the router. ESM live bindings make this safe.
 // [与 highlight.ts 有意循环引用：围栏内容委托回路由入口；ESM 活绑定保证安全]
-import { highlightCode } from '../highlight.js';
-import { MD_FENCE } from './highlight-markdown-patterns.js';
-import { highlightInline } from './highlight-markdown-inline.js';
-import { highlightMarkdownLine } from './highlight-markdown-block.js';
+import { highlightCode } from 'sparklet/renderer/shared/highlight/highlight.js';
+import { MD_FENCE } from 'sparklet/renderer/shared/highlight/markdown/highlight-markdown-patterns.js';
+import { highlightInline } from 'sparklet/renderer/shared/highlight/markdown/highlight-markdown-inline.js';
+import { highlightMarkdownLine } from 'sparklet/renderer/shared/highlight/markdown/highlight-markdown-block.js';
 
 /**
  * Highlight Markdown code [高亮 Markdown 代码]

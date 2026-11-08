@@ -4,6 +4,6 @@
 // restore → storage-batch-restore.ts,
 // permanent delete + cache read → storage-batch-permanent.ts.
 
-export { deleteNotes } from './storage-batch-delete.js';
-export { restoreNotes } from './storage-batch-restore.js';
-export { permanentlyDeleteNotes, permanentlyDeleteNote, readCache } from './storage-batch-permanent.js';
+export { deleteNotes } from 'sparklet/renderer/shared/storage/batch/storage-batch-delete.js';
+export { restoreNotes } from 'sparklet/renderer/shared/storage/batch/storage-batch-restore.js';
+export { permanentlyDeleteNotes, permanentlyDeleteNote, readCache } from 'sparklet/renderer/shared/storage/batch/storage-batch-permanent.js';

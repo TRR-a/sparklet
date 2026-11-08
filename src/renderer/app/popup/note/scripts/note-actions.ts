@@ -5,9 +5,9 @@
 // pin → note-pin.ts, star → note-star.ts, tags → note-edit-tags.ts,
 // delete → note-delete-action.ts.
 
-export { createNewNote } from './note-create.js';
-export { changeNoteColor } from './note-color-action.js';
-export { togglePinNote } from './note-pin.js';
-export { toggleStarNote } from './note-star.js';
-export { editTagsNote } from './note-edit-tags.js';
-export { handleDeleteNote } from './note-delete-action.js';
+export { createNewNote } from 'sparklet/renderer/app/popup/note/scripts/note-create.js';
+export { changeNoteColor } from 'sparklet/renderer/app/popup/note/scripts/note-color-action.js';
+export { togglePinNote } from 'sparklet/renderer/app/popup/note/scripts/note-pin.js';
+export { toggleStarNote } from 'sparklet/renderer/app/popup/note/scripts/note-star.js';
+export { editTagsNote } from 'sparklet/renderer/app/popup/note/scripts/note-edit-tags.js';
+export { handleDeleteNote } from 'sparklet/renderer/app/popup/note/scripts/note-delete-action.js';

@@ -1,11 +1,11 @@
 // Update flow: restart prompt + install stage [更新流程 - 重启确认与安装阶段]
 
 import { app } from 'electron';
-import { installUpdate } from '../install/installer.js';
-import { setConfigItem } from '../config/config-manager.js';
-import { showRestartDialog } from '../dialog/dialog.js';
-import { updaterStateInternal } from '../startup/update-state.js';
-import { releaseTempDir } from '../temp/temp-manager.js';
+import { installUpdate } from 'sparklet/main/updater/install/installer.js';
+import { setConfigItem } from 'sparklet/main/updater/config/config-manager.js';
+import { showRestartDialog } from 'sparklet/main/updater/dialog/dialog.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
+import { releaseTempDir } from 'sparklet/main/updater/temp/temp-manager.js';
 
 /** Outcome of the install stage [安装阶段结果] */
 export type InstallStageResult =

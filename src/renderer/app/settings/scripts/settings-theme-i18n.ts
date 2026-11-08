@@ -3,7 +3,7 @@
 import { initI18n } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { loadTheme, bindThemeBroadcastListener } from 'sparklet/renderer/shared/ui/theme.js';
 import { broadcastApi } from 'sparklet/renderer/shared/index.js';
-import { loadUpdateHint } from '../updater/scripts/updater-config.js';
+import { loadUpdateHint } from 'sparklet/renderer/app/settings/updater/scripts/updater-config.js';
 
 /**
  * Load theme and initialize i18n [加载主题并初始化 i18n]

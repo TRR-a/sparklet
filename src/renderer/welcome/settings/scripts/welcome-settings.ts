@@ -11,12 +11,12 @@
 // tools → welcome-settings-tools.ts, broadcasts → welcome-settings-broadcast.ts
 
 import { initCustomTooltip } from 'sparklet/renderer/shared/index.js';
-import { t } from './welcome-settings-i18n.js';
-import { bindWindowControls } from './welcome-settings-window.js';
-import { loadSavedSettings } from './welcome-settings-init-state.js';
-import { bindSettingsSelects, bindClockToggle } from './welcome-settings-select-bindings.js';
-import { bindToolButtons } from './welcome-settings-tools.js';
-import { bindBroadcastSync } from './welcome-settings-broadcast.js';
+import { t } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-i18n.js';
+import { bindWindowControls } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-window.js';
+import { loadSavedSettings } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-init-state.js';
+import { bindSettingsSelects, bindClockToggle } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-select-bindings.js';
+import { bindToolButtons } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-tools.js';
+import { bindBroadcastSync } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-broadcast.js';
 
 // ========== Init ==========
 async function init(): Promise<void> {

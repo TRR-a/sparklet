@@ -6,7 +6,7 @@
 
 import { BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
-import { setWelcomeWindow } from './window-manager';
+import { setWelcomeWindow } from 'sparklet/main/windows/window-manager.js';
 
 // Preload script path (relative to build/src/main/windows) [Preload 脚本路径]
 const PRELOAD_PATH = path.join(__dirname, '../../preload/index.js');

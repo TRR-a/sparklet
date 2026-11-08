@@ -1,8 +1,8 @@
 // App lifecycle: window/app events [应用生命周期 - 窗口与应用事件]
 
 import { app } from 'electron';
-import { createWelcomeWindow } from '../windows/welcome-window';
-import { getWelcomeWindow } from '../windows/window-manager';
+import { createWelcomeWindow } from 'sparklet/main/windows/welcome-window.js';
+import { getWelcomeWindow } from 'sparklet/main/windows/window-manager.js';
 
 /**
  * Application lifecycle: window-all-closed [应用生命周期：所有窗口关闭]

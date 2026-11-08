@@ -5,6 +5,6 @@
 // no-cache branch → rollback-no-cache-view.ts,
 // shared error block → rollback-errors-block.ts.
 
-export { buildRollbackWithCache } from '../../rollback/rollback-cache-view.js';
-export { buildRollbackRestart } from '../../rollback/rollback-restart-view.js';
-export { buildRollbackNoCache } from '../../rollback/rollback-no-cache-view.js';
+export { buildRollbackWithCache } from 'sparklet/renderer/shared/updater/rollback/rollback-cache-view.js';
+export { buildRollbackRestart } from 'sparklet/renderer/shared/updater/rollback/rollback-restart-view.js';
+export { buildRollbackNoCache } from 'sparklet/renderer/shared/updater/rollback/rollback-no-cache-view.js';

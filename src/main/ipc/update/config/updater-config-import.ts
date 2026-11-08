@@ -6,11 +6,11 @@
 // retention cleanup → updater-config-import-cleanup.ts.
 
 import { ipcMain } from 'electron';
-import { readConfig, writeConfig } from '../../../updater/config/config-manager.js';
-import { mergeImportedConfig, extractConfigPayload } from './updater-config-import-rules.js';
-import { pickConfigFileForImport } from './updater-config-import-dialog.js';
-import { readImportedPayload } from './updater-config-import-read.js';
-import { scheduleRetentionCleanup } from './updater-config-import-cleanup.js';
+import { readConfig, writeConfig } from 'sparklet/main/updater/config/config-manager.js';
+import { mergeImportedConfig, extractConfigPayload } from 'sparklet/main/ipc/update/config/updater-config-import-rules.js';
+import { pickConfigFileForImport } from 'sparklet/main/ipc/update/config/updater-config-import-dialog.js';
+import { readImportedPayload } from 'sparklet/main/ipc/update/config/updater-config-import-read.js';
+import { scheduleRetentionCleanup } from 'sparklet/main/ipc/update/config/updater-config-import-cleanup.js';
 
 /**
  * Register import-file handler [注册导入文件处理器]

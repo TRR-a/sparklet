@@ -1,8 +1,8 @@
 // Updater dialog: restart confirmation [更新弹窗 - 重启确认]
 
 import type { ManifestEntry, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
-import { promptRendererDialog } from './dialog-core.js';
-import { formatDate } from './dialog-format-date.js';
+import { promptRendererDialog } from 'sparklet/main/updater/dialog/dialog-core.js';
+import { formatDate } from 'sparklet/main/updater/dialog/dialog-format-date.js';
 
 /**
  * Show "restart confirmation" dialog (30s timeout auto-selects "later") [显示「重启确认」对话框 (30s 超时自动选「稍后」)]

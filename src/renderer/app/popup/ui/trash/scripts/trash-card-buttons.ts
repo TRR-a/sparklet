@@ -1,7 +1,7 @@
 // Trash card: restore / permanent-delete buttons [回收站卡片 - 恢复/永久删除按钮]
 
-import { restoreFromTrash, permanentlyDeleteNote } from './trash-actions.js';
-import type { NoteListItem } from '../../../note/list/scripts/note-list.js';
+import { restoreFromTrash, permanentlyDeleteNote } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-actions.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
 
 /** Wire restore / permanent-delete buttons [接线恢复/永久删除按钮] */
 export function bindTrashCardButtons(li: HTMLElement, note: NoteListItem): void {

@@ -3,7 +3,7 @@
 
 import { BrowserWindow } from 'electron';
 import * as path from 'path';
-import { syncHubOverlap, clearHubOverlap } from './welcome-settings-overlap.js';
+import { syncHubOverlap, clearHubOverlap } from 'sparklet/main/windows/settings/welcome-settings-overlap.js';
 
 const PRELOAD_PATH = path.join(__dirname, '../../../preload/index.js');
 const WELCOME_SETTINGS_HTML = path.join(__dirname, '../../../renderer/welcome/settings/welcome-settings.html');

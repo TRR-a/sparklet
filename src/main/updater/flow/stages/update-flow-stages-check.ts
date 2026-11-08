@@ -3,10 +3,10 @@
 // Split out [已拆分]：lastCheckTime bookkeeping stays in the orchestrator
 // to preserve the original exit order.
 
-import type { ProgressCallback, CompleteCallback } from '../../dialog/dialog.js';
-import { runCheckStage } from '../update-flow-check.js';
-import { runNotifyOnlyBranch } from '../update-flow-notify.js';
-import { reportDecision } from '../update-flow-report.js';
+import type { ProgressCallback, CompleteCallback } from 'sparklet/main/updater/dialog/dialog.js';
+import { runCheckStage } from 'sparklet/main/updater/flow/update-flow-check.js';
+import { runNotifyOnlyBranch } from 'sparklet/main/updater/flow/update-flow-notify.js';
+import { reportDecision } from 'sparklet/main/updater/flow/update-flow-report.js';
 
 /** Outcome of the check stage [检查阶段的走向] */
 export type CheckPhase =

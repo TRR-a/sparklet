@@ -2,7 +2,7 @@
 
 import * as path from 'path';
 import { app } from 'electron';
-import { UPDATE_CACHE_DIRNAME } from '../constants/constants.js';
+import { UPDATE_CACHE_DIRNAME } from 'sparklet/main/updater/constants/constants.js';
 
 // Get app code root directory (after packaging points to resources/app.asar or resources/app) [获取应用代码根目录 (打包后指向 resources/app.asar 或 resources/app)]
 // Note: do NOT use this directory for filesHash integrity check, because the packaging side computes hash over the entire win-unpacked root [注意：完整性校验 filesHash 不要用这个目录，因为打包端算的是整个 win-unpacked 根]

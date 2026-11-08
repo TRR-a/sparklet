@@ -1,7 +1,7 @@
 // Color wheel: preview / hex label / cursor dot [色环 - 预览、色值与指示点]
 
-import { hsvToHex } from '../../color/scripts/color-convert.js';
-import { getHsv } from './wheel-state-store.js';
+import { hsvToHex } from 'sparklet/renderer/app/popup/editor/color/scripts/color-convert.js';
+import { getHsv } from 'sparklet/renderer/app/popup/editor/wheel/scripts/wheel-state-store.js';
 
 /**
  * Update preview / hex label / cursor dot [更新预览、色值与指示点]

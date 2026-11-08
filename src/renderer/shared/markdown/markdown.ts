@@ -1,8 +1,8 @@
 ﻿// Markdown renderer - lightweight markdown-to-HTML conversion [Markdown 渲染器 - 轻量级 markdown 转 HTML]
 // Main entry point; block/inline/table renderers in markdown-block.ts / markdown-inline.ts / markdown-table.ts [主入口；块级/行内/表格渲染器在 markdown-block.ts / markdown-inline.ts / markdown-table.ts]
 
-import { escapeHtml } from '../ui/dom/dom-utils.js';
-import { renderBlocks } from './block/markdown-block.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
+import { renderBlocks } from 'sparklet/renderer/shared/markdown/block/markdown-block.js';
 import { highlightCode } from 'sparklet/renderer/shared/highlight/highlight.js';
 
 /**

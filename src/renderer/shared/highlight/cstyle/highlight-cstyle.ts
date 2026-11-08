@@ -4,12 +4,12 @@
 // token regex → highlight-cstyle-tokenize.ts, template interpolation → highlight-cstyle-template.ts,
 // word classification → highlight-cstyle-word.ts, scan loop → highlight-cstyle-scan.ts.
 
-import type { CStyleDialect } from './highlight-cstyle-dialects.js';
-import { buildCStyleTokenRe, buildCStyleWordRe } from './highlight-cstyle-tokenize.js';
-import { scanCStyle } from './highlight-cstyle-scan.js';
+import type { CStyleDialect } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-dialects.js';
+import { buildCStyleTokenRe, buildCStyleWordRe } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-tokenize.js';
+import { scanCStyle } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-scan.js';
 
 export type { CStyleDialect };
-export { C_STYLE_DIALECTS } from './highlight-cstyle-dialects.js';
+export { C_STYLE_DIALECTS } from 'sparklet/renderer/shared/highlight/cstyle/highlight-cstyle-dialects.js';
 
 /** Highlight a C-style language in one pass [单遍高亮 C 风格语言] */
 export function highlightCStyle(code: string, dialect: CStyleDialect): string {

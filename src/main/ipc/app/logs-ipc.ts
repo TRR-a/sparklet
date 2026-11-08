@@ -5,7 +5,7 @@
 import { ipcMain, shell } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getLogRoot, logger } from '../../services/logger/logger.js';
+import { getLogRoot, logger } from 'sparklet/main/services/logger/logger.js';
 
 /**
  * Register logs IPC handlers [注册日志 IPC 处理器]

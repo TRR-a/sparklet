@@ -1,7 +1,7 @@
 // Project tree: project node header row [项目树 - 项目节点标题行]
 
-import { toggleProject, removeProjectFromWorkspace } from '../../workspace/scripts/project-workspace.js';
-import type { WorkspaceProject } from '../../workspace/scripts/project-workspace-state.js';
+import { toggleProject, removeProjectFromWorkspace } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace.js';
+import type { WorkspaceProject } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace-state.js';
 
 /** Build the header row of a project node (toggle / icon / name / remove) [构建项目节点标题行 (折叠/图标/名称/移除)] */
 export function buildProjectHeader(project: WorkspaceProject): HTMLElement {

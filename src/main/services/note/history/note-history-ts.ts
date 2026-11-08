@@ -1,7 +1,7 @@
 // Note history: snapshot tokens & in-session bookkeeping [笔记历史 - 快照令牌与会话内记录]
 
 import * as fs from 'fs-extra';
-import { getNoteHistoryDir, isValidSnapshotTs } from '../io/note-paths.js';
+import { getNoteHistoryDir, isValidSnapshotTs } from 'sparklet/main/services/note/io/note-paths.js';
 
 /** Minimum interval between snapshots of the same note [同一笔记两次快照的最小间隔] */
 export const SNAPSHOT_INTERVAL_MS = 10 * 60 * 1000;

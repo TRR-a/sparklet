@@ -15,5 +15,5 @@ export {
   getModulesDir,
   getModuleCodes,
   getLogRoot,
-} from './logger-path-store.js';
-export { resolve } from './logger-path-resolve.js';
+} from 'sparklet/main/services/logger/logger-path-store.js';
+export { resolve } from 'sparklet/main/services/logger/logger-path-resolve.js';

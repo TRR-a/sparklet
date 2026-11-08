@@ -1,7 +1,7 @@
 // Note search: event binding [笔记搜索 - 事件绑定]
 
-import { setSearchQuery, scheduleSearch, refreshNoteListView } from './note-search-run.js';
-import { getSearchInput, updateClearButton, clearSearch } from './note-search-input.js';
+import { setSearchQuery, scheduleSearch, refreshNoteListView } from 'sparklet/renderer/app/popup/note/list/scripts/note-search-run.js';
+import { getSearchInput, updateClearButton, clearSearch } from 'sparklet/renderer/app/popup/note/list/scripts/note-search-input.js';
 
 /**
  * Bind search box events (call once on init) [绑定搜索框事件 (初始化时调用一次)]

@@ -4,8 +4,8 @@ import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
 import type { UpdaterConfig } from 'sparklet/shared/types/updater/updater.js';
 import { broadcastApi } from 'sparklet/renderer/shared/index.js';
-import { setUpdaterConfig } from './updater-config-state.js';
-import { loadUpdaterConfig } from './updater-config-load.js';
+import { setUpdaterConfig } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-state.js';
+import { loadUpdaterConfig } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-load.js';
 
 /** Reload the section when the config file changes externally [配置被外部修改后重载整个区块] */
 export function bindUpdaterConfigChanged(): void {

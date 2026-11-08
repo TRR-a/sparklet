@@ -4,13 +4,13 @@
 // delete → selection-bar-delete.ts, restore → selection-bar-restore.ts,
 // permanent delete → selection-bar-permanent.ts, refresh → selection-bar-refresh.ts.
 
-import { getSelectedIds, selectAll, clearSelection, exitSelectionMode } from './selection-state.js';
-import { allIdsInView } from './selection-view-detect.js';
-import { runSelectionDelete } from './selection-bar-delete.js';
-import { runSelectionRestore } from './selection-bar-restore.js';
-import { runSelectionPermanentDelete } from './selection-bar-permanent.js';
+import { getSelectedIds, selectAll, clearSelection, exitSelectionMode } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import { allIdsInView } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-view-detect.js';
+import { runSelectionDelete } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-delete.js';
+import { runSelectionRestore } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-restore.js';
+import { runSelectionPermanentDelete } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-permanent.js';
 
-export { isTrashView, allIdsInView } from './selection-view-detect.js';
+export { isTrashView, allIdsInView } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-view-detect.js';
 
 /** Bar click dispatcher [操作栏点击分发] */
 export async function onBarClick(e: MouseEvent): Promise<void> {

@@ -8,5 +8,5 @@ export {
   LEGAL_INTERVALS,
   IMPORT_WHITE_LIST,
   mergeImportedConfig
-} from './updater-config-import-fields.js';
-export { extractConfigPayload } from './updater-config-import-payload.js';
+} from 'sparklet/main/ipc/update/config/updater-config-import-fields.js';
+export { extractConfigPayload } from 'sparklet/main/ipc/update/config/updater-config-import-payload.js';

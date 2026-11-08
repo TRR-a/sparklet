@@ -4,13 +4,13 @@
 // system fallback → dialog-system-fallback.ts, send/timeout → dialog-prompt-send.ts.
 
 import type { DialogPayload, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
-import type { DialogParams, DialogOptions } from './dialog-types.js';
-import { nextDialogId } from './dialog-response.js';
-import { findAvailableWindow } from './dialog-window-find.js';
-import { systemDialogFallback } from './dialog-system-fallback.js';
-import { sendRendererDialog } from './dialog-prompt-send.js';
+import type { DialogParams, DialogOptions } from 'sparklet/main/updater/dialog/dialog-types.js';
+import { nextDialogId } from 'sparklet/main/updater/dialog/dialog-response.js';
+import { findAvailableWindow } from 'sparklet/main/updater/dialog/dialog-window-find.js';
+import { systemDialogFallback } from 'sparklet/main/updater/dialog/dialog-system-fallback.js';
+import { sendRendererDialog } from 'sparklet/main/updater/dialog/dialog-prompt-send.js';
 
-export { findAvailableWindow } from './dialog-window-find.js';
+export { findAvailableWindow } from 'sparklet/main/updater/dialog/dialog-window-find.js';
 
 /**
  * Show custom UI dialog via renderer (i18n friendly, unified style) [通过渲染层弹自定义 UI 对话框 (i18n 友好，统一风格)]

@@ -9,7 +9,7 @@
 import { app } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
-import manifest from './logger-manifest.json';
+import manifest from 'sparklet/main/services/logger/logger-manifest.json';
 
 let logRoot = '';
 let modulesDir = '';

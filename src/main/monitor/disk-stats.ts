@@ -3,9 +3,9 @@
 // Split out [已拆分]：Windows enumeration → disk-stats-windows.ts,
 // POSIX enumeration → disk-stats-posix.ts.
 
-import type { DiskStats } from 'sparklet/shared/types/system';
-import { readWindowsDisks } from './disk-stats-windows.js';
-import { readPosixDisks } from './disk-stats-posix.js';
+import type { DiskStats } from 'sparklet/shared/types/system.js';
+import { readWindowsDisks } from 'sparklet/main/monitor/disk-stats-windows.js';
+import { readPosixDisks } from 'sparklet/main/monitor/disk-stats-posix.js';
 
 /** How long disk command results stay cached (ms) [磁盘命令结果缓存时长 (毫秒)] */
 const SLOW_CACHE_TTL_MS = 5000;

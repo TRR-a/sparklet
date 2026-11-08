@@ -1,7 +1,7 @@
 // Welcome settings window: overlap sync with hub [欢迎设置窗口 - 与 Hub 的重叠同步]
 
 import { BrowserWindow } from 'electron';
-import { getWelcomeWindow } from '../window-manager.js';
+import { getWelcomeWindow } from 'sparklet/main/windows/window-manager.js';
 
 /**
  * Compute whether the settings window overlaps the welcome window and notify

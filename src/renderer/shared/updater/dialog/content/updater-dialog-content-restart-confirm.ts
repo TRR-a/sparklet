@@ -1,9 +1,9 @@
 // Updater dialog content: restart confirmation [更新器弹窗内容 - 重启确认]
 
-import { t } from '../../../i18n/i18n.js';
-import { escapeHtml } from '../../../ui/dom/dom-utils.js';
-import type { DialogContent } from '../updater-dialog-types.js';
-import { startRestartCountdown } from '../updater-dialog-countdown.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
+import { startRestartCountdown } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-countdown.js';
 
 // ========== 3. Restart confirmation (two buttons + 30s timeout countdown) [重启确认 (双按钮 + 30s 超时倒计时)] ==========
 export function buildRestartConfirm(params: Record<string, unknown>, timeoutMs: number): DialogContent {

@@ -2,7 +2,7 @@
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getAppRoot } from '../startup/updater-paths.js';
+import { getAppRoot } from 'sparklet/main/updater/startup/updater-paths.js';
 import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
 
 /**

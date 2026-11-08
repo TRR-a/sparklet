@@ -17,7 +17,7 @@
 // Split out [已拆分]：level/format → logger-format.ts, paths → logger-paths.ts,
 // rotation → logger-rotate.ts, init+write → logger-write.ts.
 
-export type { LogLevel } from './logger-format.js';
-export { errText } from './logger-format.js';
-export { getLogRoot } from './logger-paths.js';
-export { markConsoleBroken, initLogger, write, logger, writeScoped } from './logger-write.js';
+export type { LogLevel } from 'sparklet/main/services/logger/logger-format.js';
+export { errText } from 'sparklet/main/services/logger/logger-format.js';
+export { getLogRoot } from 'sparklet/main/services/logger/logger-paths.js';
+export { markConsoleBroken, initLogger, write, logger, writeScoped } from 'sparklet/main/services/logger/logger-write.js';

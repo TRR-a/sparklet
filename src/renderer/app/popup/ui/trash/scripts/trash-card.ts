@@ -2,10 +2,10 @@
 //
 // Split out [已拆分]：markup → trash-card-template.ts, handlers → trash-card-events.ts.
 
-import { isSelected } from '../../selection/scripts/selection-state.js';
-import type { NoteListItem } from '../../../note/list/scripts/note-list.js';
-import { trashCardHtml } from './trash-card-template.js';
-import { bindTrashCardEvents } from './trash-card-events.js';
+import { isSelected } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
+import { trashCardHtml } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-card-template.js';
+import { bindTrashCardEvents } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-card-events.js';
 
 /**
  * Create a single trash note card [创建单个回收站笔记卡片]

@@ -1,8 +1,8 @@
 // Trash card: more-menu handler [回收站卡片 - 更多菜单处理]
 
-import { closeAllMenus } from '../../../note/scripts/note-menu.js';
-import { toggleSelect, enterSelectionMode } from '../../selection/scripts/selection-state.js';
-import type { NoteListItem } from '../../../note/list/scripts/note-list.js';
+import { closeAllMenus } from 'sparklet/renderer/app/popup/note/scripts/note-menu.js';
+import { toggleSelect, enterSelectionMode } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
 
 /** Wire the "more" button and its menu [接线更多按钮及其菜单] */
 export function bindTrashCardMenu(li: HTMLElement, note: NoteListItem): void {

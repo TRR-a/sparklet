@@ -10,5 +10,5 @@ export {
   heightKey,
   itemHeight,
   computeOffsets,
-} from './virtual-list-heights.js';
-export { getSidebar, computeRange } from './virtual-list-viewport.js';
+} from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-heights.js';
+export { getSidebar, computeRange } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-viewport.js';

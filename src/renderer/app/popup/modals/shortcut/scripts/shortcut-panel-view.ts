@@ -2,9 +2,9 @@
 //
 // Split out [已拆分]：content builder → shortcut-panel-content.ts.
 
-import { buildPanelContent } from './shortcut-panel-content.js';
+import { buildPanelContent } from 'sparklet/renderer/app/popup/modals/shortcut/scripts/shortcut-panel-content.js';
 
-export { buildPanelContent } from './shortcut-panel-content.js';
+export { buildPanelContent } from 'sparklet/renderer/app/popup/modals/shortcut/scripts/shortcut-panel-content.js';
 
 /**
  * Get the modal element [获取弹窗元素]

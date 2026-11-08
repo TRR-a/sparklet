@@ -3,6 +3,6 @@
 // Split out [已拆分]：directory resolve + cache → config-dir.ts,
 // file path → config-file-path.ts.
 
-export { getConfigDir } from './config-dir.js';
-export type { ConfigDirResult } from './config-dir.js';
-export { getConfigFilePath } from './config-file-path.js';
+export { getConfigDir } from 'sparklet/main/updater/config/config-dir.js';
+export type { ConfigDirResult } from 'sparklet/main/updater/config/config-dir.js';
+export { getConfigFilePath } from 'sparklet/main/updater/config/config-file-path.js';

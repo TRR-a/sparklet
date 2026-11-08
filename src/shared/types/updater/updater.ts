@@ -3,9 +3,9 @@
 // results → updater-result-types.ts, cache → updater-cache-types.ts,
 // dialog/toast → updater-dialog-payload.ts, temp/network → updater-misc-types.ts.
 
-export type { UpdaterConfig } from './updater-config-types.js';
-export type { ManifestEntry } from './updater-manifest-types.js';
-export type { CheckResult, DownloadResult, VerifyResult, InstallResult } from './updater-result-types.js';
-export type { CacheEntry, CacheMeta, CacheInfo, VerifyCachedZipResult } from './updater-cache-types.js';
-export type { ToastData, DialogPayload, DialogResponse } from './updater-dialog-payload.js';
-export type { TempDirResult, NetworkErrorType } from './updater-misc-types.js';
+export type { UpdaterConfig } from 'sparklet/shared/types/updater/updater-config-types.js';
+export type { ManifestEntry } from 'sparklet/shared/types/updater/updater-manifest-types.js';
+export type { CheckResult, DownloadResult, VerifyResult, InstallResult } from 'sparklet/shared/types/updater/updater-result-types.js';
+export type { CacheEntry, CacheMeta, CacheInfo, VerifyCachedZipResult } from 'sparklet/shared/types/updater/updater-cache-types.js';
+export type { ToastData, DialogPayload, DialogResponse } from 'sparklet/shared/types/updater/updater-dialog-payload.js';
+export type { TempDirResult, NetworkErrorType } from 'sparklet/shared/types/updater/updater-misc-types.js';

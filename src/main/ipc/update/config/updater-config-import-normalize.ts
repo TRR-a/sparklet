@@ -3,7 +3,7 @@
 import {
   CACHE_RETENTION_MIN_DAYS,
   CACHE_RETENTION_MAX_DAYS
-} from '../../../updater/constants/constants.js';
+} from 'sparklet/main/updater/constants/constants.js';
 
 /** Clamp a retention-days value into the legal range [把保留天数夹到合法区间] */
 export function clampRetentionDays(value: unknown): number | null {

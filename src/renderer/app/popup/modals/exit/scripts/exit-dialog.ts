@@ -10,4 +10,4 @@
 // save → exit-dialog-save.ts, actions → exit-dialog-actions.ts,
 // keydown → exit-dialog-keydown.ts, binding → exit-dialog-bind.ts.
 
-export { initExitDialog } from './exit-dialog-bind.js';
+export { initExitDialog } from 'sparklet/renderer/app/popup/modals/exit/scripts/exit-dialog-bind.js';

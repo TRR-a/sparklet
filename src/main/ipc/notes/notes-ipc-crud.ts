@@ -9,7 +9,7 @@ import {
   restoreNote,
   permanentDeleteNote,
   searchNotes
-} from '../../services/note/io/notes-service.js';
+} from 'sparklet/main/services/note/io/notes-service.js';
 import type { Note } from 'sparklet/shared/types/note/notes.js';
 
 /** Register note CRUD IPC handlers [注册笔记增删改查 IPC 处理器] */

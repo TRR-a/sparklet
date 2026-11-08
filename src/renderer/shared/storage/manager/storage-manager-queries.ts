@@ -1,8 +1,8 @@
 // Storage manager: query methods [存储管理器 - 查询方法]
 
 import type { Note, NoteMeta } from 'sparklet/shared/types/note/notes.js';
-import { initStore, loadFromFS } from '../storage-cache.js';
-import { getNotes, getAllNotes, getTrashNotes, getNoteById } from '../storage-query.js';
+import { initStore, loadFromFS } from 'sparklet/renderer/shared/storage/storage-cache.js';
+import { getNotes, getAllNotes, getTrashNotes, getNoteById } from 'sparklet/renderer/shared/storage/storage-query.js';
 
 /** Read-side methods of the storage facade [存储外观层的读取侧方法] */
 export const storageManagerQueries = {

@@ -1,6 +1,6 @@
 // NVIDIA GPU utilization via nvidia-smi [经 nvidia-smi 采集 NVIDIA 利用率]
 
-import { run } from './system-command.js';
+import { run } from 'sparklet/main/monitor/system-command.js';
 
 /** NVIDIA utilization via nvidia-smi (returns [] when unavailable, e.g. non-NVIDIA) [经 nvidia-smi 取 NVIDIA 利用率 (不可用如非 N 卡时返回空)] */
 export async function readNvidiaStats(): Promise<Array<{ usage: number; memUsed: number; memTotal: number }>> {

@@ -3,9 +3,9 @@
 // Split out [已拆分]：string table → welcome-settings-i18n-strings.ts,
 // DOM application → welcome-settings-i18n-apply.ts.
 
-import { STRINGS } from './welcome-settings-i18n-strings.js';
+import { STRINGS } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-i18n-strings.js';
 
-export { applyI18n } from './welcome-settings-i18n-apply.js';
+export { applyI18n } from 'sparklet/renderer/welcome/settings/scripts/welcome-settings-i18n-apply.js';
 
 let currentLang = 'en';
 

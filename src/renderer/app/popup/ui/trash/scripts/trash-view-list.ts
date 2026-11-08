@@ -2,11 +2,11 @@
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { createGroupTitle, createGroupEmpty, collapsedGroups } from '../../../note/scripts/note-group.js';
-import { closeAllMenus } from '../../../note/scripts/note-menu.js';
-import { renderVirtualNoteList, type VirtualItem } from '../../../note/scripts/note-virtual-list.js';
-import type { NoteListItem } from '../../../note/list/scripts/note-list.js';
-import { createTrashCard } from './trash-card.js';
+import { createGroupTitle, createGroupEmpty, collapsedGroups } from 'sparklet/renderer/app/popup/note/scripts/note-group.js';
+import { closeAllMenus } from 'sparklet/renderer/app/popup/note/scripts/note-menu.js';
+import { renderVirtualNoteList, type VirtualItem } from 'sparklet/renderer/app/popup/note/scripts/note-virtual-list.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
+import { createTrashCard } from 'sparklet/renderer/app/popup/ui/trash/scripts/trash-card.js';
 
 /**
  * Render trash list, grouped into starred / others (both collapsible) [渲染回收站列表，分为星标/其他两组 (均可折叠)]

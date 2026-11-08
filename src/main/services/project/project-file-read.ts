@@ -1,8 +1,8 @@
 // Project file: read (text or image) [项目文件 - 读取 (文本或图片)]
 
 import * as fs from 'fs-extra';
-import type { ProjectFileReadResult } from 'sparklet/shared/types/project';
-import { IMAGE_EXTS, BINARY_EXTS } from './project-file-exts.js';
+import type { ProjectFileReadResult } from 'sparklet/shared/types/project.js';
+import { IMAGE_EXTS, BINARY_EXTS } from 'sparklet/main/services/project/project-file-exts.js';
 
 /**
  * Read a file (text or image) [读取文件 (文本或图片)]

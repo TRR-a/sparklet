@@ -1,8 +1,8 @@
 // Update check: manual-trigger guard [更新检查 - 手动触发前置守卫]
 
 import { app } from 'electron';
-import { broadcastToast } from '../dialog/dialog.js';
-import { updaterStateInternal } from '../startup/update-state.js';
+import { broadcastToast } from 'sparklet/main/updater/dialog/dialog.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
 
 /**
  * Check preconditions for a manual update check, toasting the reason when blocked

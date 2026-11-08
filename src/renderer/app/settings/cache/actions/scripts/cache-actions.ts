@@ -5,9 +5,9 @@
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showToast } from 'sparklet/renderer/shared/ui/toast/toast.js';
-import { getIsDevEnvironment } from '../../../updater/scripts/updater-config.js';
-import { hasAnyCache } from './cache-actions-check.js';
-import { runClearCache } from './cache-actions-clear.js';
+import { getIsDevEnvironment } from 'sparklet/renderer/app/settings/updater/scripts/updater-config.js';
+import { hasAnyCache } from 'sparklet/renderer/app/settings/cache/actions/scripts/cache-actions-check.js';
+import { runClearCache } from 'sparklet/renderer/app/settings/cache/actions/scripts/cache-actions-clear.js';
 
 /**
  * Handle clear cache button click [处理清空缓存按钮点击]

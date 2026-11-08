@@ -8,13 +8,13 @@ export {
   markSelfWrite,
   consumeSelfWrite,
   invalidateConfigCache,
-} from './config-state.js';
-export { readConfig } from './config-read.js';
-export { writeConfig } from './config-write.js';
-export type { ConfigWriteResult } from './config-write.js';
+} from 'sparklet/main/updater/config/config-state.js';
+export { readConfig } from 'sparklet/main/updater/config/config-read.js';
+export { writeConfig } from 'sparklet/main/updater/config/config-write.js';
+export type { ConfigWriteResult } from 'sparklet/main/updater/config/config-write.js';
 export {
   getConfigItem,
   setConfigItem,
   getCheckInterval,
   getUpdateBehavior,
-} from './config-items.js';
+} from 'sparklet/main/updater/config/config-items.js';

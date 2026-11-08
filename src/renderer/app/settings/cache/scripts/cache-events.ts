@@ -3,9 +3,9 @@
 import {
   applyRetentionUI,
   saveRetentionDays
-} from '../retention/scripts/cache-retention.js';
-import { loadCacheInfo } from '../info/scripts/cache-info-view.js';
-import { handleClearCache } from '../actions/scripts/cache-actions.js';
+} from 'sparklet/renderer/app/settings/cache/retention/scripts/cache-retention.js';
+import { loadCacheInfo } from 'sparklet/renderer/app/settings/cache/info/scripts/cache-info-view.js';
+import { handleClearCache } from 'sparklet/renderer/app/settings/cache/actions/scripts/cache-actions.js';
 
 /**
  * Bind cache event listeners [绑定缓存事件监听]

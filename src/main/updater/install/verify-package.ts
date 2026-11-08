@@ -1,7 +1,7 @@
 // Verify: layer 2 - package SHA256 [校验 - 第二层：更新包 SHA256]
 
 import * as fs from 'fs-extra';
-import { computeSha256, getHashField } from './hash-utils.js';
+import { computeSha256, getHashField } from 'sparklet/main/updater/install/hash-utils.js';
 import type { ManifestEntry } from 'sparklet/shared/types/updater/updater.js';
 
 /**

@@ -1,8 +1,8 @@
 // Welcome monitor: GPU rows [欢迎页监控 - GPU 行]
 
 import type { SystemStats } from 'sparklet/shared/types/system.js';
-import { t } from '../../i18n/scripts/welcome-i18n.js';
-import { formatBytes, ensureDynamicRow, paintFill } from './monitor-format.js';
+import { t } from 'sparklet/renderer/welcome/i18n/scripts/welcome-i18n.js';
+import { formatBytes, ensureDynamicRow, paintFill } from 'sparklet/renderer/welcome/monitor/scripts/monitor-format.js';
 
 /** Update dynamic GPU rows (N/A when no utilisation is reported) [更新动态 GPU 行 (无利用率时显示 N/A)] */
 export function updateGpuRows(stats: SystemStats): void {

@@ -3,7 +3,7 @@
 import * as crypto from 'crypto';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { isExcludedFromIntegrity } from '../constants/constants.js';
+import { isExcludedFromIntegrity } from 'sparklet/main/updater/constants/constants.js';
 
 /**
  * Recursively collect all files in a directory (excluding exact filename blacklist + extension blacklist) [递归收集目录下所有文件 (排除精确文件名黑名单 + 扩展名黑名单)]

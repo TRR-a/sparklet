@@ -7,11 +7,11 @@
 // Split out [已拆分]：types → code-editor-types.ts, DOM → code-editor-dom.ts,
 // render/scroll → code-editor-render.ts.
 
-import type { CodeEditorOptions, CodeEditor } from './code-editor-types.js';
-import { buildCodeEditorDom } from './code-editor-dom.js';
-import { renderEditor, syncEditorScroll } from './code-editor-render.js';
+import type { CodeEditorOptions, CodeEditor } from 'sparklet/renderer/app/project/editor/scripts/code-editor-types.js';
+import { buildCodeEditorDom } from 'sparklet/renderer/app/project/editor/scripts/code-editor-dom.js';
+import { renderEditor, syncEditorScroll } from 'sparklet/renderer/app/project/editor/scripts/code-editor-render.js';
 
-export type { CodeEditorOptions, CodeEditor } from './code-editor-types.js';
+export type { CodeEditorOptions, CodeEditor } from 'sparklet/renderer/app/project/editor/scripts/code-editor-types.js';
 
 /**
  * Create a custom code editor inside a parent element

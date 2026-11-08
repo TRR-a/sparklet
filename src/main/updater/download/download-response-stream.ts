@@ -2,10 +2,10 @@
 
 import * as fs from 'fs-extra';
 import type { IncomingMessage } from 'http';
-import { classifyNetworkError } from '../startup/updater-error.js';
+import { classifyNetworkError } from 'sparklet/main/updater/startup/updater-error.js';
 import type { DownloadResult } from 'sparklet/shared/types/updater/updater.js';
-import type { ProgressCallback } from './download-progress.js';
-import { createProgressReporter } from './download-progress.js';
+import type { ProgressCallback } from 'sparklet/main/updater/download/download-progress.js';
+import { createProgressReporter } from 'sparklet/main/updater/download/download-progress.js';
 
 /**
  * Pipe a 200 response into the destination file and report progress [把 200 响应写入目标文件并报告进度]

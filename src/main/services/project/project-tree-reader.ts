@@ -3,8 +3,8 @@
 // Split out [已拆分]：skip list / depth → project-tree-skip.ts,
 // node builder → project-tree-node-build.ts.
 
-import type { ProjectTreeResult } from 'sparklet/shared/types/project';
-import { buildNode } from './project-tree-node-build.js';
+import type { ProjectTreeResult } from 'sparklet/shared/types/project.js';
+import { buildNode } from 'sparklet/main/services/project/project-tree-node-build.js';
 
 /**
  * Read directory tree recursively [递归读取目录树]

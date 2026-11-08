@@ -1,6 +1,6 @@
 // Workspace: remove a project [工作区 - 移除项目]
 
-import { workspaceProjects, expandedDirs, saveWorkspacePaths } from './project-workspace-state.js';
+import { workspaceProjects, expandedDirs, saveWorkspacePaths } from 'sparklet/renderer/app/project/workspace/scripts/project-workspace-state.js';
 
 /**
  * Remove a project from the workspace (does not delete files) [从工作区移除项目 (不删除文件)]
@@ -15,5 +15,5 @@ export function removeProjectFromWorkspace(projectPath: string): void {
   }
   saveWorkspacePaths();
   // Late import for renderWorkspace [延迟导入 renderWorkspace]
-  import('../../tree/scripts/project-tree.js').then(({ renderWorkspace }) => renderWorkspace());
+  import('sparklet/renderer/app/project/tree/scripts/project-tree.js').then(({ renderWorkspace }) => renderWorkspace());
 }

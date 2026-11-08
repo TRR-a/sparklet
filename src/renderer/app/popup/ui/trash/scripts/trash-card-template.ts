@@ -1,7 +1,7 @@
 // Trash card: HTML template [回收站卡片 - HTML 模板]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import type { NoteListItem } from '../../../note/list/scripts/note-list.js';
+import type { NoteListItem } from 'sparklet/renderer/app/popup/note/list/scripts/note-list.js';
 
 /** Build the card body markup [构建卡片主体标记] */
 export function trashCardHtml(note: NoteListItem): string {

@@ -1,9 +1,9 @@
 // Notes IPC: version history channels [笔记 IPC - 版本历史通道]
 
 import { ipcMain } from 'electron';
-import { listHistory, getSnapshot, snapshotNote, clearAllHistory } from '../../services/note/io/note-history.js';
-import { getNote, saveNote } from '../../services/note/io/notes-service.js';
-import { isValidNoteId, isValidSnapshotTs } from '../../services/note/io/note-paths.js';
+import { listHistory, getSnapshot, snapshotNote, clearAllHistory } from 'sparklet/main/services/note/io/note-history.js';
+import { getNote, saveNote } from 'sparklet/main/services/note/io/notes-service.js';
+import { isValidNoteId, isValidSnapshotTs } from 'sparklet/main/services/note/io/note-paths.js';
 import type { Note } from 'sparklet/shared/types/note/notes.js';
 
 /** Register note history IPC handlers [注册笔记历史 IPC 处理器] */

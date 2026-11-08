@@ -3,7 +3,7 @@
 // Split out [已拆分]：runtime state → logger-state.ts, init → logger-init.ts,
 // write pipeline → logger-write-line.ts, logger object / scoped bridge → logger-instance.ts.
 
-export { initLogger } from './logger-init.js';
-export { markConsoleBroken } from './logger-state.js';
-export { write } from './logger-write-line.js';
-export { logger, writeScoped } from './logger-instance.js';
+export { initLogger } from 'sparklet/main/services/logger/logger-init.js';
+export { markConsoleBroken } from 'sparklet/main/services/logger/logger-state.js';
+export { write } from 'sparklet/main/services/logger/logger-write-line.js';
+export { logger, writeScoped } from 'sparklet/main/services/logger/logger-instance.js';

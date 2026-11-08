@@ -2,9 +2,9 @@
 // Weekday header in calendar-weekdays.ts, month cells in calendar-month-grid.ts
 // [星期表头在 calendar-weekdays.ts，月历单元格在 calendar-month-grid.ts]
 
-import { clockLocale } from './clock-format.js';
-import { renderWeekdayHeader } from './calendar-weekdays.js';
-import { renderMonthGrid } from './calendar-month-grid.js';
+import { clockLocale } from 'sparklet/renderer/welcome/clock/scripts/clock-format.js';
+import { renderWeekdayHeader } from 'sparklet/renderer/welcome/clock/scripts/calendar-weekdays.js';
+import { renderMonthGrid } from 'sparklet/renderer/welcome/clock/scripts/calendar-month-grid.js';
 
 /** Selected day-of-month in the displayed month (null = today highlighted) [日历中选中的日期 (null = 高亮今天)] */
 let selectedDay: number | null = null;

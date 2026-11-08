@@ -1,6 +1,6 @@
 // Window API: secondary windows & links [窗口 API - 副窗口与外链]
 
-import { bus } from '../../ipc/ipc-bus.js';
+import { bus } from 'sparklet/renderer/shared/ipc/ipc-bus.js';
 
 export const windowApiSecondary = {
   // ---------- Secondary windows [副窗口] ----------

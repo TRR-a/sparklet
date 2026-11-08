@@ -1,8 +1,8 @@
 // Global shortcuts: actions [全局快捷键 - 触发动作]
 
 import { BrowserWindow, globalShortcut } from 'electron';
-import { getWelcomeWindow } from '../windows/window-manager';
-import { logger } from '../services/logger/logger.js';
+import { getWelcomeWindow } from 'sparklet/main/windows/window-manager.js';
+import { logger } from 'sparklet/main/services/logger/logger.js';
 
 /**
  * Toggle the Welcome window: show+focus if hidden, minimize if visible

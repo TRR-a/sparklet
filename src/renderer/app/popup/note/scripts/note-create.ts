@@ -2,8 +2,8 @@
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { renderNoteList, loadNoteIntoEditor } from '../../editor/scripts/note-editor.js';
-import { clearSearch } from '../list/scripts/note-search.js';
+import { renderNoteList, loadNoteIntoEditor } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
+import { clearSearch } from 'sparklet/renderer/app/popup/note/list/scripts/note-search.js';
 
 /**
  * Create a new note [创建新笔记]

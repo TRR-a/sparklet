@@ -1,6 +1,6 @@
 // Virtual list geometry: viewport & visible range [虚拟列表几何 - 视口与可见区间]
 
-import { VIEWPORT_BUFFER } from './virtual-list-heights.js';
+import { VIEWPORT_BUFFER } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-heights.js';
 
 /** Sidebar scroll container [侧栏滚动容器] */
 export function getSidebar(): HTMLElement | null {

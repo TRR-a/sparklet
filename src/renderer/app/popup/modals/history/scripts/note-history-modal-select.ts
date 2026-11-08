@@ -4,9 +4,9 @@ import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
 import type { NoteHistoryEntry } from 'sparklet/shared/types/note/notes.js';
-import { renderHistoryList } from './note-history-modal-view.js';
-import { restoreSnapshot } from './note-history-restore.js';
-import { renderDetail } from './history-diff.js';
+import { renderHistoryList } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-modal-view.js';
+import { restoreSnapshot } from 'sparklet/renderer/app/popup/modals/history/scripts/note-history-restore.js';
+import { renderDetail } from 'sparklet/renderer/app/popup/modals/history/scripts/history-diff.js';
 
 /** Selection state carried across selects [跨多次选择保留的状态] */
 export interface SnapshotSelectState {

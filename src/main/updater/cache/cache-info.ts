@@ -5,5 +5,5 @@
 // retention math → cache-retention-info.ts,
 // empty shape → cache-info-empty.ts, aggregation → cache-info-latest.ts.
 
-export { getFileSize, formatBytes } from './cache-size-format.js';
-export { getLatestCacheInfo } from './cache-info-latest.js';
+export { getFileSize, formatBytes } from 'sparklet/main/updater/cache/cache-size-format.js';
+export { getLatestCacheInfo } from 'sparklet/main/updater/cache/cache-info-latest.js';

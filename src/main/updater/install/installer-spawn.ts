@@ -3,9 +3,9 @@
 import { spawn } from 'child_process';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getUpdaterScriptPath } from '../startup/updater-paths.js';
+import { getUpdaterScriptPath } from 'sparklet/main/updater/startup/updater-paths.js';
 import type { InstallResult } from 'sparklet/shared/types/updater/updater.js';
-import { prepareUpdaterLogFile } from './installer-log-file.js';
+import { prepareUpdaterLogFile } from 'sparklet/main/updater/install/installer-log-file.js';
 
 /**
  * Run external updater process [运行外部更新器进程]

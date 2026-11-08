@@ -1,6 +1,6 @@
 // Welcome clock: formatting helpers [欢迎页时钟 - 格式化辅助]
 
-import { getLang } from '../../i18n/scripts/welcome-i18n.js';
+import { getLang } from 'sparklet/renderer/welcome/i18n/scripts/welcome-i18n.js';
 
 /** Locale used by the clock cards [时钟卡片使用的语言环境] */
 export function clockLocale(): string {

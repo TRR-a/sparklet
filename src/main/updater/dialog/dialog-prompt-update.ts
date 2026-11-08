@@ -1,8 +1,8 @@
 // Updater dialog: new version found [更新弹窗 - 发现新版本]
 
 import type { ManifestEntry, DialogResponse } from 'sparklet/shared/types/updater/updater.js';
-import { promptRendererDialog } from './dialog-core.js';
-import { formatDate } from './dialog-format-date.js';
+import { promptRendererDialog } from 'sparklet/main/updater/dialog/dialog-core.js';
+import { formatDate } from 'sparklet/main/updater/dialog/dialog-format-date.js';
 
 /**
  * Show "new version found" dialog (renderer custom UI, i18n friendly) [显示「发现新版本」对话框 (渲染层自定义 UI，i18n 友好)]

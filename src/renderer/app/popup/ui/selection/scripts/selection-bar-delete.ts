@@ -3,8 +3,8 @@
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
 import { showCustomConfirm } from 'sparklet/renderer/shared/ui/dialog/custom-dialog.js';
-import { exitSelectionMode } from './selection-state.js';
-import { refreshCurrentView } from './selection-bar-refresh.js';
+import { exitSelectionMode } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-state.js';
+import { refreshCurrentView } from 'sparklet/renderer/app/popup/ui/selection/scripts/selection-bar-refresh.js';
 
 /** Confirm and move the selected notes to trash [确认并把选中笔记移入回收站] */
 export async function runSelectionDelete(ids: string[]): Promise<void> {

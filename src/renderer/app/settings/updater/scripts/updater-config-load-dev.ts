@@ -1,7 +1,7 @@
 // Settings: apply dev-environment lock to updater UI [设置 - 开发环境下锁定更新 UI]
 
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { updateStatusText } from './updater-config-status.js';
+import { updateStatusText } from 'sparklet/renderer/app/settings/updater/scripts/updater-config-status.js';
 
 /** Force-lock the updater controls when running in dev [开发环境强制锁定更新控件] */
 export function applyDevLockUI(): void {

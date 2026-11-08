@@ -1,7 +1,7 @@
 // CPU usage sampling [CPU 使用率采样]
 
 import os from 'os';
-import { sleep } from './system-command.js';
+import { sleep } from 'sparklet/main/monitor/system-command.js';
 
 /** CPU sampling window in ms [CPU 采样窗口 (毫秒)] */
 const CPU_SAMPLE_MS = 200;

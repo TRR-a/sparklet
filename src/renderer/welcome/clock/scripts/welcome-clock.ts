@@ -4,15 +4,15 @@
 // analog face → clock-analog.ts, calendar → clock-calendar.ts,
 // digital readout → clock-digital.ts, detail block → clock-details.ts.
 
-import { updateAnalogHands } from './clock-analog.js';
-import { renderCalendar, calendarDayKey } from './clock-calendar.js';
-import { updateDigitalClock } from './clock-digital.js';
-import { updateClockDetails } from './clock-details.js';
+import { updateAnalogHands } from 'sparklet/renderer/welcome/clock/scripts/clock-analog.js';
+import { renderCalendar, calendarDayKey } from 'sparklet/renderer/welcome/clock/scripts/clock-calendar.js';
+import { updateDigitalClock } from 'sparklet/renderer/welcome/clock/scripts/clock-digital.js';
+import { updateClockDetails } from 'sparklet/renderer/welcome/clock/scripts/clock-details.js';
 
 let lastCalKey = '';
 
-export { setUse12Hour } from './clock-digital.js';
-export { buildAnalogTicksExport } from './clock-analog.js';
+export { setUse12Hour } from 'sparklet/renderer/welcome/clock/scripts/clock-digital.js';
+export { buildAnalogTicksExport } from 'sparklet/renderer/welcome/clock/scripts/clock-analog.js';
 
 /** Per-second refresh of hands, digital clock and details; calendar redraws on day change [每秒刷新指针、方时钟与详细信息；跨天时重绘日历] */
 export function tickClocks(): void {

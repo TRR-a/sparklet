@@ -9,19 +9,19 @@ import {
   INTEGRITY_FILENAME_BLACKLIST,
   INTEGRITY_EXTENSION_BLACKLIST,
   isExcludedFromIntegrity
-} from '../integrity/_integrity-rules.js';
+} from 'sparklet/main/updater/integrity/_integrity-rules.js';
 
 export {
   GITHUB_OWNER,
   GITHUB_REPO,
   GITHUB_API_URL,
-} from './constants-github.js';
+} from 'sparklet/main/updater/constants/constants-github.js';
 export {
   TEMP_DIR_NAMES,
   CONFIG_DIR_NAMES,
   UPDATE_CACHE_DIRNAME,
-} from './constants-dirs.js';
-export { DEFAULT_CONFIG, INTERVAL_OPTIONS } from './constants-default-config.js';
+} from 'sparklet/main/updater/constants/constants-dirs.js';
+export { DEFAULT_CONFIG, INTERVAL_OPTIONS } from 'sparklet/main/updater/constants/constants-default-config.js';
 export {
   MAX_RETRY_COUNT,
   RETRY_DELAY_MS,
@@ -29,7 +29,7 @@ export {
   REQUEST_TIMEOUT_MS,
   PACKAGE_NAME_PATTERN,
   DISABLE_UPDATE_FLAGS,
-} from './constants-network.js';
+} from 'sparklet/main/updater/constants/constants-network.js';
 export {
   DEFAULT_CACHE_SUCCESS_RETENTION_DAYS,
   CACHE_RETENTION_MIN_DAYS,
@@ -37,7 +37,7 @@ export {
   CACHE_UNUSED_RETENTION_DAYS,
   CACHE_MAX_VERSIONS,
   CACHE_SUCCESS_MARK_DELAY_MS,
-} from './constants-cache-retention.js';
+} from 'sparklet/main/updater/constants/constants-cache-retention.js';
 
 // Backward compat: old variable name points to exact filename blacklist [向后兼容：旧变量名指向精确文件名黑名单]
 export const INTEGRITY_BLACKLIST_FILENAMES = INTEGRITY_FILENAME_BLACKLIST;

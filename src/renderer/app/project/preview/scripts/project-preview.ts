@@ -5,11 +5,11 @@
 // Split out [已拆分]：state → project-preview-state.ts, panel → project-preview-panel.ts,
 // render → project-preview-render.ts, save → project-preview-save.ts.
 
-import { getEditor, setEditor, setEditTarget, setIsDirty } from './project-preview-state.js';
-import { showFilePreviewPanel } from './project-preview-panel.js';
+import { getEditor, setEditor, setEditTarget, setIsDirty } from 'sparklet/renderer/app/project/preview/scripts/project-preview-state.js';
+import { showFilePreviewPanel } from 'sparklet/renderer/app/project/preview/scripts/project-preview-panel.js';
 
-export { previewFile } from './project-preview-render.js';
-export { saveCurrentFile } from './project-preview-save.js';
+export { previewFile } from 'sparklet/renderer/app/project/preview/scripts/project-preview-render.js';
+export { saveCurrentFile } from 'sparklet/renderer/app/project/preview/scripts/project-preview-save.js';
 
 /**
  * Close file preview and restore note editor [关闭文件预览并恢复笔记编辑器]

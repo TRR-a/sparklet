@@ -4,7 +4,7 @@
 // Split out [已拆分]：dev lock → config-io-devlock.ts, export → config-io-export.ts,
 // import → config-io-import.ts, events → config-io-events.ts.
 
-export { applyImportExportDevLock } from './config-io-devlock.js';
-export { handleExportUpdaterConfig } from './config-io-export.js';
-export { handleImportUpdaterConfig } from './config-io-import.js';
-export { bindImportExportEvents } from './config-io-events.js';
+export { applyImportExportDevLock } from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io-devlock.js';
+export { handleExportUpdaterConfig } from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io-export.js';
+export { handleImportUpdaterConfig } from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io-import.js';
+export { bindImportExportEvents } from 'sparklet/renderer/app/settings/cache/config-io/scripts/config-io-events.js';

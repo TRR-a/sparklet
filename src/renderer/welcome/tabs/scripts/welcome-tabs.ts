@@ -4,9 +4,9 @@
 // activate → welcome-tab-activate.ts, create → welcome-tab-create.ts,
 // close → welcome-tab-close.ts.
 
-import { createTab } from './welcome-tab-create.js';
-import { closeTab } from './welcome-tab-close.js';
-import { activateTab } from './welcome-tab-activate.js';
+import { createTab } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tab-create.js';
+import { closeTab } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tab-close.js';
+import { activateTab } from 'sparklet/renderer/welcome/tabs/scripts/welcome-tab-activate.js';
 
 export function initTabs(): void {
   const tabsEl = document.getElementById('shellTabs');

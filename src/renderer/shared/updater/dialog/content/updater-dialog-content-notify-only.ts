@@ -1,8 +1,8 @@
 // Updater dialog content: notify only [更新器弹窗内容 - 仅提醒]
 
-import { t } from '../../../i18n/i18n.js';
-import { escapeHtml } from '../../../ui/dom/dom-utils.js';
-import type { DialogContent } from '../updater-dialog-types.js';
+import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
+import { escapeHtml } from 'sparklet/renderer/shared/ui/dom/dom-utils.js';
+import type { DialogContent } from 'sparklet/renderer/shared/updater/dialog/updater-dialog-types.js';
 
 // ========== 2. Notify only (single button + open official) [仅提醒 (单按钮 + 打开官网)] ==========
 export function buildNotifyOnly(params: Record<string, unknown>): DialogContent {

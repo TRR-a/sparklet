@@ -9,7 +9,7 @@
 // Lock-aware retry primitives in note-io-retry.ts [锁重试原语在 note-io-retry.ts]
 
 import * as fs from 'fs-extra';
-import { writeTmp, renameOnto } from './note-io-retry.js';
+import { writeTmp, renameOnto } from 'sparklet/main/services/note/io/note-io-retry.js';
 
 /**
  * Atomically write a file: temp write + rename [原子写入文件：临时文件 + 重命名]

@@ -1,7 +1,7 @@
 // Storage manager: permanent delete + cache read [存储管理器 - 永久删除与缓存读取]
 
-import { noteApi } from '../../../app/api/note-api.js';
-import { ensureInit, getCache, setCache } from '../storage-cache.js';
+import { noteApi } from 'sparklet/renderer/app/api/note-api.js';
+import { ensureInit, getCache, setCache } from 'sparklet/renderer/shared/storage/storage-cache.js';
 
 /** Batch permanent delete, returns count succeeded [批量永久删除，返回成功数] */
 export async function permanentlyDeleteNotes(ids: string[]): Promise<number> {

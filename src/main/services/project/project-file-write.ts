@@ -1,7 +1,7 @@
 // Project file: write text [项目文件 - 写入文本]
 
 import * as fs from 'fs-extra';
-import type { ProjectFileWriteResult } from 'sparklet/shared/types/project';
+import type { ProjectFileWriteResult } from 'sparklet/shared/types/project.js';
 
 /**
  * Write text content to a file [写入文本内容到文件]

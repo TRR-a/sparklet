@@ -2,9 +2,9 @@
 
 import storageManager from 'sparklet/renderer/shared/storage/manager/storage-manager.js';
 import { t } from 'sparklet/renderer/shared/i18n/i18n.js';
-import { getCurrentNoteId } from '../../editor/scripts/note-editor.js';
-import { refreshNoteListView } from '../list/scripts/note-search.js';
-import { clearSaveTimers } from './note-save-debounce.js';
+import { getCurrentNoteId } from 'sparklet/renderer/app/popup/editor/scripts/note-editor.js';
+import { refreshNoteListView } from 'sparklet/renderer/app/popup/note/list/scripts/note-search.js';
+import { clearSaveTimers } from 'sparklet/renderer/app/popup/note/scripts/note-save-debounce.js';
 
 /**
  * Save current note [保存当前笔记]

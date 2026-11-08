@@ -3,7 +3,7 @@
 // Split out [已拆分]：height measurement → virtual-list-measure.ts,
 // DOM rebuild → virtual-list-patch-dom.ts.
 
-import { computeRange, getSidebar } from './virtual-list-geometry.js';
+import { computeRange, getSidebar } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-geometry.js';
 import {
   getItems,
   getFactories,
@@ -12,11 +12,11 @@ import {
   setLastRange,
   getRafId,
   setRafId
-} from './virtual-list-state.js';
-import { evictDetachedCards } from './virtual-list-acquire.js';
-import { getTopSpacer, getBottomSpacer } from './virtual-list-spacer.js';
-import { measureRendered } from './virtual-list-measure.js';
-import { patchListDom } from './virtual-list-patch-dom.js';
+} from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-state.js';
+import { evictDetachedCards } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-acquire.js';
+import { getTopSpacer, getBottomSpacer } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-spacer.js';
+import { measureRendered } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-measure.js';
+import { patchListDom } from 'sparklet/renderer/app/popup/note/virtual/scripts/virtual-list-patch-dom.js';
 
 /**
  * Patch the DOM to match the current window (and measure real heights) [按当前窗口修补 DOM 并测量真实高度]

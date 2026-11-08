@@ -1,9 +1,9 @@
 // Updater startup: executable self-check [更新器启动 - 可执行文件自检]
 
-import { selfCheckIntegrity } from '../integrity/integrity-self-check.js';
-import { getCurrentVersion } from '../check/check.js';
-import { handleIntegrityRollback } from '../rollback/rollback.js';
-import { updaterStateInternal } from './update-state.js';
+import { selfCheckIntegrity } from 'sparklet/main/updater/integrity/integrity-self-check.js';
+import { getCurrentVersion } from 'sparklet/main/updater/check/check.js';
+import { handleIntegrityRollback } from 'sparklet/main/updater/rollback/rollback.js';
+import { updaterStateInternal } from 'sparklet/main/updater/startup/update-state.js';
 
 /** Run the executable self-check; failure also goes through rollback [执行可执行文件自检；失败同样走回滚] */
 export function runStartupSelfCheck(): void {
